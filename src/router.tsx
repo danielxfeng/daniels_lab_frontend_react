@@ -7,7 +7,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     Component: AppLayout,
-    ErrorBoundary: () => <div>Oops! Something went wrong.</div>,
+    ErrorBoundary: ErrorBoundary,
     children: [
       // The index page of `/`.
       { index: true, Component: () => <div>Home</div> },

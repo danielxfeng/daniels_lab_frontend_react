@@ -6,7 +6,7 @@ const NotFoundPage = () => {
   console.error('404 error', location.pathname);
   return (
     <>
-      <h1>Oops! The page not found.</h1>
+      <h1>Oops! Page not found.</h1>
 
       <p>The page "{location.pathname}" does not exist.</p>
 
