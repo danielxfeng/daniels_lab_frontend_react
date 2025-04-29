@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import AppLayout from '@/components/AppLayout';
 import NotFoundPage from '@/pages/NotFoundPage';
+import ErrorBoundary from '@/pages/ErrorBoundary';
 
 // The router of the app.
 const router = createBrowserRouter([
