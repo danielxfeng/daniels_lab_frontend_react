@@ -10,15 +10,66 @@ const router = createBrowserRouter([
     Component: AppLayout,
     ErrorBoundary: ErrorBoundary,
     children: [
-      // The index page of `/`.
+      // /
+      // Homepage, hero
       { index: true, Component: () => <div>Home</div> },
-      { path: 'about', Component: () => <div>About</div> },
+      // /blog
       {
-        // /users
-        path: 'users',
-        children: [{ index: true, Component: () => <div>Users</div> }],
+        path: 'blog',
+        children: [
+          // posts list, a button to new post
+          // side bar with filters, a list of hot tags
+          // todo loader
+          { index: true, Component: () => <div>Blog</div> },
+          // post detail, comments list, like status
+          // a button to new/edit/delete a post
+          // a form to add/edit/delete a comment
+          // a bottom to like/unlike a post
+          // share buttons
+          // todo loader
+          { path: ':id', Component: () => <div>Blog Post</div> },
+          // a form to add a post.
+          // a combo box to add/select tags
+          // shared components with edit post
+          // todo admin check
+          { path: 'new', Component: () => <div>New Blog Post</div> },
+          // a form to edit a post.
+          // a combo box to add/select tags
+          // shared components with new post
+          // todo load, auth check
+          { path: 'edit/:id', Component: () => <div>Edit Blog Post</div> },
+        ],
       },
-
+      // /user
+      {
+        path: 'user',
+        children: [
+          // user profile
+          // a form to edit the info, a form to change/set the password
+          // buttons to logout, delete the account
+          // buttons to link/unlink the social accounts
+          // todo load, auth check
+          { index: true, Component: () => <div>Users</div> },
+          // a form to login a new user, a form to register a new user
+          // a form to link the social accounts
+          { path: 'login', Component: () => <div>New User</div> },
+          // a form to input the invite code
+          // todo load, auth check
+          { path: 'join-admin', Component: () => <div>Join Admin</div> },
+        ],
+      },
+      // /about
+      // Static page, a from to contact the admin (Email)
+      {
+        path: 'about',
+        children: [{ index: true, Component: () => <div>About</div> }],
+      },
+      // /terms
+      // Static page for terms and conditions
+      {
+        path: 'terms',
+        children: [{ index: true, Component: () => <div>Terms</div> }],
+      },
       // Fallback, 404 page.
       {
         path: '*',
