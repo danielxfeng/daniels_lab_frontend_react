@@ -3,7 +3,7 @@ import { useLocation, Link } from 'react-router-dom';
 // 404 page.
 const NotFoundPage = () => {
   const location = useLocation();
-  console.error('404 error', location.pathname);
+  console.warn('404 warning', location.pathname);
   return (
     <>
       <h1>Oops! Page not found.</h1>
