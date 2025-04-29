@@ -1,0 +1,19 @@
+import { useLocation, Link } from 'react-router-dom';
+
+// 404 page.
+const NotFoundPage = () => {
+  const location = useLocation();
+  console.error('404 error', location.pathname);
+  return (
+    <>
+      <h1>Oops! The page not found.</h1>
+
+      <p>The page "{location.pathname}" does not exist.</p>
+
+      {/** Link to go back to home. */}
+      <Link to='/'>Go back to home</Link>
+    </>
+  );
+};
+
+export default NotFoundPage;
