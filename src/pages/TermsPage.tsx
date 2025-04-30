@@ -5,9 +5,9 @@ const TermsPage = () => (
       <strong>Last updated:</strong> April 30, 2025
     </p>
 
-    <h2>Terms and Conditions</h2>
+    <h2 className="text-primary">Terms and Conditions</h2>
 
-    <p>
+    <p className="text-amber-300">
       By accessing and using this website (the "Site"), you agree to be bound by the following
       terms. If you do not agree, please do not use the Site.
     </p>
