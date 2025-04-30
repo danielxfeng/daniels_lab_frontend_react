@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import AppLayout from '@/components/AppLayout';
 import NotFoundPage from '@/pages/NotFoundPage';
 import ErrorBoundary from '@/pages/ErrorBoundary';
+import TermsPage from '@/pages/TermsPage';
 
 // The router of the app.
 const router = createBrowserRouter([
@@ -68,7 +69,7 @@ const router = createBrowserRouter([
       // Static page for terms and conditions
       {
         path: 'terms',
-        children: [{ index: true, Component: () => <div>Terms</div> }],
+        children: [{ index: true, Component: TermsPage }],
       },
       // Fallback, 404 page.
       {
