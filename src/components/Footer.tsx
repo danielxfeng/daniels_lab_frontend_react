@@ -8,15 +8,20 @@ const Footer = () => (
       Made by ❤️<em>Daniel</em>❤️
     </div>
     <div>
-      <a href='https://github.com/' target='_blank' rel='noopener noreferrer'>
+      <a href='https://github.com/' target='_blank' rel='noopener noreferrer' aria-label='GitHub'>
         <FaGithub />
       </a>
 
-      <a href='https://linkedin.com/' target='_blank' rel='noopener noreferrer'>
+      <a
+        href='https://linkedin.com/'
+        target='_blank'
+        rel='noopener noreferrer'
+        aria-label='LinkedIn'
+      >
         <FaLinkedin />
       </a>
 
-      <a href='mailto:your@email.com'>
+      <a href='mailto:your@email.com' aria-label='Email'>
         <HiOutlineMail />
       </a>
     </div>
