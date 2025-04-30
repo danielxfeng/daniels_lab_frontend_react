@@ -3,6 +3,7 @@ import AppLayout from '@/components/AppLayout';
 import NotFoundPage from '@/pages/NotFoundPage';
 import ErrorBoundary from '@/pages/ErrorBoundary';
 import TermsPage from '@/pages/TermsPage';
+import AboutPage from './pages/AboutPage';
 
 // The router of the app.
 const router = createBrowserRouter([
@@ -63,7 +64,7 @@ const router = createBrowserRouter([
       // Static page, a from to contact the admin (Email)
       {
         path: 'about',
-        children: [{ index: true, Component: () => <div>About</div> }],
+        children: [{ index: true, Component: AboutPage }],
       },
       // /terms
       // Static page for terms and conditions
