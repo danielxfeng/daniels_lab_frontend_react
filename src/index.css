@@ -1,72 +1,107 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* enable Dark mode: `class="dark"` */
 @custom-variant dark (&:is(.dark *));
 
+/* Light Theme */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --radius: 0.5rem;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --gradient: #00467f;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  /* Base background and text colors */
+  --background: oklch(98.5% 0.01 250);
+  --foreground: oklch(5% 0.01 250);
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+  /* Muted elements (e.g., borders, subtle backgrounds) */
+  --muted: oklch(92.5% 0.005 250);
+  --muted-foreground: oklch(42.5% 0.005 250);
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
+  /* Popover components (tooltips, dropdowns, etc.) */
+  --popover: oklch(92.5% 0.005 250);
+  --popover-foreground: oklch(5.5% 0.01 250);
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+  /* Card components */
+  --card: oklch(92.5% 0.005 250);
+  --card-foreground: oklch(5.5% 0.01 250);
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+  /* Input fields and borders */
+  --border: oklch(90% 0.015 250);
+  --input: oklch(90% 0.015 250);
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+  /* Primary color (e.g., buttons, links) */
+  --primary: oklch(50% 0.18 250);
+  --primary-foreground: oklch(92.5% 0.01 250);
+
+  /* Secondary color (e.g., secondary buttons, tags) */
+  --secondary: oklch(96.25% 0.005 250);
+  --secondary-foreground: oklch(12.5% 0.01 250);
+
+  --accent: oklch(96.25% 0.005 250);
+  --accent-foreground: oklch(12.5% 0.01 250);
+
+  /* Destructive actions (e.g., delete buttons) */
+  --destructive: oklch(60.2% 0.25 30);
+  --destructive-foreground: oklch(98% 0 0);
+
+  /* Focus ring */
+  --ring: oklch(50% 0.18 250);
+
+  /* Map CSS variables to Tailwind built-in color properties */
+  @theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-ring: var(--ring);
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+/* Dark Theme `<html class="dark">` */
+.dark {
+  --gradient: #1fa2ff;
+
+  --background: oklch(4.48% 0.01 250);
+  --foreground: oklch(97.8% 0.01 250);
+
+  --muted: oklch(16.8% 0.05 250);
+  --muted-foreground: oklch(55.6% 0.01 250);
+
+  --popover: oklch(7.28% 0.045 250);
+  --popover-foreground: oklch(97.8% 0.01 250);
+
+  --card: oklch(7.28% 0.045 250);
+  --card-foreground: oklch(97.8% 0.01 250);
+
+  --border: oklch(16.8% 0.05 250);
+  --input: oklch(16.8% 0.05 250);
+
+  --primary: oklch(56% 0.22 250);
+  --primary-foreground: oklch(5.6% 0.01 250);
+
+  --secondary: oklch(16.8% 0.05 250);
+  --secondary-foreground: oklch(97.8% 0.01 250);
+
+  --accent: oklch(16.8% 0.05 250);
+  --accent-foreground: oklch(97.8% 0.01 250);
+
+  --destructive: oklch(30.6% 0.25 30);
+  --destructive-foreground: oklch(97.8% 0.01 250);
+
+  --ring: oklch(56% 0.22 250);
 }
