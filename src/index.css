@@ -106,3 +106,21 @@
 
   --ring: oklch(56% 0.22 250);
 }
+
+@layer components {
+  /* Work with `.inner-container` to represent a top level container
+   * like `<main>` or `<header>`.
+   * Then the bg color covers all the width,
+   * and the content's max width is still limited by `.inner-container` */
+  .outer-container {
+    @apply flex w-full items-center justify-center;
+  }
+
+  /* Work with `.outer-container` to represent a top level container
+   * like `<main>` or `<header>`.
+   * Then the bg color covers all the width,
+   * and the content's max width is still limited by `.inner-container` */
+  .inner-container {
+    @apply w-full items-center px-4 py-6 md:max-w-7xl md:px-8 md:py-10;
+  }
+}
