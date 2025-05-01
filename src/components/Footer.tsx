@@ -1,29 +1,27 @@
-import { FaLinkedin, FaGithub } from 'react-icons/fa6';
-import { HiOutlineMail } from 'react-icons/hi';
+import ContactLink from '@/components/ContactLink';
+import contactIconList from '@/constants/contactLinks';
+import siteMeta from '@/constants/siteMeta';
 
+// The style for the contact icons
+const contactIconStyle = 'h-6 w-6';
+
+/**
+ * The Footer component.
+ */
 const Footer = () => (
-  <footer>
-    <div>&copy; 2025 Blog</div>
-    <div>
-      Made by ❤️<em>Daniel</em>❤️
-    </div>
-    <div>
-      <a href='https://github.com/' target='_blank' rel='noopener noreferrer' aria-label='GitHub'>
-        <FaGithub />
-      </a>
-
-      <a
-        href='https://linkedin.com/'
-        target='_blank'
-        rel='noopener noreferrer'
-        aria-label='LinkedIn'
-      >
-        <FaLinkedin />
-      </a>
-
-      <a href='mailto:your@email.com' aria-label='Email'>
-        <HiOutlineMail />
-      </a>
+  <footer className='outer-container bg-gray-200'>
+    <div className='inner-container flex flex-col justify-center gap-3 md:min-h-20 md:flex-row md:justify-between'>
+      <div>
+        &copy; {siteMeta.copyRightYear} {siteMeta.siteName}
+      </div>
+      <div>
+        Made by ❤️<em>{siteMeta.author}</em>❤️
+      </div>
+      <div className='flex gap-4'>
+        {contactIconList.map((prop) => (
+          <ContactLink key={prop.ariaLabel} {...prop} className={contactIconStyle} />
+        ))}
+      </div>
     </div>
   </footer>
 );
