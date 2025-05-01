@@ -20,7 +20,7 @@ const Header = () => {
     <header className='outer-container sticky top-0 z-50 bg-gray-200'>
       <div className='inner-container flex justify-between'>
         {/* Left side: Logo and NavLinksDesktop */}
-        <div className='flex items-center justify-start gap-4'>
+        <div className='flex items-center justify-start gap-16'>
           <Logo />
           {/* Hide in mobile mode */}
           <div className='hidden md:flex'>
