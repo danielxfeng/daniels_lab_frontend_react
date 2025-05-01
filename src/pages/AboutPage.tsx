@@ -4,7 +4,7 @@ import { HiOutlineMail } from 'react-icons/hi';
 const AboutPage = () => (
   <main>
     <h1>About Us</h1>
-    <img src='/public/about_pic.jpg' alt='picture of admin' />
+    <img src='/about_pic.jpg' alt='A picture of the website administrator' />
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac mauris in libero feugiat
       pulvinar at a nisl. Vestibulum iaculis mi erat, nec lacinia eros aliquam id. Proin nec lorem
