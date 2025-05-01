@@ -8,7 +8,7 @@
 :root {
   --radius: 0.5rem;
 
-  --gradient: #00467f;
+  --highlight: #00467f;
 
   /* Base background and text colors */
   --background: oklch(98.5% 0.01 250);
@@ -50,6 +50,7 @@
 
   /* Map CSS variables to Tailwind built-in color properties */
   @theme inline {
+    --color-highlight: var(--highlight);
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-muted: var(--muted);
@@ -74,7 +75,7 @@
 
 /* Dark Theme `<html class="dark">` */
 .dark {
-  --gradient: #1fa2ff;
+  --highlight: #1fa2ff;
 
   --background: oklch(4.48% 0.01 250);
   --foreground: oklch(97.8% 0.01 250);
