@@ -9,7 +9,7 @@ const contactIconStyle = 'h-6 w-6';
  * The Footer component.
  */
 const Footer = () => (
-  <footer className='outer-container bg-gray-200'>
+  <footer className='outer-container'>
     <div className='inner-container flex flex-col justify-center gap-3 md:min-h-20 md:flex-row md:justify-between'>
       <div>
         &copy; {siteMeta.copyRightYear} {siteMeta.siteName}
