@@ -4,7 +4,6 @@ import React from 'react';
  * Type definition for the ContactLink component props.
  */
 type ContactLinkProps = {
-  key?: string;
   Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   href: string;
   ariaLabel: string;
