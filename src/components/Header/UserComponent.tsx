@@ -26,7 +26,7 @@ const UserComponent = () => {
   const user = getUser();
 
   // Show login button if user is not authenticated
-  if (userStatus !== 'unauthenticated' || !user) {
+  if (userStatus === 'unauthenticated' || !user) {
     return (
       <MotionIconLink
         to='/Login'
