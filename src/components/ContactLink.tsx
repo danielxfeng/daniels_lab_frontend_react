@@ -1,4 +1,5 @@
 import React from 'react';
+import MotionIconLink from './motion_components/MotionIconLink';
 
 /**
  * Type definition for the ContactLink component props.
@@ -19,9 +20,13 @@ type ContactLinkProps = {
  * @returns An reusable contact link component
  */
 const ContactLink = ({ Icon, href, ariaLabel, className }: ContactLinkProps) => (
-  <a href={href} target='_blank' rel='noopener noreferrer' aria-label={ariaLabel}>
-    <Icon className={className} />
-  </a>
+  <MotionIconLink
+    to={href}
+    icon={<Icon className='h-6 w-6' />}
+    ariaLabel={ariaLabel}
+    className={`text-primary bg-transparent underline-offset-4 transition-all hover:underline ${className}`}
+    isExternal={true}
+  />
 );
 
 export default ContactLink;
