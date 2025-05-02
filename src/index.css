@@ -1,14 +1,14 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-/* enable Dark mode: `class="dark"` */
-@custom-variant dark (&:is(.dark *));
+/* enable Dark mode */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 /* Light Theme */
 :root {
   --radius: 0.5rem;
 
-  --highlight: #00467f;
+  --highlight: oklch(50% 0.18 250);
 
   /* Base background and text colors */
   --background: oklch(98.5% 0.01 250);
@@ -28,10 +28,11 @@
 
   /* Input fields and borders */
   --border: oklch(90% 0.015 250);
-  --input: oklch(90% 0.015 250);
+  --input: oklch(95% 0.01 250);
+  --placeholder: oklch(55% 0.005 250);
 
   /* Primary color (e.g., buttons, links) */
-  --primary: oklch(50% 0.18 250);
+  --primary: #00467f;
   --primary-foreground: oklch(92.5% 0.01 250);
 
   /* Secondary color (e.g., secondary buttons, tags) */
@@ -61,6 +62,7 @@
     --color-card-foreground: var(--card-foreground);
     --color-border: var(--border);
     --color-input: var(--input);
+    --color-placeholder: var(--placeholder);
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
     --color-secondary: var(--secondary);
@@ -74,8 +76,8 @@
 }
 
 /* Dark Theme `<html class="dark">` */
-.dark {
-  --highlight: #1fa2ff;
+[data-theme="dark"] {
+  --highlight: oklch(56% 0.22 250);
 
   --background: oklch(4.48% 0.01 250);
   --foreground: oklch(97.8% 0.01 250);
@@ -92,7 +94,7 @@
   --border: oklch(16.8% 0.05 250);
   --input: oklch(16.8% 0.05 250);
 
-  --primary: oklch(56% 0.22 250);
+  --primary: #1fa2ff;
   --primary-foreground: oklch(5.6% 0.01 250);
 
   --secondary: oklch(16.8% 0.05 250);
