@@ -77,13 +77,13 @@ const DropdownHistory = ({
     {showDropdown && history.length > 0 && (
       <motion.ul
         {...easeInOut}
-        className='bg-background absolute z-10 mt-1 w-full rounded-xl py-2 shadow'
+        className='bg-background absolute z-10 mt-1 w-full px-2 pb-2 flex flex-col gap-0 md:rounded-xl md:shadow'
       >
         {/* Iterate all items */}
         {history.map((item) => (
           <li
             key={item}
-            className='hover:bg-muted cursor-pointer px-4 py-2'
+            className='hover:bg-muted cursor-pointer overflow-hidden px-4 py-1 text-sm'
             // When clicked, we also set the keyword and fire the submit.
             onClick={async () => {
               setValue('keyword', item);
