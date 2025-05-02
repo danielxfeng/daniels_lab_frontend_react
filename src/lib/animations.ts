@@ -59,6 +59,17 @@ const hoverEffect = { scale: 1.1 };
  */
 const tapEffect = { scale: 0.92 };
 
+/**
+ * @constant easeInOut
+ * @description Animation configuration for the ease-in-out effect.
+ */
+const easeInOut = {
+  initial: { opacity: 0, y: -10 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -10 },
+  transition: { duration: 0.2, ease: 'easeInOut' },
+};
+
 export {
   logoImageMotion,
   logoTextMotion,
@@ -67,4 +78,5 @@ export {
   hoverEffect,
   tapEffect,
   springEffect,
+  easeInOut,
 };
