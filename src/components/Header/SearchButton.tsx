@@ -21,7 +21,7 @@ const SearchButton = () => {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <MotionIconButton
-            icon={<Search className='h-5 w-5' />}
+            icon={<Search className='h-6 w-6' />}
             ariaLabel='Open Search'
             onClick={() => setOpen(true)}
           />

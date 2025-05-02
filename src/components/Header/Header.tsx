@@ -35,11 +35,11 @@ const Header = () => {
           <div className='hidden md:flex'>
             <SearchBar />
           </div>
+          <UserComponent />
           {/* Show only in mobile mode */}
           <div className='md:hidden'>
             <SearchButton />
           </div>
-          <UserComponent />
           <ThemeToggle />
           <div className='md:hidden'>
             {/* Show only in mobile mode */}

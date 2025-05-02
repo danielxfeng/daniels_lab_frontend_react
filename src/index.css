@@ -8,7 +8,7 @@
 :root {
   --radius: 0.5rem;
 
-  --highlight: #00467f;
+  --highlight: oklch(50% 0.18 250);
 
   /* Base background and text colors */
   --background: oklch(98.5% 0.01 250);
@@ -32,7 +32,7 @@
   --placeholder: oklch(55% 0.005 250);
 
   /* Primary color (e.g., buttons, links) */
-  --primary: oklch(50% 0.18 250);
+  --primary: #00467f;
   --primary-foreground: oklch(92.5% 0.01 250);
 
   /* Secondary color (e.g., secondary buttons, tags) */
