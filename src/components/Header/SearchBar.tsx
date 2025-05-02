@@ -22,7 +22,7 @@ const InputComponent = ({
     //We register the keyword to component
     {...register('keyword')}
     // Define the style
-    className='bg-input border-primary w-full rounded-4xl border px-4 py-2 text-sm shadow-sm focus:ring ring-ring focus:outline-none'
+    className='bg-input border-primary ring-ring w-full rounded-4xl border px-4 py-2 text-sm shadow-sm focus:ring focus:outline-none'
     placeholder='Search posts...'
     // We expand the dropdown history when the input is focused
     onFocus={() => setShowDropdown(true)}
@@ -43,9 +43,11 @@ const InputComponent = ({
 const createKeywordSubmitHandler = ({
   addHistory,
   setShowDropdown,
+  setOpen,
 }: {
   addHistory: (entry: string) => void;
   setShowDropdown: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>> | null;
 }) => {
   return async (data: FormValues) => {
     const assembledData = { ...data, offset: '0', limit: '10' };
@@ -54,7 +56,7 @@ const createKeywordSubmitHandler = ({
       console.error(JSON.stringify(result.error));
       return;
     }
-
+    if (setOpen) setOpen(false);
     const searchParams = result.data;
     addHistory(searchParams.keyword);
     console.log('Search posts by keyword:', searchParams.keyword);
@@ -77,13 +79,13 @@ const DropdownHistory = ({
     {showDropdown && history.length > 0 && (
       <motion.ul
         {...easeInOut}
-        className='bg-background absolute z-10 mt-1 w-full px-2 pb-2 flex flex-col gap-0 md:rounded-xl md:shadow'
+        className='bg-background absolute z-10 mt-1 flex w-full flex-col gap-0 px-2 pb-2 md:rounded-xl md:shadow'
       >
         {/* Iterate all items */}
         {history.map((item) => (
           <li
             key={item}
-            className='hover:bg-muted cursor-pointer overflow-hidden px-4 py-1 text-sm text-muted-foreground'
+            className='hover:bg-muted text-muted-foreground cursor-pointer overflow-hidden px-4 py-1 text-sm'
             // When clicked, we also set the keyword and fire the submit.
             onClick={async () => {
               setValue('keyword', item);
@@ -104,8 +106,14 @@ const DropdownHistory = ({
  * This component is a search bar that allows users to search for posts by keyword.
  * It populates a dropdown with search history.
  * The history is stored in a Zustand store, which is persisted in localstorage.
+ * It runs normally in desktop view, but runs in a popup sheet in mobile view.
+ * @param setOpen = The hook to close the popup sheet. Only needed in mobile view.
  */
-const SearchBar = () => {
+const SearchBar = ({
+  setOpen = null,
+}: {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>> | null;
+}) => {
   // useState to manage the visibility of the dropdown history
   const [showDropdown, setShowDropdown] = useState(false);
   // Zustand store to manage search history, we use Zustand for localstorage management
@@ -126,6 +134,7 @@ const SearchBar = () => {
   const onSubmit = createKeywordSubmitHandler({
     addHistory,
     setShowDropdown,
+    setOpen,
   });
   const history = getHistory();
 

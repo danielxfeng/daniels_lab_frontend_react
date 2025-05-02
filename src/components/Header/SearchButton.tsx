@@ -17,7 +17,7 @@ const SearchButton = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className='md:hidden flex items-center'>
+    <div className='flex items-center md:hidden'>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <MotionIconButton
@@ -26,12 +26,12 @@ const SearchButton = () => {
             onClick={() => setOpen(true)}
           />
         </SheetTrigger>
-        <SheetContent side='top' className='h-screen w-full p-4 text-foreground'>
+        <SheetContent side='top' className='text-foreground h-screen w-full p-4'>
           <SheetHeader>
             <SheetTitle>Search</SheetTitle>
             <SheetDescription>Search posts by title, content, or tags.</SheetDescription>
           </SheetHeader>
-          <SearchBar />
+          <SearchBar setOpen={setOpen} />
         </SheetContent>
       </Sheet>
     </div>
