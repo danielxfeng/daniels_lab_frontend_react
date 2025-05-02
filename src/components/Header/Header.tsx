@@ -19,12 +19,12 @@ import Logo from '@/components/Header/Logo';
 const Header = () => {
   return (
     <header className='outer-container sticky top-0 z-50'>
-      <div className='inner-container flex justify-between'>
+      <div className='inner-container flex items-center justify-between'>
         {/* Left side: Logo and NavLinksDesktop */}
         <div className='flex items-center justify-start gap-16'>
           <Logo />
           {/* Hide in mobile mode */}
-          <div className='hidden md:flex'>
+          <div className='hidden items-center justify-center md:flex'>
             <NavLinksDesktop />
           </div>
         </div>
@@ -32,16 +32,16 @@ const Header = () => {
         {/* Right side: SearchBar/Btn, UserComponent, ThemeToggle, NavLinksMobile */}
         <div className='flex items-center justify-end gap-4'>
           {/* Show only in desktop mode */}
-          <div className='hidden md:flex'>
+          <div className='hidden items-center justify-center md:flex'>
             <SearchBar />
           </div>
           <UserComponent />
           {/* Show only in mobile mode */}
-          <div className='md:hidden'>
+          <div className='flex items-center justify-center md:hidden'>
             <SearchButton />
           </div>
           <ThemeToggle />
-          <div className='md:hidden'>
+          <div className='flex items-center justify-center md:hidden'>
             {/* Show only in mobile mode */}
             <NavLinksMobile />
           </div>

@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-/* enable Dark mode: `class="dark"` */
-@custom-variant dark (&:is(.dark *));
+/* enable Dark mode */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 /* Light Theme */
 :root {
@@ -76,7 +76,7 @@
 }
 
 /* Dark Theme `<html class="dark">` */
-.dark {
+[data-theme="dark"] {
   --highlight: #1fa2ff;
 
   --background: oklch(4.48% 0.01 250);

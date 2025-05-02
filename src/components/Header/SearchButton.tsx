@@ -17,7 +17,7 @@ const SearchButton = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className='md:hidden'>
+    <div className='md:hidden flex items-center'>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <MotionIconButton

@@ -81,7 +81,7 @@ const MotionIconLink = ({
       whileHover={hoverEffect}
       whileTap={tapEffect}
       transition={springEffect}
-      className={cn('inline-block', className)}
+      className={cn('flex items-center', className)}
     >
       {isExternal ? (
         <ExternalLink to={to} icon={icon} ariaLabel={ariaLabel} {...props} />
