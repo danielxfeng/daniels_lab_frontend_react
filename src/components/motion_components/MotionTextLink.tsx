@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import type { ComponentProps } from 'react';
-import { hoverEffect, springEffect, tapEffect } from '@/lib/animations';
+import { hoverOpacity, tapEffect } from '@/lib/animations';
 
 interface MotionTextLinkProps extends ComponentProps<'a'> {
   to: string;
@@ -24,9 +24,8 @@ interface MotionTextLinkProps extends ComponentProps<'a'> {
 const MotionTextLink = ({ to, label, isExternal, className, ...props }: MotionTextLinkProps) => {
   const content = (
     <motion.span
-      whileHover={hoverEffect}
+      whileHover={hoverOpacity}
       whileTap={tapEffect}
-      transition={springEffect}
       className={cn('transition-all hover:underline', className)}
     >
       {label}

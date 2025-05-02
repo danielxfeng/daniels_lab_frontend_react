@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { hoverEffect, tapEffect, springEffect } from '@/lib/animations';
+import { hoverOpacity, tapEffect } from '@/lib/animations';
 
 type MotionIconButtonProps = {
   icon: React.ReactNode;
@@ -32,9 +32,8 @@ const MotionIconButton = ({
 }: MotionIconButtonProps) => {
   return (
     <motion.button
-      whileHover={!disabled ? hoverEffect : undefined}
+      whileHover={!disabled ? hoverOpacity : undefined}
       whileTap={!disabled ? tapEffect : undefined}
-      transition={!disabled ? springEffect : undefined}
       onClick={onClick}
       aria-label={ariaLabel}
       className={cn(

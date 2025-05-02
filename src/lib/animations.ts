@@ -28,7 +28,7 @@ const logoTextMotion = {
  */
 const navUnderline = {
   initial: { width: 0 },
-  hover: { width: '100%' },
+  hover: { width: '100%', opacity: 0.8 },
 };
 
 /**
@@ -45,19 +45,25 @@ const tweenTransition = {
  * @constant springEffect
  * @description Spring effect configuration for animations.
  */
-const springEffect = { type: 'spring', stiffness: 300, damping: 20 };
+const springEffect = { type: 'spring', stiffness: 200, damping: 10 };
 
 /**
  * @constant hoverEffect
  * @description Hover animation suitable for Icon buttons/links.
  */
-const hoverEffect = { scale: 1.1 };
+const hoverEffect = { scale: 1.05, transition: tweenTransition };
+
+/**
+ * @constant hoverOpacity
+ * @description Hover animation with opacity effect.
+ */
+const hoverOpacity = { opacity: 0.8, transition: springEffect };
 
 /**
  * @constant tapEffect
  * @description Tap animation suitable for Icon buttons/links.
  */
-const tapEffect = { scale: 0.92 };
+const tapEffect = { scale: 0.95, transition: springEffect };
 
 /**
  * @constant easeInOut
@@ -76,6 +82,7 @@ export {
   navUnderline,
   tweenTransition,
   hoverEffect,
+  hoverOpacity,
   tapEffect,
   springEffect,
   easeInOut,

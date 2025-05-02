@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import type { ButtonHTMLAttributes } from 'react';
-import { hoverEffect, springEffect, tapEffect } from '@/lib/animations';
+import { hoverOpacity, tapEffect } from '@/lib/animations';
 
 interface MotionTextButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
@@ -32,9 +32,8 @@ const MotionTextButton = ({
 }: MotionTextButtonProps) => {
   return (
     <motion.button
-      whileHover={!disabled ? hoverEffect : undefined}
+      whileHover={!disabled ? hoverOpacity : undefined}
       whileTap={!disabled ? tapEffect : undefined}
-      transition={!disabled ? springEffect : undefined}
       onClick={onClick}
       className={cn(
         'text-primary bg-transparent underline-offset-4 transition-all hover:underline',

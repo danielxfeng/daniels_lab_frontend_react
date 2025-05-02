@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { ComponentProps } from 'react';
 import { Link } from 'react-router-dom';
-import { hoverEffect,  springEffect, tapEffect } from '@/lib/animations';
+import { hoverOpacity, tapEffect } from '@/lib/animations';
 
 type MotionIconLinkProps = {
   to: string;
@@ -78,9 +78,8 @@ const MotionIconLink = ({
 }: MotionIconLinkProps) => {
   return (
     <motion.div
-      whileHover={hoverEffect}
+      whileHover={hoverOpacity}
       whileTap={tapEffect}
-      transition={springEffect}
       className={cn('flex items-center', className)}
     >
       {isExternal ? (

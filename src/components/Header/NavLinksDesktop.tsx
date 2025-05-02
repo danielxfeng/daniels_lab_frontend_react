@@ -8,14 +8,13 @@ import {
   NavigationMenuLink,
 } from '@/components/ui/navigation-menu';
 import navMenu from '@/constants/navMenu';
-import { hoverEffect, navUnderline, springEffect, tapEffect, tweenTransition } from '@/lib/animations';
+import {  hoverOpacity, navUnderline, tapEffect, tweenTransition } from '@/lib/animations';
 
 const MotionNavLink = ({ title, link }: { title: string; link: string }) => (
   <motion.div whileHover='hover' initial='initial' className='relative text-primary'>
     <motion.div
-      whileHover={hoverEffect}
+      whileHover={hoverOpacity}
       whileTap={tapEffect}
-      transition={springEffect}
     >
       <Link to={link} className='transition-all'>
         {title}
@@ -25,7 +24,7 @@ const MotionNavLink = ({ title, link }: { title: string; link: string }) => (
     <motion.div
       variants={navUnderline}
       transition={tweenTransition}
-      className='absolute -bottom-1 left-0 h-[2px] bg-[var(--color-primary)]'
+      className='absolute -bottom-1 left-0 h-[2px] bg-primary'
     />
   </motion.div>
 );
