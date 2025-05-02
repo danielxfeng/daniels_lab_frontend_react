@@ -22,7 +22,7 @@ const InputComponent = ({
     //We register the keyword to component
     {...register('keyword')}
     // Define the style
-    className='bg-input focus:border-primary w-full rounded-4xl border px-4 py-2 text-sm shadow-sm focus:ring focus:outline-none'
+    className='bg-input border-primary w-full rounded-4xl border px-4 py-2 text-sm shadow-sm focus:ring focus:outline-none'
     placeholder='Search posts...'
     // We expand the dropdown history when the input is focused
     onFocus={() => setShowDropdown(true)}
@@ -83,7 +83,7 @@ const DropdownHistory = ({
         {history.map((item) => (
           <li
             key={item}
-            className='hover:bg-muted cursor-pointer overflow-hidden px-4 py-1 text-sm'
+            className='hover:bg-muted cursor-pointer overflow-hidden px-4 py-1 text-sm text-foreground'
             // When clicked, we also set the keyword and fire the submit.
             onClick={async () => {
               setValue('keyword', item);

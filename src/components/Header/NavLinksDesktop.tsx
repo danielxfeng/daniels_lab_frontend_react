@@ -11,7 +11,7 @@ import navMenu from '@/constants/navMenu';
 import { hoverEffect, navUnderline, springEffect, tapEffect, tweenTransition } from '@/lib/animations';
 
 const MotionNavLink = ({ title, link }: { title: string; link: string }) => (
-  <motion.div whileHover='hover' initial='initial' className='relative text-highlight'>
+  <motion.div whileHover='hover' initial='initial' className='relative text-primary'>
     <motion.div
       whileHover={hoverEffect}
       whileTap={tapEffect}
@@ -25,7 +25,7 @@ const MotionNavLink = ({ title, link }: { title: string; link: string }) => (
     <motion.div
       variants={navUnderline}
       transition={tweenTransition}
-      className='absolute -bottom-1 left-0 h-[2px] bg-[var(--color-highlight)]'
+      className='absolute -bottom-1 left-0 h-[2px] bg-[var(--color-primary)]'
     />
   </motion.div>
 );
@@ -50,7 +50,7 @@ const NavLinksDesktop = () => (
   <NavigationMenu className='hidden items-center md:flex'>
     {navMenu.map((item, i) => (
       <React.Fragment key={item.title}>
-        {i > 0 && <span className='px-2'>|</span>}
+        {i > 0 && <span className='px-2 text-ring'>|</span>}
         <NavList title={item.title} link={item.link} />
       </React.Fragment>
     ))}
