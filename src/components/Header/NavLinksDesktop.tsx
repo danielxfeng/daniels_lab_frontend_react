@@ -8,25 +8,14 @@ import {
   NavigationMenuLink,
 } from '@/components/ui/navigation-menu';
 import navMenu from '@/constants/navMenu';
+import { hoverEffect, navUnderline, springEffect, tapEffect, tweenTransition } from '@/lib/animations';
 
 const MotionNavLink = ({ title, link }: { title: string; link: string }) => (
-  <motion.div whileHover='hover' initial='initial' className='relative'>
+  <motion.div whileHover='hover' initial='initial' className='relative text-highlight'>
     <motion.div
-      variants={{
-        initial: {
-          scale: 1,
-          color: 'var(--color-foreground)',
-        },
-        hover: {
-          scale: 1.1,
-          color: 'var(--color-popover-foreground)',
-        },
-      }}
-      transition={{
-        type: 'tween',
-        ease: 'easeInOut',
-        duration: 0.3,
-      }}
+      whileHover={hoverEffect}
+      whileTap={tapEffect}
+      transition={springEffect}
     >
       <Link to={link} className='transition-all'>
         {title}
@@ -34,14 +23,8 @@ const MotionNavLink = ({ title, link }: { title: string; link: string }) => (
     </motion.div>
 
     <motion.div
-      variants={{
-        initial: { width: 0 },
-        hover: { width: '100%' },
-      }}
-      transition={{
-        duration: 0.3,
-        ease: 'easeInOut',
-      }}
+      variants={navUnderline}
+      transition={tweenTransition}
       className='absolute -bottom-1 left-0 h-[2px] bg-[var(--color-highlight)]'
     />
   </motion.div>
