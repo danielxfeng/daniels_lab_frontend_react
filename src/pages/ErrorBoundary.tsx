@@ -10,56 +10,58 @@ const ErrorBoundary = () => {
   const error = useRouteError();
   console.error(error);
   return (
-    <div className='flex min-h-screen flex-col'>
-      <Header />
+    <div className='bg-background text-foreground flex min-h-screen flex-col'>
+      <Header isBasic={true} />
 
-      <main className='container mx-auto flex-grow px-4 py-8 text-center'>
-        <h1>Oops! Something went wrong.</h1>
+      <main className='outer-container flex-grow'>
+        <div className='inner-container flex flex-col gap-4'>
+          <h1>Oops! Something went wrong.</h1>
 
-        {/** If it's a response error, from React Router? */}
-        {error instanceof Response && (
-          <>
-            <p>Status: {error.status}</p>
-            <p>Message: {error.statusText || 'Unknown error'}</p>
-          </>
-        )}
+          {/** If it's a response error, from React Router? */}
+          {error instanceof Response && (
+            <>
+              <p>Status: {error.status}</p>
+              <p>Message: {error.statusText || 'Unknown error'}</p>
+            </>
+          )}
 
-        {/** If it's a Error */}
-        {error instanceof Error && (
-          <React.Fragment>
-            <p>Message: {error.message}</p>
+          {/** If it's a Error */}
+          {error instanceof Error && (
+            <React.Fragment>
+              <p>Message: {error.message}</p>
 
-            {/** If it's an AxiosError */}
-            {isAxiosError(error) ? (
-              // Handle potential Response error or Request error
-              <React.Fragment>
-                {error.response ? (
-                  <React.Fragment>
-                    <p>Status: {error.response.status}</p>
-                    <p>Details: {error.response.data?.message || 'No details'}</p>
-                  </React.Fragment>
-                ) : error.request ? (
-                  <React.Fragment>
-                    <p>Status: Request made but no response received.</p>
-                    <p>Details: {error.request.statusText || 'No details'}</p>
-                  </React.Fragment>
-                ) : (
-                  <p>Unknown Axios error.</p>
-                )}
-              </React.Fragment>
-            ) : (
-              <p>Unknown JS error.</p>
-            )}
-          </React.Fragment>
-        )}
+              {/** If it's an AxiosError */}
+              {isAxiosError(error) ? (
+                // Handle potential Response error or Request error
+                <React.Fragment>
+                  {error.response ? (
+                    <React.Fragment>
+                      <p>Status: {error.response.status}</p>
+                      <p>Details: {error.response.data?.message || 'No details'}</p>
+                    </React.Fragment>
+                  ) : error.request ? (
+                    <React.Fragment>
+                      <p>Status: Request made but no response received.</p>
+                      <p>Details: {error.request.statusText || 'No details'}</p>
+                    </React.Fragment>
+                  ) : (
+                    <p>Unknown Axios error.</p>
+                  )}
+                </React.Fragment>
+              ) : (
+                <p>Unknown JS error.</p>
+              )}
+            </React.Fragment>
+          )}
 
-        {/* Fallback for unknown error type */}
-        {!(error instanceof Response) && !(error instanceof Error) && (
-          <p>Unknown error: {String(error)}</p>
-        )}
+          {/* Fallback for unknown error type */}
+          {!(error instanceof Response) && !(error instanceof Error) && (
+            <p>Unknown error: {String(error)}</p>
+          )}
 
-        {/** Link to go back to home. */}
-        <Link to='/'>Go back to home</Link>
+          {/** Link to go back to home. */}
+          <Link to='/'>Go back to home</Link>
+        </div>
       </main>
 
       <Footer />

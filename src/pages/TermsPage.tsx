@@ -1,13 +1,13 @@
 const TermsPage = () => (
-  <main>
+  <div className='inner-container flex flex-col items-start justify-start gap-4 text-left'>
     <h1>Terms and Conditions, Privacy Policy</h1>
     <p>
       <strong>Last updated:</strong> April 30, 2025
     </p>
 
-    <h2 className="text-primary">Terms and Conditions</h2>
+    <h2>Terms and Conditions</h2>
 
-    <p className="text-amber-300">
+    <p>
       By accessing and using this website (the "Site"), you agree to be bound by the following
       terms. If you do not agree, please do not use the Site.
     </p>
@@ -101,7 +101,7 @@ const TermsPage = () => (
       By using this website, you consent to the terms described in this Privacy Policy and the Terms
       and Conditions. No cookies or tracking tools requiring consent are used.
     </p>
-  </main>
+  </div>
 );
 
 export default TermsPage;
