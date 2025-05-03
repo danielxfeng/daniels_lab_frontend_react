@@ -20,16 +20,16 @@ const AvatarComponent = ({
 // A button that shows the user avatar or username, and links to the profile page.
 // If the user is not authenticated, it shows a login button that links to the login page.
 const UserComponent = () => {
-  const { getUserStatus, getUser } = useUserStore();
+  const user  = useUserStore((s) => s.user); // Subscribe to the user state
+  const { getUserStatus } = useUserStore();
 
   const userStatus = getUserStatus();
-  const user = getUser();
 
   // Show login button if user is not authenticated
   if (userStatus === 'unauthenticated' || !user) {
     return (
       <MotionIconLink
-        to='/Login'
+        to='/User/Login'
         icon={<LogIn className='text-primary h-6 w-6' />}
         ariaLabel='Login'
         isExternal={false}
