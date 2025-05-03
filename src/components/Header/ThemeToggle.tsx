@@ -22,12 +22,10 @@ const setHtmlTheme = (theme: ThemeType) => {
 
 // This component is a button that toggles the theme between light, dark, and system.
 const ThemeToggle = () => {
-  // It's convenient to use Zustand
-  // Then we don't be trapped by the infinite loop.
-  const theme = useThemeStore((s) => s.theme);
-  const toggleTheme = useThemeStore((s) => s.toggleTheme);
+  const theme = useThemeStore((s) => s.theme); // Subscribe to the theme state
+  const toggleTheme  = useThemeStore.getState().toggleTheme;
 
-  // We need the useEffect hook to track the theme.
+  // We need the useEffect hook to handle the side effect.
   useEffect(() => {
     setHtmlTheme(theme);
   }, [theme]);

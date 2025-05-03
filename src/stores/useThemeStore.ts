@@ -4,15 +4,8 @@ import { persist } from 'zustand/middleware';
 type ThemeType = 'system' | 'light' | 'dark';
 
 type ThemeState = {
-  /* private properties */
+  /* properties */
   theme: ThemeType;
-  /* Public methods */
-  /**
-   * @summary Get the current theme.
-   * @description It returns the current theme.
-   * @returns The current theme, either 'system', 'light', 'dark'.
-   */
-  getTheme: () => ThemeType;
   /**
    * @summary Toggle the theme.
    * @description It sets the theme the next one.
@@ -30,7 +23,6 @@ const useThemeStore = create<ThemeState>()(
   persist(
     (set, get) => ({
       theme: 'system',
-      getTheme: () => get().theme,
       toggleTheme: () => {
         const currentTheme = get().theme;
         let nextTheme: ThemeType;

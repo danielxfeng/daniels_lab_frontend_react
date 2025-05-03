@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useForm, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { useForm, UseFormRegister } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Search } from 'lucide-react';
 import useSearchHistoryStore from '@/stores/useSearchHistoryStore';
 import { KeywordSearchQuerySchema } from '@/schema/schema_post';
 import MotionIconButton from '../motion_components/MotionIconButton';
 import { AnimatePresence, easeInOut, motion } from 'framer-motion';
+import { useNavigate } from 'react-router';
 
 // Define a type for form input.
 type FormValues = { keyword: string };
@@ -39,66 +40,41 @@ const InputComponent = ({
   />
 );
 
-// A closure function to generate the submit handler
-const createKeywordSubmitHandler = ({
-  addHistory,
-  setShowDropdown,
-  setOpen,
-}: {
-  addHistory: (entry: string) => void;
-  setShowDropdown: React.Dispatch<React.SetStateAction<boolean>>;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>> | null;
-}) => {
-  return async (data: FormValues) => {
-    const assembledData = { ...data, offset: '0', limit: '10' };
-    const result = KeywordSearchQuerySchema.safeParse(assembledData);
-    if (!result.success) {
-      console.error(JSON.stringify(result.error));
-      return;
-    }
-    if (setOpen) setOpen(false);
-    const searchParams = result.data;
-    addHistory(searchParams.keyword);
-    console.log('Search posts by keyword:', searchParams.keyword);
-    setShowDropdown(false);
-  };
-};
-
+// A component to display the dropdown history
 const DropdownHistory = ({
   showDropdown,
-  history,
-  setValue,
   onSelect,
 }: {
   showDropdown: boolean;
-  history: string[];
-  setValue: UseFormSetValue<FormValues>;
   onSelect: (keyword: string) => void;
-}) => (
-  <AnimatePresence>
-    {showDropdown && history.length > 0 && (
-      <motion.ul
-        {...easeInOut}
-        className='bg-background absolute z-10 mt-1 flex w-full flex-col gap-0 px-2 pb-2 md:rounded-xl md:shadow'
-      >
-        {/* Iterate all items */}
-        {history.map((item) => (
-          <li
-            key={item}
-            className='hover:bg-muted text-muted-foreground cursor-pointer overflow-hidden px-4 py-1 text-sm'
-            // When clicked, we also set the keyword and fire the submit.
-            onClick={async () => {
-              setValue('keyword', item);
-              onSelect(item);
-            }}
-          >
-            {item}
-          </li>
-        ))}
-      </motion.ul>
-    )}
-  </AnimatePresence>
-);
+}) => {
+  // Get the snapshot from the Zustand store
+  const history = useSearchHistoryStore.getState().history;
+  return (
+    <AnimatePresence>
+      {showDropdown && history.length > 0 && (
+        <motion.ul
+          {...easeInOut}
+          className='bg-background absolute z-10 mt-1 flex w-full flex-col gap-0 px-2 pb-2 md:rounded-xl md:shadow'
+        >
+          {/* Iterate all items */}
+          {history.map((item) => (
+            <li
+              key={item}
+              className='hover:bg-muted text-muted-foreground cursor-pointer overflow-hidden px-4 py-1 text-sm'
+              // When clicked, we also set the keyword and fire the submit.
+              onClick={async () => {
+                onSelect(item);
+              }}
+            >
+              {item}
+            </li>
+          ))}
+        </motion.ul>
+      )}
+    </AnimatePresence>
+  );
+};
 
 /**
  * @summary SearchBar component
@@ -109,18 +85,16 @@ const DropdownHistory = ({
  * It runs normally in desktop view, but runs in a popup sheet in mobile view.
  * @param setOpen = The hook to close the popup sheet. Only needed in mobile view.
  */
-const SearchBar = ({
-  setOpen = null,
-}: {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>> | null;
-}) => {
+const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<boolean>> }) => {
   // useState to manage the visibility of the dropdown history
   const [showDropdown, setShowDropdown] = useState(false);
-  // Zustand store to manage search history, we use Zustand for localstorage management
-  const { addHistory, getHistory } = useSearchHistoryStore();
+  // Get the snapshot of the search history from the Zustand store
+  const addHistory = useSearchHistoryStore.getState().addHistory;
+  // for navigation to the search page
+  const navigate = useNavigate();
 
   // Apply react-hook-form to manage form state and validation
-  const { register, handleSubmit, setValue } = useForm<FormValues>({
+  const { register, handleSubmit, setValue, reset } = useForm<FormValues>({
     // Use zod for schema validation
     resolver: zodResolver(KeywordSearchQuerySchema),
     defaultValues: { keyword: '' },
@@ -130,13 +104,15 @@ const SearchBar = ({
     reValidateMode: 'onSubmit',
   });
 
-  // We create a submit handler for the form
-  const onSubmit = createKeywordSubmitHandler({
-    addHistory,
-    setShowDropdown,
-    setOpen,
-  });
-  const history = getHistory();
+  // We create a closure to handle the form submission
+  const onSubmit = (data: FormValues) => {
+    setShowDropdown(false); // Close the dropdown
+    addHistory(data.keyword); // Add the keyword to the history
+    if (setOpen) setOpen(false); // Close the popup sheet if it exists
+    const searchParams = new URLSearchParams({ keyword: data.keyword, offset: '0', limit: '10' });
+    reset(); // Reset the form
+    navigate(`/blog/posts/search?${searchParams.toString()}`); // Navigate to the search page with the keyword
+  };
 
   return (
     <div className='relative w-full max-w-md'>
@@ -157,8 +133,6 @@ const SearchBar = ({
       {/* Dropdown History */}
       <DropdownHistory
         showDropdown={showDropdown}
-        history={history}
-        setValue={setValue}
         onSelect={async (keyword) => {
           setValue('keyword', keyword);
           await handleSubmit(onSubmit)();

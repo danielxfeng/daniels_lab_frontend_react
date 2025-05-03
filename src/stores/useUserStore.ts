@@ -3,34 +3,22 @@ import { persist } from 'zustand/middleware';
 import { AuthResponse as User } from '@/schema/schema_auth';
 
 type UserState = {
-  /* private properties */
+  /* properties */
   accessToken: string | null; // will not persist
   user: Partial<User> | null;
 
-  /* Public methods */
+  /* methods */
   /**
    * @summary Get the current user status.
    * @returns the current user status
    */
   getUserStatus: () => 'expired' | 'authenticated' | 'unauthenticated';
   /**
-   * @summary Get the current access token.
-   * @description It returns the current access token.
-   * @returns The current access token, or null if not set.
-   */
-  getAccessToken: () => string | null;
-  /**
    * @summary Set the access token.
    * @description It sets the access token.
    * @param token The access token to set.
    */
   setAccessToken: (token: string | null) => void;
-  /**
-   * @summary Get the current user.
-   * @description It returns the current user.
-   * @returns The current user, or null if not set.
-   */
-  getUser: () => Partial<User> | null;
   /**
    * @summary Set the user.
    * @description It sets the user.
@@ -63,10 +51,8 @@ export const useUserStore = create<UserState>()(
         if (user) return 'expired';
         return 'unauthenticated';
       },
-      getAccessToken: () => get().accessToken,
       setAccessToken: (token) => set({ accessToken: token }),
 
-      getUser: () => get().user,
       // We remove the accessToken for safety
       setUser: (user) => {
         const { accessToken, ...rest } = user;

@@ -2,10 +2,10 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 type SearchHistoryState = {
-  /* private properties */
+  /* properties */
   history: string[];
   maxHistory: number;
-  /* Public methods */
+  /* methods */
   /**
    * @summary Add an entry to the search history.
    * @description It adds a new entry to the history,
@@ -13,13 +13,6 @@ type SearchHistoryState = {
    * @param entry The search query to add.
    */
   addHistory: (entry: string) => void;
-  /**
-   * @summary Get the current search history.
-   * @description It returns the current search history.
-   * Sorted from most recent to oldest.
-   * @returns The current search history.
-   */
-  getHistory: () => string[];
 };
 
 /**
@@ -39,8 +32,6 @@ const useSearchHistoryStore = create<SearchHistoryState>()(
         const updated = [entry, ...current].slice(0, get().maxHistory);
         set({ history: updated });
       },
-
-      getHistory: () => get().history,
     }),
     { name: 'search-history' },
   ),

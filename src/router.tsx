@@ -23,23 +23,40 @@ const router = createBrowserRouter([
           // side bar with filters, a list of hot tags
           // todo loader
           { index: true, Component: () => <div>Blog</div> },
-          // post detail, comments list, like status
-          // a button to new/edit/delete a post
-          // a form to add/edit/delete a comment
-          // a bottom to like/unlike a post
-          // share buttons
-          // todo loader
-          { path: ':id', Component: () => <div>Blog Post</div> },
-          // a form to add a post.
-          // a combo box to add/select tags
-          // shared components with edit post
-          // todo admin check
-          { path: 'new', Component: () => <div>New Blog Post</div> },
-          // a form to edit a post.
-          // a combo box to add/select tags
-          // shared components with new post
-          // todo load, auth check
-          { path: 'edit/:id', Component: () => <div>Edit Blog Post</div> },
+          {
+            path: 'posts',
+            children: [
+              // posts list, a button to new post
+              // side bar with filters, a list of hot tags
+              // todo loader
+              { index: true, Component: () => <div>Blog Posts</div> },
+              // posts list for search results
+              // side bar with filters, a list of hot tags
+              // todo loader
+              { path: 'search', Component: () => <div>Blog Search</div> },
+              // post detail, comments list, like status
+              // a button to new/edit/delete a post
+              // a form to add/edit/delete a comment
+              // a bottom to like/unlike a post
+              // share buttons
+              // todo loader
+              // todo action
+              { path: ':id', Component: () => <div>Blog Post</div> },
+              // a form to add a post.
+              // a combo box to add/select tags
+              // shared components with edit post
+              // todo admin check
+              // todo action
+              { path: 'new', Component: () => <div>New Blog Post</div> },
+              // a form to edit a post.
+              // a combo box to add/select tags
+              // shared components with new post
+              // todo load, auth check
+              // todo action
+              // todo auth check
+              { path: 'edit/:id', Component: () => <div>Edit Blog Post</div> },
+            ],
+          },
         ],
       },
       // /user

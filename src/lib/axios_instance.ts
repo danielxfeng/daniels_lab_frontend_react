@@ -44,7 +44,8 @@ const fetchAccessToken = async (retry: number): Promise<string | null> => {
   // If retry is 0, return null
   if (retry <= 0) return null;
 
-  const { getUserStatus, getAccessToken, getUser, setUser, setAccessToken, clear } =
+  // Get the snapshot of the user store
+  const { getUserStatus, accessToken, user, setUser, setAccessToken, clear } =
     useUserStore.getState();
   const userStatus = getUserStatus();
 
@@ -52,7 +53,6 @@ const fetchAccessToken = async (retry: number): Promise<string | null> => {
   switch (userStatus) {
     // If the user is authenticated, return it, otherwise retry recursively.
     case 'authenticated': {
-      const accessToken = getAccessToken();
       if (accessToken) return accessToken;
       setAccessToken(null);
       return await fetchAccessToken(retry - 1);
@@ -61,7 +61,7 @@ const fetchAccessToken = async (retry: number): Promise<string | null> => {
     // If the token is expired, try to refresh it.
     case 'expired': {
       // return null if there is not a refresh token.
-      const refreshToken = getUser();
+      const refreshToken = user?.refreshToken;
       if (!refreshToken) return null;
 
       retry--;
