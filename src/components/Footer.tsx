@@ -2,9 +2,6 @@ import ContactLink from '@/components/ContactLink';
 import contactIconList from '@/constants/contactLinks';
 import siteMeta from '@/constants/siteMeta';
 
-// The style for the contact icons
-const contactIconStyle = 'h-6 w-6';
-
 /**
  * The Footer component.
  */
@@ -19,7 +16,7 @@ const Footer = () => (
       </div>
       <div className='flex gap-4'>
         {contactIconList.map((prop) => (
-          <ContactLink key={prop.ariaLabel} {...prop} className={contactIconStyle} />
+          <ContactLink key={prop.ariaLabel} {...prop} />
         ))}
       </div>
     </div>

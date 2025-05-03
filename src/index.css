@@ -76,7 +76,7 @@
 }
 
 /* Dark Theme `<html class="dark">` */
-[data-theme="dark"] {
+[data-theme='dark'] {
   --highlight: oklch(56% 0.22 250);
 
   --background: oklch(4.48% 0.01 250);
@@ -115,7 +115,7 @@
    * Then the bg color covers all the width,
    * and the content's max width is still limited by `.inner-container` */
   .outer-container {
-    @apply flex w-full items-center justify-center;
+    @apply flex w-full justify-center;
   }
 
   /* Work with `.outer-container` to represent a top level container
@@ -125,4 +125,14 @@
   .inner-container {
     @apply w-full items-center px-4 py-6 md:max-w-7xl md:px-8 md:py-10;
   }
+}
+
+h1 {
+  @apply text-primary mt-8 mb-4 text-3xl font-bold;
+}
+h2 {
+  @apply text-primary mt-6 mb-2 text-2xl font-semibold;
+}
+h3 {
+  @apply text-primary mt-4 mb-1 text-xl font-medium;
 }

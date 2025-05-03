@@ -7,7 +7,7 @@ const AppLayout = () => {
   return (
     <div className='bg-background text-foreground flex min-h-screen flex-col'>
       <Header />
-      <main className='mx-auto h-full w-full flex-grow bg-amber-500 px-4 py-8 text-center'>
+      <main className='outer-container flex-grow'>
         <Suspense fallback={<div>Loading...</div>}>
           <Outlet />
         </Suspense>
