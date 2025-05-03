@@ -1,9 +1,8 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, redirect } from 'react-router-dom';
 import AppLayout from '@/components/AppLayout';
 import NotFoundPage from '@/pages/NotFoundPage';
 import ErrorBoundary from '@/pages/ErrorBoundary';
-import TermsPage from '@/pages/TermsPage';
-import AboutPage from './pages/AboutPage';
+import { lazy } from 'react';
 
 // The router of the app.
 const router = createBrowserRouter([
@@ -13,16 +12,14 @@ const router = createBrowserRouter([
     ErrorBoundary: ErrorBoundary,
     children: [
       // /
-      // Homepage, hero
-      { index: true, Component: () => <div>Home</div> },
+      // redirect to /blog/posts
+      { index: true, loader: () => redirect('/blog/posts') },
       // /blog
       {
         path: 'blog',
         children: [
-          // posts list, a button to new post
-          // side bar with filters, a list of hot tags
-          // todo loader
-          { index: true, Component: () => <div>Blog</div> },
+          // redirect to /blog/posts
+          { index: true, loader: () => redirect('/blog/posts') },
           {
             path: 'posts',
             children: [
@@ -77,17 +74,16 @@ const router = createBrowserRouter([
           { path: 'join-admin', Component: () => <div>Join Admin</div> },
         ],
       },
-      // /about
-      // Static page, a from to contact the admin (Email)
+      // /about, Static page, a from to contact the admin (Email), laze load it.
       {
         path: 'about',
-        children: [{ index: true, Component: AboutPage }],
+        children: [{ index: true, Component: lazy(() => import('@/pages/AboutPage')) }],
       },
       // /terms
-      // Static page for terms and conditions
+      // Static page for terms and conditions, lazy load it.
       {
         path: 'terms',
-        children: [{ index: true, Component: TermsPage }],
+        children: [{ index: true, Component: lazy(() => import('@/pages/TermsPage')) }],
       },
       // Fallback, 404 page.
       {
