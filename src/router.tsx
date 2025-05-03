@@ -74,7 +74,7 @@ const router = createBrowserRouter([
           { path: 'join-admin', Component: () => <div>Join Admin</div> },
         ],
       },
-      // /about, Static page, a from to contact the admin (Email), laze load it.
+      // /about, Static page, a form to contact the admin (Email), lazy load it.
       {
         path: 'about',
         children: [{ index: true, Component: lazy(() => import('@/pages/AboutPage')) }],
