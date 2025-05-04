@@ -1,8 +1,10 @@
 import { createBrowserRouter, redirect } from 'react-router-dom';
+import { lazy } from 'react';
 import AppLayout from '@/components/AppLayout';
 import NotFoundPage from '@/pages/NotFoundPage';
 import ErrorBoundary from '@/pages/ErrorBoundary';
-import { lazy } from 'react';
+import postsLoader from './pages/Posts/postsLoader';
+import PostsPage from './pages/Posts/PostsPage';
 
 // The router of the app.
 const router = createBrowserRouter([
@@ -23,10 +25,8 @@ const router = createBrowserRouter([
           {
             path: 'posts',
             children: [
-              // posts list, a button to new post
-              // side bar with filters, a list of hot tags
-              // todo loader
-              { index: true, Component: () => <div>Blog Posts</div> },
+              // Posts list, with a filter form.
+              { index: true, Component: PostsPage, loader: postsLoader },
               // posts list for search results
               // side bar with filters, a list of hot tags
               // todo loader

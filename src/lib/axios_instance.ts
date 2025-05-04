@@ -3,7 +3,7 @@ import useUserStore from '@/stores/useUserStore';
 import getDeviceId from './deviceid';
 import { AuthResponse, AuthResponseSchema, RefreshTokenBodySchema } from '@/schema/schema_auth';
 
-const baseURL = import.meta.env.VITE_API_BASE_URL || 'https://localhost:3000';
+const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
 const headers = {
   'Content-Type': 'application/json',
 };

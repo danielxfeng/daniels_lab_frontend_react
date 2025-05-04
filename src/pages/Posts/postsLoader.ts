@@ -2,7 +2,7 @@ import { throwWithAxiosErr, throwWithValidationErr } from '@/lib/throw_with_err'
 import { PostListResponse, PostListResponseSchema } from '@/schema/schema_post';
 import { TagsResponse, TagsResponseSchema } from '@/schema/schema_tag';
 import { getHotTags } from '@/services/service_tags';
-import { getPostsByKeyword } from '@/services/services_posts';
+import { getPosts } from '@/services/services_posts';
 
 /**
  * @summary A loader function for posts page.
@@ -14,12 +14,12 @@ const postsLoader = async ({
   request,
 }: {
   request: Request;
-}): Promise<{ posts: PostListResponse; hotTags: TagsResponse }> => {
+}): Promise<{ postsListRes: PostListResponse; hotTags: TagsResponse }> => {
   // Forward the search params to the service
   const url = new URL(request.url);
   const searchParams = url.searchParams.toString();
   const [postsListRes, hotTagsRes] = await Promise.all([
-    getPostsByKeyword(searchParams),
+    getPosts(searchParams),
     getHotTags(),
   ]);
 
@@ -36,9 +36,10 @@ const postsLoader = async ({
   if (!validatedHotTags.success)
     return throwWithValidationErr('validate hot tags', JSON.stringify(validatedHotTags.error));
 
+  console.log(JSON.stringify(validatedPosts.data));
   // Return the validated data
   return {
-    posts: validatedPosts.data,
+    postsListRes: validatedPosts.data,
     hotTags: validatedHotTags.data,
   };
 };
