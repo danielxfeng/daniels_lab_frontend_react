@@ -94,7 +94,13 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
   const navigate = useNavigate();
 
   // Apply react-hook-form to manage form state and validation
-  const { register, handleSubmit, setValue, reset } = useForm<FormValues>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { isSubmitting },
+  } = useForm<FormValues>({
     // Use zod for schema validation
     resolver: zodResolver(KeywordSearchQuerySchema),
     defaultValues: { keyword: '' },
@@ -118,16 +124,19 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
     <div className='relative w-full max-w-md'>
       {/* The form */}
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* The input field */}
-        <InputComponent register={register} setShowDropdown={setShowDropdown} />
+        <fieldset disabled={isSubmitting}>
+          {/* The input field */}
+          <InputComponent register={register} setShowDropdown={setShowDropdown} />
 
-        {/* The search button */}
-        <MotionIconButton
-          icon={<Search className='h-5 w-5' />}
-          type='submit'
-          ariaLabel='Search'
-          className='text-muted-foreground hover:text-primary absolute top-1/2 right-2 -translate-y-1/2 p-1'
-        />
+          {/* The search button */}
+          <MotionIconButton
+            icon={<Search className='h-5 w-5' />}
+            type='submit'
+            ariaLabel='Search'
+            className='text-muted-foreground hover:text-primary absolute top-1/2 right-2 -translate-y-1/2 p-1'
+            disabled={isSubmitting}
+          />
+        </fieldset>
       </form>
 
       {/* Dropdown History */}
