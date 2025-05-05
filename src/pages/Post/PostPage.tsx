@@ -11,7 +11,7 @@ import MotionH1 from '@/components/motion_components/MotionH1';
 
 const PostPage = () => {
   const { post } = useLoaderData() as { post: PostResponse };
-  console.log('PostPage', JSON.stringify(post));
+  //console.log('PostPage', JSON.stringify(post));
   const user = useUserStore.getState().user;
   const isAuthor = user?.id === post.authorId;
   const isAdmin = user?.isAdmin;
@@ -59,7 +59,7 @@ const PostPage = () => {
         <div className='flex flex-wrap gap-2'>
           <span className='mr-2'>Tags:</span>
           {post.tags.map((tag: string) => (
-            <span key={`tag`} className='bg-muted rounded-md px-2 py-0.5 text-sm'>
+            <span key={`${tag}`} className='bg-muted rounded-md px-2 py-0.5 text-sm'>
               {`#${tag}`}
             </span>
           ))}

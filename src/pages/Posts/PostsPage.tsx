@@ -46,7 +46,7 @@ const DatePickerField = ({
               <Button
                 variant='outline'
                 className={cn(
-                  'w-2/3 justify-start text-left font-normal',
+                  'flex-1 justify-start text-left font-normal min-w-2/3',
                   !date && 'text-muted-foreground',
                 )}
               >
@@ -133,7 +133,7 @@ const PostsFilter = ({ hotTags }: { hotTags: TagsResponse }) => {
           />
           <hr className='border-muted' />
           {/* The date range picker */}
-          <div className='flex flex-col gap-2 md:gap-10'>
+          <div className='flex flex-wrap w-fit gap-2 md:gap-10'>
             <DatePickerField name='from' control={control} label='From' />
             <DatePickerField name='to' control={control} label='To' />
           </div>

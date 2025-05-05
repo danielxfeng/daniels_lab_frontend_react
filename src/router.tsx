@@ -3,10 +3,11 @@ import { lazy } from 'react';
 import AppLayout from '@/components/AppLayout';
 import NotFoundPage from '@/pages/NotFoundPage';
 import ErrorBoundary from '@/pages/ErrorBoundary';
-import postsLoader from './pages/Posts/postsLoader';
-import PostsPage from './pages/Posts/PostsPage';
-import PostPage from './pages/Post/PostPage';
-import postPageLoader from './pages/Post/postPageLoader';
+import postsLoader from '@/pages/Posts/postsLoader';
+import PostsPage from '@/pages/Posts/PostsPage';
+import PostPage from '@/pages/Post/PostPage';
+import postPageLoader from '@/pages/Post/postPageLoader';
+import Loading from '@/components/Loading';
 
 // The router of the app.
 const router = createBrowserRouter([
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
     path: '/',
     Component: AppLayout,
     ErrorBoundary: ErrorBoundary,
+    HydrateFallback: Loading,
     children: [
       // /
       // redirect to /blog/posts

@@ -2,7 +2,6 @@ import { Heart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { getLikeStatus, likePost, unlikePost } from '@/services/service_likes';
-import { PostIdQuerySchema } from '@/schema/schema_components';
 import { LikeStatusResponse, LikeStatusResponseSchema } from '@/schema/schema_like';
 import MotionIconButton from './motion_components/MotionIconButton';
 import { AxiosResponse } from 'axios';
@@ -20,16 +19,13 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
 
   // LikeStatus fetcher
   const fetchLikeStatus = async (postId: string): Promise<LikeStatusResponse> => {
-    // Validate postId
-    const validatedPostId = PostIdQuerySchema.safeParse(postId);
-    const fallback: LikeStatusResponse = { count: 0, liked: false };
-    if (!validatedPostId.success) {
-      console.error('Invalid postId:', JSON.stringify(validatedPostId.error));
-      return fallback;
-    }
-
+    // Fallback value
+    const fallback: LikeStatusResponse = {
+      count: 0,
+      liked: false,
+    };
     // Fetch like status
-    const response = await getLikeStatus(validatedPostId.data.postId);
+    const response = await getLikeStatus(postId);
 
     // Validate response
     if (response.status !== 200) {

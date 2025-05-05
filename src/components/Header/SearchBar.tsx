@@ -23,7 +23,7 @@ const InputComponent = ({
     //We register the keyword to component
     {...register('keyword')}
     // Define the style
-    className='bg-input border-primary ring-ring w-full rounded-4xl border px-4 py-2 text-sm shadow-sm focus:ring focus:outline-none'
+    className='bg-muted border-muted-foreground ring-ring w-full rounded-xl border px-4 py-2 text-sm shadow-sm focus:ring focus:outline-none'
     placeholder='Search posts...'
     // We expand the dropdown history when the input is focused
     onFocus={() => setShowDropdown(true)}
