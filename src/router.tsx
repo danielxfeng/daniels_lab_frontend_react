@@ -5,6 +5,8 @@ import NotFoundPage from '@/pages/NotFoundPage';
 import ErrorBoundary from '@/pages/ErrorBoundary';
 import postsLoader from './pages/Posts/postsLoader';
 import PostsPage from './pages/Posts/PostsPage';
+import PostPage from './pages/Post/PostPage';
+import postPageLoader from './pages/Post/postPageLoader';
 
 // The router of the app.
 const router = createBrowserRouter([
@@ -32,13 +34,10 @@ const router = createBrowserRouter([
               // todo loader
               { path: 'search', Component: () => <div>Blog Search</div> },
               // post detail, comments list, like status
-              // a button to new/edit/delete a post
               // a form to add/edit/delete a comment
               // a bottom to like/unlike a post
               // share buttons
-              // todo loader
-              // todo action
-              { path: ':slug', Component: () => <div>Blog Post</div>, loader: postsLoader },
+              { path: ':slug', Component: PostPage, loader: postPageLoader },
               // a form to add a post.
               // a combo box to add/select tags
               // shared components with edit post

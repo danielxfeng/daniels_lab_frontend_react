@@ -14,11 +14,9 @@ import type { LoaderFunctionArgs } from 'react-router-dom';
  * @param params - The URL parameters containing the slug of the post.
  * @returns
  */
-const postPage = async ({ params }: LoaderFunctionArgs): Promise<PostResponse> => {
-  const rawSlug = params.slug;
-
+const postPage = async ({ params }: LoaderFunctionArgs): Promise<{ post: PostResponse }> => {
   // validate user input
-  const validatedSlug = PostSlugQuerySchema.safeParse(rawSlug);
+  const validatedSlug = PostSlugQuerySchema.safeParse(params);
   if (!validatedSlug.success)
     return throwWithUserValidationErr('validate slug error', JSON.stringify(validatedSlug.error));
   const slug = validatedSlug.data;
@@ -32,7 +30,7 @@ const postPage = async ({ params }: LoaderFunctionArgs): Promise<PostResponse> =
   if (!validatedPost.success || !validatedPost.data.markdown)
     return throwWithValidationErr('validate post error', JSON.stringify(validatedPost.error));
 
-  return validatedPost.data;
+  return { post: validatedPost.data };
 };
 
 export default postPage;

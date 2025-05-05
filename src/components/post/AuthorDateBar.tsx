@@ -17,9 +17,9 @@ const AuthorDateBar = ({
   authorAvatar: string | null;
   createdAt: string | undefined;
 }) => (
-  <div className='flex items-center justify-between'>
+  <div className='flex w-full items-center justify-between'>
     <Author name={authorName} avatarUrl={authorAvatar ?? undefined} />
-    <div>{format(new Date(createdAt!), 'PPP')}</div>
+    <div className='text-muted-foreground'>{format(new Date(createdAt!), 'PPP')}</div>
   </div>
 );
 
