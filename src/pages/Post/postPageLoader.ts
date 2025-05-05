@@ -29,7 +29,7 @@ const postPage = async ({ params }: LoaderFunctionArgs): Promise<PostResponse> =
   // validate post response
   if (rawPostRes.status !== 200) return throwWithAxiosErr('fetch post', rawPostRes);
   const validatedPost = PostResponseSchema.safeParse(rawPostRes.data);
-  if (!validatedPost.success)
+  if (!validatedPost.success || !validatedPost.data.markdown)
     return throwWithValidationErr('validate post error', JSON.stringify(validatedPost.error));
 
   return validatedPost.data;
