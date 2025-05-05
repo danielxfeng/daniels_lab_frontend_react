@@ -3,7 +3,7 @@ import useUserStore from '@/stores/useUserStore';
 import getDeviceId from './deviceid';
 import { AuthResponse, AuthResponseSchema, RefreshTokenBodySchema } from '@/schema/schema_auth';
 
-const baseURL = import.meta.env.VITE_API_BASE_URL || 'https://localhost:3000';
+const baseURL = import.meta.env.VITE_API_BASE_URL || '/api';
 const headers = {
   'Content-Type': 'application/json',
 };
@@ -23,6 +23,16 @@ const anonymousAxios = axios.create({
  * @summary A single skeleton for a Axios instance with authentication.
  */
 const authAxios = axios.create({
+  baseURL,
+  headers,
+  timeout,
+  withCredentials: true,
+});
+
+/**
+ * @summary A single skeleton for a Axios instance with optional authentication.
+ */
+const optAxios = axios.create({
   baseURL,
   headers,
   timeout,
@@ -129,6 +139,19 @@ authAxios.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
+// A request interceptor try to add the Authorization header
+optAxios.interceptors.request.use(
+  async (config) => {
+    // Try to get the access token, retry at most twice in case of expired access token
+    const accessToken = await fetchAccessToken(2);
+    // Set the header and pass the request
+    if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
+    return config;
+  },
+  // Handle errors
+  (error) => Promise.reject(error),
+);
+
 /**
  * Handle the error from the Axios response.
  * @description Retry the 498 expired token error, and handle the 401, 403 errors.
@@ -192,4 +215,14 @@ authAxios.interceptors.response.use(
   },
 );
 
-export { anonymousAxios, authAxios };
+// A response interceptor to handle errors
+// Mainly it handles the 498 expired token error
+optAxios.interceptors.response.use(
+  (response) => response,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async (error: any) => {
+    return await handleError(error);
+  },
+);
+
+export { anonymousAxios, optAxios, authAxios };

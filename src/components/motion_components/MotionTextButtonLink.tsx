@@ -36,7 +36,7 @@ const MotionTextButtonLink = ({
       whileHover={!disabled ? hoverOpacity : undefined}
       whileTap={!disabled ? tapEffect : undefined}
       className={cn(
-        'text-background bg-primary shadow-primary/20 rounded-2xl px-4 py-2 text-center underline-offset-4 shadow-lg transition-all',
+        'text-background bg-primary shadow-primary/20 rounded-xl px-4 py-2 text-center shadow-lg transition-all',
         disabled && 'pointer-events-none cursor-not-allowed opacity-50',
         className,
       )}

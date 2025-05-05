@@ -57,7 +57,7 @@ const hoverEffect = { scale: 1.05, transition: tweenTransition };
  * @constant hoverOpacity
  * @description Hover animation with opacity effect.
  */
-const hoverOpacity = { opacity: 0.8, transition: springEffect };
+const hoverOpacity = { opacity: 0.7, transition: springEffect };
 
 /**
  * @constant tapEffect

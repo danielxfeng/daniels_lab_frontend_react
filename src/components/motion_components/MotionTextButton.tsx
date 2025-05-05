@@ -36,7 +36,7 @@ const MotionTextButton = ({
       whileTap={!disabled ? tapEffect : undefined}
       onClick={onClick}
       className={cn(
-        'text-primary bg-transparent underline-offset-4 transition-all hover:underline',
+        'text-background bg-highlight px-6 py-2 transition-all rounded-lg',
         disabled && 'pointer-events-none cursor-not-allowed opacity-50',
         className,
       )}

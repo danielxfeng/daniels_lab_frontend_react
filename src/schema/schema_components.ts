@@ -35,14 +35,14 @@ const UsernameSchema = z
  * - 15–200 characters long
  * - Must start with https://
  */
-const AvatarUrlSchema = z
+const UrlSchema = z
   .string()
   .trim()
   .url()
   .min(15)
   .max(200)
   .refine((url) => url.startsWith('https://'), {
-    message: 'Avatar URL must start with https://',
+    message: 'URL must start with https://',
   });
 
 /**
@@ -133,8 +133,7 @@ const PostIdSchema = UUIDSchema;
  */
 const PostSlugSchema = z
   .string()
-  .min(1, 'Slug is required')
-  .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Invalid slug format');
+  .min(1, 'Slug is required');
 
 /**
  * @summary CreateAt schema
@@ -164,7 +163,7 @@ export {
   DateTimeSchema,
   UUIDSchema,
   UsernameSchema,
-  AvatarUrlSchema,
+  UrlSchema,
   ConsentSchema,
   OauthProvidersSchema,
   PostIdSchema,

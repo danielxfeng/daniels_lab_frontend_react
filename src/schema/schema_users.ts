@@ -6,7 +6,7 @@
 
 import { z } from "zod";
 import {
-  AvatarUrlSchema,
+  UrlSchema,
   CreateAtSchema,
   UpdateAtSchema,
   UsernameSchema,
@@ -31,7 +31,7 @@ const userIdSchema = z.string().trim().uuid("Invalid user ID")
  */
 const UpdateUserBodySchema = z.object({
   username: UsernameSchema,
-  avatarUrl: AvatarUrlSchema.optional(),
+  avatarUrl: UrlSchema.optional(),
 });
 
 /**
@@ -52,7 +52,7 @@ const UserIdParamSchema = z.object({
 const UserResponseSchema = z.object({
   id: userIdSchema,
   username: UsernameSchema,
-  avatarUrl: AvatarUrlSchema.nullable(),
+  avatarUrl: UrlSchema.nullable(),
   oauthProviders: z.array(z.string()),
   isAdmin: z.boolean(),
   createdAt: CreateAtSchema,

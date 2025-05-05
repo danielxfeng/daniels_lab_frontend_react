@@ -5,7 +5,7 @@ import { picAnimation } from '@/lib/animations';
 import { motion } from 'framer-motion';
 
 const AboutPage = () => (
-  <div className='inner-container flex flex-col-reverse items-center gap-8 md:gap-16 md:flex-row md:justify-between'>
+  <div className='inner-container flex flex-col-reverse items-center gap-8 md:flex-row md:justify-between md:gap-16'>
     <div className='flex-1 space-y-6'>
       <MotionH1>About Me</MotionH1>
       <p className='text-foreground text-lg leading-relaxed'>
@@ -28,7 +28,7 @@ const AboutPage = () => (
             Icon={contact.Icon}
             href={contact.href}
             ariaLabel={contact.ariaLabel}
-            className='bg-highlight text-background rounded-full p-3'
+            className='bg-primary text-background rounded-full p-3'
           />
         ))}
       </div>
