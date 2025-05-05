@@ -1,6 +1,30 @@
 import { AxiosResponse } from 'axios';
 
 /**
+ * @summary An helper class to throw a Response error.
+ */
+class HttpResponseError extends Error {
+  status: number;
+  statusText: string;
+
+  constructor(status: number, message: string, statusText: string) {
+    super(message);
+    this.status = status;
+    this.statusText = statusText;
+    this.name = 'HttpResponseError';
+  }
+}
+
+/**
+ * @summary A type guard to check if an error is an instance of HttpResponseError.
+ * @param error the error to be checked
+ * @returns true if the error is an instance of HttpResponseError, false otherwise
+ */
+const isHttpResponseError = (error: unknown): error is HttpResponseError => {
+  return error instanceof HttpResponseError;
+};
+
+/**
  * @summary An helper function to throw a Response error.
  * @param status the status code to be thrown
  * @param message the error message to be thrown
@@ -8,10 +32,7 @@ import { AxiosResponse } from 'axios';
  * @throw Response error
  */
 const throwWithErr = (status: number, message: string, statusText: string): never => {
-  throw new Response(message, {
-    status,
-    statusText,
-  });
+  throw new HttpResponseError(status, message, statusText);
 };
 
 /**
@@ -33,11 +54,27 @@ const throwWithAxiosErr = (message: string, response: AxiosResponse): never => {
  * @summary An helper function to throw a Response error.
  * @param message the error message to be thrown
  * @param err the error from the validation
- * @param status? the status code to be thrown, default is 500
  * @throw Response error
  */
-const throwWithValidationErr = (message: string, err: string, status : number = 500): never => {
-  return throwWithErr(status, `Failed to ${message}: ${err}`, 'Internal Server Error');
+const throwWithValidationErr = (message: string, err: string): never => {
+  return throwWithErr(500, `Failed to ${message}: ${err}`, 'Internal Server Error');
 };
 
-export { throwWithErr, throwWithAxiosErr, throwWithValidationErr };
+/**
+ * @summary An helper function to throw a Response error.
+ * @param message the error message to be thrown
+ * @param err the error from the validation
+ * @throw Response error
+ */
+const throwWithUserValidationErr = (message: string, err: string): never => {
+  return throwWithErr(400, `Failed to ${message}: ${err}`, 'Bad Request');
+};
+
+export {
+  HttpResponseError,
+  throwWithErr,
+  throwWithAxiosErr,
+  throwWithValidationErr,
+  throwWithUserValidationErr,
+  isHttpResponseError,
+};

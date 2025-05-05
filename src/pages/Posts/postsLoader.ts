@@ -1,4 +1,4 @@
-import { throwWithAxiosErr, throwWithValidationErr } from '@/lib/throwWithErr';
+import { throwWithAxiosErr, throwWithUserValidationErr, throwWithValidationErr } from '@/lib/throwWithErr';
 import urlParamSafeParser from '@/lib/urlParamSafeParser';
 import {
   GetPostListQuerySchema,
@@ -28,7 +28,7 @@ const postsLoader = async ({
   if (searchParams) {
     const validated = GetPostListQuerySchema.safeParse(urlParamSafeParser(searchParams));
     if (!validated.success)
-      return throwWithValidationErr('validate search params', JSON.stringify(validated.error), 400);
+      return throwWithUserValidationErr('validate search params', JSON.stringify(validated.error));
   }
 
   // Fetch posts and hot tags concurrently

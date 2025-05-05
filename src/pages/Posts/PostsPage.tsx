@@ -92,7 +92,7 @@ const PostsFilter = ({ hotTags }: { hotTags: TagsResponse }) => {
     const from = searchParams.get('from') ?? undefined;
     const to = searchParams.get('to') ?? undefined;
 
-    const allTags = searchParams.getAll('tag');
+    const allTags = searchParams.getAll('tags');
     const validTags = allTags.filter((tag) => hotTags.tags.includes(tag));
 
     reset({ from, to, tags: validTags });
@@ -107,7 +107,7 @@ const PostsFilter = ({ hotTags }: { hotTags: TagsResponse }) => {
     const params = new URLSearchParams({ limit: '10', offset: '0' });
     if (values.from) params.set('from', values.from);
     if (values.to) params.set('to', values.to);
-    values.tags.forEach((tag) => params.append('tag', tag));
+    values.tags.forEach((tag) => params.append('tags', tag));
 
     // Reset the form and navigate to the posts page
     reset();
@@ -144,7 +144,7 @@ const PostsFilter = ({ hotTags }: { hotTags: TagsResponse }) => {
               ariaLabel='Cancel filter'
               type='button'
               onClick={() => {
-                navigate('/posts');
+                navigate('/blog/posts');
               }}
               disabled={isSubmitting}
               className='bg-muted text-muted-foreground w-fit'
