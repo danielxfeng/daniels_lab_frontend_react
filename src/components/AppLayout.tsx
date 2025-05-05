@@ -3,6 +3,7 @@ import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer';
 import { Suspense } from 'react';
 import Loading from './Loading';
+import { Toaster } from 'sonner';
 
 const AppLayout = () => {
   return (
@@ -13,7 +14,9 @@ const AppLayout = () => {
           <Outlet />
         </Suspense>
       </main>
+      {/* Footer */}
       <Footer />
+      <Toaster />
     </div>
   );
 };
