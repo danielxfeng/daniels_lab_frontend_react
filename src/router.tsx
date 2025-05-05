@@ -38,7 +38,7 @@ const router = createBrowserRouter([
               // share buttons
               // todo loader
               // todo action
-              { path: ':id', Component: () => <div>Blog Post</div> },
+              { path: ':slug', Component: () => <div>Blog Post</div>, loader: postsLoader },
               // a form to add a post.
               // a combo box to add/select tags
               // shared components with edit post
