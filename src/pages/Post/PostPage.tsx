@@ -14,7 +14,7 @@ const PostPage = () => {
   const isAdmin = user?.isAdmin;
 
   return (
-    <article className='inner-container flex flex-col items-center max-w-3xl gap-4'>
+    <article className='inner-container flex max-w-3xl flex-col items-center gap-4'>
       <div className='flex w-full items-center justify-end gap-2'>
         {isAuthor && (
           <MotionTextButtonLink
@@ -40,7 +40,7 @@ const PostPage = () => {
         authorAvatar={post.authorAvatar}
         createdAt={post.createdAt}
       />
-      <SafeStyledMarkdown markdown={post.markdown!} />
+      <SafeStyledMarkdown markdown={post.markdown!} className='w-full md:mt-3' />
       <footer className='flex flex-wrap items-center gap-1.5'>
         <span className='mr-2'>Tags:</span>
         {post.tags.map((tag: string) => (

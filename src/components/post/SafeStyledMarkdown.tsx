@@ -3,6 +3,7 @@ import DOMPurify from 'dompurify';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 // Configure marked to use GitHub Flavored Markdown (GFM) and enable line breaks
 marked.setOptions({
@@ -38,9 +39,10 @@ DOMPurify.addHook('afterSanitizeAttributes', (node) => {
 /**
  * A component to render markdown safety and styled
  * @param markdown - The markdown string to be rendered
+ * @param className - Optional additional class names to be applied to the component
  * @returns A React component that renders the markdown string
  */
-const SafeStyledMarkdown = ({ markdown }: { markdown: string }) => {
+const SafeStyledMarkdown = ({ markdown, className }: { markdown: string; className?: string }) => {
   const [html, setHtml] = useState('');
 
   useEffect(() => {
@@ -54,7 +56,7 @@ const SafeStyledMarkdown = ({ markdown }: { markdown: string }) => {
 
   return (
     <div
-      className='prose dark:prose-invert max-w-none'
+      className={cn('prose dark:prose-invert w-full max-w-none', className)}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
