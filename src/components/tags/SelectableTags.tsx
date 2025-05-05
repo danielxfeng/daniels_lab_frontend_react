@@ -6,10 +6,10 @@ import { motion } from 'framer-motion';
 // To toggle the style of the tag.
 const tagClass = (selected: boolean) =>
   cn(
-    'rounded-full border px-3 py-1 text-sm transition-colors duration-200',
+    'rounded-full border px-3 py-1 text-sm transition-colors duration-200 shadow-sm',
     'focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
     selected
-      ? 'bg-primary text-background shadow-sm'
+      ? 'bg-primary text-background shadow'
       : 'bg-muted text-muted-foreground hover:bg-muted/80',
   );
 
@@ -43,7 +43,7 @@ const SelectableTags = ({
     variant='outline'
     value={selectedTags} // state of useState
     onValueChange={setSelectedTags} // setState of useState
-    className='grid grid-flow-row auto-rows-min grid-cols-[repeat(auto-fit,minmax(100px,auto))] gap-2'
+    className='flex flex-wrap gap-2'
   >
     {tags.map((tag: string) => (
       <SelectableTag key={tag} tag={tag} selected={selectedTags.includes(tag)} />

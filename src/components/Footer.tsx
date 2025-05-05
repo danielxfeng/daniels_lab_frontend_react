@@ -6,8 +6,8 @@ import siteMeta from '@/constants/siteMeta';
  * The Footer component.
  */
 const Footer = () => (
-  <footer className='outer-container text-primary font-semibold'>
-    <div className='inner-container flex flex-col justify-center gap-3 md:min-h-20 md:flex-row md:justify-between'>
+  <footer className='outer-container text-primary py-6'>
+    <div className='inner-container flex flex-col justify-center gap-3 md:flex-row md:justify-between'>
       <div>
         &copy; {siteMeta.copyRightYear} {siteMeta.siteName}
       </div>

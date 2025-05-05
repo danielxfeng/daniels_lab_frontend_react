@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 const Author = ({ name, avatarUrl }: { name: string; avatarUrl?: string }) => {
   return (
     <div className='flex items-center gap-2'>
-      <Avatar className='h-10 w-10 md:h-12 md:w-12'>
+      <Avatar className='h-6 w-6'>
         <AvatarImage src={avatarUrl} alt={`${name}'s avatar`} />
         <AvatarFallback>{name?.[0] ?? 'U'}</AvatarFallback>
       </Avatar>

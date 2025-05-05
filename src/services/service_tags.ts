@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { anonymousAxios } from '@/lib/axios_instance';
+import { anonymousAxios } from '@/lib/axiosInstance';
 import { TagsResponse } from '@/schema/schema_tag';
 
 const getHotTags = async (): Promise<AxiosResponse<TagsResponse>> => {

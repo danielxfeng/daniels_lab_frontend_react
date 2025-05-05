@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Pagination,
   PaginationContent,
@@ -7,6 +7,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from './ui/pagination';
+import { motion } from 'framer-motion';
 import siteMeta from '@/constants/siteMeta';
 import useUserStore from '@/stores/useUserStore';
 import { PostListResponse, PostResponse } from '@/schema/schema_post';
@@ -14,34 +15,53 @@ import SafeStyledMarkdown from '@/components/SafeStyledMarkdown';
 import Author from '@/components/Author';
 import LazyImage from '@/components/LazyImage';
 import MotionTextButtonLink from '@/components/motion_components/MotionTextButtonLink';
+import { hoverEffect, tapEffect } from '@/lib/animations';
 
 // A post component that displays a single post
 const Post = ({ post }: { post: PostResponse }) => (
-  <article className='flex gap-2 shadow-md'>
-    <LazyImage src={post.cover} alt={post.title} className={'h-32 w-56'} />
-    <div className='flex flex-1 flex-col p-4'>
-      <header>
-        <h3 className='line-clamp-1'>{post.title}</h3>
-      </header>
-      <div className='mt-2 max-h-28 overflow-hidden'>
-        <SafeStyledMarkdown markdown={post.excerpt} />
+  <motion.article
+    whileHover={hoverEffect}
+    whileTap={tapEffect}
+    className='bg-background flex items-center gap-2 px-2 py-2 transition-shadow hover:shadow-lg'
+  >
+    <Link to={`/blog/posts/${post.slug}`} className='flex w-full items-center'>
+      <LazyImage
+        src={post.cover}
+        alt={post.title}
+        className='hidden h-16 w-28 shrink-0 rounded-2xl shadow-2xl md:flex md:h-32 md:w-56'
+      />
+      <div className='flex flex-1 flex-col p-4 gap-2'>
+        <header>
+          <h3 className='line-clamp-1'>{post.title}</h3>
+        </header>
+        <LazyImage
+          src={post.cover}
+          alt={post.title}
+          className='mx-auto h-32 w-56 shrink-0 rounded-2xl shadow-2xl md:hidden text-center'
+        />
+        <div className='mt-2 max-h-28 overflow-hidden'>
+          <SafeStyledMarkdown markdown={post.excerpt} />
+        </div>
+        <footer className='text-muted-foreground mt-auto flex flex-col justify-between gap-2 pt-3 text-xs'>
+          <div>
+            <span className='mr-2'>Tags:</span>
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className='bg-muted/90 text-muted-foreground mr-1 rounded-xl px-2 py-1 text-xs'
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <div className='flex items-center justify-between'>
+            <Author name={post.authorName} avatarUrl={post.authorAvatar ?? undefined} />
+            <div>{format(new Date(post.createdAt!), 'PPP')}</div>
+          </div>
+        </footer>
       </div>
-      <footer className='text-muted-foreground mt-auto flex justify-between pt-3 text-xs'>
-        <div>
-          <span className='mr-2'>Tags:</span>
-          {post.tags.map((tag) => (
-            <span key={tag} className='bg-muted mr-1 rounded-full px-2 py-1 text-xs'>
-              {tag}
-            </span>
-          ))}
-        </div>
-        <div className='flex justify-between gap-2'>
-          <Author name={post.authorName} avatarUrl={post.authorAvatar ?? undefined} />
-          <div>{format(new Date(post.createdAt!), 'PPP')}</div>
-        </div>
-      </footer>
-    </div>
-  </article>
+    </Link>
+  </motion.article>
 );
 
 // A pagination component that displays the pagination controls

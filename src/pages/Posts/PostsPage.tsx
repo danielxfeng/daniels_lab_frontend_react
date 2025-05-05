@@ -46,7 +46,7 @@ const DatePickerField = ({
               <Button
                 variant='outline'
                 className={cn(
-                  'w-[280px] justify-start text-left font-normal',
+                  'w-2/3 justify-start text-left font-normal',
                   !date && 'text-muted-foreground',
                 )}
               >
@@ -115,10 +115,10 @@ const PostsFilter = ({ hotTags }: { hotTags: TagsResponse }) => {
   };
 
   return (
-    <aside>
+    <aside className='w-full md:mt-10'>
       <h2>Filter the posts</h2>
       <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-        <fieldset disabled={isSubmitting}>
+        <fieldset className='flex flex-col  gap-10 md:my-10' disabled={isSubmitting}>
           {/* The list of selectable tags */}
           <Controller
             name='tags'
@@ -133,7 +133,7 @@ const PostsFilter = ({ hotTags }: { hotTags: TagsResponse }) => {
           />
 
           {/* The date range picker */}
-          <div className='flex gap-2'>
+          <div className='flex flex-col gap-2 md:gap-10'>
             <DatePickerField name='from' control={control} label='From' />
             <DatePickerField name='to' control={control} label='To' />
           </div>
@@ -143,6 +143,7 @@ const PostsFilter = ({ hotTags }: { hotTags: TagsResponse }) => {
             ariaLabel='Filter posts'
             type='submit'
             disabled={isSubmitting}
+            className='w-fit'
           />
         </fieldset>
       </form>
@@ -157,11 +158,15 @@ const PostsFilter = ({ hotTags }: { hotTags: TagsResponse }) => {
 const PostsPage = () => {
   const { postsListRes, hotTags } = useLoaderData();
   return (
-    <div className='inner-container flex flex-col gap-10 md:gap-16'>
+    <div className='inner-container flex flex-col items-start'>
       <MotionH1>Posts</MotionH1>
       <div className='posts flex flex-col-reverse gap-10 md:flex-row md:justify-between'>
-        <PostsFilter hotTags={hotTags} />
-        <PostsList postsResponse={postsListRes} />
+        <div className='w-full md:w-1/4'>
+          <PostsFilter hotTags={hotTags} />
+        </div>
+        <div className='w-full md:w-3/4'>
+          <PostsList postsResponse={postsListRes} />
+        </div>
       </div>
     </div>
   );

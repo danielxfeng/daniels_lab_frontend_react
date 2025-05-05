@@ -1,5 +1,10 @@
-import { throwWithAxiosErr, throwWithValidationErr } from '@/lib/throw_with_err';
-import { PostListResponse, PostListResponseSchema } from '@/schema/schema_post';
+import { throwWithAxiosErr, throwWithValidationErr } from '@/lib/throwWithErr';
+import urlParamSafeParser from '@/lib/urlParamSafeParser';
+import {
+  GetPostListQuerySchema,
+  PostListResponse,
+  PostListResponseSchema,
+} from '@/schema/schema_post';
 import { TagsResponse, TagsResponseSchema } from '@/schema/schema_tag';
 import { getHotTags } from '@/services/service_tags';
 import { getPosts } from '@/services/services_posts';
@@ -15,11 +20,20 @@ const postsLoader = async ({
 }: {
   request: Request;
 }): Promise<{ postsListRes: PostListResponse; hotTags: TagsResponse }> => {
-  // Forward the search params to the service
+  // Get the URL and search parameters from the request
   const url = new URL(request.url);
-  const searchParams = url.searchParams.toString();
+  const searchParams = url.searchParams;
+
+  // Validate the search parameters using the schema
+  if (searchParams) {
+    const validated = GetPostListQuerySchema.safeParse(urlParamSafeParser(searchParams));
+    if (!validated.success)
+      return throwWithValidationErr('validate search params', JSON.stringify(validated.error), 400);
+  }
+
+  // Fetch posts and hot tags concurrently
   const [postsListRes, hotTagsRes] = await Promise.all([
-    getPosts(searchParams),
+    getPosts(url.searchParams.toString()),
     getHotTags(),
   ]);
 

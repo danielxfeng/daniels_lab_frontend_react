@@ -33,10 +33,11 @@ const throwWithAxiosErr = (message: string, response: AxiosResponse): never => {
  * @summary An helper function to throw a Response error.
  * @param message the error message to be thrown
  * @param err the error from the validation
+ * @param status? the status code to be thrown, default is 500
  * @throw Response error
  */
-const throwWithValidationErr = (message: string, err: string): never => {
-  return throwWithErr(500, `Failed to ${message}: ${err}`, 'Internal Server Error');
+const throwWithValidationErr = (message: string, err: string, status : number = 500): never => {
+  return throwWithErr(status, `Failed to ${message}: ${err}`, 'Internal Server Error');
 };
 
 export { throwWithErr, throwWithAxiosErr, throwWithValidationErr };
