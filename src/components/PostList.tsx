@@ -1,14 +1,14 @@
-import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import useUserStore from '@/stores/useUserStore';
 import { PostListResponse, PostResponse } from '@/schema/schema_post';
-import SafeStyledMarkdown from '@/components/SafeStyledMarkdown';
-import Author from '@/components/Author';
+import SafeStyledMarkdown from '@/components/post/SafeStyledMarkdown';
 import LazyImage from '@/components/LazyImage';
 import MotionTextButtonLink from '@/components/motion_components/MotionTextButtonLink';
 import { hoverEffect, tapEffect } from '@/lib/animations';
 import Pagination from '@/components/Pagination';
+import AuthorDateBar from './post/AuthorDateBar';
+import TagsBar from './tags/TagsBar';
 
 // A post component that displays a single post
 const Post = ({ post }: { post: PostResponse }) => (
@@ -36,22 +36,12 @@ const Post = ({ post }: { post: PostResponse }) => (
           <SafeStyledMarkdown markdown={post.excerpt} />
         </div>
         <footer className='text-muted-foreground mt-auto flex flex-col justify-between gap-2.5 pt-3 text-xs'>
-          <div className='flex flex-wrap items-center gap-1.5'>
-            <span className='mr-2'>Tags:</span>
-            {post.tags.map((tag) => (
-              <MotionTextButtonLink
-                to={`/blog/posts/?tags=${tag}`}
-                label={`${tag}`}
-                ariaLabel={`to posts with tag ${tag}`}
-                className='bg-highlight rounded-md px-2 py-0.5 text-sm'
-                isExternal={false}
-              />
-            ))}
-          </div>
-          <div className='flex items-center justify-between'>
-            <Author name={post.authorName} avatarUrl={post.authorAvatar ?? undefined} />
-            <div>{format(new Date(post.createdAt!), 'PPP')}</div>
-          </div>
+          <TagsBar tags={post.tags} />
+          <AuthorDateBar
+            authorName={post.authorName}
+            authorAvatar={post.authorAvatar}
+            createdAt={post.createdAt}
+          />
         </footer>
       </div>
     </Link>
