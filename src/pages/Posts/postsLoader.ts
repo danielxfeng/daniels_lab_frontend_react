@@ -50,7 +50,6 @@ const postsLoader = async ({
   if (!validatedHotTags.success)
     return throwWithValidationErr('validate hot tags', JSON.stringify(validatedHotTags.error));
 
-  console.log(JSON.stringify(validatedPosts.data));
   // Return the validated data
   return {
     postsListRes: validatedPosts.data,

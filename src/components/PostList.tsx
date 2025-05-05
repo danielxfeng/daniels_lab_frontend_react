@@ -1,14 +1,6 @@
 import { format } from 'date-fns';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationNext,
-  PaginationPrevious,
-} from './ui/pagination';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import siteMeta from '@/constants/siteMeta';
 import useUserStore from '@/stores/useUserStore';
 import { PostListResponse, PostResponse } from '@/schema/schema_post';
 import SafeStyledMarkdown from '@/components/SafeStyledMarkdown';
@@ -16,6 +8,7 @@ import Author from '@/components/Author';
 import LazyImage from '@/components/LazyImage';
 import MotionTextButtonLink from '@/components/motion_components/MotionTextButtonLink';
 import { hoverEffect, tapEffect } from '@/lib/animations';
+import Pagination from '@/components/Pagination';
 
 // A post component that displays a single post
 const Post = ({ post }: { post: PostResponse }) => (
@@ -64,59 +57,6 @@ const Post = ({ post }: { post: PostResponse }) => (
   </motion.article>
 );
 
-// A pagination component that displays the pagination controls
-const PaginationComponent = ({ total, offset }: { total: number; offset: number }) => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-
-  const limit = siteMeta.paginationLimit;
-  const currentOffset = offset || 0;
-
-  // Set the base URL parameters for pagination
-  const getBaseParams = () => {
-    const base = new URLSearchParams(searchParams);
-    base.delete('offset');
-    base.set('limit', limit.toString());
-    return base;
-  };
-
-  // Assemble the URL parameters for prev
-  const goToPrevious = () => {
-    const base = getBaseParams();
-    const newOffset = Math.max(0, currentOffset - limit);
-    base.set('offset', newOffset.toString());
-    navigate(`?${base.toString()}`);
-  };
-
-  // Assemble the URL parameters for next
-  const goToNext = () => {
-    const base = getBaseParams();
-    const newOffset = currentOffset + limit;
-    base.set('offset', newOffset.toString());
-    navigate(`?${base.toString()}`);
-  };
-
-  const hasPrevious = currentOffset > 0;
-  const hasNext = currentOffset + limit < total;
-
-  return (
-    <Pagination>
-      <PaginationContent>
-        {hasPrevious && (
-          <PaginationItem>
-            <PaginationPrevious onClick={goToPrevious} />
-          </PaginationItem>
-        )}
-        {hasNext && (
-          <PaginationItem>
-            <PaginationNext onClick={goToNext} />
-          </PaginationItem>
-        )}
-      </PaginationContent>
-    </Pagination>
-  );
-};
-
 /**
  * The PostsList component displays a list of posts.
  * @param postsResponse - The response object containing the list of posts.
@@ -145,7 +85,7 @@ const PostsList = ({ postsResponse }: { postsResponse: PostListResponse }) => {
         <Post key={post.id} post={post} />
       ))}
       {/* Pagination */}
-      <PaginationComponent total={postsResponse.total} offset={postsResponse.offset} />
+      <Pagination total={postsResponse.total} offset={postsResponse.offset} isPrevEnabled={true} />
       {/* If there are no posts, show a message */}
       {/* No posts available message */}
       {postsResponse.posts.length === 0 && (
