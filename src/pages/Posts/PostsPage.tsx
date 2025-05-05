@@ -118,7 +118,7 @@ const PostsFilter = ({ hotTags }: { hotTags: TagsResponse }) => {
     <aside className='w-full md:mt-10'>
       <h2>Filter the posts</h2>
       <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-        <fieldset className='flex flex-col  gap-10 md:my-10' disabled={isSubmitting}>
+        <fieldset className='flex flex-col gap-10 md:my-10' disabled={isSubmitting}>
           {/* The list of selectable tags */}
           <Controller
             name='tags'
@@ -131,20 +131,32 @@ const PostsFilter = ({ hotTags }: { hotTags: TagsResponse }) => {
               />
             )}
           />
-
+          <hr className='border-muted' />
           {/* The date range picker */}
           <div className='flex flex-col gap-2 md:gap-10'>
             <DatePickerField name='from' control={control} label='From' />
             <DatePickerField name='to' control={control} label='To' />
           </div>
-
-          <MotionTextButton
-            label='Filter'
-            ariaLabel='Filter posts'
-            type='submit'
-            disabled={isSubmitting}
-            className='w-fit'
-          />
+          <hr className='border-muted' />
+          <div className='flex gap-2'>
+            <MotionTextButton
+              label='Reset'
+              ariaLabel='Cancel filter'
+              type='button'
+              onClick={() => {
+                navigate('/posts');
+              }}
+              disabled={isSubmitting}
+              className='bg-muted text-muted-foreground w-fit'
+            />
+            <MotionTextButton
+              label='Filter'
+              ariaLabel='Filter posts'
+              type='submit'
+              disabled={isSubmitting}
+              className='w-fit'
+            />
+          </div>
         </fieldset>
       </form>
     </aside>

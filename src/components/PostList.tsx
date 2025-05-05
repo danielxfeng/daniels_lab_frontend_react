@@ -21,30 +21,31 @@ const Post = ({ post }: { post: PostResponse }) => (
       <LazyImage
         src={post.cover}
         alt={post.title}
-        className='hidden h-16 w-28 shrink-0 rounded-2xl shadow-2xl md:flex md:h-32 md:w-56'
+        className='hidden h-16 w-28 shrink-0 rounded-xl shadow-2xl md:flex md:h-32 md:w-56'
       />
-      <div className='flex flex-1 flex-col p-4 gap-2'>
+      <div className='flex flex-1 flex-col gap-2 p-4'>
         <header>
           <h3 className='line-clamp-1'>{post.title}</h3>
         </header>
         <LazyImage
           src={post.cover}
           alt={post.title}
-          className='mx-auto h-32 w-56 shrink-0 rounded-2xl shadow-2xl md:hidden text-center'
+          className='mx-auto h-32 w-56 shrink-0 rounded-2xl text-center shadow-2xl md:hidden'
         />
         <div className='mt-2 max-h-28 overflow-hidden'>
           <SafeStyledMarkdown markdown={post.excerpt} />
         </div>
-        <footer className='text-muted-foreground mt-auto flex flex-col justify-between gap-2 pt-3 text-xs'>
-          <div>
+        <footer className='text-muted-foreground mt-auto flex flex-col justify-between gap-2.5 pt-3 text-xs'>
+          <div className='flex flex-wrap items-center gap-1.5'>
             <span className='mr-2'>Tags:</span>
             {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className='bg-muted/90 text-muted-foreground mr-1 rounded-xl px-2 py-1 text-xs'
-              >
-                {tag}
-              </span>
+              <MotionTextButtonLink
+                to={`/blog/posts/?tags=${tag}`}
+                label={`${tag}`}
+                ariaLabel={`to posts with tag ${tag}`}
+                className='bg-highlight rounded-md px-2 py-0.5 text-sm'
+                isExternal={false}
+              />
             ))}
           </div>
           <div className='flex items-center justify-between'>

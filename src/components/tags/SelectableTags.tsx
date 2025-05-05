@@ -7,10 +7,10 @@ import { motion } from 'framer-motion';
 const tagClass = (selected: boolean) =>
   cn(
     'rounded-full border px-3 py-1 text-sm transition-colors duration-200 shadow-sm',
-    'focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+    'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
     selected
-      ? 'bg-primary text-background shadow'
-      : 'bg-muted text-muted-foreground hover:bg-muted/80',
+      ? '!bg-highlight !text-background  shadow'
+      : 'bg-muted text-muted-foreground hover:bg-muted/70',
   );
 
 // A tag that can be toggled.
@@ -38,17 +38,20 @@ const SelectableTags = ({
   selectedTags: string[];
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
 }) => (
-  <ToggleGroup
-    type='multiple'
-    variant='outline'
-    value={selectedTags} // state of useState
-    onValueChange={setSelectedTags} // setState of useState
-    className='flex flex-wrap gap-2'
-  >
-    {tags.map((tag: string) => (
-      <SelectableTag key={tag} tag={tag} selected={selectedTags.includes(tag)} />
-    ))}
-  </ToggleGroup>
+  <div className='flex flex-col gap-2'>
+    <h4>🔥 tags:</h4>
+    <ToggleGroup
+      type='multiple'
+      variant='outline'
+      value={selectedTags} // state of useState
+      onValueChange={setSelectedTags} // setState of useState
+      className='flex flex-wrap gap-2 !shadow-none'
+    >
+      {tags.map((tag: string) => (
+        <SelectableTag key={tag} tag={tag} selected={selectedTags.includes(tag)} />
+      ))}
+    </ToggleGroup>
+  </div>
 );
 
 export default SelectableTags;
