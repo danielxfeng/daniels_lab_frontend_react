@@ -4,7 +4,12 @@ import { toast } from 'sonner';
 import { getLikeStatus, likePost, unlikePost } from '@/services/service_likes';
 import { LikeStatusResponse, LikeStatusResponseSchema } from '@/schema/schema_like';
 import MotionIconButton from './motion_components/MotionIconButton';
-import { AxiosResponse } from 'axios';
+
+// Fallback value
+const fallback: LikeStatusResponse = {
+  count: 0,
+  liked: false,
+};
 
 /**
  * @summary A component that displays the like status of a post.
@@ -19,11 +24,6 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
 
   // LikeStatus fetcher
   const fetchLikeStatus = async (postId: string): Promise<LikeStatusResponse> => {
-    // Fallback value
-    const fallback: LikeStatusResponse = {
-      count: 0,
-      liked: false,
-    };
     // Fetch like status
     const response = await getLikeStatus(postId);
 
@@ -47,31 +47,32 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
     // toast user to log in
     if (!userId) return toast.warning('Please log in to like this post');
 
-    let res: AxiosResponse<unknown>;
-
     // Send like/unlike request
     setLoading(true);
-    if (liked) res = await unlikePost(postId);
-    else res = await likePost(postId);
+    try {
+      const res = liked ? await unlikePost(postId) : await likePost(postId);
 
-    // To prevent flickering
-    setLoading(false);
-    // 204: successful like/unlike
-    if (res.status == 204) {
-      setCount((prev) => (liked ? prev - 1 : prev + 1));
-      setLiked((prev) => !prev);
-      return;
+      // 204: successful like/unlike
+      if (res.status == 204) {
+        setCount((prev) => (liked ? prev - 1 : prev + 1));
+        setLiked((prev) => !prev);
+        return;
+      }
+
+      // 404: post not found or duplicate like
+      if (res.status == 404) return;
+
+      // 401: user not logged in
+      if (res.status == 401) return toast.warning('Please log in to like this post');
+
+      // Other errors
+      throw new Error('Unexpected response status: ' + res.status);
+    } catch (error) {
+      console.error('Error toggling like:', error);
+      toast.error('Error toggling like. Please try again later.');
+    } finally {
+      setLoading(false);
     }
-
-    // 404: post not found or duplicate like
-    if (res.status == 404) return;
-
-    // 401: user not logged in
-    if (res.status == 401) return toast.warning('Please log in to like this post');
-
-    // Other errors.
-    console.error('Error toggling like:', res.status);
-    return toast.warning('Error toggling like');
   };
 
   // A hook to fetch the status on mount
