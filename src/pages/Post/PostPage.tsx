@@ -6,7 +6,7 @@ import AuthorDateBar from '@/components/post/AuthorDateBar';
 import useUserStore from '@/stores/useUserStore';
 import MotionTextButtonLink from '@/components/motion_components/MotionTextButtonLink';
 import Likes from '@/components/Likes';
-import Comments from '@/components/Comments';
+import Comments from '@/components/comments/Comments';
 import MotionH1 from '@/components/motion_components/MotionH1';
 
 const PostPage = () => {
