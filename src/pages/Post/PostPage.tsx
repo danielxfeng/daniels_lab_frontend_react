@@ -11,7 +11,6 @@ import MotionH1 from '@/components/motion_components/MotionH1';
 
 const PostPage = () => {
   const { post } = useLoaderData() as { post: PostResponse };
-  //console.log('PostPage', JSON.stringify(post));
   const user = useUserStore.getState().user;
   const isAuthor = user?.id === post.authorId;
   const isAdmin = user?.isAdmin;
@@ -55,19 +54,24 @@ const PostPage = () => {
 
       {/* The post footer */}
       <footer className='text-muted-foreground mt-6 flex w-full flex-col items-start justify-start gap-3'>
-        {/* The post tags */}
-        <div className='flex flex-wrap gap-2'>
-          <span className='mr-2'>Tags:</span>
-          {post.tags.map((tag: string) => (
-            <span key={`${tag}`} className='bg-muted rounded-md px-2 py-0.5 text-sm'>
-              {`#${tag}`}
-            </span>
-          ))}
+
+        <div className='w-full flex flex-col gap-2 items-start justify-between md:flex-row md:items-center'>
+          {/* The post likes */}
+          <Likes postId={post.id} userId={user?.id} />
+          {/* The post tags */}
+          <div className='flex gap-2'>
+            <div className='mr-2'>Tags:</div>
+            <div className='flex flex-wrap gap-2'>
+              {post.tags.map((tag: string) => (
+                <span key={`${tag}`} className='bg-muted rounded-md px-2 py-0.5 text-sm'>
+                  {`#${tag}`}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
-        {/* The post likes */}
-        <Likes postId={post.id} userId={user?.id} />
         {/* The post comments */}
-        <Comments postId={post.id} userId={user?.id} />
+        <Comments postId={post.id} />
       </footer>
     </article>
   );

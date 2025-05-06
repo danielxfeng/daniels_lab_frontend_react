@@ -10,6 +10,7 @@ import { useCallback, useEffect, useState } from 'react';
 import CommentForm from './CommentForm';
 import CommentCard from './CommentCard';
 import MotionTextButton from '../motion_components/MotionTextButton';
+import Spinner from '../Spinner';
 
 // Get of Crud comments
 const getCommentsHelper = async (postId: string, offset: number): Promise<CommentsListResponse> => {
@@ -64,7 +65,13 @@ const Comments = ({ postId }: { postId: string }) => {
       setIsLoading(true);
       try {
         const res = await getCommentsHelper(postId, offset);
-        setComments((prev) => [...prev, ...res.comments]);
+        setComments((prev) => {
+          // Anti duplication for the double fetching in `strict mode`
+          const newComments = res.comments.filter(
+            (c) => !prev.some((comment) => comment.id === c.id),
+          );
+          return [...prev, ...newComments];
+        });
         setTotal(res.total);
         setOffset(res.offset);
       } catch (error) {
@@ -86,7 +93,7 @@ const Comments = ({ postId }: { postId: string }) => {
   }, [fetchComments]);
 
   return (
-    <aside className='mx-auto flex max-w-2xl flex-col gap-2'>
+    <aside className='mx-auto flex w-full max-w-2xl flex-col gap-2'>
       <CommentForm user={user} comment={undefined} postId={postId} setComments={setComments} />
       {comments.map((comment) => (
         <CommentCard key={comment.id} comment={comment} user={user} setComments={setComments} />
@@ -102,6 +109,9 @@ const Comments = ({ postId }: { postId: string }) => {
           className={'bg-muted text-muted-foreground mt-3 py-2 text-sm'}
         />
       )}
+
+      {/* Loading spinner */}
+      {isLoading && <Spinner />}
     </aside>
   );
 };

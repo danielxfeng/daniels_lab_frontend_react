@@ -163,7 +163,7 @@ const CommentForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className='my-3'>
       <fieldset className='flex flex-col gap-2' disabled={loading}>
         <Textarea
           {...register('content')}
@@ -174,7 +174,7 @@ const CommentForm = ({
         {errors.content && (
           <span className='text-destructive text-sm'>{errors.content.message}</span>
         )}
-        <div className='flex justify-end'>
+        <div className='flex justify-end my-2'>
           <MotionTextButton
             type='submit'
             label={comment ? 'Update' : 'Comment'}
