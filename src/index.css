@@ -134,3 +134,8 @@ h3 {
 h4 {
   @apply text-primary mt-2 mb-1 text-lg font-medium;
 }
+
+/* Ensure code block styles are preserved when rendering Markdown with DOMPurify. */
+pre {
+  @apply bg-black;
+}

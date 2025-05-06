@@ -23,14 +23,18 @@ const InputComponent = ({
     //We register the keyword to component
     {...register('keyword')}
     // Define the style
-    className='bg-input border-primary ring-ring w-full rounded-4xl border px-4 py-2 text-sm shadow-sm focus:ring focus:outline-none'
+    className='bg-muted border-muted-foreground ring-ring w-full rounded-xl border px-4 py-2 text-sm shadow-sm focus:ring focus:outline-none'
     placeholder='Search posts...'
     // We expand the dropdown history when the input is focused
     onFocus={() => setShowDropdown(true)}
     // It's a wired behavior. When user is clicking the dropdown item,
     // the input will be blurred before the click event is fired.
     // Therefore, we delay the closing after the onClick event is fired.
-    onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
+    onBlur={(e) => {
+      if (!e.relatedTarget || !(e.relatedTarget as HTMLElement).closest('.dropdown-history')) {
+        setShowDropdown(false);
+      }
+    }}
     // We set the `enter` key to submit the form
     onKeyDown={(e) => {
       if (e.key === 'Enter') {
@@ -55,7 +59,7 @@ const DropdownHistory = ({
       {showDropdown && history.length > 0 && (
         <motion.ul
           {...easeInOut}
-          className='bg-background absolute z-10 mt-1 flex w-full flex-col gap-0 px-2 pb-2 md:rounded-xl md:shadow'
+          className='bg-background absolute z-10 mt-1 flex w-full flex-col gap-0 px-2 pb-2 md:rounded-xl md:shadow dropdown-history'
         >
           {/* Iterate all items */}
           {history.map((item) => (
