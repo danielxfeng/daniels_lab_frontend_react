@@ -6,6 +6,7 @@ const siteMeta = {
   siteName: 'Fancy Blog',
   copyRightYear: new Date().getFullYear(),
   author: 'Daniel',
+  siteUrl: 'https://yourdomain.com',
 };
 
 export default siteMeta;

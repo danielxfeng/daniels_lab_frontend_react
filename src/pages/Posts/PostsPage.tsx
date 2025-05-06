@@ -1,26 +1,42 @@
+import { useEffect } from 'react';
+import { Control, Controller, useForm } from 'react-hook-form';
+import { useLoaderData, useNavigate, useSearchParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
-import { useLoaderData, useNavigate, useSearchParams } from 'react-router-dom';
-import { Control, Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { Helmet } from 'react-helmet-async';
 import { cn } from '@/lib/utils';
 import { tagSchema, TagsResponse } from '@/schema/schema_tag';
+import { DateTimeSchema } from '@/schema/schema_components';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import SelectableTags from '@/components/tags/SelectableTags';
-import { DateTimeSchema } from '@/schema/schema_components';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import PostsList from '@/components/PostList';
-import { useEffect } from 'react';
+import siteMeta from '@/constants/siteMeta';
 
 const FilterFormSchema = z.object({
   tags: z.array(tagSchema),
   from: DateTimeSchema.optional(),
   to: DateTimeSchema.optional(),
 });
+
+// A component to set the meta information for SEO
+const MetaInfo = () => (
+  <Helmet>
+    <title>All Posts – YourSiteName</title>
+    <meta name='description' content={`Browse all blog posts on ${siteMeta.siteName}`} />
+    <meta property='og:title' content={`All Posts – ${siteMeta.siteName}`} />
+    <meta property='og:description' content={`Browse all blog posts on ${siteMeta.siteName}.`} />
+    <meta property='og:type' content='website' />
+    <meta property='og:url' content={`${siteMeta.siteUrl}/blog/posts`} />
+    <meta property='og:image' content={`${siteMeta.siteUrl}/cover.png`} />
+    <meta name='twitter:card' content='summary_large_image' />
+  </Helmet>
+);
 
 type FormValues = z.infer<typeof FilterFormSchema>;
 
@@ -46,7 +62,7 @@ const DatePickerField = ({
               <Button
                 variant='outline'
                 className={cn(
-                  'flex-1 justify-start text-left font-normal min-w-2/3',
+                  'min-w-2/3 flex-1 justify-start text-left font-normal',
                   !date && 'text-muted-foreground',
                 )}
               >
@@ -133,7 +149,7 @@ const PostsFilter = ({ hotTags }: { hotTags: TagsResponse }) => {
           />
           <hr className='border-muted' />
           {/* The date range picker */}
-          <div className='flex flex-wrap w-fit gap-2 md:gap-10'>
+          <div className='flex w-fit flex-wrap gap-2 md:gap-10'>
             <DatePickerField name='from' control={control} label='From' />
             <DatePickerField name='to' control={control} label='To' />
           </div>
@@ -170,17 +186,20 @@ const PostsFilter = ({ hotTags }: { hotTags: TagsResponse }) => {
 const PostsPage = () => {
   const { postsListRes, hotTags } = useLoaderData();
   return (
-    <div className='inner-container flex flex-col items-start'>
-      <MotionH1>Posts</MotionH1>
-      <div className='posts flex flex-col-reverse gap-10 md:flex-row md:justify-between'>
-        <div className='w-full md:w-1/4'>
-          <PostsFilter hotTags={hotTags} />
-        </div>
-        <div className='w-full md:w-3/4'>
-          <PostsList postsResponse={postsListRes} />
+    <>
+      <MetaInfo />
+      <div className='inner-container flex flex-col items-start'>
+        <MotionH1>Posts</MotionH1>
+        <div className='posts flex flex-col-reverse gap-10 md:flex-row md:justify-between'>
+          <div className='w-full md:w-1/4'>
+            <PostsFilter hotTags={hotTags} />
+          </div>
+          <div className='w-full md:w-3/4'>
+            <PostsList postsResponse={postsListRes} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

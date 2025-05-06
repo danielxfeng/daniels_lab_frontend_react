@@ -1,79 +1,106 @@
 import { useLoaderData } from 'react-router-dom';
-import { PostResponse } from '../../schema/schema_post';
+import { Helmet } from 'react-helmet-async';
+import useUserStore from '@/stores/useUserStore';
+import { PostResponse } from '@/schema/schema_post';
 import SafeStyledMarkdown from '@/components/post/SafeStyledMarkdown';
 import LazyImage from '@/components/LazyImage';
 import AuthorDateBar from '@/components/post/AuthorDateBar';
-import useUserStore from '@/stores/useUserStore';
 import MotionTextButtonLink from '@/components/motion_components/MotionTextButtonLink';
 import Likes from '@/components/Likes';
 import Comments from '@/components/comments/Comments';
 import MotionH1 from '@/components/motion_components/MotionH1';
+import siteMeta from '@/constants/siteMeta';
+import ShareBar from '@/components/post/ShareBar';
+
+// A component to set the meta information for SEO
+const MetaInfo = ({ post }: { post: PostResponse }) => (
+  <Helmet>
+    <title>
+      {post.title} – {siteMeta.siteName}
+    </title>
+    <meta name='description' content={post.excerpt} />
+    <meta property='og:title' content={post.title} />
+    <meta property='og:description' content={post.excerpt} />
+    <meta property='og:type' content='article' />
+    <meta property='og:url' content={`${siteMeta.siteUrl}/blog/posts/${post.slug}`} />
+    <meta property='og:image' content={post.cover || `${siteMeta.siteUrl}/cover.png`} />
+    <meta name='twitter:card' content='summary_large_image' />
+  </Helmet>
+);
 
 const PostPage = () => {
-  const { post } = useLoaderData() as { post: PostResponse };
+  const { post } = useLoaderData<{ post: PostResponse }>();
   const user = useUserStore.getState().user;
   const isAuthor = user?.id === post.authorId;
   const isAdmin = user?.isAdmin;
 
   return (
-    <article className='inner-container mb-10 flex max-w-3xl flex-col items-center gap-6 md:mb-10'>
-      {/* The possible operation panel */}
-      <header className='flex w-full items-center justify-end gap-2'>
-        {isAuthor && (
-          <MotionTextButtonLink
-            to={`/blog/posts/edit/${post.id}`}
-            label='Edit'
-            ariaLabel='Edit post'
-            className='bg-muted text-muted-foreground w-fit'
-          />
-        )}
-        {isAdmin && (
-          <MotionTextButtonLink
-            to={`/blog/posts/${post.slug}/edit`}
-            label='Delete'
-            ariaLabel='Delete post'
-            className='bg-muted text-muted-foreground w-fit'
-          />
-        )}
-      </header>
+    <>
+      <MetaInfo post={post} />
+      {/* The post page */}
+      <article className='inner-container mb-10 flex max-w-3xl flex-col items-center gap-6 md:mb-10'>
+        {/* The possible operation panel */}
+        <header className='flex flex-col gap-2'>
+          <div className='flex w-full items-center justify-end gap-2'>
+            {isAuthor && (
+              <MotionTextButtonLink
+                to={`/blog/posts/edit/${post.id}`}
+                label='Edit'
+                ariaLabel='Edit post'
+                className='bg-muted text-muted-foreground w-fit'
+              />
+            )}
+            {isAdmin && (
+              <MotionTextButtonLink
+                to={`/blog/posts/${post.slug}/edit`}
+                label='Delete'
+                ariaLabel='Delete post'
+                className='bg-muted text-muted-foreground w-fit'
+              />
+            )}
+          </div>
+        </header>
 
-      {/* The post cover image */}
-      <LazyImage src={post.cover} alt={post.title} className='w-3/4 rounded-xl shadow-2xl' />
+        {/* The post cover image */}
+        <LazyImage src={post.cover} alt={post.title} className='w-3/4 rounded-xl shadow-2xl' />
 
-      <MotionH1>{post.title}</MotionH1>
+        <MotionH1 className='text-center'>{post.title}</MotionH1>
 
-      {/* The post author and createdAt */}
-      <AuthorDateBar
-        authorName={post.authorName}
-        authorAvatar={post.authorAvatar}
-        createdAt={post.createdAt}
-      />
+        {/* The social media share buttons */}
+        <ShareBar url={`${siteMeta.siteUrl}/blog/posts/${post.slug}`} title={post.title} />
 
-      {/* The post content */}
-      <SafeStyledMarkdown markdown={post.markdown!} className='w-full md:mt-3' />
+        {/* The post author and createdAt */}
+        <AuthorDateBar
+          authorName={post.authorName}
+          authorAvatar={post.authorAvatar}
+          createdAt={post.createdAt}
+        />
 
-      {/* The post footer */}
-      <footer className='text-muted-foreground mt-6 flex w-full flex-col items-start justify-start gap-3'>
+        {/* The post content */}
+        <SafeStyledMarkdown markdown={post.markdown!} className='w-full md:mt-3' />
 
-        <div className='w-full flex flex-col gap-2 items-start justify-between md:flex-row md:items-center'>
-          {/* The post likes */}
-          <Likes postId={post.id} userId={user?.id} />
-          {/* The post tags */}
-          <div className='flex gap-2'>
-            <div className='mr-2'>Tags:</div>
-            <div className='flex flex-wrap gap-2'>
-              {post.tags.map((tag: string) => (
-                <span key={`${tag}`} className='bg-muted rounded-md px-2 py-0.5 text-sm'>
-                  {`#${tag}`}
-                </span>
-              ))}
+        {/* The post footer */}
+        <footer className='text-muted-foreground mt-6 flex w-full flex-col items-start justify-start gap-3'>
+          <div className='flex w-full flex-col items-start justify-between gap-2 md:flex-row md:items-center'>
+            {/* The post likes */}
+            <Likes postId={post.id} userId={user?.id} />
+            {/* The post tags */}
+            <div className='flex gap-2'>
+              <div className='mr-2'>Tags:</div>
+              <div className='flex flex-wrap gap-2'>
+                {post.tags.map((tag: string) => (
+                  <span key={`${tag}`} className='bg-muted rounded-md px-2 py-0.5 text-sm'>
+                    {`#${tag}`}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-        {/* The post comments */}
-        <Comments postId={post.id} />
-      </footer>
-    </article>
+          {/* The post comments */}
+          <Comments postId={post.id} />
+        </footer>
+      </article>
+    </>
   );
 };
 
