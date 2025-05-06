@@ -1,9 +1,9 @@
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer';
-import { Suspense } from 'react';
-import Loading from './Loading';
-import { Toaster } from 'sonner';
+import Loading from '@/components/Loading';
+import ToasterWithTheme from '@/components/ToasterWithTheme';
 
 const AppLayout = () => {
   return (
@@ -16,7 +16,7 @@ const AppLayout = () => {
       </main>
       {/* Footer */}
       <Footer />
-      <Toaster />
+      <ToasterWithTheme />
     </div>
   );
 };

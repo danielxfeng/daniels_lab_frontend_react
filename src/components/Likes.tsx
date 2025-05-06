@@ -45,7 +45,7 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
   // Handle like toggle
   const handleLikeToggle = async () => {
     // toast user to log in
-    if (!userId) return toast('Please log in to like this post');
+    if (!userId) return toast.warning('Please log in to like this post');
 
     let res: AxiosResponse<unknown>;
 
@@ -67,11 +67,11 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
     if (res.status == 404) return;
 
     // 401: user not logged in
-    if (res.status == 401) return toast('Please log in to like this post');
+    if (res.status == 401) return toast.warning('Please log in to like this post');
 
     // Other errors.
     console.error('Error toggling like:', res.status);
-    return toast('Error toggling like');
+    return toast.warning('Error toggling like');
   };
 
   // A hook to fetch the status on mount
