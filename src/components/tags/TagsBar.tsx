@@ -6,7 +6,7 @@ import MotionTextButtonLink from '../motion_components/MotionTextButtonLink';
  * @returns A React component that displays a list of tags.
  */
 const TagsBar = ({ tags }: { tags: string[] }) => (
-  <div className='flex gap=2'>
+  <div className='flex gap-2'>
     <div className='mr-2'>Tags:</div>
     <div className='flex flex-wrap items-center gap-1.5'>
       {tags.map((tag) => (
