@@ -418,7 +418,6 @@ const UserDeleteComponent = ({
 };
 
 const UserProfilePage = () => {
-  const navigate = useNavigate();
   const { user, setUser, setAccessToken, clear } = useUserStore((state) => ({
     user: state.user,
     setUser: state.setUser,
@@ -426,16 +425,14 @@ const UserProfilePage = () => {
     clear: state.clear,
   }));
 
-  if (!user) return navigate('/user/login');
-
   return (
     <div className='inner-container'>
       <MotionH1>User Profile</MotionH1>
-      <UserProfileCard user={user} />
-      <UserProfileUpdateForm user={user} setUser={setUser} />
+      <UserProfileCard user={user!} />
+      <UserProfileUpdateForm user={user!} setUser={setUser} />
       <UserPasswordUpdateForm setUser={setUser} setAccessToken={setAccessToken} />
-      <UserOauthLinkBar user={user} />
-      <UserDeleteComponent user={user} clear={clear} />
+      <UserOauthLinkBar user={user!} />
+      <UserDeleteComponent user={user!} clear={clear} />
     </div>
   );
 };
