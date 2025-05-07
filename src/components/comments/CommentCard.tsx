@@ -13,7 +13,7 @@ import CommentForm from '@/components/comments/CommentForm';
  * @param user - The user object to get the user information
  * @param comment - The comment object to get the comment information
  * @param setComments - The hook to set the comments state
- * @returns 
+ * @returns
  */
 const CommentCard = ({
   user,
@@ -71,7 +71,7 @@ const CommentCard = ({
       <footer className='flex items-center justify-end gap-2'>
         {user?.id === comment.authorId && (
           <MotionIconButton
-            icon={<Pencil />}
+            icon={<Pencil className='h-4 w-4' />}
             type='button'
             ariaLabel='Edit comment'
             disabled={loading}
@@ -80,7 +80,7 @@ const CommentCard = ({
         )}
         {(user?.id === comment.authorId || user?.isAdmin) && (
           <MotionIconButton
-            icon={<Trash2 />}
+            icon={<Trash2 className='h-4 w-4' />}
             type='button'
             ariaLabel='Delete comment'
             disabled={loading}

@@ -69,7 +69,7 @@ const PostsList = ({ postsResponse }: { postsResponse: PostListResponse }) => {
       {user?.isAdmin && (
         <div className='flex justify-end'>
           <MotionTextButtonLink
-            to='/Post/Create'
+            to='/blog/posts/new'
             label='New Post'
             ariaLabel='New Post'
             className='mb-2'
