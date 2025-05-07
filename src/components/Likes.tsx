@@ -98,6 +98,7 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
         onClick={handleLikeToggle}
         className={liked ? 'text-red-500' : 'text-muted-foreground'}
         disabled={loading}
+        tooltip={liked ? 'Unlike the post' : 'Like the post'}
       />
       {/* Like count */}
       <span className='text-muted-foreground text-md font-medium'>{count}</span>

@@ -4,6 +4,7 @@ import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer';
 import Loading from '@/components/Loading';
 import ToasterWithTheme from '@/components/ToasterWithTheme';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 const AppLayout = () => {
   return (
@@ -11,7 +12,9 @@ const AppLayout = () => {
       <Header />
       <main className='outer-container flex-grow'>
         <Suspense fallback={<Loading />}>
-          <Outlet />
+          <TooltipProvider>
+            <Outlet />
+          </TooltipProvider>
         </Suspense>
       </main>
       {/* Footer */}

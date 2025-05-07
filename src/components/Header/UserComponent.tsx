@@ -38,6 +38,7 @@ const UserComponent = () => {
         icon={<LogIn className='text-primary h-6 w-6' />}
         ariaLabel='Login'
         isExternal={false}
+        tooltip='Login'
       />
     );
   }
@@ -55,6 +56,7 @@ const UserComponent = () => {
       }
       ariaLabel={user.username ?? 'User'}
       isExternal={false}
+      tooltip='User Profile'
     />
   );
 };
