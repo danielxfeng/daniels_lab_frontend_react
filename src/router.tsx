@@ -8,6 +8,7 @@ import PostsPage from '@/pages/Posts/PostsPage';
 import PostPage from '@/pages/Post/PostPage';
 import postPageLoader from '@/pages/Post/postPageLoader';
 import Loading from '@/components/Loading';
+import LoginPage from './pages/LoginPage';
 
 // The router of the app.
 const router = createBrowserRouter([
@@ -36,9 +37,6 @@ const router = createBrowserRouter([
               // todo loader
               { path: 'search', Component: () => <div>Blog Search</div> },
               // post detail, comments list, like status
-              // a form to add/edit/delete a comment
-              // a bottom to like/unlike a post
-              // share buttons
               { path: ':slug', Component: PostPage, loader: postPageLoader },
               // a form to add a post.
               // a combo box to add/select tags
@@ -69,7 +67,7 @@ const router = createBrowserRouter([
           { index: true, Component: () => <div>Users</div> },
           // a form to login a new user, a form to register a new user
           // a form to link the social accounts
-          { path: 'login', Component: () => <div>New User</div> },
+          { path: 'login', Component: LoginPage },
           // a form to input the invite code
           // todo load, auth check
           { path: 'join-admin', Component: () => <div>Join Admin</div> },

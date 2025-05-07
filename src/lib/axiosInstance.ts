@@ -174,22 +174,25 @@ const handleError = async (error: any) => {
     }
   }
 
+  // Check if there is a bypass header FourZeroOne(FZO) interceptor
+  const isBypassFZO = error.config?.headers?.['X-Bypass-401-Interceptor'];
+
   // Handle the 401, 403 error, also the error from 498 handler branch
-  if (error.response?.status === 401 || error.response?.status === 403) {
+  if ((error.response?.status === 401 && !isBypassFZO) || error.response?.status === 403) {
     const { clear } = useUserStore.getState();
     clear();
     // Redirect to the login page and clear the history
-    window.location.replace('/login');
-    return Promise.reject(error.response);
+    window.location.replace('/user/login');
+    return Promise.reject(error);
   }
 
   // Other errors
   if (error.response) {
     console.error('Error response:', error.response);
-    return Promise.reject(error.response);
+    return Promise.reject(error);
   } else if (error.request) {
     console.error('Error request:', error.request);
-    return Promise.reject(error.request);
+    return Promise.reject(error);
   } else {
     console.error('Error message:', error.message);
     throw { response: { status: 500, data: error.message } };
