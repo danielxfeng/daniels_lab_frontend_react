@@ -62,7 +62,7 @@ const Comments = ({ postId }: { postId: string }) => {
   // 1. The component is mounted in `strict mode`.
   // 2. A new comment is added, the offset can not be updated.
   // Set is used for reducing the time complexity from O(x * y) to O(x + y)
-  const commentMapRef = useRef(new Set<string>());
+  const commentSetRef = useRef(new Set<string>());
 
   const user = useUserStore.getState().user;
 
@@ -74,7 +74,7 @@ const Comments = ({ postId }: { postId: string }) => {
       try {
         const res = await getCommentsHelper(postId, offset);
         // Avoid duplication of comments
-        const newComments = res.comments.filter((c) => insertToSet(c.id, commentMapRef.current));
+        const newComments = res.comments.filter((c) => insertToSet(c.id, commentSetRef.current));
         setComments((prev) => [...prev, ...newComments]);
         setTotal(res.total);
         setOffset(res.offset);
