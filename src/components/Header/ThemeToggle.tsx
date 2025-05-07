@@ -42,6 +42,7 @@ const ThemeToggle = () => {
       ariaLabel='Toggle Theme'
       type='button'
       onClick={toggleTheme}
+      tooltip='Toggle Theme'
     />
   );
 };

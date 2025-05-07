@@ -62,6 +62,7 @@ const Pagination = ({
           ariaLabel='navigate to previous page'
           isExternal={false}
           className='hover:bg-muted/90'
+          tooltip='Previous Page'
         />
       )}
       {hasNext && (
@@ -71,6 +72,7 @@ const Pagination = ({
           ariaLabel='navigate to next page'
           isExternal={false}
           className='hover:bg-muted'
+          tooltip='Next Page'
         />
       )}
     </nav>

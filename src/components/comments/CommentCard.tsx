@@ -76,6 +76,7 @@ const CommentCard = ({
             ariaLabel='Edit comment'
             disabled={loading}
             onClick={() => setEditMode(true)}
+            tooltip='Edit comment'
           />
         )}
         {(user?.id === comment.authorId || user?.isAdmin) && (
@@ -85,6 +86,7 @@ const CommentCard = ({
             ariaLabel='Delete comment'
             disabled={loading}
             onClick={handleDelete}
+            tooltip='Delete comment'
           />
         )}
       </footer>

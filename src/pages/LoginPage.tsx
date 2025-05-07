@@ -63,6 +63,7 @@ const OauthLoginBar = () => {
           ariaLabel={`Login with ${provider}`}
           icon={iconMap[provider as keyof typeof iconMap]}
           isExternal={false}
+          tooltip={`Login with ${provider}`}
         />
       ))}
     </div>

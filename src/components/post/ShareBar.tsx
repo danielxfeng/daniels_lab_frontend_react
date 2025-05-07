@@ -34,6 +34,7 @@ const ShareBar = ({ url, title }: { url: string; title: string }) => {
         icon={<FaLinkedin className={className} />}
         ariaLabel='Share on LinkedIn'
         isExternal={true}
+        tooltip='Share on LinkedIn'
       />
 
       {/* X (Twitter) */}
@@ -42,6 +43,7 @@ const ShareBar = ({ url, title }: { url: string; title: string }) => {
         icon={<FaXTwitter className={className} />}
         ariaLabel='Share on X'
         isExternal={true}
+        tooltip='Share on X'
       />
 
       {/* Facebook */}
@@ -50,6 +52,7 @@ const ShareBar = ({ url, title }: { url: string; title: string }) => {
         icon={<FaFacebook className={className}/>}
         ariaLabel='Share on Facebook'
         isExternal={true}
+        tooltip='Share on Facebook'
       />
 
       {/* Copy link on Instagram */}
@@ -58,6 +61,7 @@ const ShareBar = ({ url, title }: { url: string; title: string }) => {
         onClick={copyLinkToClipboard}
         ariaLabel='Copy link for Instagram'
         type='button'
+        tooltip='Copy link for Instagram'
         
       />
     </div>
