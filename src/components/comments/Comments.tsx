@@ -111,6 +111,7 @@ const Comments = ({ postId }: { postId: string }) => {
           onClick={async () => await fetchComments(offset + siteMeta.paginationLimit)}
           disabled={isLoading}
           className={'bg-muted text-muted-foreground mt-3 py-2 text-sm'}
+          isLoading={isLoading}
         />
       )}
 

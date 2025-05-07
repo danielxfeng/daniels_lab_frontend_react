@@ -182,6 +182,7 @@ const LoginForm = () => {
             ariaLabel='Login'
             disabled={!isValid || isSubmitting}
             className='w-full'
+            isLoading={isSubmitting}
           />
           {formError && <div className='text-destructive'>{formError}</div>}
         </fieldset>

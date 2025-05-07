@@ -171,6 +171,7 @@ const CommentForm = ({
             ariaLabel={comment ? 'Update a comment' : 'Create a Comment'}
             disabled={isSubmitting || !isValid}
             className='bg-muted-foreground text-muted w-full px-3.5 py-1.5 text-sm'
+            isLoading={isSubmitting}
           />
         </div>
       </fieldset>
