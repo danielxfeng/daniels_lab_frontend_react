@@ -2,6 +2,7 @@ import useUserStore from '@/stores/useUserStore';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { LogIn } from 'lucide-react';
 import MotionIconLink from '../motion_components/MotionIconLink';
+import { useLocation } from 'react-router-dom';
 
 // This component shows the user avatar or username.
 const AvatarComponent = ({
@@ -23,15 +24,17 @@ const AvatarComponent = ({
 // If the user is not authenticated, it shows a login button that links to the login page.
 const UserComponent = () => {
   const user = useUserStore((s) => s.user); // Subscribe to the user state
+  const location = useLocation(); // To optimize the login redirect
   const { getUserStatus } = useUserStore();
 
   const userStatus = getUserStatus();
 
   // Show login button if user is not authenticated
   if (userStatus === 'unauthenticated' || !user) {
+    const currentPath = location.pathname + location.search;
     return (
       <MotionIconLink
-        to='/user/login'
+        to={`/user/login?redirectTo=${encodeURIComponent(currentPath)}`}
         icon={<LogIn className='text-primary h-6 w-6' />}
         ariaLabel='Login'
         isExternal={false}

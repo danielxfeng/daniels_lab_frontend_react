@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import {
   AuthResponseSchema,
@@ -72,6 +72,7 @@ const OauthLoginBar = () => {
 // A component for a login form.
 const LoginForm = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [formError, setFormError] = useState<string | null>(null);
   const { setAccessToken, setUser } = useUserStore.getState();
 
@@ -135,7 +136,8 @@ const LoginForm = () => {
       toast.success('Login successful');
       setTimeout(() => {
         reset();
-        navigate('/');
+        const redirectTo = new URLSearchParams(location.search).get('redirectTo') || '/';
+        navigate(redirectTo, { replace: true });
       }, 1000);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -191,6 +193,7 @@ const LoginForm = () => {
 const RegisterForm = () => {
   const [manualUsername, setManualUsername] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
   const { setAccessToken, setUser } = useUserStore.getState();
 
   // Init the form
@@ -268,7 +271,8 @@ const RegisterForm = () => {
           consentAt: new Date().toISOString(),
           deviceId: '',
         });
-        navigate('/');
+        const redirectTo = new URLSearchParams(location.search).get('redirectTo') || '/';
+        navigate(redirectTo, { replace: true });
       }, 1000);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
