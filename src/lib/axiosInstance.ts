@@ -182,7 +182,8 @@ const handleError = async (error: any) => {
     const { clear } = useUserStore.getState();
     clear();
     // Redirect to the login page and clear the history
-    window.location.replace('/user/login');
+    const currentPath = window.location.pathname + window.location.search;
+    window.location.replace(`/user/login?redirectTo=${encodeURIComponent(currentPath)}`);
     return Promise.reject(error);
   }
 
