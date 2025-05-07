@@ -99,6 +99,7 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
         className={liked ? 'text-red-500' : 'text-muted-foreground'}
         disabled={loading}
         tooltip={liked ? 'Unlike the post' : 'Like the post'}
+        isLoading={loading}
       />
       {/* Like count */}
       <span className='text-muted-foreground text-md font-medium'>{count}</span>

@@ -1,4 +1,5 @@
 import { HTMLMotionProps, motion } from 'framer-motion';
+import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { hoverOpacity, tapEffect } from '@/lib/animations';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
@@ -11,6 +12,7 @@ type MotionIconButtonProps = {
   className?: string;
   disabled?: boolean;
   tooltip?: string;
+  isLoading?: boolean;
 } & Omit<HTMLMotionProps<'button'>, 'ref'>;
 
 const BtnWithoutTooltip = ({
@@ -20,24 +22,26 @@ const BtnWithoutTooltip = ({
   onClick,
   className,
   disabled = false,
+  isLoading = false,
   ...prop
 }: MotionIconButtonProps & Omit<HTMLMotionProps<'button'>, 'ref'>) => (
   <motion.button
-    whileHover={!disabled ? hoverOpacity : undefined}
-    whileTap={!disabled ? tapEffect : undefined}
+    whileHover={!disabled && !isLoading ? hoverOpacity : undefined}
+    whileTap={!disabled && !isLoading ? tapEffect : undefined}
     onClick={onClick}
     aria-label={ariaLabel}
     className={cn(
       'text-primary bg-transparent underline-offset-4 transition-all hover:underline',
-      disabled && 'pointer-events-none cursor-not-allowed opacity-50',
+      (disabled || isLoading) && 'pointer-events-none cursor-not-allowed opacity-50',
       className,
     )}
     type={type}
-    disabled={disabled}
-    aria-disabled={disabled}
+    disabled={disabled || isLoading}
+    aria-disabled={disabled || isLoading}
+    aria-busy={isLoading}
     {...prop}
   >
-    {icon}
+    {isLoading ? <Loader2 className='h-4 w-4 animate-spin' /> : icon}
   </motion.button>
 );
 
@@ -61,6 +65,7 @@ const MotionIconButton = ({
   className,
   disabled = false,
   tooltip,
+  isLoading = false,
   ...props
 }: MotionIconButtonProps & Omit<HTMLMotionProps<'button'>, 'ref'>) =>
   tooltip ? (
@@ -73,6 +78,7 @@ const MotionIconButton = ({
           onClick={onClick}
           className={className}
           disabled={disabled}
+          isLoading={isLoading}
           {...props}
         />
       </TooltipTrigger>
@@ -86,6 +92,7 @@ const MotionIconButton = ({
       onClick={onClick}
       className={className}
       disabled={disabled}
+      isLoading={isLoading}
       {...props}
     />
   );

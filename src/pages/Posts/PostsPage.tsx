@@ -171,6 +171,7 @@ const PostsFilter = ({ hotTags }: { hotTags: TagsResponse }) => {
               type='submit'
               disabled={isSubmitting}
               className='w-fit'
+              isLoading={isSubmitting}
             />
           </div>
         </fieldset>
