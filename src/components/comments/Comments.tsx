@@ -60,7 +60,7 @@ const Comments = ({ postId }: { postId: string }) => {
   // Ref to store the comments to avoid the duplication.
   // The duplication happens when:
   // 1. The component is mounted in `strict mode`.
-  // 2. A new comment is added, the the offset can not be updated.
+  // 2. A new comment is added, the offset can not be updated.
   // Set is used for reducing the time complexity from O(x * y) to O(x + y)
   const commentMapRef = useRef(new Set<string>());
 
