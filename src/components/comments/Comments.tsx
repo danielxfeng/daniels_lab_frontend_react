@@ -6,11 +6,12 @@ import {
 } from '@/schema/schema_comment';
 import { getComments } from '@/services/service_comments';
 import useUserStore from '@/stores/useUserStore';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import CommentForm from './CommentForm';
 import CommentCard from './CommentCard';
 import MotionTextButton from '../motion_components/MotionTextButton';
 import Spinner from '../Spinner';
+import insertToSet from '@/lib/insertToSet';
 
 // Get of Crud comments
 const getCommentsHelper = async (postId: string, offset: number): Promise<CommentsListResponse> => {
@@ -56,6 +57,13 @@ const Comments = ({ postId }: { postId: string }) => {
   const [total, setTotal] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  // Ref to store the comments to avoid the duplication.
+  // The duplication happens when:
+  // 1. The component is mounted in `strict mode`.
+  // 2. A new comment is added, the the offset can not be updated.
+  // Set is used for reducing the time complexity from O(x * y) to O(x + y)
+  const commentMapRef = useRef(new Set<string>());
+
   const user = useUserStore.getState().user;
 
   // A closure to handle the load more button
@@ -65,13 +73,9 @@ const Comments = ({ postId }: { postId: string }) => {
       setIsLoading(true);
       try {
         const res = await getCommentsHelper(postId, offset);
-        setComments((prev) => {
-          // Anti duplication for the double fetching in `strict mode`
-          const newComments = res.comments.filter(
-            (c) => !prev.some((comment) => comment.id === c.id),
-          );
-          return [...prev, ...newComments];
-        });
+        // Avoid duplication of comments
+        const newComments = res.comments.filter((c) => insertToSet(c.id, commentMapRef.current));
+        setComments((prev) => [...prev, ...newComments]);
         setTotal(res.total);
         setOffset(res.offset);
       } catch (error) {
