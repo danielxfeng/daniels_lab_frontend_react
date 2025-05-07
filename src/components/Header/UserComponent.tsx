@@ -31,7 +31,7 @@ const UserComponent = () => {
   if (userStatus === 'unauthenticated' || !user) {
     return (
       <MotionIconLink
-        to='/User/Login'
+        to='/user/login'
         icon={<LogIn className='text-primary h-6 w-6' />}
         ariaLabel='Login'
         isExternal={false}
