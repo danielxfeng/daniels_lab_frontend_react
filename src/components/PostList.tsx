@@ -8,7 +8,8 @@ import { hoverEffect, tapEffect } from '@/lib/animations';
 import Pagination from '@/components/Pagination';
 import AuthorDateBar from './post/AuthorDateBar';
 import TagsBar from './tags/TagsBar';
-import MotionTextButtonLink from './motion_components/MotionTextButtonLink';
+import MotionIconLink from './motion_components/MotionIconLink';
+import { Plus } from 'lucide-react';
 
 // A post component that displays a single post
 const Post = ({ post }: { post: PostResponse }) => (
@@ -67,12 +68,12 @@ const PostsList = ({ postsResponse }: { postsResponse: PostListResponse }) => {
     <section className='flex flex-col gap-2'>
       {/* A new post button for admin user */}
       {user?.isAdmin && (
-        <div className='flex w-full'>
-          <MotionTextButtonLink
-            label='New Post'
+        <div className='flex justify-start'>
+          <MotionIconLink
+            icon={<><Plus className='h-6 w-6'/><span className='mx-2'>New Post</span></>}
             to='/blog/posts/new'
             ariaLabel='New Post'
-            className='bg-muted text-foreground mb-2 w-full'
+            className='bg-highlight text-background mb-2 py-2 px-4 rounded-lg'
             isExternal={false}
           />
         </div>

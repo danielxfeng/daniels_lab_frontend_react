@@ -13,7 +13,7 @@ type MotionIconLinkProps = {
   isExternal: boolean;
   tooltip?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  state: any;
+  state?: any;
 } & Omit<ComponentProps<'a'>, 'href'>;
 
 // Helper component for external links
