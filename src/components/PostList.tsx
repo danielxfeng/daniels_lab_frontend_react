@@ -4,11 +4,11 @@ import useUserStore from '@/stores/useUserStore';
 import { PostListResponse, PostResponse } from '@/schema/schema_post';
 import SafeStyledMarkdown from '@/components/post/SafeStyledMarkdown';
 import LazyImage from '@/components/LazyImage';
-import MotionTextButtonLink from '@/components/motion_components/MotionTextButtonLink';
 import { hoverEffect, tapEffect } from '@/lib/animations';
 import Pagination from '@/components/Pagination';
 import AuthorDateBar from './post/AuthorDateBar';
 import TagsBar from './tags/TagsBar';
+import MotionTextButtonLink from './motion_components/MotionTextButtonLink';
 
 // A post component that displays a single post
 const Post = ({ post }: { post: PostResponse }) => (
@@ -25,7 +25,7 @@ const Post = ({ post }: { post: PostResponse }) => (
       />
     </Link>
     <div className='flex flex-1 flex-col gap-2 p-4'>
-      <Link to={`/blog/posts/${post.slug}`} >
+      <Link to={`/blog/posts/${post.slug}`}>
         <header>
           <h3 className='line-clamp-1'>{post.title}</h3>
         </header>
@@ -64,15 +64,15 @@ const PostsList = ({ postsResponse }: { postsResponse: PostListResponse }) => {
   const user = useUserStore.getState().user;
 
   return (
-    <section className='flex flex-col gap-4'>
+    <section className='flex flex-col gap-2'>
       {/* A new post button for admin user */}
       {user?.isAdmin && (
-        <div className='flex justify-end'>
+        <div className='flex w-full'>
           <MotionTextButtonLink
-            to='/blog/posts/new'
             label='New Post'
+            to='/blog/posts/new'
             ariaLabel='New Post'
-            className='mb-2'
+            className='bg-muted text-foreground mb-2 w-full'
             isExternal={false}
           />
         </div>

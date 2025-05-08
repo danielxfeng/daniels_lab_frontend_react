@@ -21,7 +21,7 @@ import {
   PostIdSchema,
 } from "./schema_components";
 
-import { tagsSchema } from "./schema_tag";
+import { tagSchema, tagsSchema } from "./schema_tag";
 
 //
 // Schema Components
@@ -57,7 +57,7 @@ const CreateOrUpdatePostBodySchema = z.object({
   title: titleSchema,
   markdown: markdownSchema,
   coverUrl: UrlSchema,
-  tags: tagsSchema,
+  tags: tagSchema.array().optional(),
   createdAt: CreateAtSchema.optional(),
   updatedAt: UpdateAtSchema.optional(),
 });

@@ -45,7 +45,7 @@ const router = createBrowserRouter([
               // a form to add a post, admin only
               { path: 'new', Component: PostCreatePage, loader: adminGuard },
               // a form to edit a post, author only
-              { path: 'edit/:id', Component: PostUpdatePage, loader: postPageLoader },
+              { path: 'edit/:slug', Component: PostUpdatePage, loader: postPageLoader },
             ],
           },
         ],

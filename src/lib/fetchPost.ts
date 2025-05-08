@@ -13,7 +13,8 @@ import { getPost } from '@/services/services_posts';
  * @returns
  */
 const fetchPost = async (unsafeSlug: string): Promise<{ post: PostResponse }> => {
-  const validatedSlug = PostSlugQuerySchema.safeParse(unsafeSlug);
+  console.log('fetch post', unsafeSlug);
+  const validatedSlug = PostSlugQuerySchema.safeParse({ slug: unsafeSlug });
   if (!validatedSlug.success)
     return throwWithUserValidationErr('validate slug error', JSON.stringify(validatedSlug.error));
   const slug = validatedSlug.data;

@@ -12,6 +12,8 @@ type MotionIconLinkProps = {
   ariaLabel: string;
   isExternal: boolean;
   tooltip?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  state: any;
 } & Omit<ComponentProps<'a'>, 'href'>;
 
 // Helper component for external links
@@ -42,16 +44,20 @@ const InternalLink = ({
   to,
   icon,
   ariaLabel,
+  state,
   ...props
 }: {
   to: string;
   icon: React.ReactNode;
   ariaLabel: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  state?: any;
 } & Omit<ComponentProps<'a'>, 'href' | 'aria-label'>) => (
   <Link
     to={to}
     className='inline-flex items-center justify-center transition-all'
     aria-label={ariaLabel}
+    state={state}
     {...props}
   >
     {icon}
@@ -64,6 +70,7 @@ const LinkWithoutTooltip = ({
   icon,
   className,
   ariaLabel,
+  state,
   isExternal = false,
   ...props
 }: MotionIconLinkProps) => {
@@ -76,7 +83,7 @@ const LinkWithoutTooltip = ({
       {isExternal ? (
         <ExternalLink to={to} icon={icon} ariaLabel={ariaLabel} {...props} />
       ) : (
-        <InternalLink to={to} icon={icon} ariaLabel={ariaLabel} {...props} />
+        <InternalLink to={to} icon={icon} ariaLabel={ariaLabel} state={state} {...props} />
       )}
     </motion.div>
   );
@@ -101,6 +108,7 @@ const MotionIconLink = ({
   ariaLabel,
   isExternal = false,
   tooltip,
+  state,
   ...props
 }: MotionIconLinkProps) =>
   tooltip ? (
@@ -112,6 +120,7 @@ const MotionIconLink = ({
           className={className}
           ariaLabel={ariaLabel}
           isExternal={isExternal}
+          state={state}
           {...props}
         />
       </TooltipTrigger>
@@ -124,6 +133,7 @@ const MotionIconLink = ({
       className={className}
       ariaLabel={ariaLabel}
       isExternal={isExternal}
+      state={state}
       {...props}
     />
   );
