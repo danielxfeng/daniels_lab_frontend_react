@@ -1,13 +1,11 @@
-import MotionH1 from '@/components/motion_components/MotionH1';
-
-import { UserResponse } from '@/schema/schema_users';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import MotionH1 from '@/components/motion_components/MotionH1';
+import { UserResponse } from '@/schema/schema_users';
 import useUserStore from '@/stores/useUserStore';
 import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
 import { OauthProviderValues } from '@/schema/schema_components';
 import MotionIconLink from '@/components/motion_components/MotionIconLink';
 import siteMeta from '@/constants/siteMeta';
-
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import UserLogoutComponent from '@/components/user_profile/UserLogoutComponent';
 import UserProfileUpdateForm from '@/components/user_profile/UserProfileUpdateForm';

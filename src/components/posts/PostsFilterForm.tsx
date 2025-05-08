@@ -90,7 +90,6 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
               name='tags'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className='hidden'>Tags</FormLabel>
                   <FormControl>
                     <SelectableTags
                       tags={hotTags.tags}
@@ -154,7 +153,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
 
             <hr className='border-muted' />
 
-            <div className='flex gap-2 justify-between w-3/4 mx-auto'>
+            <div className='mx-auto flex w-3/4 justify-between gap-2'>
               {/* Reset button */}
               <MotionTextButton
                 label='Reset'
