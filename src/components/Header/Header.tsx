@@ -1,10 +1,10 @@
-import NavLinksDesktop from '@/components/Header/NavLinksDesktop';
-import SearchBar from '@/components/Header/SearchBar';
-import SearchButton from '@/components/Header/SearchButton';
-import UserComponent from '@/components/Header/UserComponent';
-import ThemeToggle from '@/components/Header/ThemeToggle';
-import NavLinksMobile from '@/components/Header/NavLinksMobile';
-import Logo from '@/components/Header/Logo';
+import NavLinksDesktop from '@/components/header/NavLinksDesktop';
+import SearchBar from '@/components/header/SearchBar';
+import SearchButton from '@/components/header/SearchButton';
+import UserComponent from '@/components/header/UserComponent';
+import ThemeToggle from '@/components/header/ThemeToggle';
+import NavLinksMobile from '@/components/header/NavLinksMobile';
+import Logo from '@/components/header/Logo';
 
 /**
  * A Header component that contains:
