@@ -1,22 +1,8 @@
 import MotionH1 from '@/components/motion_components/MotionH1';
 
 import { UserResponse } from '@/schema/schema_users';
-import { useEffect } from 'react';
-import getDeviceId from '@/lib/deviceid';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
-import { changePassword } from '@/services/service_auth';
-import {
-  AuthResponse,
-  AuthResponseSchema,
-  ChangePasswordBody,
-  ChangePasswordBodySchema,
-} from '@/schema/schema_auth';
 import useUserStore from '@/stores/useUserStore';
-import { toast } from 'sonner';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
 import { OauthProviderValues } from '@/schema/schema_components';
 import MotionIconLink from '@/components/motion_components/MotionIconLink';
@@ -26,161 +12,47 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import UserLogoutComponent from '@/components/user_profile/UserLogoutComponent';
 import UserProfileUpdateForm from '@/components/user_profile/UserProfileUpdateForm';
 import UserDeleteComponent from '@/components/user_profile/UserDeleteComponent';
+import UserPasswordUpdateForm from '@/components/user_profile/UserPasswordUpdateForm';
 
-// A component to update the user password
-const UserPasswordUpdateForm = ({
-  setUser,
-  setAccessToken,
-}: {
-  setUser: (user: Partial<AuthResponse>) => void;
-  setAccessToken: (token: string | null) => void;
-}) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setError,
-    setValue,
-    formState: { errors, isValid, isSubmitting },
-  } = useForm<ChangePasswordBody>({
-    resolver: zodResolver(ChangePasswordBodySchema),
-    mode: 'onTouched',
-  });
-
-  console.log('Render: UserPasswordUpdateForm');
-
-  useEffect(() => {
-    getDeviceId().then((deviceId) => {
-      setValue('deviceId', deviceId);
-    });
-  }, [setValue]);
-
-  const onSubmit = async (data: ChangePasswordBody) => {
-    try {
-      const res = await changePassword(data);
-      const validatedUser = AuthResponseSchema.safeParse(res.data);
-      if (!validatedUser.success) {
-        console.error('Invalid user response:', JSON.stringify(validatedUser.error));
-        return;
-      }
-      setAccessToken(validatedUser.data.accessToken);
-      setUser(validatedUser.data);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      if (err.response?.status === 401) {
-        setError('currentPassword', {
-          type: 'manual',
-          message: 'Current password is incorrect',
-        });
-      }
-      console.error('Error changing password:', err.response?.statusText);
-      toast.error('Error changing password, please try again later');
-    } finally {
-      reset();
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-      <fieldset className='rounded-md border p-4' disabled={isSubmitting}>
-        <div>
-          <label htmlFor='currentPassword' className='mb-1 block text-sm font-medium'>
-            Current Password
-          </label>
-          <input
-            id='currentPassword'
-            type='password'
-            {...register('currentPassword')}
-            className='input input-bordered w-full'
-            placeholder='current password'
-          />
-          {errors.currentPassword && (
-            <p className='text-destructive mt-1 text-sm'>
-              {errors.currentPassword.message as string}
-            </p>
-          )}
-        </div>
-
-        <div>
-          <label htmlFor='password' className='mb-1 block text-sm font-medium'>
-            New Password
-          </label>
-          <input
-            id='password'
-            type='password'
-            {...register('password')}
-            className='input input-bordered w-full'
-            placeholder='Input new password'
-          />
-          {errors.password && (
-            <p className='text-destructive mt-1 text-sm'>{errors.password.message as string}</p>
-          )}
-        </div>
-
-        <div>
-          <label htmlFor='confirmPassword' className='mb-1 block text-sm font-medium'>
-            Confirm Password
-          </label>
-          <input
-            id='confirmPassword'
-            type='password'
-            {...register('confirmPassword')}
-            className='input input-bordered w-full'
-            placeholder='Confirm password'
-          />
-          {errors.confirmPassword && (
-            <p className='text-destructive mt-1 text-sm'>
-              {errors.confirmPassword.message as string}
-            </p>
-          )}
-        </div>
-
-        <MotionTextButton
-          type='submit'
-          label='Update Password'
-          ariaLabel='Update Password'
-          disabled={!isValid || isSubmitting}
-          isLoading={isSubmitting}
-        />
-      </fieldset>
-    </form>
-  );
-};
+const iconStyle = 'h-8 w-8 md:h-12 md:w-12';
 
 const UserOauthLinkBar = ({ user }: { user: Partial<UserResponse> }) => {
   const oauthMap = {
-    google: <FaGoogle className='h-5 w-5' />,
-    github: <FaGithub className='h-5 w-5' />,
-    linkedin: <FaLinkedin className='h-5 w-5' />,
+    google: <FaGoogle className={iconStyle} />,
+    github: <FaGithub className={iconStyle} />,
+    linkedin: <FaLinkedin className={iconStyle} />,
   };
-  console.log('Render: UserOauthLinkBar');
+
   return (
-    <div className='flex gap-2'>
-      {OauthProviderValues.map((provider) => {
-        const isLinked = user.oauthProviders?.includes(provider);
-        return (
-          <div key={provider} className='flex items-center gap-2'>
-            {isLinked ? (
-              <MotionIconLink
-                icon={oauthMap[provider]}
-                to={`${siteMeta.apiUrl}/auth/unlink/${provider}`}
-                ariaLabel={`Unlink ${provider}`}
-                className='bg-muted text-muted-foreground'
-                tooltip={`Unlink ${provider}`}
-                isExternal={false}
-              />
-            ) : (
-              <MotionIconLink
-                icon={oauthMap[provider]}
-                to={`${siteMeta.apiUrl}/auth/${provider}`}
-                ariaLabel={`Link ${provider}`}
-                tooltip={`Link ${provider}`}
-                isExternal={false}
-              />
-            )}
-          </div>
-        );
-      })}
+    <div className='flex w-full flex-col items-center gap-4'>
+      <h2>Manage linked accounts</h2>
+      <div className='flex gap-2'>
+        {OauthProviderValues.map((provider) => {
+          const isLinked = user.oauthProviders?.includes(provider);
+          return (
+            <div key={provider} className='flex items-center gap-2'>
+              {isLinked ? (
+                <MotionIconLink
+                  icon={oauthMap[provider]}
+                  to={`${siteMeta.apiUrl}/auth/unlink/${provider}`}
+                  ariaLabel={`Unlink ${provider}`}
+                  className='bg-muted text-muted-foreground'
+                  tooltip={`Unlink ${provider}`}
+                  isExternal={false}
+                />
+              ) : (
+                <MotionIconLink
+                  icon={oauthMap[provider]}
+                  to={`${siteMeta.apiUrl}/auth/${provider}`}
+                  ariaLabel={`Link ${provider}`}
+                  tooltip={`Link ${provider}`}
+                  isExternal={false}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
@@ -203,7 +75,6 @@ const UserOauthLinkBar = ({ user }: { user: Partial<UserResponse> }) => {
  */
 const UserProfilePage = () => {
   const user = useUserStore((state) => state.user);
-  const { setUser, setAccessToken } = useUserStore.getState();
 
   return !user ? null : (
     <div className='inner-container'>
@@ -240,7 +111,7 @@ const UserProfilePage = () => {
         </TabsContent>
         <TabsContent value='password'>
           <div className='flex w-full flex-col items-center gap-4'>
-            <UserPasswordUpdateForm setUser={setUser} setAccessToken={setAccessToken} />
+            <UserPasswordUpdateForm />
             <UserOauthLinkBar user={user!} />
           </div>
         </TabsContent>

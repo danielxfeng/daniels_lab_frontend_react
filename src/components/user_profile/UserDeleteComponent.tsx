@@ -35,7 +35,6 @@ const UserDeleteComponent = ({ user }: { user: Partial<UserResponse> }) => {
       setLoading(false);
     }
   };
-  console.log('Render: UserDeleteComponent');
 
   return (
     <AlertDialog>

@@ -45,7 +45,7 @@ const UserLogoutComponent = () => {
       setDoLogout(true);
     }
   };
-  console.log('Render: UserProfileCard');
+
   return (
     <div className='flex items-center'>
       {/* Ensure atomic logout */}
