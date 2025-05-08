@@ -2,7 +2,7 @@ import MotionH1 from '@/components/motion_components/MotionH1';
 import PostUpsertForm from '@/components/post/PostUpsertForm';
 
 /// A component to create a new post
-const PostCratePage = () => {
+const PostCreatePage = () => {
   return (
     <div className='inner-container'>
       <MotionH1>New Post</MotionH1>
@@ -11,4 +11,4 @@ const PostCratePage = () => {
   );
 };
 
-export default PostCratePage;
+export default PostCreatePage;

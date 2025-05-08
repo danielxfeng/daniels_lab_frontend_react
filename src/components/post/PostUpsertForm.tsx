@@ -32,7 +32,7 @@ const getSlug = (isCreate: boolean, res: AxiosResponse<PostResponse | undefined>
   const validatedBody = PostResponseSchema.safeParse(res.data);
   if (!validatedBody.success)
     return throwWithValidationErr(
-      'validate pose response error',
+      'validate post response error',
       JSON.stringify(validatedBody.error),
     );
   return validatedBody.data.slug;
