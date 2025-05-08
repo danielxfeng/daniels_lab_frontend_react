@@ -23,12 +23,7 @@ import AtomicLogout from '../AtomicLogout';
  * @param user - The user object containing the current user data.
  * @returns
  */
-const UserProfileUpdateForm = ({
-  user,
-}: {
-  user: Partial<AuthResponse>;
-  setUser: (user: Partial<AuthResponse>) => void;
-}) => {
+const UserProfileUpdateForm = ({ user }: { user: Partial<AuthResponse> }) => {
   // Ensure atomic logout
   const [doLogout, setDoLogout] = useState<boolean>(false);
 
@@ -83,7 +78,7 @@ const UserProfileUpdateForm = ({
     <Form {...form}>
       {/* Ensure atomic logout */}
       {doLogout && <AtomicLogout to='/' timeout={1000} />}
-      <form onSubmit={handleSubmit(onSubmit)} className='mx-auto mt-6 max-w-xl'>
+      <form onSubmit={handleSubmit(onSubmit)} className='mt-6 w-full max-w-xl'>
         <fieldset disabled={isSubmitting} className='flex flex-col gap-6'>
           {/* Username is required */}
           <FormField

@@ -301,13 +301,13 @@ const UserProfilePage = () => {
         </TabsList>
         <TabsContent value='account'>
           {' '}
-          <div>
-            <UserProfileUpdateForm user={user!} setUser={setUser} />
+          <div className='w-full flex flex-col gap-4 items-center'>
+            <UserProfileUpdateForm user={user!} />
             <UserDeleteComponent user={user!} clear={clear} />
           </div>
         </TabsContent>
         <TabsContent value='password'>
-          <div>
+          <div className='w-full flex flex-col gap-4 items-center'>
             <UserPasswordUpdateForm setUser={setUser} setAccessToken={setAccessToken} />
             <UserOauthLinkBar user={user!} />
           </div>
