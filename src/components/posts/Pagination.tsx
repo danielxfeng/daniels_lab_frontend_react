@@ -58,7 +58,12 @@ const Pagination = ({
       {hasPrevious && (
         <MotionIconLink
           to={goToPrev()}
-          icon={<ChevronLeftIcon className='w-8 h-8 text-foreground/80'/>}
+          icon={
+            <>
+              <ChevronLeftIcon className='text-foreground/80 h-8 w-8' />
+              <span className='hidden md:block'>Prev  ...</span>
+            </>
+          }
           ariaLabel='navigate to previous page'
           isExternal={false}
           className='hover:bg-muted/90'
@@ -68,7 +73,12 @@ const Pagination = ({
       {hasNext && (
         <MotionIconLink
           to={goToNext()}
-          icon={<ChevronRightIcon className='w-8 h-8 text-foreground/80' />}
+          icon={
+            <>
+              <ChevronRightIcon className='text-foreground/80 h-8 w-8' />{' '}
+              <span className='hidden md:block'>Next  ...</span>
+            </>
+          }
           ariaLabel='navigate to next page'
           isExternal={false}
           className='hover:bg-muted'

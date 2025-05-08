@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import { toast } from 'sonner';
-import { useLoaderData, useNavigate } from 'react-router-dom';
-import { Pencil, Trash2 } from 'lucide-react';
+import { useLoaderData } from 'react-router-dom';
+import { Pencil } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import useUserStore from '@/stores/useUserStore';
 import { PostResponse } from '@/schema/schema_post';
@@ -13,9 +11,9 @@ import Comments from '@/components/comments/Comments';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import siteMeta from '@/constants/siteMeta';
 import ShareBar from '@/components/post/ShareBar';
-import { deletePost } from '@/services/services_posts';
+
 import MotionIconLink from '@/components/motion_components/MotionIconLink';
-import MotionIconButton from '@/components/motion_components/MotionIconButton';
+import PostDeleteComponent from '@/components/post/PostDeleteComponent';
 
 // A component to set the meta information for SEO
 const MetaInfo = ({ post }: { post: PostResponse }) => (
@@ -34,30 +32,10 @@ const MetaInfo = ({ post }: { post: PostResponse }) => (
 );
 
 const PostPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
   const { post } = useLoaderData<{ post: PostResponse }>();
   const user = useUserStore.getState().user;
   const isAuthor = user?.id === post.authorId;
   const isAdmin = user?.isAdmin;
-
-  const deleteHandler = async () => {
-    try {
-      setIsLoading(true);
-      await deletePost(post.id);
-
-      toast('Post deleted successfully!');
-      setTimeout(() => {
-        navigate(`/blog/posts`);
-      }, 1000);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      toast.error('Failed to delete post');
-      return console.error('Failed to delete post:', JSON.stringify(error));
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <>
@@ -81,18 +59,7 @@ const PostPage = () => {
               isExternal={false}
             />
           )}
-          {isAdmin && (
-            <MotionIconButton
-              icon={<Trash2 className='h-6 w-6' />}
-              ariaLabel='Delete post'
-              type='button'
-              onClick={deleteHandler}
-              disabled={isLoading}
-              isLoading={isLoading}
-              className='text-destructive'
-              tooltip='Delete post'
-            />
-          )}
+          {isAdmin && <PostDeleteComponent postId={post.id} />}
         </div>
 
         {/* The social media share buttons */}

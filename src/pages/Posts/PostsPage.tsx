@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
-import PostsList from '@/components/PostList';
+import PostsList from '@/components/posts/PostList';
 import siteMeta from '@/constants/siteMeta';
 
 const FilterFormSchema = z.object({

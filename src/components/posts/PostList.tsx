@@ -5,10 +5,10 @@ import { PostListResponse, PostResponse } from '@/schema/schema_post';
 import SafeStyledMarkdown from '@/components/post/SafeStyledMarkdown';
 import LazyImage from '@/components/LazyImage';
 import { hoverEffect, tapEffect } from '@/lib/animations';
-import Pagination from '@/components/Pagination';
-import AuthorDateBar from './post/AuthorDateBar';
-import TagsBar from './tags/TagsBar';
-import MotionIconLink from './motion_components/MotionIconLink';
+import Pagination from '@/components/posts/Pagination';
+import AuthorDateBar from '../post/AuthorDateBar';
+import TagsBar from '../tags/TagsBar';
+import MotionIconLink from '../motion_components/MotionIconLink';
 import { Plus } from 'lucide-react';
 
 // A post component that displays a single post
@@ -70,10 +70,15 @@ const PostsList = ({ postsResponse }: { postsResponse: PostListResponse }) => {
       {user?.isAdmin && (
         <div className='flex justify-start'>
           <MotionIconLink
-            icon={<><Plus className='h-6 w-6'/><span className='mx-2'>New Post</span></>}
+            icon={
+              <>
+                <Plus className='h-6 w-6' />
+                <span className='mx-2'>New Post</span>
+              </>
+            }
             to='/blog/posts/new'
             ariaLabel='New Post'
-            className='bg-highlight text-background mb-2 py-2 px-4 rounded-lg'
+            className='bg-highlight text-background mb-2 rounded-lg px-4 py-2'
             isExternal={false}
           />
         </div>
