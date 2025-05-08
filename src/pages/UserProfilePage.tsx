@@ -1,6 +1,5 @@
-import LazyImage from '@/components/LazyImage';
 import MotionH1 from '@/components/motion_components/MotionH1';
-import MotionIconButton from '@/components/motion_components/MotionIconButton';
+
 import {
   UpdateUserBody,
   UpdateUserBodySchema,
@@ -10,23 +9,15 @@ import {
 import { updateUser } from '@/services/service_user';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { LogOut } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import getDeviceId from '@/lib/deviceid';
-import { changePassword, deleteUser, logoutUser } from '@/services/service_auth';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+import { changePassword, deleteUser } from '@/services/service_auth';
 import {
   AuthResponse,
   AuthResponseSchema,
   ChangePasswordBody,
   ChangePasswordBodySchema,
-  DeviceIdBodySchema,
 } from '@/schema/schema_auth';
 import useUserStore from '@/stores/useUserStore';
 import { toast } from 'sonner';
@@ -48,72 +39,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-
-// To display the user profile
-const UserProfileCard = ({ user }: { user: Partial<AuthResponse> }) => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const navigate = useNavigate();
-  // A function to handle the logout
-  const logoutHandler = async (isAll: boolean) => {
-    const clear = useUserStore.getState().clear;
-    setLoading(true);
-    // We use deviceId to identify the device
-    const body = isAll ? { deviceId: undefined } : { deviceId: await getDeviceId() };
-    const validatedBody = DeviceIdBodySchema.safeParse(body);
-    // Validate the req, fallback to logout all devices
-    if (!validatedBody.success) {
-      console.error('Invalid deviceId:', JSON.stringify(validatedBody.error));
-      body.deviceId = undefined;
-    }
-
-    try {
-      return await logoutUser(body);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.error('Error logging out:', error.response?.statusText);
-      return;
-    } finally {
-      clear(); // Clear the user store
-      toast.success('Logout successful');
-      setLoading(false);
-      setTimeout(() => navigate('/'), 1000);
-    }
-  };
-
-  return (
-    <div className='flex items-center justify-between'>
-      <div className='flex gap-2'>
-        {user.avatarUrl && (
-          <LazyImage src={user.avatarUrl} alt='User Avatar' className='h-16 w-16 rounded-full' />
-        )}
-        <div>{user.username}</div>
-      </div>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <MotionIconButton
-            icon={<LogOut className='h-5 w-5' />}
-            ariaLabel='Logout'
-            type='button'
-            className='bg-muted text-muted-foreground w-fit'
-            tooltip='Logout'
-            isLoading={loading}
-            disabled={loading}
-          />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align='end'>
-          <DropdownMenuLabel>Options</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => logoutHandler(false)}>
-            Logout current device
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => logoutHandler(true)}>
-            Logout all devices
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
-  );
-};
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import UserLogoutComponent from '@/components/user_profile/UserLogoutComponent';
 
 // Form values for user profile update
 const UserProfileUpdateForm = ({
@@ -136,6 +63,7 @@ const UserProfileUpdateForm = ({
     },
   });
 
+  console.log('Render: UserProfileUpdateForm');
   const onSubmit = async (data: UpdateUserBody) => {
     try {
       const res = await updateUser(data);
@@ -223,6 +151,8 @@ const UserPasswordUpdateForm = ({
     resolver: zodResolver(ChangePasswordBodySchema),
     mode: 'onTouched',
   });
+
+  console.log('Render: UserPasswordUpdateForm');
 
   useEffect(() => {
     getDeviceId().then((deviceId) => {
@@ -328,7 +258,7 @@ const UserOauthLinkBar = ({ user }: { user: Partial<UserResponse> }) => {
     github: <FaGithub className='h-5 w-5' />,
     linkedin: <FaLinkedin className='h-5 w-5' />,
   };
-
+  console.log('Render: UserOauthLinkBar');
   return (
     <div className='flex gap-2'>
       {OauthProviderValues.map((provider) => {
@@ -387,6 +317,7 @@ const UserDeleteComponent = ({
       setLoading(false);
     }
   };
+  console.log('Render: UserDeleteComponent');
 
   return (
     <AlertDialog>
@@ -417,22 +348,66 @@ const UserDeleteComponent = ({
   );
 };
 
+/**
+ * @summary UserProfilePage
+ * @description
+ * 1 - UserProfileCard: Displays the user profile information and a logout button.
+ * 2 - UserProfileUpdateForm: A form to update the user profile information.
+ * 3 - UserPasswordUpdateForm: A form to update the user password.
+ * 4 - UserOauthLinkBar: A bar to link/unlink the user oauth providers.
+ * 5 - UserDeleteComponent: A component to delete the user account.
+ * 6 - The page is protected by the auth guard, so only authenticated users can access it.
+ *
+ * @remarks
+ * As we can see, the user status may be changed by several components.
+ * Therefore, we return null when the user is null.
+ * So, please USE `<AtomicLogout to='/' timeout=1000 />` to logout the user.
+ * @returns
+ */
 const UserProfilePage = () => {
-  const { user, setUser, setAccessToken, clear } = useUserStore((state) => ({
-    user: state.user,
-    setUser: state.setUser,
-    setAccessToken: state.setAccessToken,
-    clear: state.clear,
-  }));
+  const user = useUserStore((state) => state.user);
+  const { setUser, setAccessToken, clear } = useUserStore.getState();
 
-  return (
+  return !user ? null : (
     <div className='inner-container'>
-      <MotionH1>User Profile</MotionH1>
-      <UserProfileCard user={user!} />
-      <UserProfileUpdateForm user={user!} setUser={setUser} />
-      <UserPasswordUpdateForm setUser={setUser} setAccessToken={setAccessToken} />
-      <UserOauthLinkBar user={user!} />
-      <UserDeleteComponent user={user!} clear={clear} />
+      {/* UserProfileCard */}
+      <div className='flex w-full items-center justify-between'>
+        {/* User avatar and username */}
+        <div className='flex items-center gap-5'>
+          <Avatar className='h-16 w-16 items-center'>
+            <AvatarImage
+              src={user.avatarUrl ? user.avatarUrl : undefined}
+              alt={`${user.username}'s avatar`}
+            />
+            <AvatarFallback>{user.username?.[0]?.toUpperCase() ?? 'U'}</AvatarFallback>
+          </Avatar>
+          <MotionH1>{user.username}</MotionH1>
+        </div>
+        {/* Logout button */}
+        <div className='mx-5'>
+          <UserLogoutComponent />
+        </div>
+      </div>
+
+      <Tabs defaultValue='account' className='mx-auto mt-8 flex max-w-2xl'>
+        <TabsList className='w-full'>
+          <TabsTrigger value='account'>Account</TabsTrigger>
+          <TabsTrigger value='password'>Password</TabsTrigger>
+        </TabsList>
+        <TabsContent value='account'>
+          {' '}
+          <div>
+            <UserProfileUpdateForm user={user!} setUser={setUser} />
+            <UserDeleteComponent user={user!} clear={clear} />
+          </div>
+        </TabsContent>
+        <TabsContent value='password'>
+          <div>
+            <UserPasswordUpdateForm setUser={setUser} setAccessToken={setAccessToken} />
+            <UserOauthLinkBar user={user!} />
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };

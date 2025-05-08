@@ -1,0 +1,81 @@
+import { useState } from 'react';
+import { LogOut } from 'lucide-react';
+import { toast } from 'sonner';
+import { DeviceIdBodySchema } from '@/schema/schema_auth';
+import { logoutUser } from '@/services/service_auth';
+import MotionIconButton from '@/components/motion_components/MotionIconButton';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import AtomicLogout from '@/components/AtomicLogout';
+import getDeviceId from '@/lib/deviceid';
+
+// To handle the user logout
+const UserLogoutComponent = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  // Ensure atomic logout
+  const [doLogout, setDoLogout] = useState<boolean>(false);
+
+  // A function to handle the logout
+  const logoutHandler = async (isAll: boolean) => {
+    setLoading(true);
+    // We use deviceId to identify the device
+    const body = isAll ? { deviceId: undefined } : { deviceId: await getDeviceId() };
+    const validatedBody = DeviceIdBodySchema.safeParse(body);
+    // Validate the req, fallback to logout all devices
+    if (!validatedBody.success) {
+      console.error('Invalid deviceId:', JSON.stringify(validatedBody.error));
+      body.deviceId = undefined;
+    }
+
+    try {
+      await logoutUser(body);
+      return toast.success('Logout successful');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error('Error logging out:', error.response?.statusText);
+      return toast.error('Error, failed to revoke tokens on server, only local tokens are deleted');
+    } finally {
+      setLoading(false);
+      setDoLogout(true);
+    }
+  };
+  console.log('Render: UserProfileCard');
+  return (
+    <div className='flex items-center'>
+      {/* Ensure atomic logout */}
+      {doLogout && <AtomicLogout to='/' timeout={1000} />}
+      {/* Logout button */}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <MotionIconButton
+            icon={<LogOut className='h-8 w-8' />}
+            ariaLabel='Logout'
+            type='button'
+            className='text-muted-foreground w-fit'
+            tooltip='Logout'
+            isLoading={loading}
+            disabled={loading}
+          />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align='end'>
+          <DropdownMenuLabel>Options</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={() => logoutHandler(false)}>
+            Logout current device
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => logoutHandler(true)}>
+            Logout all devices
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  );
+};
+
+export default UserLogoutComponent;
