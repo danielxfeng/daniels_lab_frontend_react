@@ -1,16 +1,19 @@
 import { useLoaderData } from 'react-router-dom';
+import { Pencil } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import useUserStore from '@/stores/useUserStore';
 import { PostResponse } from '@/schema/schema_post';
 import SafeStyledMarkdown from '@/components/post/SafeStyledMarkdown';
 import LazyImage from '@/components/LazyImage';
 import AuthorDateBar from '@/components/post/AuthorDateBar';
-import MotionTextButtonLink from '@/components/motion_components/MotionTextButtonLink';
 import Likes from '@/components/Likes';
 import Comments from '@/components/comments/Comments';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import siteMeta from '@/constants/siteMeta';
 import ShareBar from '@/components/post/ShareBar';
+
+import MotionIconLink from '@/components/motion_components/MotionIconLink';
+import PostDeleteComponent from '@/components/post/PostDeleteComponent';
 
 // A component to set the meta information for SEO
 const MetaInfo = ({ post }: { post: PostResponse }) => (
@@ -39,32 +42,25 @@ const PostPage = () => {
       <MetaInfo post={post} />
       {/* The post page */}
       <article className='inner-container mb-10 flex max-w-3xl flex-col items-center gap-6 md:mb-10'>
-        {/* The possible operation panel */}
-        <header className='flex flex-col gap-2'>
-          <div className='flex w-full items-center justify-end gap-2'>
-            {isAuthor && (
-              <MotionTextButtonLink
-                to={`/blog/posts/edit/${post.id}`}
-                label='Edit'
-                ariaLabel='Edit post'
-                className='bg-muted text-muted-foreground w-fit'
-              />
-            )}
-            {isAdmin && (
-              <MotionTextButtonLink
-                to={`/blog/posts/${post.slug}/edit`}
-                label='Delete'
-                ariaLabel='Delete post'
-                className='bg-muted text-muted-foreground w-fit'
-              />
-            )}
-          </div>
-        </header>
-
         {/* The post cover image */}
         <LazyImage src={post.cover} alt={post.title} className='w-3/4 rounded-xl shadow-2xl' />
 
         <MotionH1 className='text-center'>{post.title}</MotionH1>
+
+        {/* The possible operation panel */}
+        <div className='flex w-full items-center justify-end gap-2'>
+          {isAuthor && (
+            <MotionIconLink
+              to={`/blog/posts/edit/${post.slug}`}
+              state={{ post }}
+              icon={<Pencil className='h-6 w-6' />}
+              ariaLabel='Edit post'
+              tooltip='Edit post'
+              isExternal={false}
+            />
+          )}
+          {isAdmin && <PostDeleteComponent postId={post.id} />}
+        </div>
 
         {/* The social media share buttons */}
         <ShareBar url={`${siteMeta.siteUrl}/blog/posts/${post.slug}`} title={post.title} />

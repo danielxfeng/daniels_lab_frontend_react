@@ -11,6 +11,8 @@ interface MotionTextButtonLinkProps extends ComponentProps<'a'> {
   isExternal?: boolean;
   className?: string;
   disabled?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  state?: any;
 }
 
 /**
@@ -30,13 +32,14 @@ const MotionTextButtonLink = ({
   isExternal = false,
   className,
   disabled = false,
+  state,
 }: MotionTextButtonLinkProps) => {
   const content = (
     <motion.button
       whileHover={!disabled ? hoverOpacity : undefined}
       whileTap={!disabled ? tapEffect : undefined}
       className={cn(
-        'text-background bg-primary shadow-primary/20 rounded-xl px-4 py-2 text-center shadow-lg transition-all',
+        'text-background bg-highlight shadow-primary/20 rounded-lg px-6 py-2 text-center shadow transition-all',
         disabled && 'pointer-events-none cursor-not-allowed opacity-50',
         className,
       )}
@@ -50,11 +53,18 @@ const MotionTextButtonLink = ({
   );
 
   return isExternal ? (
-    <a href={to} target='_blank' rel='noopener noreferrer'>
+    <a
+      href={to}
+      target='_blank'
+      rel='noopener noreferrer'
+      className={className?.includes('w-full') ? 'w-full' : undefined}
+    >
       {content}
     </a>
   ) : (
-    <Link to={to}>{content}</Link>
+    <Link to={to} state={state} className={className?.includes('w-full') ? 'w-full' : undefined}>
+      {content}
+    </Link>
   );
 };
 

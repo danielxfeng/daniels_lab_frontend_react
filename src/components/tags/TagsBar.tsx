@@ -15,7 +15,7 @@ const TagsBar = ({ tags }: { tags: string[] }) => (
           to={`/blog/posts/?tags=${tag}`}
           label={`${tag}`}
           ariaLabel={`to posts with tag ${tag}`}
-          className='bg-highlight rounded-md px-2 py-0.5 text-sm'
+          className='bg-highlight w-fit rounded-md px-2 py-0.5 text-sm'
           isExternal={false}
         />
       ))}

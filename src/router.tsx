@@ -1,16 +1,18 @@
 import { createBrowserRouter, redirect } from 'react-router-dom';
 import { lazy } from 'react';
+import { adminGuard, authGuard } from '@/lib/authGuard';
 import AppLayout from '@/components/AppLayout';
+import Loading from '@/components/Loading';
 import NotFoundPage from '@/pages/NotFoundPage';
 import ErrorBoundary from '@/pages/ErrorBoundary';
 import postsLoader from '@/pages/Posts/postsLoader';
 import PostsPage from '@/pages/Posts/PostsPage';
 import PostPage from '@/pages/Post/PostPage';
 import postPageLoader from '@/pages/Post/postPageLoader';
-import Loading from '@/components/Loading';
-import LoginPage from './pages/LoginPage';
-import UserProfilePage from './pages/UserProfilePage';
-import { authGuard } from './lib/authGuard';
+import LoginPage from '@/pages/LoginPage';
+import UserProfilePage from '@/pages/UserProfilePage';
+import PostCreatePage from '@/pages/PostUpsert/PostCreatePage';
+import PostUpdatePage from '@/pages/PostUpsert/PostUpdatePage';
 
 // The router of the app.
 const router = createBrowserRouter([
@@ -40,19 +42,10 @@ const router = createBrowserRouter([
               { path: 'search', Component: () => <div>Blog Search</div> },
               // post detail, comments list, like status
               { path: ':slug', Component: PostPage, loader: postPageLoader },
-              // a form to add a post.
-              // a combo box to add/select tags
-              // shared components with edit post
-              // todo admin check
-              // todo action
-              { path: 'new', Component: () => <div>New Blog Post</div> },
-              // a form to edit a post.
-              // a combo box to add/select tags
-              // shared components with new post
-              // todo load, auth check
-              // todo action
-              // todo auth check
-              { path: 'edit/:id', Component: () => <div>Edit Blog Post</div> },
+              // a form to add a post, admin only
+              { path: 'new', Component: PostCreatePage, loader: adminGuard },
+              // a form to edit a post, author only
+              { path: 'edit/:slug', Component: PostUpdatePage, loader: postPageLoader },
             ],
           },
         ],
