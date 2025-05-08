@@ -205,7 +205,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
                           )}
                         >
                           {field.value ? (
-                            format(field.value, 'yyyy-MM-dd HH:mm')
+                            valueAsDate ? format(valueAsDate, 'yyyy-MM-dd HH:mm') : ''
                           ) : (
                             <span>Pick a date</span>
                           )}
