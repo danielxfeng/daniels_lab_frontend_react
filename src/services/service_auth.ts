@@ -60,7 +60,7 @@ const changePassword = async (body: ChangePasswordBody): Promise<AxiosResponse<A
  * @returns 
  */
 const deleteUser = async (userId: string): Promise<AxiosResponse<void>> => {
-  return authAxios.delete('/auth/delete', { data: { userId } });
+  return authAxios.delete(`/auth/${userId}`);
 };
 
 export { loginUser, registerUser, logoutUser, changePassword, deleteUser };

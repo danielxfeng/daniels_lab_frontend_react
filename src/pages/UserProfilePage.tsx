@@ -1,12 +1,11 @@
 import MotionH1 from '@/components/motion_components/MotionH1';
 
 import { UserResponse } from '@/schema/schema_users';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
 import getDeviceId from '@/lib/deviceid';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-import { changePassword, deleteUser } from '@/services/service_auth';
+import { changePassword } from '@/services/service_auth';
 import {
   AuthResponse,
   AuthResponseSchema,
@@ -22,20 +21,11 @@ import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
 import { OauthProviderValues } from '@/schema/schema_components';
 import MotionIconLink from '@/components/motion_components/MotionIconLink';
 import siteMeta from '@/constants/siteMeta';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import UserLogoutComponent from '@/components/user_profile/UserLogoutComponent';
 import UserProfileUpdateForm from '@/components/user_profile/UserProfileUpdateForm';
+import UserDeleteComponent from '@/components/user_profile/UserDeleteComponent';
 
 // A component to update the user password
 const UserPasswordUpdateForm = ({
@@ -195,64 +185,6 @@ const UserOauthLinkBar = ({ user }: { user: Partial<UserResponse> }) => {
   );
 };
 
-const UserDeleteComponent = ({
-  user,
-  clear,
-}: {
-  user: Partial<UserResponse>;
-  clear: () => void;
-}) => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const navigate = useNavigate();
-
-  const deleteHandler = async () => {
-    setLoading(true);
-    try {
-      await deleteUser(user.id!);
-      clear(); // Clear the user store
-      setTimeout(() => {
-        setLoading(false);
-        navigate('/');
-      }, 1000);
-    } catch (error) {
-      console.error('Error deleting user:', error);
-      toast.error('Error deleting user');
-      return;
-    } finally {
-      setLoading(false);
-    }
-  };
-  console.log('Render: UserDeleteComponent');
-
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <MotionTextButton
-          label='Delete Account'
-          ariaLabel='Delete Account'
-          type='button'
-          className='btn-destructive'
-        />
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your account and all related
-            data.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={deleteHandler} disabled={loading}>
-            Yes, delete
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
-};
-
 /**
  * @summary UserProfilePage
  * @description
@@ -271,7 +203,7 @@ const UserDeleteComponent = ({
  */
 const UserProfilePage = () => {
   const user = useUserStore((state) => state.user);
-  const { setUser, setAccessToken, clear } = useUserStore.getState();
+  const { setUser, setAccessToken } = useUserStore.getState();
 
   return !user ? null : (
     <div className='inner-container'>
@@ -301,13 +233,13 @@ const UserProfilePage = () => {
         </TabsList>
         <TabsContent value='account'>
           {' '}
-          <div className='w-full flex flex-col gap-4 items-center'>
+          <div className='flex w-full flex-col items-center gap-15'>
             <UserProfileUpdateForm user={user!} />
-            <UserDeleteComponent user={user!} clear={clear} />
+            <UserDeleteComponent user={user!} />
           </div>
         </TabsContent>
         <TabsContent value='password'>
-          <div className='w-full flex flex-col gap-4 items-center'>
+          <div className='flex w-full flex-col items-center gap-4'>
             <UserPasswordUpdateForm setUser={setUser} setAccessToken={setAccessToken} />
             <UserOauthLinkBar user={user!} />
           </div>
