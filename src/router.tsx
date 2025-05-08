@@ -9,6 +9,8 @@ import PostPage from '@/pages/Post/PostPage';
 import postPageLoader from '@/pages/Post/postPageLoader';
 import Loading from '@/components/Loading';
 import LoginPage from './pages/LoginPage';
+import UserProfilePage from './pages/UserProfilePage';
+import { authGuard } from './lib/authGuard';
 
 // The router of the app.
 const router = createBrowserRouter([
@@ -59,12 +61,8 @@ const router = createBrowserRouter([
       {
         path: 'user',
         children: [
-          // user profile
-          // a form to edit the info, a form to change/set the password
-          // buttons to logout, delete the account
-          // buttons to link/unlink the social accounts
-          // todo load, auth check
-          { index: true, Component: () => <div>Users</div> },
+          // user profile, use auth guard to protect it
+          { index: true, Component: UserProfilePage, loader: authGuard },
           // a form to login a new user, a form to register a new user
           // a form to link the social accounts
           { path: 'login', Component: LoginPage },
