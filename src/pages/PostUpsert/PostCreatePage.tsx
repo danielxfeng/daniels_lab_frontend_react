@@ -1,5 +1,5 @@
 import MotionH1 from '@/components/motion_components/MotionH1';
-import PostUpsertForm from '@/components/post/PostUpsertForm';
+import PostUpsertForm from '@/components/features/post/PostUpsertForm';
 
 /// A component to create a new post
 const PostCreatePage = () => {

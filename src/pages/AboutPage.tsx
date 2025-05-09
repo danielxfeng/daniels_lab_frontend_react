@@ -1,4 +1,4 @@
-import ContactLink from '@/components/ContactLink';
+import ContactLink from '@/components/shared/ContactLink';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import contactIconList from '@/constants/contactLinks';
 import { picAnimation } from '@/lib/animations';

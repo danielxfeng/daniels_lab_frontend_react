@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import useUserStore from '@/stores/useUserStore';
 import getDeviceId from './deviceid';
 import { AuthResponse, AuthResponseSchema, RefreshTokenBodySchema } from '@/schema/schema_auth';
@@ -12,32 +12,23 @@ const timeout = 30000; // 30s
 /**
  * @summary A single skeleton for a Axios instance without authentication.
  */
-const anonymousAxios = axios.create({
-  baseURL,
-  headers,
-  timeout,
-  withCredentials: false,
-});
+let anonymousAxios: AxiosInstance | null = null;
 
 /**
  * @summary A single skeleton for a Axios instance with authentication.
  */
-const authAxios = axios.create({
-  baseURL,
-  headers,
-  timeout,
-  withCredentials: true,
-});
+let authAxios: AxiosInstance | null = null;
 
 /**
  * @summary A single skeleton for a Axios instance with optional authentication.
  */
-const optAxios = axios.create({
-  baseURL,
-  headers,
-  timeout,
-  withCredentials: true,
-});
+let optAxios: AxiosInstance | null = null;
+
+const interceptorIds = {
+  anonymous: { request: -1, response: -1 },
+  auth: { request: -1, response: -1 },
+  opt: { request: -1, response: -1 },
+};
 
 /**
  * @summary A function to fetch the access token.
@@ -89,7 +80,7 @@ const fetchAccessToken = async (retry: number): Promise<string | null> => {
       const validatedBody = refreshBody.data;
 
       // Send the request to refresh the token
-      const response = await anonymousAxios.post('/auth/refresh', validatedBody);
+      const response = await anonymousAxios!.post('/auth/refresh', validatedBody);
 
       // Parse the response and validate it.
       if (response.status !== 200) {
@@ -117,41 +108,6 @@ const fetchAccessToken = async (retry: number): Promise<string | null> => {
   }
 };
 
-// A request interceptor to add the Authorization header
-// It also handles accessToken refreshing
-authAxios.interceptors.request.use(
-  async (config) => {
-    // Try to get the access token, retry at most twice in case of expired access token
-    const accessToken = await fetchAccessToken(2);
-
-    // Reject if the access token is not available
-    if (!accessToken)
-      return Promise.reject({
-        response: { status: 401, data: 'Unauthorized' },
-      });
-
-    // Otherwise, set the header and pass the request
-    config.headers.Authorization = `Bearer ${accessToken}`;
-
-    return config;
-  },
-  // Handle errors
-  (error) => Promise.reject(error),
-);
-
-// A request interceptor try to add the Authorization header
-optAxios.interceptors.request.use(
-  async (config) => {
-    // Try to get the access token, retry at most twice in case of expired access token
-    const accessToken = await fetchAccessToken(2);
-    // Set the header and pass the request
-    if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
-    return config;
-  },
-  // Handle errors
-  (error) => Promise.reject(error),
-);
-
 /**
  * Handle the error from the Axios response.
  * @description Retry the 498 expired token error, and handle the 401, 403 errors.
@@ -167,7 +123,7 @@ const handleError = async (error: any) => {
 
       const originalRequest = error.config;
       originalRequest.headers.Authorization = `Bearer ${newToken}`;
-      return await authAxios(originalRequest);
+      return await authAxios!(originalRequest);
     } catch (err) {
       console.error('Error refreshing token:', err);
       throw { response: { status: 401, data: 'Unauthorized' } };
@@ -200,33 +156,117 @@ const handleError = async (error: any) => {
   }
 };
 
-// A response interceptor to handle errors
-anonymousAxios.interceptors.response.use(
-  (response) => response,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async (error: any) => {
-    return await handleError(error);
-  },
-);
+// For keeping the single instance
+const createAxiosInstances = () => {
+  if (!anonymousAxios) {
+    anonymousAxios = axios.create({
+      baseURL,
+      headers,
+      timeout,
+      withCredentials: false,
+    });
 
-// A response interceptor to handle errors
-// Mainly it handles the 498 expired token error
-authAxios.interceptors.response.use(
-  (response) => response,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async (error: any) => {
-    return await handleError(error);
-  },
-);
+    // A response interceptor to handle errors
+    interceptorIds.anonymous.response = anonymousAxios.interceptors.response.use(
+      (response) => response,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      async (error: any) => {
+        return await handleError(error);
+      },
+    );
+  }
 
-// A response interceptor to handle errors
-// Mainly it handles the 498 expired token error
-optAxios.interceptors.response.use(
-  (response) => response,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async (error: any) => {
-    return await handleError(error);
-  },
-);
+  if (!authAxios) {
+    authAxios = axios.create({
+      baseURL,
+      headers,
+      timeout,
+      withCredentials: true,
+    });
+
+    // A request interceptor to add the Authorization header
+    // It also handles accessToken refreshing
+    interceptorIds.auth.request = authAxios.interceptors.request.use(
+      async (config) => {
+        // Try to get the access token, retry at most twice in case of expired access token
+        const accessToken = await fetchAccessToken(2);
+
+        // Reject if the access token is not available
+        if (!accessToken)
+          return Promise.reject({
+            response: { status: 401, data: 'Unauthorized' },
+          });
+
+        // Otherwise, set the header and pass the request
+        config.headers.Authorization = `Bearer ${accessToken}`;
+
+        return config;
+      },
+      // Handle errors
+      (error) => Promise.reject(error),
+    );
+
+    // A response interceptor to handle errors
+    // Mainly it handles the 498 expired token error
+    interceptorIds.auth.response = authAxios.interceptors.response.use(
+      (response) => response,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      async (error: any) => {
+        return await handleError(error);
+      },
+    );
+  }
+
+  if (!optAxios) {
+    optAxios = axios.create({
+      baseURL,
+      headers,
+      timeout,
+      withCredentials: true,
+    });
+
+    // A request interceptor try to add the Authorization header
+    interceptorIds.opt.request = optAxios.interceptors.request.use(
+      async (config) => {
+        // Try to get the access token, retry at most twice in case of expired access token
+        const accessToken = await fetchAccessToken(2);
+        // Set the header and pass the request
+        if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
+        return config;
+      },
+      // Handle errors
+      (error) => Promise.reject(error),
+    );
+
+    // A response interceptor to handle errors
+    // Mainly it handles the 498 expired token error
+    interceptorIds.opt.response = optAxios.interceptors.response.use(
+      (response) => response,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      async (error: any) => {
+        return await handleError(error);
+      },
+    );
+  }
+};
+createAxiosInstances();
+
+if (import.meta.hot) {
+  import.meta.hot.accept(() => {
+    if (anonymousAxios) {
+      anonymousAxios.interceptors.response.eject(interceptorIds.anonymous.response);
+    }
+    if (authAxios) {
+      authAxios.interceptors.request.eject(interceptorIds.auth.request);
+      authAxios.interceptors.response.eject(interceptorIds.auth.response);
+    }
+    if (optAxios) {
+      optAxios.interceptors.request.eject(interceptorIds.opt.request);
+      optAxios.interceptors.response.eject(interceptorIds.opt.response);
+    }
+
+    createAxiosInstances();
+  });
+}
 
 export { anonymousAxios, optAxios, authAxios };

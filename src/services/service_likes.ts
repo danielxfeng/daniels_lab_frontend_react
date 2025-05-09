@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { optAxios } from '@/lib/axiosInstance';
+import { authAxios, optAxios } from '@/lib/axiosInstance';
 import { LikeStatusResponse } from '@/schema/schema_like';
 
 /**
@@ -9,27 +9,27 @@ import { LikeStatusResponse } from '@/schema/schema_like';
  */
 const getLikeStatus = async (postId: string): Promise<AxiosResponse<LikeStatusResponse>> => {
   const params = new URLSearchParams({ postId });
-  return await optAxios.get(`/blog/likes/?${params.toString()}`);
+  return await optAxios!.get(`/blog/likes/?${params.toString()}`);
 };
 
 /**
  * @summary A function to like a post.
  * @param postId - The ID of the post to like.
- * @returns 
+ * @returns
  */
 const likePost = async (postId: string): Promise<AxiosResponse<unknown>> => {
-  const params = new URLSearchParams({ postId });
-  return await optAxios.post(`/blog/likes/?${params.toString()}`);
+  return await authAxios!.post(`/blog/likes/`, { postId });
 };
 
 /**
  * @summary A function to unlike a post.
  * @param postId - The ID of the post to unlike.
- * @returns 
+ * @returns
  */
 const unlikePost = async (postId: string): Promise<AxiosResponse<unknown>> => {
-  const params = new URLSearchParams({ postId });
-  return await optAxios.delete(`/blog/likes/?${params.toString()}`);
+  return await authAxios!.delete(`/blog/likes/`, {
+    data: { postId },
+  });
 };
 
 export { getLikeStatus, likePost, unlikePost };

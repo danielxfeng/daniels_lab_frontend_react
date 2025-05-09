@@ -14,7 +14,7 @@ import { AxiosResponse } from 'axios';
  * @returns
  */
 const loginUser = async (body: LoginBody): Promise<AxiosResponse<AuthResponse>> => {
-  return anonymousAxios.post('/auth/login', body, {
+  return anonymousAxios!.post('/auth/login', body, {
     // Bypass 401 interceptor for login requests
     headers: {
       'X-Bypass-401-Interceptor': 'true',
@@ -28,7 +28,7 @@ const loginUser = async (body: LoginBody): Promise<AxiosResponse<AuthResponse>> 
  * @returns
  */
 const registerUser = async (body: RegisterBody): Promise<AxiosResponse<AuthResponse>> => {
-  return anonymousAxios.post('/auth/register', body);
+  return anonymousAxios!.post('/auth/register', body);
 };
 
 /**
@@ -37,7 +37,7 @@ const registerUser = async (body: RegisterBody): Promise<AxiosResponse<AuthRespo
  * @returns
  */
 const logoutUser = async (body: DeviceIdBody): Promise<AxiosResponse<void>> => {
-  return authAxios.post('/auth/logout', body);
+  return authAxios!.post('/auth/logout', body);
 };
 
 /**
@@ -46,7 +46,7 @@ const logoutUser = async (body: DeviceIdBody): Promise<AxiosResponse<void>> => {
  * @returns
  */
 const changePassword = async (body: ChangePasswordBody): Promise<AxiosResponse<AuthResponse>> => {
-  return authAxios.post('/auth/change-password', body, {
+  return authAxios!.post('/auth/change-password', body, {
     // Bypass 401 interceptor for login requests
     headers: {
       'X-Bypass-401-Interceptor': 'true',
@@ -60,7 +60,7 @@ const changePassword = async (body: ChangePasswordBody): Promise<AxiosResponse<A
  * @returns 
  */
 const deleteUser = async (userId: string): Promise<AxiosResponse<void>> => {
-  return authAxios.delete(`/auth/${userId}`);
+  return authAxios!.delete(`/auth/${userId}`);
 };
 
 export { loginUser, registerUser, logoutUser, changePassword, deleteUser };

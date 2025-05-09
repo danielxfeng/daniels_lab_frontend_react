@@ -1,4 +1,4 @@
-import { ContactLinkProps } from '@/components/ContactLink';
+import { ContactLinkProps } from '@/components/shared/ContactLink';
 
 import { FaLinkedin, FaGithub } from 'react-icons/fa6';
 import { HiOutlineMail } from 'react-icons/hi';

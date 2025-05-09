@@ -7,11 +7,11 @@ import { UpdateUserBody, UserResponse } from '@/schema/schema_users';
  * @returns 
  */
 const getUser = async (): Promise<AxiosResponse<UserResponse>> => {
-  return await authAxios.post('/users');
+  return await authAxios!.post('/users');
 };
 
 const updateUser = async (body: UpdateUserBody) : Promise<AxiosResponse<UserResponse>> => {
-  return await authAxios.put('/users', body);
+  return await authAxios!.put('/users', body);
 };
 
 export { getUser, updateUser };

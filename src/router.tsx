@@ -1,8 +1,8 @@
 import { createBrowserRouter, redirect } from 'react-router-dom';
 import { lazy } from 'react';
 import { adminGuard, authGuard } from '@/lib/authGuard';
-import AppLayout from '@/components/AppLayout';
-import Loading from '@/components/Loading';
+import AppLayout from '@/components/layout/AppLayout';
+import Loading from '@/components/shared/Loading';
 import NotFoundPage from '@/pages/NotFoundPage';
 import ErrorBoundary from '@/pages/ErrorBoundary';
 import postsLoader from '@/pages/Posts/postsLoader';

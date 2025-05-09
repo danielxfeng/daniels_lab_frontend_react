@@ -22,7 +22,7 @@ const getComments = async (
     offset: offset.toString(),
     limit: limit.toString(),
   });
-  return await anonymousAxios.get(`/blog/comments/?${params.toString()}`);
+  return await anonymousAxios!.get(`/blog/comments/?${params.toString()}`);
 };
 
 /**
@@ -31,7 +31,7 @@ const getComments = async (
  * @returns
  */
 const getComment = async (commentId: string): Promise<AxiosResponse<CommentResponse>> => {
-  return await anonymousAxios.get(`/blog/comments/${commentId}`);
+  return await anonymousAxios!.get(`/blog/comments/${commentId}`);
 };
 
 /**
@@ -40,7 +40,7 @@ const getComment = async (commentId: string): Promise<AxiosResponse<CommentRespo
  * @returns
  */
 const createComment = async (body: CreateCommentBody) => {
-  return await authAxios.post('/blog/comments', body);
+  return await authAxios!.post('/blog/comments', body);
 };
 
 /**
@@ -49,7 +49,7 @@ const createComment = async (body: CreateCommentBody) => {
  * @returns
  */
 const updateComment = async (commentId: string, body: UpdateCommentBody) => {
-  return await authAxios.put(`/blog/comments/${commentId}`, body);
+  return await authAxios!.put(`/blog/comments/${commentId}`, body);
 };
 
 /**
@@ -58,7 +58,7 @@ const updateComment = async (commentId: string, body: UpdateCommentBody) => {
  * @returns
  */
 const deleteComment = async (commentId: string) => {
-  return await authAxios.delete(`/blog/comments/${commentId}`);
+  return await authAxios!.delete(`/blog/comments/${commentId}`);
 };
 
 export { getComments, getComment, createComment, updateComment, deleteComment };

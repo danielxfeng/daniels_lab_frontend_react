@@ -3,17 +3,16 @@ import { Pencil } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import useUserStore from '@/stores/useUserStore';
 import { PostResponse } from '@/schema/schema_post';
-import SafeStyledMarkdown from '@/components/post/SafeStyledMarkdown';
-import LazyImage from '@/components/LazyImage';
-import AuthorDateBar from '@/components/post/AuthorDateBar';
-import Likes from '@/components/Likes';
-import Comments from '@/components/comments/Comments';
+import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';
+import LazyImage from '@/components/shared/LazyImage';
+import AuthorDateBar from '@/components/features/post/AuthorDateBar';
+import Likes from '@/components/features/post/Likes';
+import Comments from '@/components/features/comments/Comments';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import siteMeta from '@/constants/siteMeta';
-import ShareBar from '@/components/post/ShareBar';
-
+import ShareBar from '@/components/features/post/ShareBar';
 import MotionIconLink from '@/components/motion_components/MotionIconLink';
-import PostDeleteComponent from '@/components/post/PostDeleteComponent';
+import PostDeleteComponent from '@/components/features/post/PostDeleteComponent';
 
 // A component to set the meta information for SEO
 const MetaInfo = ({ post }: { post: PostResponse }) => (

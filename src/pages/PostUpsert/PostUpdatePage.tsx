@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useLoaderData, useLocation, useNavigate } from 'react-router';
 import { PostResponse, PostResponseSchema } from '@/schema/schema_post';
 import MotionH1 from '@/components/motion_components/MotionH1';
-import PostUpsertForm from '@/components/post/PostUpsertForm';
-import Loading from '@/components/Loading';
+import PostUpsertForm from '@/components/features/post/PostUpsertForm';
+import Loading from '@/components/shared/Loading';
 import { throwWithValidationErr } from '@/lib/throwWithErr';
 import useUserStore from '@/stores/useUserStore';
 
