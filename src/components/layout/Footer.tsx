@@ -1,4 +1,4 @@
-import ContactLink from '@/components/ContactLink';
+import ContactLink from '@/components/shared/ContactLink';
 import contactIconList from '@/constants/contactLinks';
 import siteMeta from '@/constants/siteMeta';
 

@@ -6,7 +6,7 @@ import { PostResponse } from '@/schema/schema_post';
 import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';
 import LazyImage from '@/components/shared/LazyImage';
 import AuthorDateBar from '@/components/features/post/AuthorDateBar';
-import Likes from '@/components/Likes';
+import Likes from '@/components/features/post/Likes';
 import Comments from '@/components/features/comments/Comments';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import siteMeta from '@/constants/siteMeta';
