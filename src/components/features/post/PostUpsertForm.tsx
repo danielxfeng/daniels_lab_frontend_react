@@ -25,6 +25,7 @@ import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
+import TagSelector from '../tags/TagsSelector';
 
 // A helper function to get the slug from the response
 const getSlug = (isCreate: boolean, res: AxiosResponse<PostResponse | undefined>) => {
@@ -132,6 +133,20 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
                     {...field}
                     className='border-muted bg-muted min-h-96 ring-1'
                   />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name='tags'
+            render={() => (
+              <FormItem>
+                <FormLabel>Tags</FormLabel>
+                <FormControl>
+                  <TagSelector name='tags' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
