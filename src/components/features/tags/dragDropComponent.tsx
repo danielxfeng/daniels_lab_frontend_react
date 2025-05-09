@@ -1,8 +1,10 @@
+import { springEffect } from '@/lib/animations';
+import { cn } from '@/lib/utils';
 import {
   DndContext,
   DragEndEvent,
   DragOverEvent,
-  closestCenter,
+  pointerWithin,
   useDraggable,
   useDroppable,
 } from '@dnd-kit/core';
@@ -28,7 +30,9 @@ const DraggableTag = ({ tag }: { tag: string }) => {
       {...attributes}
       {...listeners}
       layout
-      className='bg-muted flex items-center gap-2 rounded-full px-3 py-1 text-sm shadow'
+      className='inline-flex items-center justify-center whitespace-nowrap
+                 w-auto max-w-full bg-muted text-muted-foreground
+                 gap-2 rounded-full px-3 py-1 text-sm shadow pointer-events-auto'
     >
       <span>{tag}</span>
     </motion.div>
@@ -36,22 +40,31 @@ const DraggableTag = ({ tag }: { tag: string }) => {
 };
 
 // Droppable: The trash zone
-const DroppableTrash = () => {
+const DroppableTrash = ({ dragging }: { dragging: boolean }) => {
   // As a droppable, we use `useDroppable` to get the ref trash zone
-  const { setNodeRef } = useDroppable({ id: 'trash' });
+  const { isOver, setNodeRef } = useDroppable({ id: 'trash' });
 
   return (
     <AnimatePresence>
-      <motion.div
-        ref={setNodeRef}
-        id='trash'
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className='bg-destructive fixed bottom-4 left-1/2 z-50 h-16 w-full -translate-x-1/2 rounded-xl px-6 py-3 text-white shadow-xl'
-      >
-        Drop here to delete
-      </motion.div>
+      {dragging && (
+        <motion.div
+          ref={setNodeRef}
+          id='trash'
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={springEffect}
+          className={cn(
+            'mx-auto mt-4 w-11/12 max-w-md rounded-xl border-2 border-dashed px-6 py-4 text-center text-sm transition-all',
+            'pointer-events-none backdrop-blur-sm select-none',
+            isOver
+              ? 'bg-destructive/60 border-destructive scale-105 text-white'
+              : 'bg-destructive/10 text-destructive scale-100',
+          )}
+        >
+          Drop here to delete
+        </motion.div>
+      )}
     </AnimatePresence>
   );
 };
@@ -119,20 +132,20 @@ const DragDropComponent = ({
 
   return (
     <DndContext
-      collisionDetection={closestCenter} // How to detect an `Over`.
+      collisionDetection={pointerWithin} // How to detect an `Over`.
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
+      {/* The trash zone */}
+      <DroppableTrash dragging={dragging} />
+
       {/* The tags container */}
       <div className='flex flex-wrap gap-2'>
         {tags.map((tag) => (
           <DraggableTag key={tag} tag={tag} />
         ))}
       </div>
-
-      {/* The trash zone */}
-      {dragging && <DroppableTrash />}
     </DndContext>
   );
 };

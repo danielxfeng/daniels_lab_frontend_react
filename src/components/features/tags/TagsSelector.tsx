@@ -19,10 +19,10 @@ const TagSelector = ({ name }: { name: string }) => {
       control={control}
       render={() => (
         <div className='space-y-2'>
-          {/* Input field with a suggestion dropdown */}
-          <TagInputComponent name={name} tags={tags} />
           {/* Drag and drop container */}
           <DragDropComponent name={name} tags={tags} />
+          {/* Input field with a suggestion dropdown */}
+          <TagInputComponent name={name} tags={tags} />
         </div>
       )}
     />
