@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from '@/components/header/Header';
-import Footer from '@/components/Footer';
-import Loading from '@/components/Loading';
-import ToasterWithTheme from '@/components/ToasterWithTheme';
+import Header from '@/components/layout/header/Header';
+import Footer from '@/components/layout/Footer';
+import Loading from '@/components/shared/Loading';
+import ToasterWithTheme from '@/components/shared/ToasterWithTheme';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
 const AppLayout = () => {

@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Search } from 'lucide-react';
 import useSearchHistoryStore from '@/stores/useSearchHistoryStore';
 import { KeywordSearchQuerySchema } from '@/schema/schema_post';
-import MotionIconButton from '../motion_components/MotionIconButton';
+import MotionIconButton from '@/components/motion_components/MotionIconButton';
 import { AnimatePresence, easeInOut, motion } from 'framer-motion';
 import { useNavigate } from 'react-router';
 

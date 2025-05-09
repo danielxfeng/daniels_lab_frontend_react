@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { getLikeStatus, likePost, unlikePost } from '@/services/service_likes';
 import { LikeStatusResponse, LikeStatusResponseSchema } from '@/schema/schema_like';
-import MotionIconButton from './motion_components/MotionIconButton';
+import MotionIconButton from '@/components/motion_components/MotionIconButton';
 
 // Fallback value
 const fallback: LikeStatusResponse = {

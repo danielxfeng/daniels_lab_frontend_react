@@ -19,7 +19,7 @@ import {
 } from '@/schema/schema_auth';
 import { changePassword } from '@/services/service_auth';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
-import AtomicLogout from '../AtomicLogout';
+import AtomicLogout from '@/components/shared/AtomicLogout';
 
 // A component to update the user password
 const UserPasswordUpdateForm = () => {

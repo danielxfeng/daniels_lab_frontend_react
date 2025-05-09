@@ -1,7 +1,7 @@
 import { FaXTwitter, FaLinkedin, FaFacebook, FaInstagram } from 'react-icons/fa6';
 import { toast } from 'sonner';
 import MotionIconLink from '@/components/motion_components/MotionIconLink';
-import MotionIconButton from '../motion_components/MotionIconButton';
+import MotionIconButton from '@/components/motion_components/MotionIconButton';
 
 const className='w-6 h-6';
 

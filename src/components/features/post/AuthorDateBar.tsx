@@ -1,4 +1,4 @@
-import Author from '@/components/post/Author';
+import Author from '@/components/features/post/Author';
 import { format } from 'date-fns';
 
 /**

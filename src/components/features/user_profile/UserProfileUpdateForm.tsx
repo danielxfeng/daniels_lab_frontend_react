@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
-import AtomicLogout from '../AtomicLogout';
+import AtomicLogout from '@/components/shared/AtomicLogout';
 
 /**
  * @summary UserProfileUpdateForm

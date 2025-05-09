@@ -1,4 +1,4 @@
-import MotionTextButtonLink from '../motion_components/MotionTextButtonLink';
+import MotionTextButtonLink from '@/components/motion_components/MotionTextButtonLink';
 
 /**
  * @summary The TagsBar component displays a list of tags.

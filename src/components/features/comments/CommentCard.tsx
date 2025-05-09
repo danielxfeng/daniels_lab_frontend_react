@@ -4,9 +4,9 @@ import { Trash2, Pencil } from 'lucide-react';
 import { AuthResponse as User } from '@/schema/schema_auth';
 import { deleteComment } from '@/services/service_comments';
 import { CommentResponse } from '@/schema/schema_comment';
-import AuthorDateBar from '@/components/post/AuthorDateBar';
+import AuthorDateBar from '@/components/features/post/AuthorDateBar';
 import MotionIconButton from '@/components/motion_components/MotionIconButton';
-import CommentForm from '@/components/comments/CommentForm';
+import CommentForm from '@/components/features/comments/CommentForm';
 
 /**
  * @summary A component to display a comment, with edit and delete functionality.

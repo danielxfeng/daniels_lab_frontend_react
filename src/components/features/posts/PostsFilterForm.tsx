@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/form';
 import { tagSchema, TagsResponse } from '@/schema/schema_tag';
 import { DateTimeSchema } from '@/schema/schema_components';
-import SelectableTags from '@/components/tags/SelectableTags';
+import SelectableTags from '@/components/features/tags/SelectableTags';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';

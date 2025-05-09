@@ -1,7 +1,7 @@
 import useUserStore from '@/stores/useUserStore';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { LogIn } from 'lucide-react';
-import MotionIconLink from '../motion_components/MotionIconLink';
+import MotionIconLink from '@/components/motion_components/MotionIconLink';
 import { useLocation } from 'react-router-dom';
 
 // This component shows the user avatar or username.

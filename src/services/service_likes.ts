@@ -9,7 +9,7 @@ import { LikeStatusResponse } from '@/schema/schema_like';
  */
 const getLikeStatus = async (postId: string): Promise<AxiosResponse<LikeStatusResponse>> => {
   const params = new URLSearchParams({ postId });
-  return await optAxios.get(`/blog/likes/?${params.toString()}`);
+  return await optAxios!.get(`/blog/likes/?${params.toString()}`);
 };
 
 /**
@@ -19,7 +19,7 @@ const getLikeStatus = async (postId: string): Promise<AxiosResponse<LikeStatusRe
  */
 const likePost = async (postId: string): Promise<AxiosResponse<unknown>> => {
   const params = new URLSearchParams({ postId });
-  return await optAxios.post(`/blog/likes/?${params.toString()}`);
+  return await optAxios!.post(`/blog/likes/?${params.toString()}`);
 };
 
 /**
@@ -29,7 +29,7 @@ const likePost = async (postId: string): Promise<AxiosResponse<unknown>> => {
  */
 const unlikePost = async (postId: string): Promise<AxiosResponse<unknown>> => {
   const params = new URLSearchParams({ postId });
-  return await optAxios.delete(`/blog/likes/?${params.toString()}`);
+  return await optAxios!.delete(`/blog/likes/?${params.toString()}`);
 };
 
 export { getLikeStatus, likePost, unlikePost };

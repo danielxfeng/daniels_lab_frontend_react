@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import MotionH1 from '@/components/motion_components/MotionH1';
-import LoginForm from '@/components/login/LoginForm';
-import RegisterForm from '@/components/login/RegisterForm';
+import LoginForm from '@/components/features/login/LoginForm';
+import RegisterForm from '@/components/features/login/RegisterForm';
 
 // A component for the GDPR notice
 const GDPR = () => (

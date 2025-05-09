@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Sun, Moon, SunMoon } from 'lucide-react';
-import MotionIconButton from '../motion_components/MotionIconButton';
+import MotionIconButton from '@/components/motion_components/MotionIconButton';
 import useThemeStore, { ThemeType } from '@/stores/useThemeStore';
 
 const className = 'text-primary h-6 w-6';

@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import AtomicLogout from '@/components/AtomicLogout';
+import AtomicLogout from '@/components/shared/AtomicLogout';
 import getDeviceId from '@/lib/deviceid';
 
 // To handle the user logout

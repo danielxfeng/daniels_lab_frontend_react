@@ -7,10 +7,10 @@ import {
 import { getComments } from '@/services/service_comments';
 import useUserStore from '@/stores/useUserStore';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import CommentForm from './CommentForm';
-import CommentCard from './CommentCard';
-import MotionTextButton from '../motion_components/MotionTextButton';
-import Spinner from '../Spinner';
+import CommentForm from '@/components/features/comments/CommentForm';
+import CommentCard from '@/components/features/comments/CommentCard';
+import MotionTextButton from '@/components/motion_components/MotionTextButton';
+import Spinner from '@/components/shared/Spinner';
 import insertToSet from '@/lib/insertToSet';
 
 // Get of Crud comments

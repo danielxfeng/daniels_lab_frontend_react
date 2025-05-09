@@ -9,7 +9,7 @@ import {
   SheetDescription,
 } from '@/components/ui/sheet';
 import MotionIconButton from '@/components/motion_components/MotionIconButton';
-import SearchBar from '@/components/header/SearchBar';
+import SearchBar from '@/components/layout/header/SearchBar';
 
 // This component is a button that opens a search bar in a sheet when clicked.
 // It uses in the mobile view only.

@@ -2,8 +2,8 @@ import { useLoaderData } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import siteMeta from '@/constants/siteMeta';
 import MotionH1 from '@/components/motion_components/MotionH1';
-import PostsList from '@/components/posts/PostList';
-import PostsFilterForm from '@/components/posts/PostsFilterForm';
+import PostsList from '@/components/features/posts/PostList';
+import PostsFilterForm from '@/components/features/posts/PostsFilterForm';
 
 // A component to set the meta information for SEO
 const MetaInfo = () => (

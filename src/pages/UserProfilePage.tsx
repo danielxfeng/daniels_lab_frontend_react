@@ -7,10 +7,10 @@ import { OauthProviderValues } from '@/schema/schema_components';
 import MotionIconLink from '@/components/motion_components/MotionIconLink';
 import siteMeta from '@/constants/siteMeta';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import UserLogoutComponent from '@/components/user_profile/UserLogoutComponent';
-import UserProfileUpdateForm from '@/components/user_profile/UserProfileUpdateForm';
-import UserDeleteComponent from '@/components/user_profile/UserDeleteComponent';
-import UserPasswordUpdateForm from '@/components/user_profile/UserPasswordUpdateForm';
+import UserLogoutComponent from '@/components/features/user_profile/UserLogoutComponent';
+import UserProfileUpdateForm from '@/components/features/user_profile/UserProfileUpdateForm';
+import UserDeleteComponent from '@/components/features/user_profile/UserDeleteComponent';
+import UserPasswordUpdateForm from '@/components/features/user_profile/UserPasswordUpdateForm';
 
 const iconStyle = 'h-8 w-8 md:h-12 md:w-12';
 

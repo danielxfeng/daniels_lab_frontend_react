@@ -16,15 +16,15 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { CreateOrUpdatePostBodySchema, PostResponseSchema } from '@/schema/schema_post';
 import type { CreateOrUpdatePostBody, PostResponse } from '@/schema/schema_post';
-import MotionTextButton from '../motion_components/MotionTextButton';
+import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import { createPost, updatePost } from '@/services/services_posts';
 import { throwWithValidationErr } from '@/lib/throwWithErr';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { Button } from '../ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
-import { Calendar } from '../ui/calendar';
+import { Calendar } from '@/components/ui/calendar';
 
 // A helper function to get the slug from the response
 const getSlug = (isCreate: boolean, res: AxiosResponse<PostResponse | undefined>) => {
@@ -79,7 +79,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className='mt-6 w-full max-w-2xl mx-auto'>
+      <form onSubmit={handleSubmit(onSubmit)} className='mx-auto mt-6 w-full max-w-2xl'>
         <fieldset disabled={isSubmitting} className='flex flex-col gap-6'>
           {/* Title */}
           <FormField
@@ -89,7 +89,11 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Input placeholder='Post title' {...field} className='border-muted ring-1 bg-muted' />
+                  <Input
+                    placeholder='Post title'
+                    {...field}
+                    className='border-muted bg-muted ring-1'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -104,7 +108,11 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
               <FormItem>
                 <FormLabel>Cover Image URL</FormLabel>
                 <FormControl>
-                  <Input placeholder='https://your.cover.url' {...field} className='border-muted ring-1 bg-muted' />
+                  <Input
+                    placeholder='https://your.cover.url'
+                    {...field}
+                    className='border-muted bg-muted ring-1'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -119,7 +127,11 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
               <FormItem>
                 <FormLabel>Markdown Content</FormLabel>
                 <FormControl>
-                  <Textarea placeholder='Write in markdown...' {...field} className='border-muted ring-1 bg-muted min-h-96' />
+                  <Textarea
+                    placeholder='Write in markdown...'
+                    {...field}
+                    className='border-muted bg-muted min-h-96 ring-1'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -154,7 +166,11 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
                           )}
                         >
                           {field.value ? (
-                            valueAsDate ? format(valueAsDate, 'yyyy-MM-dd HH:mm') : ''
+                            valueAsDate ? (
+                              format(valueAsDate, 'yyyy-MM-dd HH:mm')
+                            ) : (
+                              ''
+                            )
                           ) : (
                             <span>Pick a date</span>
                           )}
@@ -205,7 +221,11 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
                           )}
                         >
                           {field.value ? (
-                            valueAsDate ? format(valueAsDate, 'yyyy-MM-dd HH:mm') : ''
+                            valueAsDate ? (
+                              format(valueAsDate, 'yyyy-MM-dd HH:mm')
+                            ) : (
+                              ''
+                            )
                           ) : (
                             <span>Pick a date</span>
                           )}

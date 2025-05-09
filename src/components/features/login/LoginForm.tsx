@@ -18,7 +18,7 @@ import useUserStore from '@/stores/useUserStore';
 import getDeviceId from '@/lib/deviceid';
 import { loginUser } from '@/services/service_auth';
 import { OauthProviderValues } from '@/schema/schema_components';
-import MotionIconLink from '../motion_components/MotionIconLink';
+import MotionIconLink from '@/components/motion_components/MotionIconLink';
 import siteMeta from '@/constants/siteMeta';
 import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
 

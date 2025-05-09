@@ -14,7 +14,7 @@ import {
 import { UserResponse } from '@/schema/schema_users';
 import { deleteUser } from '@/services/service_auth';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
-import AtomicLogout from '@/components/AtomicLogout';
+import AtomicLogout from '@/components/shared/AtomicLogout';
 
 const UserDeleteComponent = ({ user }: { user: Partial<UserResponse> }) => {
   const [loading, setLoading] = useState<boolean>(false);

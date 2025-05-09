@@ -8,7 +8,7 @@ import { anonymousAxios, authAxios } from '@/lib/axiosInstance';
  * @returns
  */
 const getPostsByKeyword = async (query: string): Promise<AxiosResponse<PostListResponse>> => {
-  return await anonymousAxios.get(`/blog/posts/search?${query}`);
+  return await anonymousAxios!.get(`/blog/posts/search?${query}`);
 };
 
 /**
@@ -17,7 +17,7 @@ const getPostsByKeyword = async (query: string): Promise<AxiosResponse<PostListR
  * @returns
  */
 const getPosts = async (query: string): Promise<AxiosResponse<PostListResponse>> => {
-  return await anonymousAxios.get(`/blog/posts?${query}`);
+  return await anonymousAxios!.get(`/blog/posts?${query}`);
 };
 
 /**
@@ -26,7 +26,7 @@ const getPosts = async (query: string): Promise<AxiosResponse<PostListResponse>>
  * @returns
  */
 const getPost = async (slug: string): Promise<AxiosResponse<PostResponse>> => {
-  return await anonymousAxios.get(`/blog/posts/${slug}`);
+  return await anonymousAxios!.get(`/blog/posts/${slug}`);
 };
 
 /**
@@ -35,7 +35,7 @@ const getPost = async (slug: string): Promise<AxiosResponse<PostResponse>> => {
  * @returns
  */
 const createPost = async (body: CreateOrUpdatePostBody): Promise<AxiosResponse<undefined>> => {
-  return await authAxios.post('/blog/posts', body);
+  return await authAxios!.post('/blog/posts', body);
 };
 
 /**
@@ -48,7 +48,7 @@ const updatePost = async (
   id: string,
   body: CreateOrUpdatePostBody,
 ): Promise<AxiosResponse<PostResponse>> => {
-  return await authAxios.put(`/blog/posts/${id}`, body);
+  return await authAxios!.put(`/blog/posts/${id}`, body);
 };
 
 /**
@@ -57,7 +57,7 @@ const updatePost = async (
  * @returns
  */
 const deletePost = async (id: string): Promise<AxiosResponse<undefined>> => {
-  return await authAxios.delete(`/blog/posts/${id}`);
+  return await authAxios!.delete(`/blog/posts/${id}`);
 };
 
 export { getPostsByKeyword, getPosts, getPost, createPost, updatePost, deletePost };

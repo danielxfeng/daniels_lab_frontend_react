@@ -1,5 +1,5 @@
 import React from 'react';
-import MotionIconLink from './motion_components/MotionIconLink';
+import MotionIconLink from '@/components/motion_components/MotionIconLink';
 
 /**
  * Type definition for the ContactLink component props.
