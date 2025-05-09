@@ -9,6 +9,9 @@ import {
   pointerWithin,
   useDraggable,
   useDroppable,
+  useSensors,
+  useSensor,
+  PointerSensor,
 } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -24,6 +27,7 @@ const DraggableTag = ({ tag, isOverlay = false }: { tag: string; isOverlay?: boo
   const style = {
     transform: CSS.Transform.toString(transform),
     transition: isOverlay ? 'none' : 'transform 200ms ease',
+    opacity: isOverlay ? 0.5 : 1, // Slight transparency when dragging
   };
 
   return (
@@ -32,8 +36,11 @@ const DraggableTag = ({ tag, isOverlay = false }: { tag: string; isOverlay?: boo
       style={style}
       {...attributes}
       {...listeners}
-      layout={!isOverlay} // Only animate when not overlaying
-      className='bg-muted text-muted-foreground pointer-events-auto z-10 inline-flex w-auto max-w-[160px] items-center justify-center gap-2 overflow-hidden rounded-full px-3 py-1 text-sm text-ellipsis whitespace-nowrap shadow'
+      layout={!isOverlay}
+      className={cn(
+        'border-muted-foreground bg-background text-muted-foreground pointer-events-auto z-10 inline-flex w-auto max-w-[160px] items-center justify-center gap-2 overflow-hidden rounded-xl border px-3 py-1 text-sm text-ellipsis whitespace-nowrap shadow transition-colors',
+        isOverlay && 'bg-destructive text-white',
+      )}
     >
       <span>{tag}</span>
     </motion.div>
@@ -51,12 +58,12 @@ const DroppableTrash = ({ dragging }: { dragging: boolean }) => {
         <motion.div
           ref={setNodeRef}
           id='trash'
-          initial={{ opacity: 0, y: -8 }}
+          initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
+          exit={{ opacity: 0, y: -12 }}
           transition={springEffect}
           className={cn(
-            'mx-auto mt-4 w-11/12 max-w-md rounded-xl border-2 border-dashed px-6 py-4 text-center text-sm transition-all',
+            'absolute -top-28 left-1/2 z-50 w-11/12 max-w-md -translate-x-1/2 rounded-xl border-2 border-dashed px-6 py-6 text-center text-sm transition-all',
             'pointer-events-none backdrop-blur-sm select-none',
             isOver
               ? 'bg-destructive/60 border-destructive scale-105 text-white'
@@ -95,6 +102,16 @@ const DragDropComponent = ({
   const [activeTag, setActiveTag] = useState<string | null>(null);
 
   const { setValue } = useFormContext();
+
+  // Long press to drag for mobile
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
+      },
+    }),
+  );
 
   // Handler for starting a drag, for setting the dragging state.
   const handleDragStart = (event: DragStartEvent) => {
@@ -135,13 +152,15 @@ const DragDropComponent = ({
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
+      sensors={sensors}
     >
-      {/* The trash zone */}
-      <DroppableTrash dragging={!!activeTag} />
-
-      {/* The tags container */}
-      <div className='flex flex-wrap gap-2'>
-        {tags.map((tag) => (tag === activeTag ? null : <DraggableTag key={tag} tag={tag} />))}
+      <div className='relative'>
+        {/* The trash zone */}
+        <DroppableTrash dragging={!!activeTag} />
+        {/* The tags container */}
+        <div className='flex flex-wrap gap-2'>
+          {tags.map((tag) => (tag === activeTag ? null : <DraggableTag key={tag} tag={tag} />))}
+        </div>
       </div>
 
       {/* DND maintains a clone when a tas is dragging */}

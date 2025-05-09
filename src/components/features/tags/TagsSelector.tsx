@@ -1,6 +1,6 @@
 import { useFormContext, Controller } from 'react-hook-form';
-import DragDropComponent from '@/components/features/tags/dragDropComponent';
 import TagInputComponent from '@/components/features/tags/TagInputComponent';
+import DragDropComponent from '@/components/features/tags/DragDropComponent';
 
 /**
  * @summary A multi-select tag input component.
@@ -18,7 +18,7 @@ const TagSelector = ({ name }: { name: string }) => {
       name={name}
       control={control}
       render={() => (
-        <div className='space-y-2'>
+        <div className='space-y-2 gap-2 flex flex-col'>
           {/* Drag and drop container */}
           <DragDropComponent name={name} tags={tags} />
           {/* Input field with a suggestion dropdown */}

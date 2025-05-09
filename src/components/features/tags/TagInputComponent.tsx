@@ -58,6 +58,7 @@ const TagInputComponent = ({ name, tags }: { name: string; tags: string[] }) => 
               addTag(inputValue);
             }
           }}
+          className='bg-muted border-muted-foreground'
           placeholder='Add tag...'
         />
 
