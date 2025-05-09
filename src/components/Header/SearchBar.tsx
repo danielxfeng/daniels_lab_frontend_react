@@ -31,9 +31,11 @@ const InputComponent = ({
     // the input will be blurred before the click event is fired.
     // Therefore, we delay the closing after the onClick event is fired.
     onBlur={(e) => {
-      if (!e.relatedTarget || !(e.relatedTarget as HTMLElement).closest('.dropdown-history')) {
-        setShowDropdown(false);
-      }
+      setTimeout(() => {
+        if (!e.relatedTarget || !(e.relatedTarget as HTMLElement).closest('.dropdown-history')) {
+          setShowDropdown(false);
+        }
+      }, 100);
     }}
     // We set the `enter` key to submit the form
     onKeyDown={(e) => {
@@ -47,22 +49,28 @@ const InputComponent = ({
 // A component to display the dropdown history
 const DropdownHistory = ({
   showDropdown,
+  keyword,
   onSelect,
 }: {
   showDropdown: boolean;
+  keyword: string;
   onSelect: (keyword: string) => void;
 }) => {
   // Get the snapshot from the Zustand store
   const history = useSearchHistoryStore.getState().history;
+  const filtered = keyword
+    ? history.filter((item) => item.toLowerCase().includes(keyword.toLowerCase()))
+    : history;
+
   return (
     <AnimatePresence>
-      {showDropdown && history.length > 0 && (
+      {showDropdown && filtered.length > 0 && (
         <motion.ul
           {...easeInOut}
-          className='bg-background absolute z-10 mt-1 flex w-full flex-col gap-0 px-2 pb-2 md:rounded-xl md:shadow dropdown-history'
+          className='bg-background dropdown-history absolute z-10 mt-1 flex w-full flex-col gap-0 px-2 pb-2 md:rounded-xl md:shadow'
         >
           {/* Iterate all items */}
-          {history.map((item) => (
+          {filtered.map((item) => (
             <li
               key={item}
               className='hover:bg-muted text-muted-foreground cursor-pointer overflow-hidden px-4 py-1 text-sm'
@@ -103,6 +111,7 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
     handleSubmit,
     setValue,
     reset,
+    watch,
     formState: { isSubmitting },
   } = useForm<FormValues>({
     // Use zod for schema validation
@@ -113,6 +122,8 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
   });
+
+  const keyword = watch('keyword'); // Watch the keyword input
 
   // We create a closure to handle the form submission
   const onSubmit = (data: FormValues) => {
@@ -146,8 +157,9 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
       {/* Dropdown History */}
       <DropdownHistory
         showDropdown={showDropdown}
-        onSelect={async (keyword) => {
-          setValue('keyword', keyword);
+        keyword={keyword}
+        onSelect={async (selectedKeyword) => {
+          setValue('keyword', selectedKeyword);
           await handleSubmit(onSubmit)();
         }}
       />
