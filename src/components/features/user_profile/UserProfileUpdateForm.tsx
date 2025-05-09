@@ -88,7 +88,11 @@ const UserProfileUpdateForm = ({ user }: { user: Partial<AuthResponse> }) => {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder='A new username' {...field} />
+                  <Input
+                    placeholder='A new username'
+                    {...field}
+                    className='bg-muted border-muted-foreground'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -105,7 +109,11 @@ const UserProfileUpdateForm = ({ user }: { user: Partial<AuthResponse> }) => {
                   Avatar URL <span className='text-muted-foreground italic'>(optional)</span>
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder='https://your.avatar.url' {...field} />
+                  <Input
+                    placeholder='https://your.avatar.url'
+                    {...field}
+                    className='bg-muted border-muted-foreground'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

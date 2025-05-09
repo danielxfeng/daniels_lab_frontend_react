@@ -129,7 +129,7 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} className='bg-muted border-muted-foreground' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -144,7 +144,7 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type='password' {...field} />
+                    <Input type='password' {...field} className='bg-muted border-muted-foreground' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -159,7 +159,7 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
-                    <Input type='password' {...field} />
+                    <Input type='password' {...field} className='bg-muted border-muted-foreground' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -180,6 +180,7 @@ const RegisterForm = () => {
                       type='url'
                       {...field}
                       onChange={(e) => field.onChange(e.target.value.trim() || undefined)}
+                      className='bg-muted border-muted-foreground'
                     />
                   </FormControl>
                   <FormMessage />

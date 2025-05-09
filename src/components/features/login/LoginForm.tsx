@@ -135,7 +135,7 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} className='bg-muted border-muted-foreground'/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -149,7 +149,7 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type='password' {...field} />
+                    <Input type='password' {...field} className='bg-muted border-muted-foreground' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
