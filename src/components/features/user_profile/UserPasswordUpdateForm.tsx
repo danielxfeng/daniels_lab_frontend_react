@@ -108,7 +108,12 @@ const UserPasswordUpdateForm = () => {
               <FormItem>
                 <FormLabel>Current Password</FormLabel>
                 <FormControl>
-                  <Input type='password' placeholder='Current password' {...field} />
+                  <Input
+                    type='password'
+                    placeholder='Current password'
+                    {...field}
+                    className='bg-muted border-muted-foreground'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -123,7 +128,12 @@ const UserPasswordUpdateForm = () => {
               <FormItem>
                 <FormLabel>New Password</FormLabel>
                 <FormControl>
-                  <Input type='password' placeholder='New password' {...field} />
+                  <Input
+                    type='password'
+                    placeholder='New password'
+                    {...field}
+                    className='bg-muted border-muted-foreground'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -138,7 +148,12 @@ const UserPasswordUpdateForm = () => {
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <Input type='password' placeholder='Confirm new password' {...field} />
+                  <Input
+                    type='password'
+                    placeholder='Confirm new password'
+                    {...field}
+                    className='bg-muted border-muted-foreground'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

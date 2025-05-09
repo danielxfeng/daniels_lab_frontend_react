@@ -139,3 +139,18 @@ h4 {
 pre {
   @apply bg-black;
 }
+
+@layer base {
+  body {
+    font-family: 'Source Sans 3', ui-sans-serif, system-ui;
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Outfit', ui-sans-serif, system-ui;
+  }
+}

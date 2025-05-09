@@ -84,7 +84,10 @@ const PostPage = () => {
               <div className='mr-2'>Tags:</div>
               <div className='flex flex-wrap gap-2'>
                 {post.tags.map((tag: string) => (
-                  <span key={`${tag}`} className='bg-muted rounded-md px-2 py-0.5 text-sm'>
+                  <span
+                    key={`${tag}`}
+                    className='border-muted-foreground bg-background text-muted-foreground inline-block rounded-lg border px-2 py-0.5 text-sm'
+                  >
                     {`#${tag}`}
                   </span>
                 ))}
