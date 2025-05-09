@@ -4,6 +4,8 @@ import {
   DndContext,
   DragEndEvent,
   DragOverEvent,
+  DragStartEvent,
+  DragOverlay,
   pointerWithin,
   useDraggable,
   useDroppable,
@@ -14,13 +16,14 @@ import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 // Draggable: A tag
-const DraggableTag = ({ tag }: { tag: string }) => {
+const DraggableTag = ({ tag, isOverlay = false }: { tag: string; isOverlay?: boolean }) => {
   // As a draggable, we use `useDraggable` to get the attributes and listeners for the tag
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id: tag });
 
+  // The animation is disabled when the tag is being `overlay-ed`
   const style = {
     transform: CSS.Transform.toString(transform),
-    transition: 'transform 200ms ease',
+    transition: isOverlay ? 'none' : 'transform 200ms ease',
   };
 
   return (
@@ -29,10 +32,8 @@ const DraggableTag = ({ tag }: { tag: string }) => {
       style={style}
       {...attributes}
       {...listeners}
-      layout
-      className='inline-flex items-center justify-center whitespace-nowrap
-                 w-auto max-w-full bg-muted text-muted-foreground
-                 gap-2 rounded-full px-3 py-1 text-sm shadow pointer-events-auto'
+      layout={!isOverlay} // Only animate when not overlaying
+      className='bg-muted text-muted-foreground pointer-events-auto z-10 inline-flex w-auto max-w-[160px] items-center justify-center gap-2 overflow-hidden rounded-full px-3 py-1 text-sm text-ellipsis whitespace-nowrap shadow'
     >
       <span>{tag}</span>
     </motion.div>
@@ -41,7 +42,7 @@ const DraggableTag = ({ tag }: { tag: string }) => {
 
 // Droppable: The trash zone
 const DroppableTrash = ({ dragging }: { dragging: boolean }) => {
-  // As a droppable, we use `useDroppable` to get the ref trash zone
+  // Always use the hook inside the component
   const { isOver, setNodeRef } = useDroppable({ id: 'trash' });
 
   return (
@@ -89,63 +90,62 @@ const DragDropComponent = ({
   name: string;
   tags: string[];
 }) => {
-  // Use this hook to toggle the Display of the trash zone.
-  const [dragging, setDragging] = useState(false);
-  // Use this hook to set the CSS when flying over the trash zone.
-  const [isOverTrash, setIsOverTrash] = useState(false);
+  //const [dragging, setDragging] = useState(false);
+  // To determine which tag is being dragged
+  const [activeTag, setActiveTag] = useState<string | null>(null);
 
   const { setValue } = useFormContext();
 
   // Handler for starting a drag, for setting the dragging state.
-  const handleDragStart = () => {
-    setDragging(true);
+  const handleDragStart = (event: DragStartEvent) => {
+    //setDragging(true);
+    setActiveTag(event.active.id as string);
   };
 
   // Switch the flag when the tag is over the trash zone.
   const handleDragOver = (event: DragOverEvent) => {
     const { over } = event;
-    const overId = over?.id as string | null;
-    if (overId === 'trash' && !isOverTrash) setIsOverTrash(true);
-    if (overId !== 'trash' && isOverTrash) setIsOverTrash(false);
+    void over;
   };
 
   // Handler for dropping a tag
   const handleDragEnd = (event: DragEndEvent) => {
-    setIsOverTrash(false);
-    setDragging(false);
+    //setDragging(false);
     const { active, over } = event;
-    // The tag we are dragging.
+    // The tag being dragged
     const activeId = active.id as string;
-    console.log('[dragging]', activeId, 'over', over?.id);
-    // Id of the dropped area. Null if outside the controlled area.
+    // The object being dragged over, null if not over any controlled area
     const overId = over?.id as string | null;
 
-    // If the tag is not at the trash zone, do nothing.
-    if (!overId || overId !== 'trash') return;
+    // We only handle when the tag is dropped over the trash zone
+    if (overId === 'trash') {
+      setValue(
+        name,
+        tags.filter((tag) => tag !== activeId),
+      );
+    }
 
-    // Remove it from the list.
-    setValue(
-      name,
-      tags.filter((tag) => tag !== activeId),
-    );
+    // Reset the active tag
+    setActiveTag(null);
   };
 
   return (
     <DndContext
-      collisionDetection={pointerWithin} // How to detect an `Over`.
+      collisionDetection={pointerWithin}
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
       {/* The trash zone */}
-      <DroppableTrash dragging={dragging} />
+      <DroppableTrash dragging={!!activeTag} />
 
       {/* The tags container */}
       <div className='flex flex-wrap gap-2'>
-        {tags.map((tag) => (
-          <DraggableTag key={tag} tag={tag} />
-        ))}
+        {tags.map((tag) => (tag === activeTag ? null : <DraggableTag key={tag} tag={tag} />))}
       </div>
+
+      {/* DND maintains a clone when a tas is dragging */}
+      <DragOverlay>{activeTag ? <DraggableTag tag={activeTag} isOverlay /> : null}</DragOverlay>
     </DndContext>
   );
 };
