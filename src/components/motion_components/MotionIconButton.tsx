@@ -1,5 +1,5 @@
 import { HTMLMotionProps, motion } from 'framer-motion';
-import { Loader2 } from 'lucide-react';
+import { Loader } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { hoverOpacity, tapEffect } from '@/lib/animations';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
@@ -23,15 +23,15 @@ const BtnWithoutTooltip = ({
   className,
   disabled = false,
   isLoading = false,
-  ...prop
-}: MotionIconButtonProps & Omit<HTMLMotionProps<'button'>, 'ref'>) => (
+  ...props
+}: MotionIconButtonProps) => (
   <motion.button
     whileHover={!disabled && !isLoading ? hoverOpacity : undefined}
     whileTap={!disabled && !isLoading ? tapEffect : undefined}
     onClick={onClick}
     aria-label={ariaLabel}
     className={cn(
-      'text-primary bg-transparent underline-offset-4 transition-all hover:underline',
+      'text-primary relative inline-flex items-center justify-center bg-transparent transition-all',
       (disabled || isLoading) && 'pointer-events-none cursor-not-allowed opacity-50',
       className,
     )}
@@ -39,9 +39,15 @@ const BtnWithoutTooltip = ({
     disabled={disabled || isLoading}
     aria-disabled={disabled || isLoading}
     aria-busy={isLoading}
-    {...prop}
+    {...props}
   >
-    {isLoading ? <Loader2 className='h-4 w-4 animate-spin' /> : icon}
+    <span className={cn(isLoading && 'invisible')}>{icon}</span>
+
+    {isLoading && (
+      <span className='absolute inset-0 flex items-center justify-center'>
+        <Loader className='text-muted-foreground h-4 w-4 animate-spin' />
+      </span>
+    )}
   </motion.button>
 );
 
