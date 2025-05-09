@@ -39,7 +39,7 @@ const DraggableTag = ({ tag, isOverlay = false }: { tag: string; isOverlay?: boo
       layout={!isOverlay}
       className={cn(
         'border-muted-foreground bg-background text-muted-foreground pointer-events-auto z-10 inline-flex w-auto max-w-[160px] items-center justify-center gap-2 overflow-hidden rounded-xl border px-3 py-1 text-sm text-ellipsis whitespace-nowrap shadow transition-colors',
-        isOverlay && 'bg-destructive text-white',
+        isOverlay && 'bg-destructive text-background',
       )}
     >
       <span>{tag}</span>
