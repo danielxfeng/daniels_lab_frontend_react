@@ -11,8 +11,6 @@ import PostPage from '@/pages/Post/PostPage';
 import postPageLoader from '@/pages/Post/postPageLoader';
 import LoginPage from '@/pages/LoginPage';
 import UserProfilePage from '@/pages/UserProfilePage';
-import PostCreatePage from '@/pages/PostUpsert/PostCreatePage';
-import PostUpdatePage from '@/pages/PostUpsert/PostUpdatePage';
 
 // The router of the app.
 const router = createBrowserRouter([
@@ -42,10 +40,19 @@ const router = createBrowserRouter([
               { path: 'search', Component: () => <div>Blog Search</div> },
               // post detail, comments list, like status
               { path: ':slug', Component: PostPage, loader: postPageLoader },
+              {path: 'example', Component: () => <div className='bg-amber-50 w-full'>Main Container</div>},
               // a form to add a post, admin only
-              { path: 'new', Component: PostCreatePage, loader: adminGuard },
+              {
+                path: 'new',
+                Component: lazy(() => import('@/pages/PostUpsert/PostCreatePage')),
+                loader: adminGuard,
+              },
               // a form to edit a post, author only
-              { path: 'edit/:slug', Component: PostUpdatePage, loader: postPageLoader },
+              {
+                path: 'edit/:slug',
+                Component: lazy(() => import('@/pages/PostUpsert/PostUpdatePage')),
+                loader: postPageLoader,
+              },
             ],
           },
         ],
