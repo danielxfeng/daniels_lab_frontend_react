@@ -20,7 +20,6 @@ import {
 import { changePassword } from '@/services/service_auth';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
-import { set } from 'date-fns';
 
 /**
  * @summary UserPasswordUpdateForm
@@ -34,7 +33,6 @@ import { set } from 'date-fns';
  */
 const UserPasswordUpdateForm = () => {
   const [doLogout, setDoLogout] = useState<boolean>(false);
-  const [errorCurrentPassword, setErrorCurrentPassword] = useState<string>('');
 
   // Init the form
   const form = useForm<ChangePasswordBody>({
@@ -51,22 +49,9 @@ const UserPasswordUpdateForm = () => {
     handleSubmit,
     setValue,
     reset,
-    watch,
     setError,
-    clearErrors,
     formState: { isSubmitting, isValid },
   } = form;
-
-  // Watch the current password field to clear the errors from server side.
-  const currentPasswordValue = watch('currentPassword');
-
-  // Work with `currentPasswordValue`, and `errorCurrentPassword` together.
-  useEffect(() => {
-    if (errorCurrentPassword !== '' && currentPasswordValue !== '') {
-      setErrorCurrentPassword('');
-      clearErrors('currentPassword');
-    }
-  }, [clearErrors, currentPasswordValue, errorCurrentPassword, setError]);
 
   // Add the deviceId to the form
   useEffect(() => {
@@ -89,7 +74,6 @@ const UserPasswordUpdateForm = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err.response?.status === 401) {
-        setErrorCurrentPassword(data.currentPassword);
         setError('currentPassword', {
           type: 'manual',
           message: 'Current password is incorrect',
