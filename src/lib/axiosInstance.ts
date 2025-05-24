@@ -1,13 +1,18 @@
 import axios, { AxiosInstance } from 'axios';
 import useUserStore from '@/stores/useUserStore';
 import getDeviceId from './deviceid';
-import { AuthResponse, AuthResponseSchema, RefreshTokenBodySchema } from '@/schema/schema_auth';
+import {
+  RefreshTokenBodySchema,
+  TokenRefreshResponse,
+  TokenRefreshResponseSchema,
+} from '@/schema/schema_auth';
 
 const baseURL = import.meta.env.VITE_API_BASE_URL || '/api';
 const headers = {
   'Content-Type': 'application/json',
 };
 const timeout = 30000; // 30s
+const cachedAccessTokenTTL = 10 * 1000; // 10 seconds
 
 /**
  * @summary A single skeleton for a Axios instance without authentication.
@@ -31,6 +36,96 @@ const interceptorIds = {
 };
 
 /**
+ * @summary A `conditional variable` like to handle the atomic refresh token process.
+ * @description
+ * When there are concurrent requests with an expired access token,
+ * because of the refresh token rotation policy in backend,
+ * only one request can get the token, and following requests get a 401
+ * because the refresh token is already revoked.
+ *
+ * This flag is used to solve this by ensuring that only one request
+ * can refresh the token at the same time.
+ * It uses a promise to mock a conditional variable in other languages,
+ * to ensure the atomicity of the refresh token process.
+ *
+ * @remarks
+ * It is either `null` or a `Promise`.
+ *
+ * No one is refreshing the token when it is `null`,
+ * then the caller can set it to a `Promise` to get the value of the access token.
+ *
+ * Before the refresh is done, it keeps the `Promise` then the other callers
+ * can also wait for the same `Promise` to resolve.
+ *
+ * After the refresh is done, it is solved, and then set to `null` again,
+ * so the next caller can start a new refresh token process.
+ */
+let isRefreshing: Promise<string | null> | null = null;
+
+/**
+ * @summary A variable to keep the last refresh time.
+ * @description
+ * It works with the `isRefreshing` variable together to solve the race condition.
+ * Under certain scenarios, maybe a request finds that the access token is expired when the `accessToken` is setting,
+ * but when it tries to refresh, the `isRefreshing` is set to `null` already.
+ * Therefore, a TTL, lastRefreshTime, cachedAccessToken are used to prevent this unnecessary refresh.
+ */
+let lastRefreshTime = 0;
+
+let cachedAccessToken: string | null = null;
+
+/**
+ * @summary Help to handle the refresh a token.
+ */
+const refreshHelper = async (): Promise<string | null> => {
+  // Get the snapshot of the user store
+  const { user, setTokens, clear } = useUserStore.getState();
+
+  const refreshToken = user?.refreshToken;
+  if (!refreshToken) return null;
+
+  // Try to get the device ID and validate the parameters, then send the request.
+  const deviceId = await getDeviceId();
+  const refreshBody = RefreshTokenBodySchema.safeParse({
+    deviceId,
+    refreshToken,
+  });
+  if (!refreshBody.success) {
+    clear();
+    console.error('Invalid refresh token body:', refreshBody.error);
+    return null;
+  }
+  const validatedBody = refreshBody.data;
+
+  // Send the request to refresh the token
+  try {
+    const response = await anonymousAxios!.post('/auth/refresh', validatedBody);
+    const responseData = TokenRefreshResponseSchema.safeParse(response.data);
+    if (!responseData.success) {
+      console.error('Invalid response data:', responseData.error);
+      clear();
+      return null;
+    }
+    const validatedResponse: TokenRefreshResponse = responseData.data;
+    // Then set the token and user to the store.
+    setTokens(validatedResponse.accessToken, validatedResponse.refreshToken);
+
+    // Update the cache.
+    cachedAccessToken = validatedResponse.accessToken;
+    lastRefreshTime = Date.now();
+
+    // Return the access token.
+    return validatedResponse.accessToken;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.error('Error refreshing token:', error);
+    // Clear the user store if there is an error
+    clear();
+    return null;
+  }
+};
+
+/**
  * @summary A function to fetch the access token.
  * @description
  * This function is used to fetch the access token from the server.
@@ -46,8 +141,7 @@ const fetchAccessToken = async (retry: number): Promise<string | null> => {
   if (retry <= 0) return null;
 
   // Get the snapshot of the user store
-  const { getUserStatus, accessToken, user, setUser, setAccessToken, clear } =
-    useUserStore.getState();
+  const { getUserStatus, accessToken, setAccessToken } = useUserStore.getState();
   const userStatus = getUserStatus();
 
   // State machine to handle by user status
@@ -59,47 +153,21 @@ const fetchAccessToken = async (retry: number): Promise<string | null> => {
       return await fetchAccessToken(retry - 1);
     }
 
-    // If the token is expired, try to refresh it.
+    // If the token is expired, refresh it.
     case 'expired': {
-      // return null if there is not a refresh token.
-      const refreshToken = user?.refreshToken;
-      if (!refreshToken) return null;
-
       retry--;
 
-      // Try to get the device ID and validate the parameters, then send the request.
-      const deviceId = await getDeviceId();
-      const refreshBody = RefreshTokenBodySchema.safeParse({
-        deviceId,
-        refreshToken,
-      });
-      if (!refreshBody.success) {
-        clear();
-        return null;
+      // To use the cached access token if it is still valid
+      if (Date.now() - lastRefreshTime < cachedAccessTokenTTL) {
+        return cachedAccessToken;
       }
-      const validatedBody = refreshBody.data;
 
-      // Send the request to refresh the token
-      const response = await anonymousAxios!.post('/auth/refresh', validatedBody);
-
-      // Parse the response and validate it.
-      if (response.status !== 200) {
-        clear();
-        return null;
+      if (!isRefreshing) {
+        isRefreshing = refreshHelper().finally(() => {
+          isRefreshing = null; // Reset the conditional variable after the refresh is done
+        });
       }
-      const responseData = AuthResponseSchema.safeParse(response.data);
-      if (!responseData.success) {
-        clear();
-        return null;
-      }
-      const validatedResponse: AuthResponse = responseData.data;
-
-      // Then set the token and user to the store.
-      setAccessToken(validatedResponse.accessToken);
-      setUser(validatedResponse);
-
-      // Return the access token.
-      return validatedResponse.accessToken;
+      return await isRefreshing;
     }
 
     // If the user is not authenticated, return null
@@ -117,6 +185,7 @@ const fetchAccessToken = async (retry: number): Promise<string | null> => {
 const handleError = async (error: any) => {
   // Retry the request on 498 expired token error
   if (error.response?.status === 498) {
+    console.warn('Access token expired, when return');
     try {
       const newToken = await fetchAccessToken(1);
       if (!newToken) throw { response: { status: 401, data: 'Unauthorized' } };
