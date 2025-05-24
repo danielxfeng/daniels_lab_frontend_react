@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -49,7 +49,6 @@ const OauthLoginBar = () => {
 const LoginForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [formError, setFormError] = useState<string | null>(null);
   const { setAccessToken, setUser } = useUserStore.getState();
 
   const form = useForm<LoginBody>({
@@ -64,15 +63,11 @@ const LoginForm = () => {
 
   const {
     handleSubmit,
-    watch,
     setValue,
+    setError,
     reset,
     formState: { isSubmitting, isValid },
   } = form;
-
-  // Invalidation username or password returned by the server
-  const username = watch('username');
-  const password = watch('password');
 
   // Set deviceId once
   useEffect(() => {
@@ -81,23 +76,15 @@ const LoginForm = () => {
     });
   }, [setValue]);
 
-  // Handle manual username error
-  useEffect(() => {
-    if (!formError || password === '') return;
-    const timeout = setTimeout(() => setFormError(null), 300);
-    return () => clearTimeout(timeout);
-  }, [username, password, formError]);
-
   // Submit handler
   const onSubmit = async (data: LoginBody) => {
-    setFormError(null); // Clear the manual error
     try {
       const res = await loginUser(data);
 
       // Check if the response is valid
       const validatedRes = AuthResponseSchema.safeParse(res.data);
       if (!validatedRes.success) {
-        setFormError('Something went wrong, please try again later');
+        toast.error('Invalid response from server, please try again later');
         console.error('Response error', validatedRes.error);
         return;
       }
@@ -112,8 +99,18 @@ const LoginForm = () => {
       }, 1000);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      if (error.response?.status === 401) return setFormError('Invalid username or password');
-      setFormError('Something went wrong, please try again later');
+      if (error.response?.status === 401) {
+        setError('username', {
+          type: 'manual',
+          message: 'Invalid username or password',
+        });
+        setError('password', {
+          type: 'manual',
+          message: 'Invalid username or password',
+        });
+        return;
+      }
+      toast.error('Login failed, please try again later');
       console.error('Login error:', error);
     } finally {
       setValue('password', '');
@@ -135,7 +132,7 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input {...field} className='bg-muted border-muted-foreground'/>
+                    <Input {...field} className='bg-muted border-muted-foreground' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -149,7 +146,11 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type='password' {...field} className='bg-muted border-muted-foreground' />
+                    <Input
+                      type='password'
+                      {...field}
+                      className='bg-muted border-muted-foreground'
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -164,7 +165,6 @@ const LoginForm = () => {
               isLoading={isSubmitting}
               className='w-full'
             />
-            {formError && <div className='text-destructive'>{formError}</div>}
           </fieldset>
         </form>
       </Form>
