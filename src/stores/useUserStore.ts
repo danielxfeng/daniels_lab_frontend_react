@@ -20,6 +20,13 @@ type UserState = {
    */
   setAccessToken: (token: string | null) => void;
   /**
+   * @summary Set the access token and refreshToken.
+   * @description It sets the access token and refreshToken.
+   * @param accessToken The access token to set.
+   * @param refreshToken The refresh token to set.
+   */
+  setTokens: (accessToken: string, refreshToken: string) => void;
+  /**
    * @summary Set the user.
    * @description It sets the user.
    * @param user The user to set.
@@ -52,6 +59,9 @@ export const useUserStore = create<UserState>()(
         return 'unauthenticated';
       },
       setAccessToken: (token) => set({ accessToken: token }),
+      setTokens: (accessToken, refreshToken) => {
+        set((state) => ({ accessToken, user: { ...state.user, refreshToken } }));
+      },
 
       // We remove the accessToken for safety
       setUser: (user) => {
