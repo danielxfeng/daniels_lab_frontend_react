@@ -1,6 +1,6 @@
 import { useFormContext, Controller } from 'react-hook-form';
 import TagInputComponent from '@/components/features/tags/TagInputComponent';
-import DragDropComponent from '@/components/features/tags/DragDropComponent';
+import DragDropComponent from '@/components/features/tags/DragAndDropComponent';
 
 /**
  * @summary A multi-select tag input component.

@@ -51,6 +51,7 @@ const TagInputComponent = ({ name, tags }: { name: string; tags: string[] }) => 
         {/* Input field */}
         <Input
           value={inputValue}
+          id='tag-input'
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
