@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -21,8 +21,6 @@ import { registerUser } from '@/services/service_auth';
 
 /// This component is used to register a new user
 const RegisterForm = () => {
-  // For the duplicated username error
-  const [manualUsername, setManualUsername] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
   // Snapshot, not the subscription
@@ -43,15 +41,11 @@ const RegisterForm = () => {
 
   const {
     handleSubmit,
-    watch,
     setValue,
     setError,
-    clearErrors,
     reset,
-    formState: { isSubmitting, isValid, errors },
+    formState: { isSubmitting, isValid },
   } = form;
-
-  const username = watch('username');
 
   // Set deviceId once
   useEffect(() => {
@@ -59,22 +53,6 @@ const RegisterForm = () => {
       setValue('deviceId', id);
     });
   }, [setValue]);
-
-  // Handle manual username error
-  const handleUsernameExistsError = () => {
-    setManualUsername(username);
-    setError('username', {
-      type: 'manual',
-      message: 'Username already exists',
-    });
-  };
-
-  // Clear username error after 300ms
-  useEffect(() => {
-    if (errors.username?.type !== 'manual' || manualUsername === username) return;
-    const timeout = setTimeout(() => clearErrors('username'), 300);
-    return () => clearTimeout(timeout);
-  }, [username, errors.username?.type, manualUsername, clearErrors]);
 
   // Submit handler
   const onSubmit = async (data: RegisterBody) => {
@@ -84,7 +62,7 @@ const RegisterForm = () => {
       // Validate response
       const validatedRes = AuthResponseSchema.safeParse(res.data);
       if (!validatedRes.success) {
-        toast('Something went wrong, please try again later');
+        toast.error('Something went wrong, please try again later');
         return console.error(`Response error: ${JSON.stringify(validatedRes.error)}`);
       }
 
@@ -107,8 +85,14 @@ const RegisterForm = () => {
       }, 1000);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      if (error.response?.status === 409) return handleUsernameExistsError();
-      toast('Something went wrong, please try again later');
+      if (error.response?.status === 409) {
+        setError('username', {
+          type: 'manual',
+          message: 'Username already exists',
+        });
+        return;
+      }
+      toast.error('Something went wrong, please try again later');
       console.error('Register error:', error.status);
     } finally {
       setValue('password', '');
@@ -144,7 +128,11 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type='password' {...field} className='bg-muted border-muted-foreground' />
+                    <Input
+                      type='password'
+                      {...field}
+                      className='bg-muted border-muted-foreground'
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -159,7 +147,11 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
-                    <Input type='password' {...field} className='bg-muted border-muted-foreground' />
+                    <Input
+                      type='password'
+                      {...field}
+                      className='bg-muted border-muted-foreground'
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -179,7 +171,6 @@ const RegisterForm = () => {
                     <Input
                       type='url'
                       {...field}
-                      onChange={(e) => field.onChange(e.target.value.trim() || undefined)}
                       className='bg-muted border-muted-foreground'
                     />
                   </FormControl>
