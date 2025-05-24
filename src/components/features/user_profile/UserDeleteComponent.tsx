@@ -16,6 +16,14 @@ import { deleteUser } from '@/services/service_auth';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
 
+/**
+ * @summary UserDeleteComponent
+ * @description
+ * This component allows users to delete their account.
+ * It shows a confirmation dialog and performs the deletion.
+ * After deletion, it calls AtomicLogout to clear the tokens and navigate the user to the home page.
+ * @param {user} - The user object containing the user's information.
+ */
 const UserDeleteComponent = ({ user }: { user: Partial<UserResponse> }) => {
   const [loading, setLoading] = useState<boolean>(false);
   // Ensure atomic logout

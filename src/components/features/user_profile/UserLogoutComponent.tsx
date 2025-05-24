@@ -15,7 +15,16 @@ import {
 import AtomicLogout from '@/components/shared/AtomicLogout';
 import getDeviceId from '@/lib/deviceid';
 
-// To handle the user logout
+/**
+ * @summary UserLogoutComponent
+ * @description
+ * This component provides a button to log out the user.
+ * It allows the user to log out from the current device or all devices,
+ * which is provided by the backend.
+ * When successful, it clear the local tokens, then redirects the user to the home page.
+ * If the logout fails, it shows an error message, and still clears the local tokens,
+ * and performs the redirect.
+ */
 const UserLogoutComponent = () => {
   const [loading, setLoading] = useState<boolean>(false);
   // Ensure atomic logout

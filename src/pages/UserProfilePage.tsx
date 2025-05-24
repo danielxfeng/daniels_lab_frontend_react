@@ -103,7 +103,7 @@ const UserProfilePage = () => {
         <TabsContent value='account'>
           {' '}
           <div className='flex w-full flex-col items-center gap-15'>
-            <UserProfileUpdateForm user={user!} />
+            <UserProfileUpdateForm />
             <UserDeleteComponent user={user!} />
           </div>
         </TabsContent>

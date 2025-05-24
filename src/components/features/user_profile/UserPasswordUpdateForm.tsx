@@ -21,10 +21,18 @@ import { changePassword } from '@/services/service_auth';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
 
-// A component to update the user password
+/**
+ * @summary UserPasswordUpdateForm
+ * @description
+ * This component provides a form for users to update their password.
+ * It includes fields for the current password, new password,
+ * and confirmation of the new password.
+ * It handles form submission, validation, and error handling.
+ *
+ * It logs out the user after a successful password change,
+ */
 const UserPasswordUpdateForm = () => {
   const [doLogout, setDoLogout] = useState<boolean>(false);
-  const [errorCurrentPassword, setCurrentPassword] = useState<string>('');
 
   // Init the form
   const form = useForm<ChangePasswordBody>({
@@ -41,20 +49,9 @@ const UserPasswordUpdateForm = () => {
     handleSubmit,
     setValue,
     reset,
-    watch,
     setError,
-    clearErrors,
     formState: { isSubmitting, isValid },
   } = form;
-
-  const currentPasswordValue = watch('currentPassword');
-
-  useEffect(() => {
-    if (errorCurrentPassword !== '' && currentPasswordValue !== '') {
-      setCurrentPassword('');
-      clearErrors('currentPassword');
-    }
-  }, [clearErrors, currentPasswordValue, errorCurrentPassword, setError]);
 
   // Add the deviceId to the form
   useEffect(() => {
@@ -72,11 +69,11 @@ const UserPasswordUpdateForm = () => {
         return;
       }
       toast.success('Password updated successfully');
+      reset(); // Reset the form fields
       setDoLogout(true);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err.response?.status === 401) {
-        setCurrentPassword(data.currentPassword);
         setError('currentPassword', {
           type: 'manual',
           message: 'Current password is incorrect',
@@ -85,12 +82,9 @@ const UserPasswordUpdateForm = () => {
         console.error('Error changing password:', err.response?.statusText);
         toast.error('Error changing password, please try again later');
       }
-    } finally {
-      reset({
-        currentPassword: '',
-        password: '',
-        confirmPassword: '',
-      });
+      form.setValue('currentPassword', '');
+      form.setValue('password', '');
+      form.setValue('confirmPassword', '');
     }
   };
 

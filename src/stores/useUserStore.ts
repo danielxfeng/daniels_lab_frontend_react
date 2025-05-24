@@ -39,6 +39,10 @@ type UserState = {
   clear: () => void;
 };
 
+// This is the session class variable to cache the access token
+// Need to be optimized in SSR mode.
+let cachedAccessToken: string | null = null;
+
 /**
  * @summary A Zustand store for managing user authentication.
  * @description Here we maintain the access token and user information.
@@ -49,7 +53,7 @@ type UserState = {
 export const useUserStore = create<UserState>()(
   persist(
     (set, get) => ({
-      accessToken: null,
+      accessToken: cachedAccessToken,
       user: null,
 
       getUserStatus: () => {
@@ -58,7 +62,10 @@ export const useUserStore = create<UserState>()(
         if (user) return 'expired';
         return 'unauthenticated';
       },
-      setAccessToken: (token) => set({ accessToken: token }),
+      setAccessToken: (token) => {
+        cachedAccessToken = token; // Cache the access token for the current session
+        set({ accessToken: token });
+      },
       setTokens: (accessToken, refreshToken) => {
         set((state) => ({ accessToken, user: { ...state.user, refreshToken } }));
       },

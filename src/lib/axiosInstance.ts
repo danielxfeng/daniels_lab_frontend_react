@@ -59,6 +59,8 @@ const interceptorIds = {
  *
  * After the refresh is done, it is solved, and then set to `null` again,
  * so the next caller can start a new refresh token process.
+ *
+ * This needs to be optimized in SSR.
  */
 let isRefreshing: Promise<string | null> | null = null;
 
