@@ -88,6 +88,7 @@ const passwordConfirmationSchema = <
 
 /**
  * @summary Register a new user, including:
+ * Now the schema is different from the backend schema.
  * - username, password, confirmPassword, consentAt, and deviceId
  * - Optional avatarUrl
  */
@@ -96,7 +97,10 @@ const RegisterBodySchema = passwordConfirmationSchema(
     username: UsernameSchema,
     password: passwordSchema,
     confirmPassword: confirmPasswordSchema,
-    avatarUrl: UrlSchema.optional(),
+    avatarUrl: z
+      .union([UrlSchema, z.literal('')])
+      .transform((val) => (val === '' ? undefined : val))
+      .optional(),
     consentAt: consentAtSchema,
     deviceId: deviceIdSchema,
   }),
