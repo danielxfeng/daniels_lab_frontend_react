@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { AuthResponse } from '@/schema/schema_auth';
 import { UpdateUserBody, UpdateUserBodySchema, UserResponseSchema } from '@/schema/schema_users';
 import { updateUser } from '@/services/service_user';
 import {
@@ -15,42 +14,37 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
-import AtomicLogout from '@/components/shared/AtomicLogout';
+import useUserStore from '@/stores/useUserStore';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * @summary UserProfileUpdateForm
- * @description To update the user name and avatar URL.
- * @param user - The user object containing the current user data.
- * @returns
+ * @description
+ * To update the user name and avatar URL.
+ * It redirects the user to the home page after a successful update.
+ * We need this, otherwise the user will see another form with new values,
+ * which is weird.
  */
-const UserProfileUpdateForm = ({ user }: { user: Partial<AuthResponse> }) => {
-  // Ensure atomic logout
-  const [doLogout, setDoLogout] = useState<boolean>(false);
+const UserProfileUpdateForm = () => {
+  const { user, setUser } = useUserStore.getState();
+  const navigate = useNavigate();
 
   // Init the form
   const form = useForm<UpdateUserBody>({
     resolver: zodResolver(UpdateUserBodySchema),
     mode: 'onTouched',
     defaultValues: {
-      username: user.username,
-      avatarUrl: user.avatarUrl || '',
+      username: user?.username,
+      avatarUrl: user?.avatarUrl || '',
     },
   });
 
   const {
-    watch,
+
     setValue,
     handleSubmit,
     formState: { isSubmitting, isValid },
   } = form;
-
-  const avatarUrl = watch('avatarUrl');
-
-  useEffect(() => {
-    if (avatarUrl === '') {
-      setValue('avatarUrl', undefined);
-    }
-  }, [avatarUrl, setValue]);
 
   // The submit handler
   const onSubmit = async (data: UpdateUserBody) => {
@@ -64,9 +58,31 @@ const UserProfileUpdateForm = ({ user }: { user: Partial<AuthResponse> }) => {
         return;
       }
 
-      // Perform the success action
+      // Note: about the order:
+      // 1. clear the form values, only the inputs will be re-rendered.
+      // 2. set the user store, does not trigger a re-render since we use the snapshot.
+      // 3. show a success message.
+      // 4. redirect to home page.
+      // By this way, we try to give a clear user experience.
+
+      // Clear the values
+      setValue('username', '');
+      setValue('avatarUrl', '');
+
+      // Update the user store with the new user profile
+      setUser({
+        ...user!,
+        username: validatedUserProfile.data.username,
+        avatarUrl: validatedUserProfile.data.avatarUrl || undefined,
+      });
+
+      // Send a message
       toast.success('User profile updated successfully');
-      setDoLogout(true);
+
+      // Redirect to home page
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('Error updating user profile:', error.response?.statusText);
@@ -76,8 +92,6 @@ const UserProfileUpdateForm = ({ user }: { user: Partial<AuthResponse> }) => {
 
   return (
     <Form {...form}>
-      {/* Ensure atomic logout */}
-      {doLogout && <AtomicLogout to='/' timeout={1000} />}
       <form onSubmit={handleSubmit(onSubmit)} className='mt-6 w-full max-w-xl'>
         <fieldset disabled={isSubmitting} className='flex flex-col gap-6'>
           {/* Username is required */}
