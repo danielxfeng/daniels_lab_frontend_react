@@ -21,6 +21,7 @@ Once running, open your browser at:
 [http://localhost:5173/](http://localhost:5173/)
 
 ## Todo
-- **Authentication Bug**: Users may be logged out unexpectedly.
+- (fixed)Authentication Bug: Users may be logged out unexpectedly.
 - **Search bar** and **Tags selection** are not connected to backend yet.
 - **Tags selection Bug**: The current suggestion fetch may have a race conditions: the return value of an older request may override newer ones in the suggestion list.
+- Abstract the style of input.
