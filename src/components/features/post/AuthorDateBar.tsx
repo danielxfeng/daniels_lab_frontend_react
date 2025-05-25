@@ -21,7 +21,7 @@ const AuthorDateBar = ({
   authorAvatar: string | null;
   createdAt: string | undefined;
   updatedAt?: string | undefined;
-  position: 'list' | 'post';
+  position: 'list' | 'post' | 'comment';
 }) => (
   <div className='flex w-full items-center justify-between'>
     <Author name={authorName} avatarUrl={authorAvatar ?? undefined} />

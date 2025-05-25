@@ -59,7 +59,7 @@ const PostDeleteComponent = ({ postId }: { postId: string }) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className='text-muted-foreground' disabled={isLoading}>Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={deleteHandler}
             disabled={isLoading}
