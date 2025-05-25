@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import { Input } from '@/components/ui/input';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useFormContext } from 'react-hook-form';
+import { ControllerRenderProps } from 'react-hook-form';
+import { CreateOrUpdatePostBody } from '@/schema/schema_post';
 
 /**
  * @summary A tag input component.
@@ -18,18 +19,24 @@ import { useFormContext } from 'react-hook-form';
  *   2.2 Filter the suggestions based on the current tags.
  *   2.3 Add the tag to the list on click, then hide itself.
  */
-const TagInputComponent = ({ name, tags }: { name: string; tags: string[] }) => {
-  const { setValue } = useFormContext();
-
+const TagInputComponent = ({
+  field,
+  inputId,
+}: {
+  field: ControllerRenderProps<CreateOrUpdatePostBody>;
+  inputId: string;
+}) => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [debouncedInput] = useDebounce(inputValue, 300);
 
   // Add a tag to the list
   const addTag = (tag: string) => {
+    const tags = field.value || [];
     if (tag && !tags.includes(tag)) {
       const newTags = [...tags, tag];
-      setValue(name, newTags, { shouldValidate: true, shouldDirty: true });
+      field.onChange(newTags);
+      field.onBlur();
       setInputValue('');
     }
   };
@@ -37,12 +44,13 @@ const TagInputComponent = ({ name, tags }: { name: string; tags: string[] }) => 
   // Update suggestions when input changes
   useEffect(() => {
     if (!debouncedInput) return;
+    const tags = field.value || [];
     setSuggestions(
       ['tag1', 'tag2', 'tag3']
         .filter((s) => s.toLowerCase().includes(debouncedInput.toLowerCase()))
         .filter((s) => !tags.includes(s)),
     );
-  }, [debouncedInput, tags]);
+  }, [debouncedInput, field.value]);
 
   return (
     <div className='space-y-2'>
@@ -51,6 +59,7 @@ const TagInputComponent = ({ name, tags }: { name: string; tags: string[] }) => 
         {/* Input field */}
         <Input
           value={inputValue}
+          id={inputId}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
