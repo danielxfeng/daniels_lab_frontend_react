@@ -46,7 +46,7 @@ const NavList = ({ title, link }: { title: string; link: string }) => (
  * The full desktop nav component.
  */
 const NavLinksDesktop = () => (
-  <NavigationMenu className='hidden items-center md:flex'>
+  <NavigationMenu className='hidden items-center lg:flex'>
     {navMenu.map((item, i) => (
       <React.Fragment key={item.title}>
         {i > 0 && <span className='px-2 text-ring'>|</span>}

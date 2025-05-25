@@ -33,7 +33,7 @@ const AuthorDateBar = ({
       <div
         className={cn(
           'text-muted-foreground flex flex-col items-end text-sm',
-          position === 'post' ? '' : 'md:flex-row md:gap-2',
+          position === 'post' ? '' : 'lg:flex-row lg:gap-2',
         )}
       >
         <p>

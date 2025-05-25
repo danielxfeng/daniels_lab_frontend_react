@@ -12,7 +12,7 @@ import UserProfileUpdateForm from '@/components/features/user_profile/UserProfil
 import UserDeleteComponent from '@/components/features/user_profile/UserDeleteComponent';
 import UserPasswordUpdateForm from '@/components/features/user_profile/UserPasswordUpdateForm';
 
-const iconStyle = 'h-8 w-8 md:h-12 md:w-12';
+const iconStyle = 'h-8 w-8 lg:h-12 lg:w-12';
 
 const UserOauthLinkBar = ({ user }: { user: Partial<UserResponse> }) => {
   const oauthMap = {

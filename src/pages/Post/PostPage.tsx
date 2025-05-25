@@ -40,7 +40,7 @@ const PostPage = () => {
     <>
       <MetaInfo post={post} />
       {/* The post page */}
-      <article className='inner-container mb-10 flex max-w-3xl flex-col items-center gap-6 md:mb-10'>
+      <article className='inner-container mb-10 flex max-w-3xl flex-col items-center gap-6 lg:mb-10'>
         {/* The post cover image */}
         <LazyImage src={post.cover} alt={post.title} className='w-3/4 rounded-xl shadow-2xl' />
 
@@ -74,11 +74,11 @@ const PostPage = () => {
         />
 
         {/* The post content */}
-        <SafeStyledMarkdown markdown={post.markdown!} className='w-full md:mt-3' />
+        <SafeStyledMarkdown markdown={post.markdown!} className='w-full lg:mt-3' />
 
         {/* The post footer */}
         <footer className='text-muted-foreground mt-6 flex w-full flex-col items-start justify-start gap-3'>
-          <div className='flex w-full flex-col items-start justify-between gap-2 md:flex-row md:items-center'>
+          <div className='flex w-full flex-col items-start justify-between gap-2 lg:flex-row lg:items-center'>
             {/* The post likes */}
             <Likes postId={post.id} userId={user?.id} />
             {/* The post tags */}

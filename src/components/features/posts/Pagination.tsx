@@ -60,7 +60,7 @@ const Pagination = ({
           to={goToPrev()}
           icon={
             <>
-              <span className='hidden md:block'>Prev ...</span>
+              <span className='hidden lg:block'>Prev ...</span>
               <ChevronLeftIcon className='text-foreground/80 h-8 w-8' />
             </>
           }
@@ -76,7 +76,7 @@ const Pagination = ({
           icon={
             <>
               <ChevronRightIcon className='text-foreground/80 h-8 w-8' />{' '}
-              <span className='hidden md:block'>Next ...</span>
+              <span className='hidden lg:block'>Next ...</span>
             </>
           }
           ariaLabel='navigate to next page'

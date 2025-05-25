@@ -67,7 +67,7 @@ const DropdownHistory = ({
       {showDropdown && filtered.length > 0 && (
         <motion.ul
           {...easeInOut}
-          className='bg-background dropdown-history absolute z-10 mt-1 flex w-full flex-col gap-0 px-2 pb-2 md:rounded-xl md:shadow'
+          className='bg-background dropdown-history absolute z-10 mt-1 flex w-full flex-col gap-0 px-2 pb-2 lg:rounded-xl lg:shadow'
         >
           {/* Iterate all items */}
           {filtered.map((item) => (
