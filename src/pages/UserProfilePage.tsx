@@ -76,6 +76,7 @@ const UserProfilePage = () => {
 
   return !user ? null : (
     <div className='inner-container'>
+      <title>{`User Profile – ${siteMeta.siteName}`}</title>
       {/* UserProfileCard */}
       <div className='flex w-full items-center justify-between'>
         {/* User avatar and username */}

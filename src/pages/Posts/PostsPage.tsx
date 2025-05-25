@@ -1,5 +1,4 @@
 import { useLoaderData } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import siteMeta from '@/constants/siteMeta';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import PostsList from '@/components/features/posts/PostList';
@@ -7,16 +6,21 @@ import PostsFilterForm from '@/components/features/posts/PostsFilterForm';
 
 // A component to set the meta information for SEO
 const MetaInfo = () => (
-  <Helmet>
-    <title>All Posts – YourSiteName</title>
+  <>
+    <title>{`All Posts – ${siteMeta.siteName}`}</title>
     <meta name='description' content={`Browse all blog posts on ${siteMeta.siteName}`} />
+    <meta name='author' content='Daniel F.' />
     <meta property='og:title' content={`All Posts – ${siteMeta.siteName}`} />
     <meta property='og:description' content={`Browse all blog posts on ${siteMeta.siteName}.`} />
     <meta property='og:type' content='website' />
     <meta property='og:url' content={`${siteMeta.siteUrl}/blog/posts`} />
     <meta property='og:image' content={`${siteMeta.siteUrl}/cover.png`} />
+    <meta property='og:site_name' content='Fancy Blog' />
     <meta name='twitter:card' content='summary_large_image' />
-  </Helmet>
+    <meta name='twitter:title' content={`All Posts – ${siteMeta.siteName}`} />
+    <meta name='twitter:description' content={`Browse all blog posts on ${siteMeta.siteName}.`} />
+    <meta name='twitter:image' content={`${siteMeta.siteUrl}/cover.png`} />
+  </>
 );
 
 /**

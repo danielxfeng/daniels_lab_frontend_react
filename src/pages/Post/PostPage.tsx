@@ -1,6 +1,5 @@
 import { useLoaderData } from 'react-router-dom';
 import { Pencil } from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
 import useUserStore from '@/stores/useUserStore';
 import { PostResponse } from '@/schema/schema_post';
 import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';
@@ -16,18 +15,21 @@ import PostDeleteComponent from '@/components/features/post/PostDeleteComponent'
 
 // A component to set the meta information for SEO
 const MetaInfo = ({ post }: { post: PostResponse }) => (
-  <Helmet>
-    <title>
-      {post.title} – {siteMeta.siteName}
-    </title>
+  <>
+    <title>{`${post.title} – ${siteMeta.siteName}`}</title>
     <meta name='description' content={post.excerpt} />
+    <meta name='author' content='Daniel F.' />
     <meta property='og:title' content={post.title} />
     <meta property='og:description' content={post.excerpt} />
     <meta property='og:type' content='article' />
     <meta property='og:url' content={`${siteMeta.siteUrl}/blog/posts/${post.slug}`} />
     <meta property='og:image' content={post.cover || `${siteMeta.siteUrl}/cover.png`} />
+    <meta property='og:site_name' content='Fancy Blog' />
     <meta name='twitter:card' content='summary_large_image' />
-  </Helmet>
+    <meta name='twitter:title' content={post.title} />
+    <meta name='twitter:description' content={post.excerpt} />
+    <meta name='twitter:image' content={post.cover || `${siteMeta.siteUrl}/cover.png`} />
+  </>
 );
 
 const PostPage = () => {
