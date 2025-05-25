@@ -2,6 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import LoginForm from '@/components/features/login/LoginForm';
 import RegisterForm from '@/components/features/login/RegisterForm';
+import siteMeta from '@/constants/siteMeta';
 
 // A component for the GDPR notice
 const GDPR = () => (
@@ -24,6 +25,7 @@ const GDPR = () => (
  */
 const LoginPage = () => (
   <div className='inner-container'>
+    <title>{`Login – ${siteMeta.siteName}`}</title>
     <MotionH1>Login</MotionH1>
     <Tabs defaultValue='login' className='mx-auto mt-8 flex max-w-2xl'>
       <TabsList className='w-full'>

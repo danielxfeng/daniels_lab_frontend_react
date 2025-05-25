@@ -3,9 +3,11 @@ import MotionH1 from '@/components/motion_components/MotionH1';
 import contactIconList from '@/constants/contactLinks';
 import { picAnimation } from '@/lib/animations';
 import { motion } from 'framer-motion';
+import siteMeta from '@/constants/siteMeta';
 
 const AboutPage = () => (
   <div className='inner-container flex flex-col-reverse items-center gap-8 lg:flex-row lg:justify-between lg:gap-16'>
+    <title>{`About – ${siteMeta.siteName}`}</title>
     <div className='flex-1 space-y-6'>
       <MotionH1>About Me</MotionH1>
       <p className='text-foreground text-lg leading-relaxed'>
