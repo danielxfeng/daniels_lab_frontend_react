@@ -25,7 +25,7 @@ import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
-import TagSelector from '../tags/TagsSelector';
+import TagSelector from '@/components/features/tags/TagsSelector';
 
 // A helper function to get the slug from the response
 const getSlug = (isCreate: boolean, res: AxiosResponse<PostResponse | undefined>) => {
@@ -139,21 +139,37 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
             )}
           />
 
+          {/* Tags: A combo box to select/input tags. */}
           <FormField
             control={form.control}
             name='tags'
-            render={() => (
-              <FormItem>
-                <FormLabel>Tags</FormLabel>
-                <FormControl>
-                  <TagSelector name='tags' />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            render={({ field }) => {
+              const errors = form.formState.errors.tags;
+
+              return (
+                <FormItem>
+                  <FormLabel htmlFor='tagInput'>Tags</FormLabel>
+                  <FormControl>
+                    <TagSelector field={field} inputId={'tagInput'} />
+                  </FormControl>
+                  {
+                    // To solve that the `FormMessage` does not show the nested errors.
+                    Array.isArray(errors) &&
+                      errors.map((err, idx) =>
+                        err?.message ? (
+                          <p key={idx + err.message} className='text-destructive text-sm'>
+                            Tag{idx}: {err.message}
+                          </p>
+                        ) : null,
+                      )
+                  }
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
           />
 
-          {/* 
+          {/*
           Post Creation Date
           This is the authored creation date (not DB timestamp).
           It's useful for importing articles from external platforms or backups.

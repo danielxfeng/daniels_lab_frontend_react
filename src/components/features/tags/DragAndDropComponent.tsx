@@ -1,5 +1,6 @@
 import { tweenTransition } from '@/lib/animations';
 import { cn } from '@/lib/utils';
+import { CreateOrUpdatePostBody } from '@/schema/schema_post';
 import {
   DndContext,
   DragEndEvent,
@@ -15,7 +16,7 @@ import {
 } from '@dnd-kit/core';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { ControllerRenderProps } from 'react-hook-form';
 
 // Draggable: A tag
 const DraggableTag = ({ tag, isOverlay = false }: { tag: string; isOverlay?: boolean }) => {
@@ -82,18 +83,13 @@ const DroppableTrash = ({ dragging }: { dragging: boolean }) => {
  *    - The TrashZone, which is a `droppable` area.
  */
 const DragDropComponent = ({
-  name,
-  tags, // The tags in the container
+  field,
 }: {
-  name: string;
-  tags: string[];
+  field: ControllerRenderProps<CreateOrUpdatePostBody, 'tags'>;
 }) => {
-  //const [dragging, setDragging] = useState(false);
   // To determine which tag is being dragged
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const [activeTagMoving, setActiveTagMoving] = useState<string | null>(null);
-
-  const { setValue } = useFormContext();
 
   // Long press to drag for mobile
   const sensors = useSensors(
@@ -134,10 +130,9 @@ const DragDropComponent = ({
 
     // We only handle when the tag is dropped over the trash zone
     if (overId === 'trash') {
-      setValue(
-        name,
-        tags.filter((tag) => tag !== activeId),
-      );
+      const tags = field.value || [];
+      field.onChange(tags.filter((tag) => tag !== activeId));
+      field.onBlur();
     }
 
     // Reset the active tag, next tick:)
@@ -146,6 +141,8 @@ const DragDropComponent = ({
       setActiveTagMoving(null);
     }, 1);
   };
+
+  const tags = field.value || [];
 
   return (
     <DndContext
