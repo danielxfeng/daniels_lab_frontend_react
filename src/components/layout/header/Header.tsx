@@ -25,7 +25,7 @@ const Header = ({ isBasic }: { isBasic?: boolean }) => {
           <Logo />
           {/* Hide in mobile mode */}
           {!isBasic && (
-            <div className='hidden items-center justify-center md:flex'>
+            <div className='hidden items-center justify-center lg:flex'>
               <NavLinksDesktop />
             </div>
           )}
@@ -35,16 +35,16 @@ const Header = ({ isBasic }: { isBasic?: boolean }) => {
         {!isBasic && (
           <div className='flex items-center justify-end gap-4'>
             {/* Show only in desktop mode */}
-            <div className='hidden items-center justify-center md:flex'>
+            <div className='hidden items-center justify-center lg:flex'>
               <SearchBar />
             </div>
             <UserComponent />
             {/* Show only in mobile mode */}
-            <div className='flex items-center justify-center md:hidden'>
+            <div className='flex items-center justify-center lg:hidden'>
               <SearchButton />
             </div>
             <ThemeToggle />
-            <div className='flex items-center justify-center md:hidden'>
+            <div className='flex items-center justify-center lg:hidden'>
               {/* Show only in mobile mode */}
               <NavLinksMobile />
             </div>

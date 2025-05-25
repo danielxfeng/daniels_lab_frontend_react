@@ -22,7 +22,7 @@ const Post = ({ post }: { post: PostResponse }) => (
       <LazyImage
         src={post.cover}
         alt={post.title}
-        className='hidden h-16 w-28 shrink-0 rounded-xl shadow-2xl md:flex md:h-32 md:w-56'
+        className='hidden h-16 w-28 shrink-0 rounded-xl shadow-2xl lg:flex lg:h-32 lg:w-56'
       />
     </Link>
     <div className='flex flex-1 flex-col gap-2 p-4'>
@@ -35,7 +35,7 @@ const Post = ({ post }: { post: PostResponse }) => (
         <LazyImage
           src={post.cover}
           alt={post.title}
-          className='mx-auto h-32 w-56 shrink-0 rounded-2xl text-center shadow-2xl md:hidden'
+          className='mx-auto h-32 w-56 shrink-0 rounded-2xl text-center shadow-2xl lg:hidden'
         />
       </Link>
 

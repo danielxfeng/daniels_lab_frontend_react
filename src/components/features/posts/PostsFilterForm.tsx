@@ -79,11 +79,11 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
   };
 
   return (
-    <aside className='w-full md:mt-10'>
+    <aside className='w-full lg:mt-10'>
       <h2>Filter the posts</h2>
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-          <fieldset className='flex flex-col gap-10 md:my-10' disabled={isSubmitting}>
+          <fieldset className='flex flex-col gap-10 lg:my-10' disabled={isSubmitting}>
             {/* Tags */}
             <FormField
               control={control}
@@ -104,7 +104,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
             <hr className='border-muted' />
 
             {/* Date pickers */}
-            <div className='flex flex-col gap-6 md:gap-10'>
+            <div className='flex flex-col gap-6 lg:gap-10'>
               {['from', 'to'].map((fieldName) => (
                 <FormField
                   key={fieldName}

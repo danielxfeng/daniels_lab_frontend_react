@@ -30,11 +30,11 @@ const PostsPage = () => {
       <MetaInfo />
       <div className='inner-container flex flex-col items-start'>
         <MotionH1>Posts</MotionH1>
-        <div className='posts flex flex-col-reverse gap-10 md:flex-row md:justify-between'>
-          <div className='w-full md:w-1/4'>
+        <div className='posts flex flex-col-reverse gap-10 lg:flex-row lg:justify-between'>
+          <div className='w-full lg:w-1/4'>
             <PostsFilterForm hotTags={hotTags} />
           </div>
-          <div className='w-full md:w-3/4'>
+          <div className='w-full lg:w-3/4'>
             <PostsList postsResponse={postsListRes} />
           </div>
         </div>
