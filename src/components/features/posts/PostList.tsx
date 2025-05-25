@@ -49,6 +49,8 @@ const Post = ({ post }: { post: PostResponse }) => (
           authorName={post.authorName}
           authorAvatar={post.authorAvatar}
           createdAt={post.createdAt}
+          updatedAt={post.updatedAt}
+          position='list'
         />
       </footer>
     </div>

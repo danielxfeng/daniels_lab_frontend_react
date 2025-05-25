@@ -69,6 +69,8 @@ const PostPage = () => {
           authorName={post.authorName}
           authorAvatar={post.authorAvatar}
           createdAt={post.createdAt}
+          updatedAt={post.updatedAt}
+          position='post'
         />
 
         {/* The post content */}
