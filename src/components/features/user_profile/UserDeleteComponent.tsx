@@ -65,7 +65,7 @@ const UserDeleteComponent = ({ user }: { user: Partial<UserResponse> }) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className='text-muted-foreground' disabled={loading}>Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={deleteHandler}
             disabled={loading}
