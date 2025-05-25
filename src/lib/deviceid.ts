@@ -11,7 +11,16 @@ const getDeviceId = async (): Promise<string> => {
   // Laze load for performance
   const fp = await import('@fingerprintjs/fingerprintjs');
   const instance = await fp.load();
-  const { visitorId } = await instance.get();
+  const result = await instance.get();
+
+  // To exclude some components from the fingerprinting process
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { plugins, audio, ...components } = result.components;
+  if ('value' in components.canvas) {
+    components.canvas.value.text = '';
+  }
+
+  const visitorId = fp.hashComponents(components);
 
   deviceIdCache = visitorId;
   return visitorId;
