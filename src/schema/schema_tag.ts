@@ -41,13 +41,16 @@ const tagsSchema = z
 
 /**
  * @summary Schema for the request body to match a tag list.
+ * This schema is not async with the backend.
  */
 const TagQuerySchema = z.object({
   tag: tagSchema,
+  ts: z.number()
 });
 
 const TagsResponseSchema = z.object({
   tags: z.array(tagSchema),
+  ts: z.number().optional(),
 });
 
 export { tagSchema, tagsSchema, TagQuerySchema, TagsResponseSchema };

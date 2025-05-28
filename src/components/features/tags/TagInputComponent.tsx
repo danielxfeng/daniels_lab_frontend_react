@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useDebounce } from 'use-debounce';
 import { Input } from '@/components/ui/input';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ControllerRenderProps } from 'react-hook-form';
 import { CreateOrUpdatePostBody } from '@/schema/schema_post';
+import { tagSchema, TagsResponseSchema } from '@/schema/schema_tag';
+import { debouncedSearchTagsByPrefix } from '@/services/service_tags';
 
 /**
  * @summary A tag input component.
@@ -28,7 +29,7 @@ const TagInputComponent = ({
 }) => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState('');
-  const [debouncedInput] = useDebounce(inputValue, 300);
+  const [tagError, setTagError] = useState<string | null>(null);
 
   // Add a tag to the list
   const addTag = (tag: string) => {
@@ -43,14 +44,36 @@ const TagInputComponent = ({
 
   // Update suggestions when input changes
   useEffect(() => {
-    if (!debouncedInput) return;
-    const tags = field.value || [];
-    setSuggestions(
-      ['tag1', 'tag2', 'tag3']
-        .filter((s) => s.toLowerCase().includes(debouncedInput.toLowerCase()))
-        .filter((s) => !tags.includes(s)),
-    );
-  }, [debouncedInput, field.value]);
+    // The async function to fetch suggestions
+    const run = async () => {
+      const validatedKeyword = tagSchema.safeParse(inputValue);
+      if (!validatedKeyword.success) {
+        setTagError(validatedKeyword.error.errors[0].message);
+        return;
+      }
+      setTagError(null); // Clear error
+      // Try to fetch from the server
+      try {
+        const suggestionsRes = await debouncedSearchTagsByPrefix(validatedKeyword.data);
+        const validatedSuggestions = TagsResponseSchema.safeParse(suggestionsRes.data);
+        if (!validatedSuggestions.success) {
+          console.error('Invalid suggestions response:', validatedSuggestions.error);
+          return;
+        }
+        // It still may be a stale update, but it may still make sense to user.
+        setSuggestions(validatedSuggestions.data.tags.filter((s) => s !== inputValue));
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        // If the error is 429 (May be rate-limited or debounced, it's normal)
+        if (error?.response?.status !== 429) console.error('Error fetching suggestions:', error);
+        setSuggestions((prev) => prev.filter((s) => s !== inputValue));
+      }
+    };
+
+    // If the input is empty, just clear suggestions
+    if (!inputValue.trim()) return setSuggestions([]);
+    run();
+  }, [inputValue]);
 
   return (
     <div className='space-y-2'>
@@ -64,12 +87,20 @@ const TagInputComponent = ({
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               e.preventDefault();
-              addTag(inputValue);
+              const validatedKeyword = tagSchema.safeParse(inputValue);
+              if (!validatedKeyword.success) {
+                setTagError(validatedKeyword.error.errors[0].message);
+                return;
+              }
+              setTagError(null);
+              addTag(validatedKeyword.data);
             }
           }}
           className='bg-muted border-muted-foreground'
           placeholder='Add tag...'
         />
+        {/* Error message */}
+        {tagError && <p className='text-destructive text-sm'>{tagError}</p>}
 
         {/* Dropdown for suggestions */}
         <AnimatePresence>
