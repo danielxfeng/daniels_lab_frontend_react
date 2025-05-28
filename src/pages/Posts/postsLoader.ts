@@ -1,13 +1,18 @@
-import { throwWithAxiosErr, throwWithUserValidationErr, throwWithValidationErr } from '@/lib/throwWithErr';
+import {
+  throwWithAxiosErr,
+  throwWithUserValidationErr,
+  throwWithValidationErr,
+} from '@/lib/throwWithErr';
 import urlParamSafeParser from '@/lib/urlParamSafeParser';
 import {
   GetPostListQuerySchema,
+  KeywordSearchQuerySchema,
   PostListResponse,
   PostListResponseSchema,
 } from '@/schema/schema_post';
 import { TagsResponse, TagsResponseSchema } from '@/schema/schema_tag';
 import { getHotTags } from '@/services/service_tags';
-import { getPosts } from '@/services/services_posts';
+import { getPosts, searchPostsByKeywords } from '@/services/services_posts';
 
 /**
  * @summary A loader function for posts page.
@@ -19,13 +24,28 @@ const postsLoader = async ({
   request,
 }: {
   request: Request;
-}): Promise<{ postsListRes: PostListResponse; hotTags: TagsResponse }> => {
+}): Promise<{
+  postsListRes: PostListResponse;
+  hotTags: TagsResponse;
+  keyword: string | undefined;
+}> => {
   // Get the URL and search parameters from the request
   const url = new URL(request.url);
   const searchParams = url.searchParams;
+  const isSearchByKeyword = url.pathname.includes('search');
 
-  // Validate the search parameters using the schema
-  if (searchParams) {
+  // For requests from `search``
+  if (isSearchByKeyword) {
+    const validated = KeywordSearchQuerySchema.safeParse(urlParamSafeParser(searchParams));
+    if (!validated.success)
+      return throwWithUserValidationErr(
+        'validate search params with keyword',
+        JSON.stringify(validated.error),
+      );
+  }
+
+  // For requests from `listing`
+  if (!isSearchByKeyword && searchParams) {
     const validated = GetPostListQuerySchema.safeParse(urlParamSafeParser(searchParams));
     if (!validated.success)
       return throwWithUserValidationErr('validate search params', JSON.stringify(validated.error));
@@ -33,7 +53,9 @@ const postsLoader = async ({
 
   // Fetch posts and hot tags concurrently
   const [postsListRes, hotTagsRes] = await Promise.all([
-    getPosts(url.searchParams.toString()),
+    isSearchByKeyword
+      ? searchPostsByKeywords(url.searchParams.toString())
+      : getPosts(url.searchParams.toString()),
     getHotTags(),
   ]);
 
@@ -54,6 +76,7 @@ const postsLoader = async ({
   return {
     postsListRes: validatedPosts.data,
     hotTags: validatedHotTags.data,
+    keyword: isSearchByKeyword ? searchParams.get('keyword') || undefined : undefined,
   };
 };
 

@@ -20,6 +20,10 @@ const getPosts = async (query: string): Promise<AxiosResponse<PostListResponse>>
   return await anonymousAxios!.get(`/blog/posts?${query}`);
 };
 
+const searchPostsByKeywords = async (query: string): Promise<AxiosResponse<PostListResponse>> => {
+  return await anonymousAxios!.get(`/blog/posts/search?${query}`);
+};
+
 /**
  * @summary A function to get a post by slug
  * @param slug - The slug of the post
@@ -60,4 +64,12 @@ const deletePost = async (id: string): Promise<AxiosResponse<undefined>> => {
   return await authAxios!.delete(`/blog/posts/${id}`);
 };
 
-export { getPostsByKeyword, getPosts, getPost, createPost, updatePost, deletePost };
+export {
+  getPostsByKeyword,
+  getPosts,
+  searchPostsByKeywords,
+  getPost,
+  createPost,
+  updatePost,
+  deletePost,
+};

@@ -40,7 +40,7 @@ const Post = ({ post }: { post: PostResponse }) => (
       </Link>
 
       {/* The post excerpt */}
-      <div className='mt-2 max-h-28 overflow-hidden'>
+      <div className='mt-2 overflow-hidden'>
         <SafeStyledMarkdown markdown={post.excerpt} />
       </div>
       <footer className='text-muted-foreground mt-auto flex flex-col justify-between gap-2.5 pt-3 text-xs'>
