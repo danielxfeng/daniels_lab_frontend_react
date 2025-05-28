@@ -1,8 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 import siteMeta from '@/constants/siteMeta';
-import MotionH1 from '@/components/motion_components/MotionH1';
-import PostsList from '@/components/features/posts/PostList';
-import PostsFilterForm from '@/components/features/posts/PostsFilterForm';
+import PostsMain from '@/components/features/posts/PostsMain';
 
 // A component to set the meta information for SEO
 const MetaInfo = () => (
@@ -30,20 +28,9 @@ const MetaInfo = () => (
 const PostsPage = () => {
   const { postsListRes, hotTags } = useLoaderData();
   return (
-    <>
+    <PostsMain postsListRes={postsListRes} hotTags={hotTags}>
       <MetaInfo />
-      <div className='inner-container flex flex-col items-start'>
-        <MotionH1>Posts</MotionH1>
-        <div className='posts flex flex-col-reverse gap-10 lg:flex-row lg:justify-between'>
-          <div className='w-full lg:w-1/4'>
-            <PostsFilterForm hotTags={hotTags} />
-          </div>
-          <div className='w-full lg:w-3/4'>
-            <PostsList postsResponse={postsListRes} />
-          </div>
-        </div>
-      </div>
-    </>
+    </PostsMain>
   );
 };
 

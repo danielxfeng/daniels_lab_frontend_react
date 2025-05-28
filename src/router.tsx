@@ -11,6 +11,7 @@ import PostPage from '@/pages/Post/PostPage';
 import postPageLoader from '@/pages/Post/postPageLoader';
 import LoginPage from '@/pages/LoginPage';
 import UserProfilePage from '@/pages/UserProfilePage';
+import PostsSearchPage from './pages/Posts/PostsSearchPage';
 
 // The router of the app.
 const router = createBrowserRouter([
@@ -35,12 +36,9 @@ const router = createBrowserRouter([
               // Posts list, with a filter form.
               { index: true, Component: PostsPage, loader: postsLoader },
               // posts list for search results
-              // side bar with filters, a list of hot tags
-              // todo loader
-              { path: 'search', Component: () => <div>Blog Search</div> },
+              { path: 'search', Component: PostsSearchPage, loader: postsLoader },
               // post detail, comments list, like status
               { path: ':slug', Component: PostPage, loader: postPageLoader },
-              {path: 'example', Component: () => <div className='bg-amber-50 w-full'>Main Container</div>},
               // a form to add a post, admin only
               {
                 path: 'new',
@@ -66,9 +64,6 @@ const router = createBrowserRouter([
           // a form to login a new user, a form to register a new user
           // a form to link the social accounts
           { path: 'login', Component: LoginPage },
-          // a form to input the invite code
-          // todo load, auth check
-          { path: 'join-admin', Component: () => <div>Join Admin</div> },
         ],
       },
       // /about, Static page, a form to contact the admin (Email), lazy load it.

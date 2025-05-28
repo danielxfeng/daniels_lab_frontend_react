@@ -51,6 +51,15 @@ const throwWithAxiosErr = (message: string, response: AxiosResponse): never => {
 };
 
 /**
+ * @summary An helper function to throw a Response error for debounced requests.
+ * @param message the error message to be thrown
+ * @returns Response error with status 429
+ */
+const throwDebouncedErr = (message: string): never => {
+  return throwWithErr(429, `Too many requests: ${message}`, 'Too Many Requests');
+};
+
+/**
  * @summary An helper function to throw a Response error.
  * @param message the error message to be thrown
  * @param err the error from the validation
@@ -72,6 +81,7 @@ const throwWithUserValidationErr = (message: string, err: string): never => {
 
 export {
   HttpResponseError,
+  throwDebouncedErr,
   throwWithErr,
   throwWithAxiosErr,
   throwWithValidationErr,
