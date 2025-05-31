@@ -5,7 +5,8 @@ import RegisterForm from '@/components/features/login/RegisterForm';
 import siteMeta from '@/constants/siteMeta';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'sonner';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import getDeviceId from '@/lib/deviceid';
 
 // A component for the GDPR notice
 const GDPR = () => (
@@ -28,6 +29,7 @@ const GDPR = () => (
  */
 const LoginPage = () => {
   const location = useLocation();
+  const [deviceId, setDeviceId] = useState<string | null>(null);
   const errMsg = location.state?.error;
 
   // Show error message from the location state
@@ -37,6 +39,14 @@ const LoginPage = () => {
       toast.error(errMsg, { duration: 5000 });
     }
   }, [errMsg]);
+
+  useEffect(() => {
+    getDeviceId().then((id) => {
+      setDeviceId(id);
+    });
+  }, []);
+
+  if (!deviceId) return null;
 
   return (
     <div className='inner-container'>
@@ -49,10 +59,10 @@ const LoginPage = () => {
         </TabsList>
         <TabsContent value='login'>
           {' '}
-          <LoginForm />
+          <LoginForm deviceId={deviceId} />
         </TabsContent>
         <TabsContent value='register'>
-          <RegisterForm />
+          <RegisterForm deviceId={deviceId} />
         </TabsContent>
       </Tabs>
       <GDPR />

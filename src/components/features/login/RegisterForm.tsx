@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,11 +15,10 @@ import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import { AuthResponseSchema, RegisterBody, RegisterBodySchema } from '@/schema/schema_auth';
 
 import useUserStore from '@/stores/useUserStore';
-import getDeviceId from '@/lib/deviceid';
 import { registerUser } from '@/services/service_auth';
 
 /// This component is used to register a new user
-const RegisterForm = () => {
+const RegisterForm = ({deviceId} : {deviceId : string}) => {
   const navigate = useNavigate();
   const location = useLocation();
   // Snapshot, not the subscription
@@ -35,7 +33,7 @@ const RegisterForm = () => {
       confirmPassword: '',
       avatarUrl: '',
       consentAt: new Date().toISOString(),
-      deviceId: '',
+      deviceId,
     },
   });
 
@@ -46,13 +44,6 @@ const RegisterForm = () => {
     reset,
     formState: { isSubmitting, isValid },
   } = form;
-
-  // Set deviceId once
-  useEffect(() => {
-    getDeviceId().then((id) => {
-      setValue('deviceId', id);
-    });
-  }, [setValue]);
 
   // Submit handler
   const onSubmit = async (data: RegisterBody) => {
@@ -78,7 +69,7 @@ const RegisterForm = () => {
           confirmPassword: '',
           avatarUrl: '',
           consentAt: new Date().toISOString(),
-          deviceId: '',
+          deviceId,
         });
         const redirectTo = new URLSearchParams(location.search).get('redirectTo') || '/';
         navigate(redirectTo, { replace: true });
