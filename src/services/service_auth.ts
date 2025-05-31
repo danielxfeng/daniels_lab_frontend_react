@@ -23,6 +23,27 @@ const loginUser = async (body: LoginBody): Promise<AxiosResponse<AuthResponse>> 
 };
 
 /**
+ * @summary A function to get user information using OAuth access token.
+ * @description
+ * This function does not use authAxios, because the accessToken has not been set to store yet.
+ * @param accessToken the OAuth access token
+ * @param deviceId the device ID to associate with the request
+ * @returns
+ */
+const oauthGetUserInfo = async (
+  accessToken: string,
+  deviceId: string,
+): Promise<AxiosResponse<AuthResponse>> => {
+  return anonymousAxios!.get(`/auth/oauth/userinfo?deviceid=${deviceId}`, {
+    headers: {
+      // Bypass 401 interceptor for the requests
+      'X-Bypass-401-Interceptor': 'true',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+/**
  * @summary A function to register a user.
  * @param body - The body of the register request
  * @returns
@@ -57,10 +78,10 @@ const changePassword = async (body: ChangePasswordBody): Promise<AxiosResponse<A
 /**
  * @summary A function to delete a user.
  * @param userId - The ID of the user to delete
- * @returns 
+ * @returns
  */
 const deleteUser = async (userId: string): Promise<AxiosResponse<void>> => {
   return authAxios!.delete(`/auth/${userId}`);
 };
 
-export { loginUser, registerUser, logoutUser, changePassword, deleteUser };
+export { loginUser, registerUser, oauthGetUserInfo, logoutUser, changePassword, deleteUser };
