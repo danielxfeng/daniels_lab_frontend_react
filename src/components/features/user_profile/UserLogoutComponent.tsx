@@ -13,7 +13,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import AtomicLogout from '@/components/shared/AtomicLogout';
-import getDeviceId from '@/lib/deviceid';
 
 /**
  * @summary UserLogoutComponent
@@ -25,7 +24,7 @@ import getDeviceId from '@/lib/deviceid';
  * If the logout fails, it shows an error message, and still clears the local tokens,
  * and performs the redirect.
  */
-const UserLogoutComponent = () => {
+const UserLogoutComponent = ({ deviceId }: { deviceId: string }) => {
   const [loading, setLoading] = useState<boolean>(false);
   // Ensure atomic logout
   const [doLogout, setDoLogout] = useState<boolean>(false);
@@ -34,7 +33,7 @@ const UserLogoutComponent = () => {
   const logoutHandler = async (isAll: boolean) => {
     setLoading(true);
     // We use deviceId to identify the device
-    const body = isAll ? { deviceId: undefined } : { deviceId: await getDeviceId() };
+    const body = isAll ? { deviceId: undefined } : { deviceId };
     const validatedBody = DeviceIdBodySchema.safeParse(body);
     // Validate the req, fallback to logout all devices
     if (!validatedBody.success) {

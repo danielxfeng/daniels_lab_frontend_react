@@ -39,11 +39,13 @@ const OauthLoginBar = () => {
     });
   }, []);
 
+  const redirectTo = new URLSearchParams(location.search).get('redirectTo') || '/';
+
   return (
     <div className='flex w-full justify-center gap-8'>
       {OauthProviderValues.map((provider) => (
         <MotionIconLink
-          to={`${siteMeta.apiUrl}/auth/oauth/${provider}?deviceId=${deviceId}&consentAt=${new Date().toISOString()}`}
+          to={`${siteMeta.apiUrl}/auth/oauth/${provider}?deviceId=${deviceId}&consentAt=${new Date().toISOString()}&redirectTo=${encodeURIComponent(redirectTo)}`}
           key={provider}
           ariaLabel={`Login with ${provider}`}
           icon={iconMap[provider as keyof typeof iconMap]}

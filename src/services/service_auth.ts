@@ -3,10 +3,13 @@ import {
   ChangePasswordBody,
   DeviceIdBody,
   LoginBody,
+  OAuthConsentQuery,
+  OAuthRedirectResponse,
   RegisterBody,
 } from '@/schema/schema_auth';
 import { anonymousAxios, authAxios } from '@/lib/axiosInstance';
 import { AxiosResponse } from 'axios';
+import { OauthProvider } from '@/schema/schema_components';
 
 /**
  * @summary A function to login a user.
@@ -41,6 +44,28 @@ const oauthGetUserInfo = async (
       Authorization: `Bearer ${accessToken}`,
     },
   });
+};
+
+/**
+ * @summary A function to unlink an OAuth provider from the user account.
+ * @param provider - The name of the OAuth provider to unlink
+ * @returns
+ */
+const oauthUnlinkUser = async (provider: string): Promise<AxiosResponse<void>> => {
+  return authAxios!.delete(`/auth/oauth/unlink/${provider}`);
+};
+
+/**
+ * @summary A function to link an OAuth provider to the user account.
+ * @param provider - The OAuth provider to link the user account with
+ * @param body - The body of the OAuth consent request
+ * @returns
+ */
+const oauthLinkUser = async (
+  provider: OauthProvider,
+  body: OAuthConsentQuery,
+): Promise<AxiosResponse<OAuthRedirectResponse>> => {
+  return authAxios!.post(`/auth/oauth/${provider}`, body);
 };
 
 /**
@@ -84,4 +109,13 @@ const deleteUser = async (userId: string): Promise<AxiosResponse<void>> => {
   return authAxios!.delete(`/auth/${userId}`);
 };
 
-export { loginUser, registerUser, oauthGetUserInfo, logoutUser, changePassword, deleteUser };
+export {
+  loginUser,
+  registerUser,
+  oauthGetUserInfo,
+  oauthUnlinkUser,
+  oauthLinkUser,
+  logoutUser,
+  changePassword,
+  deleteUser,
+};

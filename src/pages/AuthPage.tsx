@@ -25,12 +25,19 @@ const AuthPage = () => {
   // For successful login, the accessToken is in `hash`.
   const hashParams = new URLSearchParams(window.location.hash.substring(1));
   const accessToken = hashParams.get('accessToken');
+  const redirectTo = hashParams.get('redirectTo') || '/';
   const params = new URLSearchParams(window.location.search);
   const errMsg = params.get('error') || 'Unknown error';
 
   console.log('AuthPage: Access token:', accessToken, 'Error message:', errMsg);
 
   useEffect(() => {
+    // For user already exists.
+    if (errMsg === 'user_already_exists') {
+      navigate('/user', { state: { error: errMsg } });
+      return;
+    }
+
     // For failed login.
     if (!accessToken) {
       console.error('AuthPage: No access token found in URL:', errMsg);
@@ -55,18 +62,17 @@ const AuthPage = () => {
         setAccessToken(accessToken);
         setUser(userInfo.data);
 
-        // Redirect to home page after successful login.
-        navigate('/');
+        // Redirect to the specified page or home page.
+        navigate(redirectTo, { replace: true });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         console.error('AuthPage: Failed to get user info:', error);
         navigate('/user/login', { state: { error: 'Unknown error, please try again later' } });
-        return null;
       }
     };
 
     successfulLoginFunc();
-  }, [accessToken, errMsg, navigate, setAccessToken, setUser]); // To mute the linter.
+  }, [accessToken, errMsg, navigate, redirectTo, setAccessToken, setUser]); // To mute the linter.
 
   // For successful login.
 
