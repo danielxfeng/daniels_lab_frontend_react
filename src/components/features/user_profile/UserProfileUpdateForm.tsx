@@ -40,7 +40,7 @@ const UserProfileUpdateForm = () => {
   });
 
   const {
-
+    setError,
     setValue,
     handleSubmit,
     formState: { isSubmitting, isValid },
@@ -85,6 +85,13 @@ const UserProfileUpdateForm = () => {
       }, 1000);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
+      if (error.response?.status === 409) {
+        setError('username', {
+          type: 'manual',
+          message: 'Username already exists',
+        });
+        return;
+      }
       console.error('Error updating user profile:', error.response?.statusText);
       toast.error('Error updating user profile');
     }

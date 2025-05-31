@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,7 +11,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import getDeviceId from '@/lib/deviceid';
 import {
   AuthResponseSchema,
   ChangePasswordBody,
@@ -31,7 +30,7 @@ import AtomicLogout from '@/components/shared/AtomicLogout';
  *
  * It logs out the user after a successful password change,
  */
-const UserPasswordUpdateForm = () => {
+const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
   const [doLogout, setDoLogout] = useState<boolean>(false);
 
   // Init the form
@@ -42,23 +41,16 @@ const UserPasswordUpdateForm = () => {
       currentPassword: '',
       password: '',
       confirmPassword: '',
+      deviceId,
     },
   });
 
   const {
     handleSubmit,
-    setValue,
     reset,
     setError,
     formState: { isSubmitting, isValid },
   } = form;
-
-  // Add the deviceId to the form
-  useEffect(() => {
-    getDeviceId().then((deviceId) => {
-      setValue('deviceId', deviceId);
-    });
-  }, [setValue]);
 
   const onSubmit = async (data: ChangePasswordBody) => {
     try {

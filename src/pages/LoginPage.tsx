@@ -3,6 +3,10 @@ import MotionH1 from '@/components/motion_components/MotionH1';
 import LoginForm from '@/components/features/login/LoginForm';
 import RegisterForm from '@/components/features/login/RegisterForm';
 import siteMeta from '@/constants/siteMeta';
+import { useLocation } from 'react-router-dom';
+import { toast } from 'sonner';
+import { useEffect, useState } from 'react';
+import getDeviceId from '@/lib/deviceid';
 
 // A component for the GDPR notice
 const GDPR = () => (
@@ -23,25 +27,47 @@ const GDPR = () => (
 /**
  * LoginPage component, with login and register forms.
  */
-const LoginPage = () => (
-  <div className='inner-container'>
-    <title>{`Login – ${siteMeta.siteName}`}</title>
-    <MotionH1>Login</MotionH1>
-    <Tabs defaultValue='login' className='mx-auto mt-8 flex max-w-2xl'>
-      <TabsList className='w-full'>
-        <TabsTrigger value='login'>Login</TabsTrigger>
-        <TabsTrigger value='register'>Register</TabsTrigger>
-      </TabsList>
-      <TabsContent value='login'>
-        {' '}
-        <LoginForm />
-      </TabsContent>
-      <TabsContent value='register'>
-        <RegisterForm />
-      </TabsContent>
-    </Tabs>
-    <GDPR />
-  </div>
-);
+const LoginPage = () => {
+  const location = useLocation();
+  const [deviceId, setDeviceId] = useState<string | null>(null);
+  const errMsg = location.state?.error;
+
+  // Show error message from the location state
+  // use useEffect to display only when the error message changes
+  useEffect(() => {
+    if (errMsg) {
+      toast.error(errMsg, { duration: 5000 });
+    }
+  }, [errMsg]);
+
+  useEffect(() => {
+    getDeviceId().then((id) => {
+      setDeviceId(id);
+    });
+  }, []);
+
+  if (!deviceId) return null;
+
+  return (
+    <div className='inner-container'>
+      <title>{`Login – ${siteMeta.siteName}`}</title>
+      <MotionH1>Login</MotionH1>
+      <Tabs defaultValue='login' className='mx-auto mt-8 flex max-w-2xl'>
+        <TabsList className='w-full'>
+          <TabsTrigger value='login'>Login</TabsTrigger>
+          <TabsTrigger value='register'>Register</TabsTrigger>
+        </TabsList>
+        <TabsContent value='login'>
+          {' '}
+          <LoginForm deviceId={deviceId} />
+        </TabsContent>
+        <TabsContent value='register'>
+          <RegisterForm deviceId={deviceId} />
+        </TabsContent>
+      </Tabs>
+      <GDPR />
+    </div>
+  );
+};
 
 export default LoginPage;

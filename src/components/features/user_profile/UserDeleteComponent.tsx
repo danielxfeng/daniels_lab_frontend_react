@@ -53,7 +53,7 @@ const UserDeleteComponent = ({ user }: { user: Partial<UserResponse> }) => {
           label='Delete Account'
           ariaLabel='Delete Account'
           type='button'
-          className='bg-destructive'
+          className='bg-destructive my-10'
         />
       </AlertDialogTrigger>
       <AlertDialogContent>

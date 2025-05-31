@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,7 +14,6 @@ import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import { AuthResponseSchema, LoginBody, LoginBodySchema } from '@/schema/schema_auth';
 import { toast } from 'sonner';
 import useUserStore from '@/stores/useUserStore';
-import getDeviceId from '@/lib/deviceid';
 import { loginUser } from '@/services/service_auth';
 import { OauthProviderValues } from '@/schema/schema_components';
 import MotionIconLink from '@/components/motion_components/MotionIconLink';
@@ -29,12 +27,14 @@ const iconMap = {
 };
 
 // A component for the OAuth login bar
-const OauthLoginBar = () => {
+const OauthLoginBar = ({ deviceId }: { deviceId: string }) => {
+  const redirectTo = new URLSearchParams(location.search).get('redirectTo') || '/';
+
   return (
     <div className='flex w-full justify-center gap-8'>
       {OauthProviderValues.map((provider) => (
         <MotionIconLink
-          to={`${siteMeta.apiUrl}/auth/oauth/${provider}`}
+          to={`${siteMeta.apiUrl}/auth/oauth/${provider}?deviceId=${deviceId}&consentAt=${new Date().toISOString()}&redirectTo=${encodeURIComponent(redirectTo)}`}
           key={provider}
           ariaLabel={`Login with ${provider}`}
           icon={iconMap[provider as keyof typeof iconMap]}
@@ -46,7 +46,7 @@ const OauthLoginBar = () => {
   );
 };
 
-const LoginForm = () => {
+const LoginForm = ({ deviceId }: { deviceId: string }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { setAccessToken, setUser } = useUserStore.getState();
@@ -57,7 +57,7 @@ const LoginForm = () => {
     defaultValues: {
       username: '',
       password: '',
-      deviceId: '',
+      deviceId,
     },
   });
 
@@ -68,13 +68,6 @@ const LoginForm = () => {
     reset,
     formState: { isSubmitting, isValid },
   } = form;
-
-  // Set deviceId once
-  useEffect(() => {
-    getDeviceId().then((id) => {
-      setValue('deviceId', id);
-    });
-  }, [setValue]);
 
   // Submit handler
   const onSubmit = async (data: LoginBody) => {
@@ -119,7 +112,7 @@ const LoginForm = () => {
 
   return (
     <div className='mt-8 flex flex-1 flex-col gap-12'>
-      <OauthLoginBar />
+      <OauthLoginBar deviceId={deviceId} />
       <hr className='text-muted-foreground' />
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>

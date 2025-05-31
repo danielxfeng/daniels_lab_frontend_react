@@ -169,6 +169,7 @@ const OAuthProviderParamSchema = z.object({
 const OAuthConsentQuerySchema = z.object({
   consentAt: consentAtSchema,
   deviceId: deviceIdSchema,
+  redirectTo: z.string().trim().optional(),
 });
 
 /**
@@ -232,6 +233,13 @@ const TokenRefreshResponseSchema = z.object({
   refreshToken: tokenSchema,
 });
 
+/**
+ * @summary OAuth redirect response including redirectUrl
+ */
+const OAuthRedirectResponseSchema = z.object({
+  redirectUrl: z.string().trim()
+});
+
 export {
   RegisterBodySchema,
   LoginBodySchema,
@@ -247,6 +255,7 @@ export {
   OauthUserInfoSchema,
   AuthResponseSchema,
   TokenRefreshResponseSchema,
+  OAuthRedirectResponseSchema,
 };
 
 //
@@ -323,6 +332,11 @@ type OauthState = z.infer<typeof OauthStateSchema>;
  */
 type OauthUserInfo = z.infer<typeof OauthUserInfoSchema>;
 
+/**
+ * @summary Schema for the OAuth redirect response
+ */
+type OAuthRedirectResponse = z.infer<typeof OAuthRedirectResponseSchema>;
+
 export type {
   RegisterBody,
   LoginBody,
@@ -338,4 +352,5 @@ export type {
   OauthUserInfo,
   AuthResponse,
   TokenRefreshResponse,
+  OAuthRedirectResponse,
 };

@@ -1,59 +1,17 @@
+import { toast } from 'sonner';
+import { useEffect, useState } from 'react';
+import getDeviceId from '@/lib/deviceid';
+import { useLocation } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import MotionH1 from '@/components/motion_components/MotionH1';
-import { UserResponse } from '@/schema/schema_users';
 import useUserStore from '@/stores/useUserStore';
-import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
-import { OauthProviderValues } from '@/schema/schema_components';
-import MotionIconLink from '@/components/motion_components/MotionIconLink';
 import siteMeta from '@/constants/siteMeta';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import UserLogoutComponent from '@/components/features/user_profile/UserLogoutComponent';
 import UserProfileUpdateForm from '@/components/features/user_profile/UserProfileUpdateForm';
 import UserDeleteComponent from '@/components/features/user_profile/UserDeleteComponent';
 import UserPasswordUpdateForm from '@/components/features/user_profile/UserPasswordUpdateForm';
-
-const iconStyle = 'h-8 w-8 lg:h-12 lg:w-12';
-
-const UserOauthLinkBar = ({ user }: { user: Partial<UserResponse> }) => {
-  const oauthMap = {
-    google: <FaGoogle className={iconStyle} />,
-    github: <FaGithub className={iconStyle} />,
-    linkedin: <FaLinkedin className={iconStyle} />,
-  };
-
-  return (
-    <div className='flex w-full flex-col items-center gap-4'>
-      <h2>Manage linked accounts</h2>
-      <div className='flex gap-2'>
-        {OauthProviderValues.map((provider) => {
-          const isLinked = user.oauthProviders?.includes(provider);
-          return (
-            <div key={provider} className='flex items-center gap-2'>
-              {isLinked ? (
-                <MotionIconLink
-                  icon={oauthMap[provider]}
-                  to={`${siteMeta.apiUrl}/auth/unlink/${provider}`}
-                  ariaLabel={`Unlink ${provider}`}
-                  className='bg-muted text-muted-foreground'
-                  tooltip={`Unlink ${provider}`}
-                  isExternal={false}
-                />
-              ) : (
-                <MotionIconLink
-                  icon={oauthMap[provider]}
-                  to={`${siteMeta.apiUrl}/auth/${provider}`}
-                  ariaLabel={`Link ${provider}`}
-                  tooltip={`Link ${provider}`}
-                  isExternal={false}
-                />
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
+import UserOauthLinkBar from '@/components/features/user_profile/UserOauthLinkBar';
 
 /**
  * @summary UserProfilePage
@@ -72,9 +30,27 @@ const UserOauthLinkBar = ({ user }: { user: Partial<UserResponse> }) => {
  * @returns
  */
 const UserProfilePage = () => {
+  const location = useLocation();
   const user = useUserStore((state) => state.user);
+  const errMsg = location.state?.error;
+  const [deviceId, setDeviceId] = useState<string | null>(null);
 
-  return !user ? null : (
+  // Show error message from the location state
+  // use useEffect to display only when the error message changes
+  useEffect(() => {
+    if (errMsg) {
+      toast.error(errMsg, { duration: 5000 });
+    }
+  }, [errMsg]);
+
+  // Get the device ID when the component mounts
+  useEffect(() => {
+    getDeviceId().then((id) => {
+      setDeviceId(id);
+    });
+  }, []);
+
+  return !user || !deviceId ? null : (
     <div className='inner-container'>
       <title>{`User Profile – ${siteMeta.siteName}`}</title>
       {/* UserProfileCard */}
@@ -92,7 +68,7 @@ const UserProfilePage = () => {
         </div>
         {/* Logout button */}
         <div className='mx-5'>
-          <UserLogoutComponent />
+          <UserLogoutComponent deviceId={deviceId} />
         </div>
       </div>
 
@@ -103,15 +79,15 @@ const UserProfilePage = () => {
         </TabsList>
         <TabsContent value='account'>
           {' '}
-          <div className='flex w-full flex-col items-center gap-15'>
+          <div className='flex w-full flex-col items-center gap-5'>
+            <UserOauthLinkBar user={user} deviceId={deviceId} />
             <UserProfileUpdateForm />
-            <UserDeleteComponent user={user!} />
+            <UserDeleteComponent user={user} />
           </div>
         </TabsContent>
         <TabsContent value='password'>
           <div className='flex w-full flex-col items-center gap-4'>
-            <UserPasswordUpdateForm />
-            <UserOauthLinkBar user={user!} />
+            <UserPasswordUpdateForm deviceId={deviceId} />
           </div>
         </TabsContent>
       </Tabs>

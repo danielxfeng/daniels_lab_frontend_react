@@ -11,7 +11,8 @@ import PostPage from '@/pages/Post/PostPage';
 import postPageLoader from '@/pages/Post/postPageLoader';
 import LoginPage from '@/pages/LoginPage';
 import UserProfilePage from '@/pages/UserProfilePage';
-import PostsSearchPage from './pages/Posts/PostsSearchPage';
+import PostsSearchPage from '@/pages/Posts/PostsSearchPage';
+import AuthPage from '@/pages/AuthPage';
 
 // The router of the app.
 const router = createBrowserRouter([
@@ -65,6 +66,11 @@ const router = createBrowserRouter([
           // a form to link the social accounts
           { path: 'login', Component: LoginPage },
         ],
+      },
+      // /auth, callback from "login with social accounts"
+      {
+        path: 'auth',
+        children: [{ index: true, Component: AuthPage }],
       },
       // /about, Static page, a form to contact the admin (Email), lazy load it.
       {
