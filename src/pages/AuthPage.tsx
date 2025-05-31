@@ -23,9 +23,12 @@ const AuthPage = () => {
   const { setAccessToken, setUser } = useUserStore.getState();
 
   // For successful login, the accessToken is in `hash`.
-  const params = new URLSearchParams(window.location.hash.substring(1));
-  const accessToken = params.get('access_token');
+  const hashParams = new URLSearchParams(window.location.hash.substring(1));
+  const accessToken = hashParams.get('accessToken');
+  const params = new URLSearchParams(window.location.search);
   const errMsg = params.get('error') || 'Unknown error';
+
+  console.log('AuthPage: Access token:', accessToken, 'Error message:', errMsg);
 
   useEffect(() => {
     // For failed login.

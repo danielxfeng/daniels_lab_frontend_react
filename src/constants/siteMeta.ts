@@ -7,7 +7,7 @@ const siteMeta = {
   copyRightYear: new Date().getFullYear(),
   author: 'Daniel',
   siteUrl: 'https://yourdomain.com',
-  apiUrl: 'https://api.yourdomain.com',
+  apiUrl: 'http://localhost:3000/api', // Base URL for the API
 };
 
 export default siteMeta;

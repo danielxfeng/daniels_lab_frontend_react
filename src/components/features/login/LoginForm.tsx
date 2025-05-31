@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -30,11 +30,20 @@ const iconMap = {
 
 // A component for the OAuth login bar
 const OauthLoginBar = () => {
+  const [deviceId, setDeviceId] = useState<string | null>(null);
+
+  // We need the device Id.
+  useEffect(() => {
+    getDeviceId().then((id) => {
+      setDeviceId(id);
+    });
+  }, []);
+
   return (
     <div className='flex w-full justify-center gap-8'>
       {OauthProviderValues.map((provider) => (
         <MotionIconLink
-          to={`${siteMeta.apiUrl}/auth/oauth/${provider}`}
+          to={`${siteMeta.apiUrl}/auth/oauth/${provider}?deviceId=${deviceId}&consentAt=${new Date().toISOString()}`}
           key={provider}
           ariaLabel={`Login with ${provider}`}
           icon={iconMap[provider as keyof typeof iconMap]}

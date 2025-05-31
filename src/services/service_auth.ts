@@ -34,7 +34,7 @@ const oauthGetUserInfo = async (
   accessToken: string,
   deviceId: string,
 ): Promise<AxiosResponse<AuthResponse>> => {
-  return anonymousAxios!.get(`/auth/oauth/userinfo?deviceid=${deviceId}`, {
+  return anonymousAxios!.get(`/auth/oauth/userinfo?deviceId=${deviceId}`, {
     headers: {
       // Bypass 401 interceptor for the requests
       'X-Bypass-401-Interceptor': 'true',
