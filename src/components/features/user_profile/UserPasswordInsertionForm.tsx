@@ -1,0 +1,125 @@
+import { useState } from 'react';
+import { toast } from 'sonner';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { AuthResponseSchema, SetPasswordBody, SetPasswordBodySchema } from '@/schema/schema_auth';
+import { setPassword } from '@/services/service_auth';
+import MotionTextButton from '@/components/motion_components/MotionTextButton';
+import AtomicLogout from '@/components/shared/AtomicLogout';
+
+/**
+ * @summary UserPasswordInsertionForm
+ * @description
+ * This component provides a form for users to add a password.
+ * It's designed for a oauth user who doesn't have a password set yet.
+ */
+const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
+  const [doLogout, setDoLogout] = useState<boolean>(false);
+
+  // Init the form
+  const form = useForm<SetPasswordBody>({
+    resolver: zodResolver(SetPasswordBodySchema),
+    mode: 'onTouched',
+    defaultValues: {
+      password: '',
+      confirmPassword: '',
+      deviceId,
+    },
+  });
+
+  const {
+    handleSubmit,
+    reset,
+    formState: { isSubmitting, isValid },
+  } = form;
+
+  const onSubmit = async (data: SetPasswordBody) => {
+    try {
+      const res = await setPassword(data);
+      const validated = AuthResponseSchema.safeParse(res.data);
+      if (!validated.success) {
+        console.error('Invalid user response:', JSON.stringify(validated.error));
+        return;
+      }
+      toast.success('Password updated successfully');
+      reset(); // Reset the form fields
+      setDoLogout(true);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      console.error('Error updating password:', err);
+      form.setValue('password', '');
+      form.setValue('confirmPassword', '');
+    }
+  };
+
+  return (
+    <Form {...form}>
+      {/* Ensure atomic logout */}
+      {doLogout && <AtomicLogout to='/' timeout={1000} />}
+      <form onSubmit={handleSubmit(onSubmit)} className='mt-6 w-full max-w-xl'>
+        <fieldset disabled={isSubmitting} className='flex flex-col gap-6'>
+          {/* new password */}
+          <FormField
+            control={form.control}
+            name='password'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type='password'
+                    placeholder='password'
+                    {...field}
+                    className='bg-muted border-muted-foreground'
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* confirm password */}
+          <FormField
+            control={form.control}
+            name='confirmPassword'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type='password'
+                    placeholder='Confirm password'
+                    {...field}
+                    className='bg-muted border-muted-foreground'
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* submit button */}
+          <MotionTextButton
+            type='submit'
+            label='Set Password'
+            ariaLabel='Set Password'
+            className='btn-primary'
+            disabled={!isValid || isSubmitting}
+            isLoading={isSubmitting}
+          />
+        </fieldset>
+      </form>
+    </Form>
+  );
+};
+
+export default UserPasswordInsertionForm;

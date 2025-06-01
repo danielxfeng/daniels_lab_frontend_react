@@ -6,6 +6,7 @@ import {
   OAuthConsentQuery,
   OAuthRedirectResponse,
   RegisterBody,
+  SetPasswordBody,
 } from '@/schema/schema_auth';
 import { anonymousAxios, authAxios } from '@/lib/axiosInstance';
 import { AxiosResponse } from 'axios';
@@ -101,6 +102,15 @@ const changePassword = async (body: ChangePasswordBody): Promise<AxiosResponse<A
 };
 
 /**
+ * @summary A function to set the password of a user.
+ * @param body - The body of the set password request
+ * @returns
+ */
+const setPassword = async (body: SetPasswordBody): Promise<AxiosResponse<AuthResponse>> => {
+  return authAxios!.post('/auth/set-password', body);
+};
+
+/**
  * @summary A function to delete a user.
  * @param userId - The ID of the user to delete
  * @returns
@@ -117,5 +127,6 @@ export {
   oauthLinkUser,
   logoutUser,
   changePassword,
+  setPassword,
   deleteUser,
 };
