@@ -2,6 +2,7 @@ import {
   AuthResponse,
   ChangePasswordBody,
   DeviceIdBody,
+  JoinAdminBody,
   LoginBody,
   OAuthConsentQuery,
   OAuthRedirectResponse,
@@ -119,6 +120,15 @@ const deleteUser = async (userId: string): Promise<AxiosResponse<void>> => {
   return authAxios!.delete(`/auth/${userId}`);
 };
 
+/**
+ * @summary A function to join admin with a reference code.
+ * @param body - The body of the join admin request
+ * @returns
+ */
+const joinAdmin = async (body: JoinAdminBody): Promise<AxiosResponse<AuthResponse>> => {
+  return authAxios!.put('/auth/join-admin', body);
+};
+
 export {
   loginUser,
   registerUser,
@@ -129,4 +139,5 @@ export {
   changePassword,
   setPassword,
   deleteUser,
+  joinAdmin,
 };

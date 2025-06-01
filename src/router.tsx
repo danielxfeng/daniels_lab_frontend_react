@@ -65,6 +65,8 @@ const router = createBrowserRouter([
           // a form to login a new user, a form to register a new user
           // a form to link the social accounts
           { path: 'login', Component: LoginPage },
+          // a form for user to join the admin team
+          { path: 'join-admin', Component: lazy(() => import('@/pages/JoinAdminPage')), loader: authGuard },
         ],
       },
       // /auth, callback from "login with social accounts"

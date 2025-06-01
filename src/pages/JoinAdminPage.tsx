@@ -1,0 +1,132 @@
+import MotionH1 from '@/components/motion_components/MotionH1';
+import MotionTextButton from '@/components/motion_components/MotionTextButton';
+import AtomicLogout from '@/components/shared/AtomicLogout';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import siteMeta from '@/constants/siteMeta';
+import getDeviceId from '@/lib/deviceid';
+import { AuthResponseSchema, JoinAdminBody, JoinAdminBodySchema } from '@/schema/schema_auth';
+import { joinAdmin } from '@/services/service_auth';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+
+// A form to join admin with a reference code
+const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
+  const [doLogout, setDoLogout] = useState<boolean>(false);
+
+  const form = useForm<JoinAdminBody>({
+    resolver: zodResolver(JoinAdminBodySchema),
+    mode: 'onTouched',
+    defaultValues: {
+      referenceCode: '',
+      deviceId,
+    },
+  });
+
+  const {
+    handleSubmit,
+    reset,
+    setError,
+    formState: { isSubmitting, isValid },
+  } = form;
+
+  const onSubmit = async (data: JoinAdminBody) => {
+    try {
+      const res = await joinAdmin(data);
+      const validated = AuthResponseSchema.safeParse(res.data);
+      if (!validated.success) {
+        console.error('Invalid response:', JSON.stringify(validated.error));
+        toast.error('Invalid response from server, please try later');
+        return;
+      }
+      reset(); // Reset the form fields
+      toast.success('Successfully joined as admin!');
+      setDoLogout(true);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      if (err.response?.status === 422) {
+        setError('referenceCode', {
+          type: 'manual',
+          message: 'Invalid reference code. Please try again.',
+        });
+        return;
+      }
+      console.error('Error joining admin:', err);
+      toast.error('Failed to join as admin. Please try again later.');
+    }
+  };
+
+  return (
+    <Form {...form}>
+      {/* Ensure atomic logout */}
+      {doLogout && <AtomicLogout to='/' timeout={1000} />}
+      <form onSubmit={handleSubmit(onSubmit)} className='flex w-full max-w-96 flex-col gap-4'>
+        <fieldset disabled={isSubmitting} className='flex flex-col gap-6'>
+          {/* Reference Code Input */}
+          <FormField
+            control={form.control}
+            name='referenceCode'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Reference Code</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    placeholder='Enter your reference code'
+                    disabled={isSubmitting}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* submit button */}
+          <MotionTextButton
+            type='submit'
+            label='Submit'
+            ariaLabel='Submit'
+            className='btn-primary'
+            disabled={!isValid || isSubmitting}
+            isLoading={isSubmitting}
+          />
+        </fieldset>
+      </form>
+    </Form>
+  );
+};
+
+/**
+ * A page component for the Join Admin page.
+ */
+const JoinAdminPage = () => {
+  const [deviceId, setDeviceId] = useState<string>('');
+
+  useEffect(() => {
+    getDeviceId().then((id) => {
+      setDeviceId(id);
+    });
+  }, []);
+
+  if (!deviceId) return null;
+  return (
+    <div className='inner-container w-full'>
+      <title>{`User Profile – ${siteMeta.siteName}`}</title>
+      <MotionH1>Join Admin</MotionH1>
+      <div className='flex w-full items-center justify-center'>
+        <JoinAdminForm deviceId={deviceId} />
+      </div>
+    </div>
+  );
+};
+
+export default JoinAdminPage;
