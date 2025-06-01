@@ -31,7 +31,6 @@ const RegisterForm = ({deviceId} : {deviceId : string}) => {
       username: '',
       password: '',
       confirmPassword: '',
-      avatarUrl: '',
       consentAt: new Date().toISOString(),
       deviceId,
     },
@@ -67,7 +66,6 @@ const RegisterForm = ({deviceId} : {deviceId : string}) => {
           username: '',
           password: '',
           confirmPassword: '',
-          avatarUrl: '',
           consentAt: new Date().toISOString(),
           deviceId,
         });
@@ -140,27 +138,6 @@ const RegisterForm = ({deviceId} : {deviceId : string}) => {
                   <FormControl>
                     <Input
                       type='password'
-                      {...field}
-                      className='bg-muted border-muted-foreground'
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Avatar URL */}
-            <FormField
-              control={form.control}
-              name='avatarUrl'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Avatar URL <span className='text-muted-foreground italic'>(optional)</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type='url'
                       {...field}
                       className='bg-muted border-muted-foreground'
                     />

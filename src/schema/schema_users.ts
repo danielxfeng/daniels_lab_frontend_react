@@ -23,14 +23,9 @@ const userIdSchema = z.string().trim().uuid('Invalid user ID');
 
 /**
  * @summary Request body for updating current user info.
- * The schema is different from the backend schema now.
  */
 const UpdateUserBodySchema = z.object({
   username: UsernameSchema,
-  avatarUrl: z
-    .union([UrlSchema, z.literal('')])
-    .transform((val) => (val === '' ? undefined : val))
-    .optional(),
 });
 
 /**
