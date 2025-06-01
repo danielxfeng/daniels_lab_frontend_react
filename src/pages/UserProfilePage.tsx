@@ -12,6 +12,7 @@ import UserProfileUpdateForm from '@/components/features/user_profile/UserProfil
 import UserDeleteComponent from '@/components/features/user_profile/UserDeleteComponent';
 import UserPasswordUpdateForm from '@/components/features/user_profile/UserPasswordUpdateForm';
 import UserOauthLinkBar from '@/components/features/user_profile/UserOauthLinkBar';
+import UserPasswordInsertionForm from '@/components/features/user_profile/UserPasswordInsertionForm';
 
 /**
  * @summary UserProfilePage
@@ -87,7 +88,11 @@ const UserProfilePage = () => {
         </TabsContent>
         <TabsContent value='password'>
           <div className='flex w-full flex-col items-center gap-4'>
-            <UserPasswordUpdateForm deviceId={deviceId} />
+            {user.hasPassword ? (
+              <UserPasswordUpdateForm deviceId={deviceId} />
+            ) : (
+              <UserPasswordInsertionForm deviceId={deviceId} />
+            )}
           </div>
         </TabsContent>
       </Tabs>

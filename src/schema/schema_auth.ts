@@ -218,6 +218,7 @@ const AuthResponseSchema = z.object({
   avatarUrl: UrlSchema.nullable(),
   isAdmin: z.boolean(),
   oauthProviders: OauthProvidersSchema.array(),
+  hasPassword: z.boolean(),
 });
 
 /**

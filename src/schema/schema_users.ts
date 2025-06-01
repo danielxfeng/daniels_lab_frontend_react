@@ -5,7 +5,7 @@
  */
 
 import { z } from 'zod';
-import { UrlSchema, CreateAtSchema, UpdateAtSchema, UsernameSchema } from './schema_components';
+import { UrlSchema, CreateAtSchema, UpdateAtSchema, UsernameSchema, OauthProvidersSchema } from './schema_components';
 
 //
 // Schema components
@@ -47,11 +47,12 @@ const UserResponseSchema = z.object({
   id: userIdSchema,
   username: UsernameSchema,
   avatarUrl: UrlSchema.nullable(),
-  oauthProviders: z.array(z.string()),
+  oauthProviders: OauthProvidersSchema.array(),
   isAdmin: z.boolean(),
   createdAt: CreateAtSchema,
   updatedAt: UpdateAtSchema,
   consentAt: z.string().datetime(),
+  hasPassword: z.boolean(),
 });
 
 const UsersResponseSchema = z.array(UserResponseSchema);
