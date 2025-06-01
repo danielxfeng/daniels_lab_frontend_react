@@ -25,7 +25,8 @@ const UserOauthLinkBar = ({
 }) => {
   const [currentLoadingProvider, setCurrentLoadingProvider] = useState<OauthProvider | null>(null);
   const setUser = useUserStore.getState().setUser;
-  const redirectTo = new URLSearchParams(window.location.search).get('redirectTo') || '/user';
+  let redirectTo = new URLSearchParams(location.search).get('redirectTo') || '/user';
+  if (redirectTo === '/user/login') redirectTo = '/user';
 
   const handleUnlinkClick = async (provider: OauthProvider) => {
     setCurrentLoadingProvider(provider);
