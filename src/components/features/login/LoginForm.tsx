@@ -28,7 +28,8 @@ const iconMap = {
 
 // A component for the OAuth login bar
 const OauthLoginBar = ({ deviceId }: { deviceId: string }) => {
-  const redirectTo = new URLSearchParams(location.search).get('redirectTo') || '/';
+  let redirectTo = new URLSearchParams(location.search).get('redirectTo') || '/';
+  if (redirectTo === '/user/login') redirectTo = '/';
 
   return (
     <div className='flex w-full justify-center gap-8'>

@@ -18,7 +18,7 @@ import useUserStore from '@/stores/useUserStore';
 import { registerUser } from '@/services/service_auth';
 
 /// This component is used to register a new user
-const RegisterForm = ({deviceId} : {deviceId : string}) => {
+const RegisterForm = ({ deviceId }: { deviceId: string }) => {
   const navigate = useNavigate();
   const location = useLocation();
   // Snapshot, not the subscription
@@ -69,7 +69,8 @@ const RegisterForm = ({deviceId} : {deviceId : string}) => {
           consentAt: new Date().toISOString(),
           deviceId,
         });
-        const redirectTo = new URLSearchParams(location.search).get('redirectTo') || '/';
+        let redirectTo = new URLSearchParams(location.search).get('redirectTo') || '/';
+        if (redirectTo === '/user/login') redirectTo = '/';
         navigate(redirectTo, { replace: true });
       }, 1000);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
