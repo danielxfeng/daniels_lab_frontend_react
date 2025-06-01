@@ -29,8 +29,6 @@ const AuthPage = () => {
   const params = new URLSearchParams(window.location.search);
   const errMsg = params.get('error') || 'Unknown error';
 
-  console.log('AuthPage: Access token:', accessToken, 'Error message:', errMsg);
-
   useEffect(() => {
     // For user already exists.
     if (errMsg === 'user_already_exists') {
@@ -63,6 +61,7 @@ const AuthPage = () => {
         setUser(userInfo.data);
 
         // Redirect to the specified page or home page.
+        console.log('redirectTo:', redirectTo);
         navigate(redirectTo, { replace: true });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {

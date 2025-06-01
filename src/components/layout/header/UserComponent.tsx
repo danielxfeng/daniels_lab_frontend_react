@@ -46,7 +46,7 @@ const UserComponent = () => {
   // Show user avatar or username
   return (
     <MotionIconLink
-      to='/User'
+      to='/user'
       icon={
         <AvatarComponent
           name={user.username ?? 'User'}
