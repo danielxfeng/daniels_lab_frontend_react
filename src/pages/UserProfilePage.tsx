@@ -13,6 +13,7 @@ import UserDeleteComponent from '@/components/features/user_profile/UserDeleteCo
 import UserPasswordUpdateForm from '@/components/features/user_profile/UserPasswordUpdateForm';
 import UserOauthLinkBar from '@/components/features/user_profile/UserOauthLinkBar';
 import UserPasswordInsertionForm from '@/components/features/user_profile/UserPasswordInsertionForm';
+import MotionTextLink from '@/components/motion_components/MotionTextLink';
 
 /**
  * @summary UserProfilePage
@@ -77,6 +78,7 @@ const UserProfilePage = () => {
         <TabsList className='w-full'>
           <TabsTrigger value='account'>Account</TabsTrigger>
           <TabsTrigger value='password'>Password</TabsTrigger>
+          {user.isAdmin && <TabsTrigger value='admin'>Admin</TabsTrigger>}
         </TabsList>
         <TabsContent value='account'>
           {' '}
@@ -95,6 +97,17 @@ const UserProfilePage = () => {
             )}
           </div>
         </TabsContent>
+        {user.isAdmin && (
+          <TabsContent value='admin'>
+            <div className='flex w-full justify-center my-10'>
+            <MotionTextLink
+              to='/user/admin'
+              isExternal={false}
+              label='-> Admin Panel'
+            />
+            </div>
+          </TabsContent>
+        )}
       </Tabs>
     </div>
   );
