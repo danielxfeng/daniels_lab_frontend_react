@@ -35,7 +35,6 @@ const UserProfileUpdateForm = () => {
     mode: 'onTouched',
     defaultValues: {
       username: user?.username,
-      avatarUrl: user?.avatarUrl || '',
     },
   });
 
@@ -67,13 +66,11 @@ const UserProfileUpdateForm = () => {
 
       // Clear the values
       setValue('username', '');
-      setValue('avatarUrl', '');
 
       // Update the user store with the new user profile
       setUser({
         ...user!,
         username: validatedUserProfile.data.username,
-        avatarUrl: validatedUserProfile.data.avatarUrl || undefined,
       });
 
       // Send a message
@@ -111,27 +108,6 @@ const UserProfileUpdateForm = () => {
                 <FormControl>
                   <Input
                     placeholder='A new username'
-                    {...field}
-                    className='bg-muted border-muted-foreground'
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Avatar URL is optional */}
-          <FormField
-            control={form.control}
-            name='avatarUrl'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  Avatar URL <span className='text-muted-foreground italic'>(optional)</span>
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder='https://your.avatar.url'
                     {...field}
                     className='bg-muted border-muted-foreground'
                   />
