@@ -14,22 +14,12 @@ import { getUsers } from '@/services/service_user';
 import { UserResponse, UsersResponseSchema } from '@/schema/schema_users';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
-import { Trash2 } from 'lucide-react';
-import MotionIconButton from '@/components/motion_components/MotionIconButton';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 import { deleteUser } from '@/services/service_auth';
 import Loading from '@/components/shared/Loading';
+import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
 
+// A component to manage user accounts, displaying a table of users with options to delete them.
+// Emoji is used for fun.
 const UserManagementTable = () => {
   const [users, setUsers] = useState<UserResponse[]>([]);
   const [loadingUserId, setLoadingUserId] = useState<string | null>(null);
@@ -109,7 +99,7 @@ const UserManagementTable = () => {
     {
       accessorKey: 'isAdmin',
       header: 'Role',
-      cell: ({ row }) => (<span className='text-lg'>{row.getValue('isAdmin') ? '👑' : '👤'}</span>),
+      cell: ({ row }) => <span className='text-lg'>{row.getValue('isAdmin') ? '👑' : '👤'}</span>,
     },
     {
       accessorKey: 'hasPassword',
@@ -135,53 +125,25 @@ const UserManagementTable = () => {
       accessorKey: 'id',
       header: 'Operation',
       cell: ({ row }) => (
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <MotionIconButton
-              icon={<Trash2 className='h-6 w-6' />}
-              ariaLabel={`Delete Account ${row.getValue('username')}`}
-              type='button'
-              className='text-destructive'
-              tooltip={`Delete user: ${row.getValue('username')}`}
-              disabled={loadingUserId === row.getValue('id')}
-              isLoading={loadingUserId === row.getValue('id')}
-            />
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete the user:{' '}
-                <span className='text-destructive font-bold'>{row.getValue('username')}</span> ?
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel
-                className='text-muted-foreground'
-                disabled={loadingUserId === row.getValue('id')}
-              >
-                Cancel
-              </AlertDialogCancel>
-              <AlertDialogAction
-                onClick={() => handleDeleteUser(row.getValue('id'))}
-                disabled={loadingUserId === row.getValue('id')}
-                className='bg-destructive hover:bg-destructive'
-              >
-                Yes, delete
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <MotionDeleteButton
+          toDelete={`User ${row.getValue('username')}`}
+          tooltip={`Delete Account ${row.getValue('username')}`}
+          deleteHandler={() => handleDeleteUser(row.getValue('id'))}
+          size='h-6 w-6'
+          isLoading={loadingUserId === row.getValue('id')}
+        />
       ),
     },
   ];
 
+  // Init a table
   const table = useReactTable<UserResponse>({
     data: users,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
+  // It is impossible to have no users in the database, bc at least the logged-in user exists:)
   if (users.length === 0) return <Loading />;
 
   return (
