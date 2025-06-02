@@ -1,6 +1,7 @@
 import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
+import StyledInput from '@/components/shared/StyledInput';
 import {
   Form,
   FormControl,
@@ -9,7 +10,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import siteMeta from '@/constants/siteMeta';
 import getDeviceId from '@/lib/deviceid';
 import { AuthResponseSchema, JoinAdminBody, JoinAdminBodySchema } from '@/schema/schema_auth';
@@ -79,11 +79,7 @@ const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Reference Code</FormLabel>
                 <FormControl>
-                  <Input
-                    {...field}
-                    placeholder='Enter your reference code'
-                    disabled={isSubmitting}
-                  />
+                  <StyledInput {...field} placeholder='Enter your reference code' />
                 </FormControl>
                 <FormMessage />
               </FormItem>

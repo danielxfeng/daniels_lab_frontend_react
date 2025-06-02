@@ -10,7 +10,6 @@ import {
   FormControl,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import {
   AuthResponseSchema,
   ChangePasswordBody,
@@ -19,6 +18,7 @@ import {
 import { changePassword } from '@/services/service_auth';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
+import StyledInput from '@/components/shared/StyledInput';
 
 /**
  * @summary UserPasswordUpdateForm
@@ -94,12 +94,7 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Current Password</FormLabel>
                 <FormControl>
-                  <Input
-                    type='password'
-                    placeholder='Current password'
-                    {...field}
-                    className='bg-muted border-muted-foreground'
-                  />
+                  <StyledInput type='password' placeholder='Current password' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -114,12 +109,7 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>New Password</FormLabel>
                 <FormControl>
-                  <Input
-                    type='password'
-                    placeholder='New password'
-                    {...field}
-                    className='bg-muted border-muted-foreground'
-                  />
+                  <StyledInput type='password' placeholder='New password' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -134,12 +124,7 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <Input
-                    type='password'
-                    placeholder='Confirm new password'
-                    {...field}
-                    className='bg-muted border-muted-foreground'
-                  />
+                  <StyledInput type='password' placeholder='Confirm new password' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

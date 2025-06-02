@@ -10,11 +10,11 @@ import {
   FormControl,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { AuthResponseSchema, SetPasswordBody, SetPasswordBodySchema } from '@/schema/schema_auth';
 import { setPassword } from '@/services/service_auth';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
+import StyledInput from '@/components/shared/StyledInput';
 
 /**
  * @summary UserPasswordInsertionForm
@@ -75,12 +75,7 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input
-                    type='password'
-                    placeholder='password'
-                    {...field}
-                    className='bg-muted border-muted-foreground'
-                  />
+                  <StyledInput type='password' placeholder='password' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -95,12 +90,7 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <Input
-                    type='password'
-                    placeholder='Confirm password'
-                    {...field}
-                    className='bg-muted border-muted-foreground'
-                  />
+                  <StyledInput type='password' placeholder='Confirm password' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

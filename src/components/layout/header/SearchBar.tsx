@@ -7,6 +7,7 @@ import { KeywordSearchQuerySchema } from '@/schema/schema_post';
 import MotionIconButton from '@/components/motion_components/MotionIconButton';
 import { AnimatePresence, easeInOut, motion } from 'framer-motion';
 import { useNavigate } from 'react-router';
+import StyledInput from '@/components/shared/StyledInput';
 
 // Define a type for form input.
 type FormValues = { keyword: string };
@@ -19,11 +20,9 @@ const InputComponent = ({
   register: UseFormRegister<FormValues>;
   setShowDropdown: React.Dispatch<React.SetStateAction<boolean>>;
 }) => (
-  <input
+  <StyledInput
     //We register the keyword to component
     {...register('keyword')}
-    // Define the style
-    className='bg-muted border-muted-foreground ring-ring w-full rounded-xl border px-4 py-2 text-sm shadow-sm focus:ring focus:outline-none'
     placeholder='Search posts...'
     // We expand the dropdown history when the input is focused
     onFocus={() => setShowDropdown(true)}

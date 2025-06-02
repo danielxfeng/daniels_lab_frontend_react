@@ -10,12 +10,12 @@ import {
   FormControl,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import { AuthResponseSchema, RegisterBody, RegisterBodySchema } from '@/schema/schema_auth';
 
 import useUserStore from '@/stores/useUserStore';
 import { registerUser } from '@/services/service_auth';
+import StyledInput from '@/components/shared/StyledInput';
 
 /// This component is used to register a new user
 const RegisterForm = ({ deviceId }: { deviceId: string }) => {
@@ -103,7 +103,7 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input {...field} className='bg-muted border-muted-foreground' />
+                    <StyledInput {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -118,11 +118,7 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input
-                      type='password'
-                      {...field}
-                      className='bg-muted border-muted-foreground'
-                    />
+                    <StyledInput type='password' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -137,11 +133,7 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
-                    <Input
-                      type='password'
-                      {...field}
-                      className='bg-muted border-muted-foreground'
-                    />
+                    <StyledInput type='password' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

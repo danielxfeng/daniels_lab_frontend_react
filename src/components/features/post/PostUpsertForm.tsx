@@ -12,7 +12,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { CreateOrUpdatePostBodySchema, PostResponseSchema } from '@/schema/schema_post';
 import type { CreateOrUpdatePostBody, PostResponse } from '@/schema/schema_post';
@@ -26,6 +25,7 @@ import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import TagSelector from '@/components/features/tags/TagsSelector';
+import StyledInput from '@/components/shared/StyledInput';
 
 // A helper function to get the slug from the response
 const getSlug = (isCreate: boolean, res: AxiosResponse<PostResponse | undefined>) => {
@@ -90,11 +90,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder='Post title'
-                    {...field}
-                    className='border-muted bg-muted ring-1'
-                  />
+                  <StyledInput placeholder='Post title' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -109,11 +105,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
               <FormItem>
                 <FormLabel>Cover Image URL</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder='https://your.cover.url'
-                    {...field}
-                    className='border-muted bg-muted ring-1'
-                  />
+                  <StyledInput placeholder='https://your.cover.url' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
