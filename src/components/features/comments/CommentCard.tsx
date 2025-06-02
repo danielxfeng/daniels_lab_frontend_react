@@ -1,23 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
-import { Trash2, Pencil } from 'lucide-react';
+import { Pencil } from 'lucide-react';
 import { AuthResponse as User } from '@/schema/schema_auth';
 import { deleteComment } from '@/services/service_comments';
 import { CommentResponse } from '@/schema/schema_comment';
 import AuthorDateBar from '@/components/features/post/AuthorDateBar';
 import MotionIconButton from '@/components/motion_components/MotionIconButton';
 import CommentForm from '@/components/features/comments/CommentForm';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
 
 /**
  * @summary A component to display a comment, with edit and delete functionality.
@@ -94,37 +84,14 @@ const CommentCard = ({
           />
         )}
         {(user?.id === comment.authorId || user?.isAdmin) && (
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <MotionIconButton
-                icon={<Trash2 className='h-4 w-4' />}
-                type='button'
-                ariaLabel='Delete comment'
-                tooltip='Delete comment'
-              />
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete the post and all
-                  related comments.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel className='text-muted-foreground' disabled={loading}>
-                  Cancel
-                </AlertDialogCancel>
-                <AlertDialogAction
-                  onClick={handleDelete}
-                  disabled={loading}
-                  className='bg-destructive hover:bg-destructive'
-                >
-                  Yes, delete
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <MotionDeleteButton
+            toDelete='the comment'
+            tooltip='Delete comment'
+            deleteHandler={handleDelete}
+            size='h-4 w-4'
+            isLoading={loading}
+            className='text-muted-foreground'
+          />
         )}
       </footer>
     </article>

@@ -1,20 +1,9 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 import { UserResponse } from '@/schema/schema_users';
 import { deleteUser } from '@/services/service_auth';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
+import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
 
 /**
  * @summary UserDeleteComponent
@@ -45,37 +34,17 @@ const UserDeleteComponent = ({ user }: { user: Partial<UserResponse> }) => {
   };
 
   return (
-    <AlertDialog>
+    <>
       {/* Ensure atomic logout */}
       {doLogout && <AtomicLogout to='/' timeout={1000} />}
-      <AlertDialogTrigger asChild>
-        <MotionTextButton
-          label='Delete Account'
-          ariaLabel='Delete Account'
-          type='button'
-          className='bg-destructive my-10'
-        />
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your account and all related
-            data.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel className='text-muted-foreground' disabled={loading}>Cancel</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={deleteHandler}
-            disabled={loading}
-            className='bg-destructive hover:bg-destructive'
-          >
-            Yes, delete
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+      <MotionDeleteButton
+        toDelete='my account'
+        tooltip='Delete my account'
+        deleteHandler={deleteHandler}
+        size='h-10 w-10'
+        isLoading={loading}
+      />
+    </>
   );
 };
 
