@@ -1,4 +1,4 @@
-// a simple loading spinner component
+// This is a loading spinner, to be used in a page or div.
 const Loading = () => {
   return (
     <div className='fixed inset-0 z-50 flex items-center justify-center bg-white/80 dark:bg-black/50'>

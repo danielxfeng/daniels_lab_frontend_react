@@ -9,7 +9,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import { AuthResponseSchema, LoginBody, LoginBodySchema } from '@/schema/schema_auth';
 import { toast } from 'sonner';
@@ -19,6 +18,7 @@ import { OauthProviderValues } from '@/schema/schema_components';
 import MotionIconLink from '@/components/motion_components/MotionIconLink';
 import siteMeta from '@/constants/siteMeta';
 import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
+import StyledInput from '@/components/shared/StyledInput';
 
 const iconMap = {
   google: <FaGoogle className='h-12 w-12' />,
@@ -126,7 +126,7 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input {...field} className='bg-muted border-muted-foreground' />
+                    <StyledInput {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -140,11 +140,7 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input
-                      type='password'
-                      {...field}
-                      className='bg-muted border-muted-foreground'
-                    />
+                    <StyledInput type='password' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

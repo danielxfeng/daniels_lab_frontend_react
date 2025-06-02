@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Input } from '@/components/ui/input';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ControllerRenderProps } from 'react-hook-form';
 import { CreateOrUpdatePostBody } from '@/schema/schema_post';
 import { tagSchema, TagsResponseSchema } from '@/schema/schema_tag';
 import { debouncedSearchTagsByPrefix } from '@/services/service_tags';
+import StyledInput from '@/components/shared/StyledInput';
 
 /**
  * @summary A tag input component.
@@ -80,7 +80,7 @@ const TagInputComponent = ({
       {/* Input + Suggestions */}
       <div className='relative'>
         {/* Input field */}
-        <Input
+        <StyledInput
           value={inputValue}
           id={inputId}
           onChange={(e) => setInputValue(e.target.value)}
@@ -96,7 +96,6 @@ const TagInputComponent = ({
               addTag(validatedKeyword.data);
             }
           }}
-          className='bg-muted border-muted-foreground'
           placeholder='Add tag...'
         />
         {/* Error message */}

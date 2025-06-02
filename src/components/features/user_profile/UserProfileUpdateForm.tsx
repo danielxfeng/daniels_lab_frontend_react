@@ -1,4 +1,3 @@
-
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
@@ -12,10 +11,10 @@ import {
   FormControl,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import useUserStore from '@/stores/useUserStore';
 import { useNavigate } from 'react-router-dom';
+import StyledInput from '@/components/shared/StyledInput';
 
 /**
  * @summary UserProfileUpdateForm
@@ -106,11 +105,7 @@ const UserProfileUpdateForm = () => {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder='A new username'
-                    {...field}
-                    className='bg-muted border-muted-foreground'
-                  />
+                  <StyledInput placeholder='A new username' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
