@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useCallback, useEffect, useState } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -22,6 +22,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import siteMeta from '@/constants/siteMeta';
+import useConditionalDebounce from '@/hooks/useConditionalDebounce';
 
 const FilterFormSchema = z.object({
   tags: z.array(tagSchema),
@@ -31,52 +32,78 @@ const FilterFormSchema = z.object({
 
 type FormValues = z.infer<typeof FilterFormSchema>;
 
-/// A form to filter posts
+/**
+ * @summary PostsFilterForm
+ * @description
+ * A form to filter posts by tags and date range.
+ *
+ * This form applies a stable window auto-submission approach:
+ * when the the changed form values are stable, auto submit is triggered.
+ *
+ * The form follows a `directed cycle` data loop driven by the URL parameters:
+ * - The form state is synced from the current URL parameters.
+ * - On form submission, useNavigate is called to update the URL, which triggers a loader re-fetch.
+ * - The loader fetches both the filtered data and the latest hot tags, which re-renders the form as well.
+ */
 const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
   // the params in the URL
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const [dateCloseStatus, setDateCloseStatus] = useState<boolean[]>([true, true]);
+
+  // Define the init values on re-rendering.
+  // useEffect is not needed here since the URL driven logic of the page.
+  // The loader re-fetches hotTags on URL change, so the from is re-rendered when URL changes.
+  // Therefore, initValues always reflect the latest URL state.
+  const initValues: FormValues = {
+    tags: searchParams.getAll('tags').filter((tag) => hotTags.tags.includes(tag)),
+    from: searchParams.get('from') ?? undefined,
+    to: searchParams.get('to') ?? undefined,
+  };
+
+  // Init a conditional debounce hook, initValues and delay are captured in closure,
+  // since it's stable during the component's lifecycle.
+  const [debounce, setDebounce] = useConditionalDebounce<FormValues>({ initValues, delay: 1000 }); // 1000ms delay
 
   // init the form
   const form = useForm<FormValues>({
     resolver: zodResolver(FilterFormSchema),
-    defaultValues: {
-      tags: [],
-      from: undefined,
-      to: undefined,
-    },
+    defaultValues: initValues,
   });
 
   const {
     control,
     handleSubmit,
-    reset,
     formState: { isSubmitting },
   } = form;
 
-  // Sync filter state from URL
-  useEffect(() => {
-    const from = searchParams.get('from') ?? undefined;
-    const to = searchParams.get('to') ?? undefined;
-    const allTags = searchParams.getAll('tags');
-    const validTags = allTags.filter((tag) => hotTags.tags.includes(tag));
-    reset({ from, to, tags: validTags });
-  }, [searchParams, hotTags.tags, reset]);
+  // tracks the current form values for auto submission
+  const currValues = useWatch<FormValues>({ control }) as FormValues;
 
   // The submit handler
-  const onSubmit = (values: FormValues) => {
-    // If nothing is selected
-    if (!values.tags.length && !values.from && !values.to) return;
+  const onSubmit = useCallback(
+    (values: FormValues) => {
+      const params = new URLSearchParams({
+        limit: siteMeta.paginationLimit.toString(),
+        offset: '0',
+      });
+      if (values.from) params.set('from', values.from);
+      if (values.to) params.set('to', values.to);
+      values.tags.forEach((tag) => params.append('tags', tag));
+      navigate(`?${params.toString()}`);
+    },
+    [navigate],
+  );
 
-    // The default params
-    const params = new URLSearchParams({ limit: siteMeta.paginationLimit.toString(), offset: '0' });
-    if (values.from) params.set('from', values.from);
-    if (values.to) params.set('to', values.to);
-    values.tags.forEach((tag) => params.append('tags', tag));
+  // Fire the auto submit when the debounce value is stable (values are not null))
+  useEffect(() => {
+    if (debounce) onSubmit(debounce);
+  }, [debounce, onSubmit]);
 
-    reset();
-    navigate(`?${params.toString()}`);
-  };
+  // Send instable values to the hook.
+  useEffect(() => {
+    setDebounce({ values: currValues, conditions: dateCloseStatus });
+  }, [currValues, dateCloseStatus, setDebounce]);
 
   return (
     <aside className='w-full lg:mt-10'>
@@ -105,7 +132,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
 
             {/* Date pickers */}
             <div className='flex flex-col gap-6 lg:gap-10'>
-              {['from', 'to'].map((fieldName) => (
+              {['from', 'to'].map((fieldName, i) => (
                 <FormField
                   key={fieldName}
                   control={control}
@@ -115,7 +142,16 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                     return (
                       <FormItem className='flex flex-col'>
                         <FormLabel>{fieldName === 'from' ? 'From' : 'To'}</FormLabel>
-                        <Popover>
+                        <Popover
+                          onOpenChange={(open) => {
+                            setDateCloseStatus((prev) => {
+                              if (prev[i] === !open) return prev; // No update, no re-render
+                              const newStatus = [...prev];
+                              newStatus[i] = !open;
+                              return newStatus;
+                            });
+                          }}
+                        >
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
@@ -159,7 +195,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                 label='Reset'
                 ariaLabel='Cancel filter'
                 type='button'
-                onClick={() => navigate('/blog/posts')}
+                onClick={() => form.reset({ tags: [], from: undefined, to: undefined })}
                 disabled={isSubmitting}
                 className='bg-muted text-muted-foreground w-fit'
               />
