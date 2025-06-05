@@ -40,7 +40,7 @@ const MotionTextButton = ({
       whileTap={!isButtonDisabled ? tapEffect : undefined}
       onClick={onClick}
       className={cn(
-        'text-background bg-highlight relative inline-flex items-center justify-center rounded-lg px-6 py-2 transition-all',
+        'text-background bg-gradient relative inline-flex items-center justify-center rounded-lg px-6 py-2 transition-all',
         isButtonDisabled && 'pointer-events-none cursor-not-allowed opacity-50',
         className,
       )}

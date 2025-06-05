@@ -7,8 +7,11 @@
  * @description Animation configuration for the logo image.
  */
 const logoImageMotion = {
-  animate: { x: 0, rotate: 0 },
-  whileHover: { x: -12, rotate: -10 },
+  animate: { rotate: 0 },
+  whileHover: {
+    rotate: 360,
+    transition: { repeat: Infinity, duration: 0.8, ease: 'linear' },
+  },
   transition: { type: 'spring', stiffness: 300, damping: 12 },
 };
 
@@ -69,7 +72,7 @@ const tapEffect = { scale: 0.95, transition: springEffect };
  * @constant slideIn
  * @description Slide-in animation configuration.
  */
-const slideIn ={ initial: { opacity: 0, scale: 1.2 }, animate: { opacity: 1, scale: 1 } };
+const slideIn = { initial: { opacity: 0, scale: 1.2 }, animate: { opacity: 1, scale: 1 } };
 
 /**
  * @constant easeInOut
@@ -82,12 +85,12 @@ const easeInOut = {
   transition: { duration: 0.2, ease: 'easeInOut' },
 };
 
-const picAnimation ={
+const picAnimation = {
   initial: { opacity: 0, y: 20 },
-  animate : { opacity: 1, y: 0 },
+  animate: { opacity: 1, y: 0 },
   whileHover: { scale: 1.02 },
-  transition: tweenTransition
-}
+  transition: tweenTransition,
+};
 
 export {
   logoImageMotion,

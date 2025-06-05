@@ -80,7 +80,7 @@ const PostsList = ({ postsResponse }: { postsResponse: PostListResponse }) => {
             }
             to='/blog/posts/new'
             ariaLabel='New Post'
-            className='bg-highlight text-background mb-2 rounded-lg px-4 py-2'
+            className='bg-gradient text-highlight-foreground mb-2 rounded-lg px-4 py-2'
             isExternal={false}
           />
         </div>
