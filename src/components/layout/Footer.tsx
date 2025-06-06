@@ -1,23 +1,26 @@
 import ContactLink from '@/components/shared/ContactLink';
 import contactIconList from '@/constants/contactLinks';
-import siteMeta from '@/constants/siteMeta';
+import MotionTextLink from '../motion_components/MotionTextLink';
 
 /**
  * The Footer component.
  */
 const Footer = () => (
-  <footer className='outer-container text-primary py-6'>
-    <div className='inner-container flex flex-col justify-center min-h-12 gap-3 lg:flex-row lg:justify-between'>
-      <div>
-        &copy; {siteMeta.copyRightYear} {siteMeta.siteName}
-      </div>
-      <div>
-        Made by ❤️<em>{siteMeta.author}</em>❤️
-      </div>
+  <footer className='outer-container text-muted-foreground my-3 py-3 text-sm lg:mb-16'>
+    <div className='inner-container flex flex-col justify-center items-center gap-3 lg:max-w-2xl lg:flex-row lg:gap-12'>
       <div className='flex gap-4'>
         {contactIconList.map((prop) => (
           <ContactLink key={prop.ariaLabel} {...prop} />
         ))}
+      </div>
+      <div>
+        This website is open sourced on{' '}
+        <MotionTextLink
+          to='https://github.com/danielxfeng/daniels_lab'
+          label='Github'
+          isExternal={true}
+          className='underline'
+        />
       </div>
     </div>
   </footer>
