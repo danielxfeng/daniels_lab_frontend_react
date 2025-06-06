@@ -19,7 +19,7 @@ import Logo from '@/components/layout/header/Logo';
 const Header = ({ isBasic }: { isBasic?: boolean }) => {
   return (
     <header className='outer-container bg-background sticky top-0 z-50'>
-      <div className='inner-container flex items-center justify-between py-6'>
+      <div className='inner-container flex items-center justify-between py-3'>
         {/* Left side: Logo and NavLinksDesktop */}
         <div className='flex items-center justify-start gap-16'>
           <Logo />
