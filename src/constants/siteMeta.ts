@@ -3,10 +3,8 @@
  */
 const siteMeta = {
   paginationLimit: 10, // Number of posts per page
-  siteName: 'Fancy Blog',
-  copyRightYear: new Date().getFullYear(),
-  author: 'Daniel',
-  siteUrl: 'https://yourdomain.com',
+  siteName: 'Daniel\'s Blog',
+  siteUrl: 'https://danielslab.dev',
   apiUrl: 'http://localhost:3000/api', // Base URL for the API
 };
 

@@ -16,16 +16,6 @@ const logoImageMotion = {
 };
 
 /**
- * @constant logoTextMotion
- * @description Animation configuration for the logo text.
- */
-const logoTextMotion = {
-  initial: { opacity: 0, y: -5 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7 },
-};
-
-/**
  * @constant navUnderline
  * @description Animation configuration for the underline effect on navigation links.
  */
@@ -92,9 +82,33 @@ const picAnimation = {
   transition: tweenTransition,
 };
 
+const btnAnimation = {
+  whileHover: { scale: 1.02 },
+  whileTap: { scale: 0.98 },
+  transition: { type: 'spring', stiffness: 400, damping: 20 },
+};
+
+const btnPrimaryAnimation = {
+  whileHover: { scale: 1.05 },
+  whileTap: { scale: 0.97 },
+  transition: { type: 'spring', stiffness: 400, damping: 20 },
+};
+
+const loaderAnimation = {
+  animate: {
+    rotate: 360,
+    scale: [1, 1.05, 1],
+    opacity: [1, 0.85, 1],
+  },
+  transition: {
+    rotate: { repeat: Infinity, duration: 1.2, ease: 'linear' },
+    scale: { repeat: Infinity, duration: 2.5, ease: 'easeInOut' },
+    opacity: { repeat: Infinity, duration: 2.5, ease: 'easeInOut' },
+  },
+};
+
 export {
   logoImageMotion,
-  logoTextMotion,
   navUnderline,
   tweenTransition,
   hoverEffect,
@@ -104,4 +118,7 @@ export {
   easeInOut,
   picAnimation,
   slideIn,
+  btnAnimation,
+  btnPrimaryAnimation,
+  loaderAnimation,
 };
