@@ -22,7 +22,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 
 type ButtonSize = 'sm' | 'md' | 'lg';
 type ButtonType = 'button' | 'submit';
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'destructive';
+type ButtonVariant = 'highlight' | 'primary' | 'secondary' | 'ghost' | 'destructive';
 type IconPosition = 'left' | 'right';
 
 type CommonProps = {
@@ -40,9 +40,9 @@ type CommonProps = {
 
 type MotionSubmitButtonProps = {
   buttonType: ButtonType;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-  isLoading: boolean;
-  isDisabled: boolean;
+  isLoading?: boolean;
+  isDisabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 } & CommonProps;
 
 type MotionLinkButtonProps = {
@@ -67,16 +67,31 @@ const iconSizeClasses: Record<ButtonSize, string> = {
 
 // For secondary and destructive buttons, I gives a border with transparent background
 // For ghost buttons, I gives a transparent background with no border
-// For primary buttons, I gives a gradient background with shadow
-const variantClasses: Record<ButtonVariant, string> = {
-  primary:
-    'bg-gradient text-highlight-foreground shadow-primary/20 shadow hover:shadow-primary/30 transition-colors duration-150 ease-out',
-  secondary:
-    'border border-border bg-transparent text-foreground hover:bg-foreground/5 transition-colors duration-150 ease-out',
-  ghost:
-    'bg-transparent text-foreground hover:bg-foreground/5 transition-colors duration-150 ease-out',
-  destructive:
-    'border border-destructive text-destructive bg-transparent hover:bg-destructive/10 transition-colors duration-150 ease-out',
+// For highlight buttons, I gives a gradient background with shadow
+const getVariantClasses = (variant: ButtonVariant, text: string | undefined): string => {
+  // border is not applied if the button is Icon-only.
+  const border = text && 'border';
+
+  switch (variant) {
+    case 'highlight':
+      return 'bg-gradient text-highlight-foreground shadow-highlight/20 shadow hover:shadow-highlight/30 transition-colors duration-150 ease-out';
+    case 'primary':
+      return 'bg-primary text-primary-foreground shadow-primary/20 shadow hover:shadow-primary/30 transition-colors duration-150 ease-out';
+    case 'secondary':
+      return cn(
+        'border-border bg-transparent text-foreground hover:bg-foreground/5 transition-colors duration-150 ease-out',
+        border,
+      );
+    case 'ghost':
+      return 'bg-transparent text-muted-foreground hover:bg-foreground/5 transition-colors duration-150 ease-out';
+    case 'destructive':
+      return cn(
+        'border-destructive text-destructive bg-transparent hover:bg-destructive/10 transition-colors duration-150 ease-out',
+        border,
+      );
+    default:
+      return '';
+  }
 };
 
 const BaseButton = (props: MotionButtonProps) => {
@@ -90,7 +105,7 @@ const BaseButton = (props: MotionButtonProps) => {
   const btnClass = cn(
     'relative inline-flex items-center justify-center rounded-lg transition-all',
     sizeClasses[props.size],
-    variantClasses[props.variant],
+    getVariantClasses(props.variant, props.text),
     disabled && 'pointer-events-none cursor-not-allowed opacity-50',
     props.btnClass,
   );
@@ -98,7 +113,7 @@ const BaseButton = (props: MotionButtonProps) => {
   // The animation for the button, depending on the variant and whether it is disabled
   const animation = disabled
     ? undefined
-    : props.variant === 'primary'
+    : props.variant === 'primary' || props.variant === 'highlight'
       ? btnPrimaryAnimation
       : btnAnimation;
 
@@ -113,7 +128,11 @@ const BaseButton = (props: MotionButtonProps) => {
       )}
     >
       {props.icon && (
-        <span className={cn('inline-flex items-center', props.iconClass)}>{props.icon}</span>
+        <span
+          className={cn('inline-flex items-center', props.iconClass, iconSizeClasses[props.size])}
+        >
+          {props.icon}
+        </span>
       )}
       {props.text && <span className={cn(props.textClass)}>{props.text}</span>}
     </span>
@@ -164,7 +183,7 @@ const BaseButton = (props: MotionButtonProps) => {
  * @param props - The properties for the button.
  * @param props.supportingText - The supporting text for the button.
  * @param props.size - The size of the button (sm, md, lg).
- * @param props.variant - The variant of the button (primary, secondary, ghost, destructive).
+ * @param props.variant - The variant of the button (highlight, primary, secondary, ghost, destructive).
  * @param props.icon - The optional icon to be displayed inside the button. Icon and text can not be null at the same time.
  * @param props.text - The optional text to be displayed inside the button. Icon and text can not be null at the same time.
  * @param props.isFullWidth - Whether the button should take the full width of its container.
@@ -199,3 +218,11 @@ const MotionButton = (props: MotionButtonProps) => {
 };
 
 export default MotionButton;
+
+export type {
+  ButtonSize,
+  ButtonType,
+  ButtonVariant,
+  MotionSubmitButtonProps,
+  MotionLinkButtonProps,
+};

@@ -10,15 +10,32 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import MotionIconButton from '@/components/motion_components/MotionIconButton';
+import MotionButton, {
+  ButtonSize,
+  ButtonVariant,
+} from '@/components/motion_components/MotionButton';
 
 type MotionDeleteButtonProps = {
-  toDelete: string;
-  tooltip: string;
+  deleteItem: string;
+  supportingText: string;
   deleteHandler: () => void;
-  size?: string;
-  isLoading?: boolean;
-  className?: string;
+  textOrIcon: 'text' | 'icon' | 'mixed';
+  size: ButtonSize;
+  isLoading: boolean;
+  variant?: ButtonVariant;
+};
+
+const getTextIcon = (textOrIcon: 'text' | 'icon' | 'mixed') => {
+  switch (textOrIcon) {
+    case 'text':
+      return { text: 'Delete' };
+    case 'icon':
+      return { icon: <Trash2 /> };
+    case 'mixed':
+      return { text: 'Delete', icon: <Trash2 /> };
+    default:
+      return null;
+  }
 };
 
 /**
@@ -30,25 +47,17 @@ type MotionDeleteButtonProps = {
  * @param - isLoading - Whether the button is in a loading state, which disables the button and prevents interaction, defaults to false.
  * @param - className - Optional additional classes for styling the button, defaults to 'text-destructive'.
  */
-const MotionDeleteButton = ({
-  toDelete,
-  tooltip,
-  deleteHandler,
-  size = 'h-6 w-6',
-  isLoading = false,
-  className = 'text-destructive',
-}: MotionDeleteButtonProps) => {
+const MotionDeleteButton = (props: MotionDeleteButtonProps) => {
+  const btnVariant = props.variant || 'destructive';
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <MotionIconButton
-          icon={<Trash2 className={size} />}
-          ariaLabel={tooltip}
-          type='button'
-          disabled={isLoading}
-          isLoading={isLoading}
-          className={className}
-          tooltip={tooltip}
+        <MotionButton
+          buttonType='button'
+          variant={btnVariant}
+          supportingText={props.supportingText}
+          size={props.size}
+          {...getTextIcon(props.textOrIcon)}
         />
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -56,16 +65,16 @@ const MotionDeleteButton = ({
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete:{'  '}
-            <span className='text-destructive'>{toDelete}</span>.
+            <span className='text-destructive'>{props.deleteItem}</span>.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className='text-muted-foreground' disabled={isLoading}>
+          <AlertDialogCancel className='text-muted-foreground' disabled={props.isLoading}>
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
-            onClick={deleteHandler}
-            disabled={isLoading}
+            onClick={props.deleteHandler}
+            disabled={props.isLoading}
             className='bg-destructive hover:bg-destructive'
           >
             Yes, delete

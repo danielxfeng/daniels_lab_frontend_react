@@ -85,12 +85,13 @@ const CommentCard = ({
         )}
         {(user?.id === comment.authorId || user?.isAdmin) && (
           <MotionDeleteButton
-            toDelete='the comment'
-            tooltip='Delete comment'
+            deleteItem='the comment'
+            supportingText='Delete comment'
+            textOrIcon='icon'
             deleteHandler={handleDelete}
-            size='h-4 w-4'
+            size='sm'
             isLoading={loading}
-            className='text-muted-foreground'
+            variant='ghost'
           />
         )}
       </footer>

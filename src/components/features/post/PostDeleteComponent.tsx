@@ -27,10 +27,11 @@ const PostDeleteComponent = ({ postId }: { postId: string }) => {
   };
   return (
     <MotionDeleteButton
-      toDelete='the post and related comments'
-      tooltip='Delete post'
+      deleteItem='the post and related comments'
+      supportingText='Delete post'
+      textOrIcon='text'
       deleteHandler={deleteHandler}
-      size='h-6 w-6'
+      size='md'
       isLoading={isLoading}
     />
   );
