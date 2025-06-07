@@ -62,20 +62,23 @@ const MotionDeleteButton = (props: MotionDeleteButtonProps) => {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle className='text-primary'>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete:{'  '}
             <span className='text-destructive'>{props.deleteItem}</span>.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className='text-muted-foreground' disabled={props.isLoading}>
+          <AlertDialogCancel
+            className='text-muted-foreground hover:bg-foreground/5 easeInOut border bg-transparent transition-colors duration-150'
+            disabled={props.isLoading}
+          >
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={props.deleteHandler}
             disabled={props.isLoading}
-            className='bg-destructive hover:bg-destructive'
+            className='border-destructive text-destructive hover:bg-destructive/15 easeInOut border bg-transparent transition-colors duration-150'
           >
             Yes, delete
           </AlertDialogAction>
