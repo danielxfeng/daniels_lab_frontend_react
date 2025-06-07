@@ -163,8 +163,17 @@ pre {
   body {
     font-family: 'Inter', ui-sans-serif, system-ui;
     font-size: 1rem;
-    line-height: 1.75;
-    letter-spacing: 0.02em;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (min-width: 1024px) {
+    body {
+      font-size: 1.125rem;
+    }
   }
 
   h1,
