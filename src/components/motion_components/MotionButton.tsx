@@ -151,6 +151,7 @@ const BaseButton = (props: MotionButtonProps) => {
         aria-busy={props.isLoading}
         onClick={props.onClick}
         {...animation}
+        {...props}
       >
         {props.isLoading && (
           <motion.span {...loaderAnimation}>
