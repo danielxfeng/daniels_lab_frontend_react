@@ -54,45 +54,95 @@ type MotionLinkButtonProps = {
 type MotionButtonProps = MotionSubmitButtonProps | MotionLinkButtonProps;
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'h-8 px-3 text-sm',
-  md: 'h-10 px-4 text-sm',
-  lg: 'h-12 px-5 text-base',
+  sm: 'h-8 text-sm',
+  md: 'h-10 text-base',
+  lg: 'h-12 text-lg',
+};
+
+const widthClasses: Record<ButtonSize, string> = {
+  sm: 'px-3',
+  md: 'px-4',
+  lg: 'px-5',
 };
 
 const iconSizeClasses: Record<ButtonSize, string> = {
   sm: 'h-4 w-4',
-  md: 'h-4 w-4',
+  md: 'h-5 w-5',
   lg: 'h-6 w-6',
 };
 
 // For primary and highlight buttons, or icon-only buttons, border is not applied. Otherwise, border is applied.
-const getVariantClasses = (variant: ButtonVariant, text: string | undefined): string => {
+const getVariantClasses = (
+  variant: ButtonVariant,
+  text: string | undefined,
+  size: ButtonSize,
+): string => {
   // border is not applied if the button is Icon-only.
   const border = text && 'border';
+  const width = text ? widthClasses[size] : 'aspect-square';
 
   switch (variant) {
     case 'highlight':
-      return 'bg-gradient text-highlight-foreground shadow-highlight/20 shadow hover:shadow-highlight/30 transition-colors duration-150 ease-out';
+      return cn(
+        'bg-gradient text-highlight-foreground shadow-highlight/20 shadow hover:shadow-highlight/30 transition-colors duration-150 ease-out',
+        width,
+      );
     case 'primary':
-      return 'bg-primary text-primary-foreground shadow-primary/20 shadow hover:shadow-primary/30 transition-colors duration-150 ease-out';
+      return cn(
+        'bg-primary text-primary-foreground shadow-primary/20 shadow hover:shadow-primary/30 transition-colors duration-150 ease-out',
+        width,
+      );
     case 'secondary':
       return cn(
-        'border-border bg-transparent text-foreground hover:bg-foreground/5 transition-colors duration-150 ease-out',
+        'bg-transparent text-foreground hover:bg-foreground/5 transition-colors duration-150 ease-out',
         border,
+        width,
       );
     case 'ghost':
       return cn(
         'bg-transparent text-muted-foreground hover:bg-foreground/5 transition-colors duration-150 easeInOut',
         border,
+        width,
       );
     case 'destructive':
       return cn(
         'border-destructive text-destructive bg-transparent hover:bg-destructive/5 transition-colors duration-150 easeInOut',
         border,
+        width,
       );
     default:
       return '';
   }
+};
+
+// To pass the rest props to `btn`.
+const getRestProps = (
+  props: MotionButtonProps,
+): HTMLMotionProps<'button'> | HTMLMotionProps<'a'> => {
+  /* eslint-disable @typescript-eslint/no-unused-vars */ // To avoid unused variable warnings
+  const {
+    supportingText,
+    size,
+    variant,
+    isFullWidth,
+    iconPosition,
+    icon,
+    text,
+    btnClass,
+    iconClass,
+    textClass,
+    ...restProps
+  } = props;
+
+  if ('buttonType' in props) {
+    const { buttonType, isLoading, isDisabled, ...restBtnProps } =
+      restProps as MotionSubmitButtonProps;
+    return restBtnProps;
+  }
+
+  const { isExternal, to, ...restLinkProps } = restProps as MotionLinkButtonProps;
+  /* eslint-enable @typescript-eslint/no-unused-vars */
+  return restLinkProps;
 };
 
 const BaseButton = (props: MotionButtonProps) => {
@@ -106,7 +156,7 @@ const BaseButton = (props: MotionButtonProps) => {
   const btnClass = cn(
     'relative inline-flex items-center justify-center rounded-md transition-all',
     sizeClasses[props.size],
-    getVariantClasses(props.variant, props.text),
+    getVariantClasses(props.variant, props.text, props.size),
     disabled && 'pointer-events-none cursor-not-allowed opacity-50',
     props.btnClass,
   );
@@ -130,7 +180,11 @@ const BaseButton = (props: MotionButtonProps) => {
     >
       {props.icon && (
         <span
-          className={cn('inline-flex items-center', props.iconClass, iconSizeClasses[props.size])}
+          className={cn(
+            'inline-flex items-center justify-center',
+            iconSizeClasses[props.size],
+            props.iconClass,
+          )}
         >
           {props.icon}
         </span>
@@ -139,6 +193,7 @@ const BaseButton = (props: MotionButtonProps) => {
     </span>
   );
 
+  const restProps = getRestProps(props);
   // button component
   if ('buttonType' in props)
     return (
@@ -151,10 +206,10 @@ const BaseButton = (props: MotionButtonProps) => {
         aria-busy={props.isLoading}
         onClick={props.onClick}
         {...animation}
-        {...props}
+        {...(restProps as HTMLMotionProps<'button'>)}
       >
         {props.isLoading && (
-          <motion.span {...loaderAnimation}>
+          <motion.span {...loaderAnimation} className='inline-flex items-center'>
             <Loader className={cn('text-muted-foreground', iconSizeClasses[props.size])} />
           </motion.span>
         )}
@@ -173,6 +228,7 @@ const BaseButton = (props: MotionButtonProps) => {
       {...(props.isExternal
         ? { href: props.to, target: '_blank', rel: 'noopener noreferrer' }
         : { to: props.to, state: props.state })}
+      {...(restProps as HTMLMotionProps<'a'>)}
     >
       {child}
     </Cmp>

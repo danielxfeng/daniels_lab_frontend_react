@@ -7,7 +7,7 @@ const StyledInput = ({ className, type, ...props }: React.ComponentProps<'input'
     <Input
       type={type}
       className={cn(
-        'bg-background ring-border/20 focus-within:ring-primary hover:ring-border/40 h-8 rounded-lg border-none px-3.5 text-sm shadow-inner ring-1 transition-colors duration-200 ring-inset focus-within:ring-2',
+        'bg-background ring-border/20 focus-within:ring-primary hover:ring-border/40 h-10 rounded-lg border-none px-4 text-sm shadow-inner ring-1 transition-colors duration-200 ring-inset focus-within:ring-2',
         className,
       )}
       {...props}

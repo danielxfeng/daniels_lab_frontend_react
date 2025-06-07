@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { getLikeStatus, likePost, unlikePost } from '@/services/service_likes';
 import { LikeStatusResponse, LikeStatusResponseSchema } from '@/schema/schema_like';
-import MotionIconButton from '@/components/motion_components/MotionIconButton';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 // Fallback value
 const fallback: LikeStatusResponse = {
@@ -91,14 +91,16 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
   return (
     <div className='flex items-center gap-2'>
       {/* Toggle button */}
-      <MotionIconButton
-        icon={<Heart className='h-5 w-5' />}
-        ariaLabel='like toggle'
+      <MotionButton
+        buttonType='button'
+        supportingText={liked ? 'Unlike the post' : 'Like the post'}
+        variant='ghost'
+        size='sm'
+        icon={<Heart />}
         type='button'
         onClick={handleLikeToggle}
-        className={liked ? 'text-red-500' : 'text-muted-foreground'}
+        iconClass={liked ? 'text-red-500' : undefined}
         disabled={loading}
-        tooltip={liked ? 'Unlike the post' : 'Like the post'}
         isLoading={loading}
       />
       {/* Like count */}

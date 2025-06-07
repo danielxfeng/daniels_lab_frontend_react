@@ -1,9 +1,6 @@
+import MotionButton from '@/components/motion_components/MotionButton';
 import { FaXTwitter, FaLinkedin, FaFacebook, FaInstagram } from 'react-icons/fa6';
 import { toast } from 'sonner';
-import MotionIconLink from '@/components/motion_components/MotionIconLink';
-import MotionIconButton from '@/components/motion_components/MotionIconButton';
-
-const className='w-6 h-6';
 
 /**
  * @summary A component that displays a share bar with social media links.
@@ -27,42 +24,49 @@ const ShareBar = ({ url, title }: { url: string; title: string }) => {
   };
 
   return (
-    <div className='flex w-full justify-end gap-3'>
+    <div className='flex w-full justify-end'>
       {/* LinkedIn */}
-      <MotionIconLink
+      <MotionButton
         to={`https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}`}
-        icon={<FaLinkedin className={className} />}
-        ariaLabel='Share on LinkedIn'
+        size='lg'
+        variant='secondary'
+        icon={<FaLinkedin />}
+        supportingText='Share on LinkedIn'
         isExternal={true}
-        tooltip='Share on LinkedIn'
+        btnClass='-mr-3'
       />
 
       {/* X (Twitter) */}
-      <MotionIconLink
+      <MotionButton
         to={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
-        icon={<FaXTwitter className={className} />}
-        ariaLabel='Share on X'
+        size='lg'
+        variant='secondary'
+        icon={<FaXTwitter />}
+        supportingText='Share on X'
         isExternal={true}
-        tooltip='Share on X'
+        btnClass='-mr-3'
       />
 
       {/* Facebook */}
-      <MotionIconLink
+      <MotionButton
         to={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
-        icon={<FaFacebook className={className}/>}
-        ariaLabel='Share on Facebook'
+        icon={<FaFacebook />}
+        size='lg'
+        variant='secondary'
+        supportingText='Share on Facebook'
         isExternal={true}
-        tooltip='Share on Facebook'
+        btnClass='-mr-3'
       />
 
       {/* Copy link on Instagram */}
-      <MotionIconButton
-        icon={<FaInstagram className={className}/>}
+      <MotionButton
+        buttonType='button'
+        size='lg'
+        variant='secondary'
+        icon={<FaInstagram />}
         onClick={copyLinkToClipboard}
-        ariaLabel='Copy link for Instagram'
-        type='button'
-        tooltip='Copy link for Instagram'
-        
+        supportingText='Copy link for Instagram'
+        btnClass='-mr-3'
       />
     </div>
   );

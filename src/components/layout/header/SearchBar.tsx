@@ -42,6 +42,7 @@ const InputComponent = ({
         setShowDropdown(false);
       }
     }}
+    className='h-8 text-sm'
   />
 );
 

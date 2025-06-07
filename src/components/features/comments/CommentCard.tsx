@@ -5,9 +5,9 @@ import { AuthResponse as User } from '@/schema/schema_auth';
 import { deleteComment } from '@/services/service_comments';
 import { CommentResponse } from '@/schema/schema_comment';
 import AuthorDateBar from '@/components/features/post/AuthorDateBar';
-import MotionIconButton from '@/components/motion_components/MotionIconButton';
 import CommentForm from '@/components/features/comments/CommentForm';
 import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 /**
  * @summary A component to display a comment, with edit and delete functionality.
@@ -71,15 +71,17 @@ const CommentCard = ({
       </header>
       <p>{comment.content}</p>
       {/* The possible operation panel */}
-      <footer className='flex items-center justify-end gap-2'>
+      <footer className='flex items-center justify-end gap-0'>
         {user?.id === comment.authorId && (
-          <MotionIconButton
-            icon={<Pencil className='h-4 w-4' />}
+          <MotionButton
+            buttonType='button'
+            variant='ghost'
+            size='sm'
+            icon={<Pencil />}
             type='button'
-            ariaLabel='Edit comment'
+            supportingText='Edit comment'
             disabled={loading}
             onClick={() => setEditMode(true)}
-            tooltip='Edit comment'
             isLoading={loading}
           />
         )}
