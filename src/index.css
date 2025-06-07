@@ -126,7 +126,7 @@
    * Then the bg color covers all the width,
    * and the content's max width is still limited by `.inner-container` */
   .outer-container {
-    @apply flex w-full justify-center;
+    @apply flex w-full flex-col items-center justify-center;
   }
 
   /* Work with `.outer-container` to represent a top level container
@@ -139,17 +139,19 @@
 }
 
 h1 {
-  @apply text-primary mt-8 mb-6 text-3xl font-bold;
+  @apply mb-6 text-4xl tracking-tighter text-balance max-lg:font-medium lg:text-5xl;
 }
+
 h2 {
-  @apply text-primary mt-6 mb-4 text-2xl font-semibold;
+  @apply mb-5 text-3xl tracking-tight text-balance max-lg:font-medium lg:text-4xl;
 }
+
 h3 {
-  @apply text-primary mt-4 mb-2 text-xl font-medium;
+  @apply mb-4 text-2xl tracking-tight text-balance max-lg:font-medium lg:text-3xl;
 }
 
 h4 {
-  @apply text-primary mt-2 mb-1 text-lg font-medium;
+  @apply mb-3 text-xl font-medium tracking-normal text-balance;
 }
 
 /* Ensure code block styles are preserved when rendering Markdown with DOMPurify. */
@@ -169,7 +171,7 @@ pre {
   h2,
   h3,
   h4 {
-    font-family: 'Outfit', ui-sans-serif, system-ui;
+    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui;
   }
   p {
     margin-bottom: 1.25rem;

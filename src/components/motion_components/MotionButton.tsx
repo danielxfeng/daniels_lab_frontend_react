@@ -55,19 +55,17 @@ type MotionButtonProps = MotionSubmitButtonProps | MotionLinkButtonProps;
 
 const sizeClasses: Record<ButtonSize, string> = {
   sm: 'h-8 px-3 text-sm',
-  md: 'h-10 px-4 text-base',
-  lg: 'h-12 px-5 text-lg',
+  md: 'h-10 px-4 text-sm',
+  lg: 'h-12 px-5 text-base',
 };
 
 const iconSizeClasses: Record<ButtonSize, string> = {
   sm: 'h-4 w-4',
-  md: 'h-5 w-5',
+  md: 'h-4 w-4',
   lg: 'h-6 w-6',
 };
 
-// For secondary and destructive buttons, I gives a border with transparent background
-// For ghost buttons, I gives a transparent background with no border
-// For highlight buttons, I gives a gradient background with shadow
+// For primary and highlight buttons, or icon-only buttons, border is not applied. Otherwise, border is applied.
 const getVariantClasses = (variant: ButtonVariant, text: string | undefined): string => {
   // border is not applied if the button is Icon-only.
   const border = text && 'border';
@@ -83,10 +81,13 @@ const getVariantClasses = (variant: ButtonVariant, text: string | undefined): st
         border,
       );
     case 'ghost':
-      return 'bg-transparent text-muted-foreground hover:bg-foreground/5 transition-colors duration-150 ease-out';
+      return cn(
+        'bg-transparent text-muted-foreground hover:bg-foreground/5 transition-colors duration-150 easeInOut',
+        border,
+      );
     case 'destructive':
       return cn(
-        'border-destructive text-destructive bg-transparent hover:bg-destructive/10 transition-colors duration-150 ease-out',
+        'border-destructive text-destructive bg-transparent hover:bg-destructive/5 transition-colors duration-150 easeInOut',
         border,
       );
     default:
@@ -103,7 +104,7 @@ const BaseButton = (props: MotionButtonProps) => {
 
   // The class for the button, combining size, variant, and other classes
   const btnClass = cn(
-    'relative inline-flex items-center justify-center rounded-lg transition-all',
+    'relative inline-flex items-center justify-center rounded-md transition-all',
     sizeClasses[props.size],
     getVariantClasses(props.variant, props.text),
     disabled && 'pointer-events-none cursor-not-allowed opacity-50',
@@ -179,6 +180,11 @@ const BaseButton = (props: MotionButtonProps) => {
 
 /**
  * @summary A button component with animations.
+ * @description
+ * Style:
+ *  - For primary and highlight buttons, it uses a foreground color as the background and a shadow effect.
+ *  - For other buttons, it uses a transparent background, and for not icon-only buttons, it applies a border.
+ *  - There are 2 types of animations: one for primary and highlight buttons, and another for other buttons.
  *
  * @param props - The properties for the button.
  * @param props.supportingText - The supporting text for the button.

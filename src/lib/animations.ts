@@ -83,15 +83,34 @@ const picAnimation = {
 };
 
 const btnAnimation = {
-  whileHover: { scale: 1.02 },
-  whileTap: { scale: 0.98 },
-  transition: { type: 'spring', stiffness: 400, damping: 20 },
+  whileHover: {
+    opacity: [0.8, 0.86, 0.92, 0.84, 0.8],
+    transition: {
+      duration: 1.8,
+      repeat: Infinity,
+      ease: 'easeInOut',
+    },
+  },
+  whileTap: {
+    scale: 0.98,
+    transition: { type: 'spring', stiffness: 500, damping: 30 },
+  },
 };
 
 const btnPrimaryAnimation = {
-  whileHover: { scale: 1.05 },
-  whileTap: { scale: 0.97 },
-  transition: { type: 'spring', stiffness: 400, damping: 20 },
+  whileHover: {
+    scale: 1.015,
+    opacity: 0.95,
+    boxShadow: '0px 2px 8px rgba(0,0,0,0.12)',
+  },
+  whileTap: {
+    scale: 0.98,
+  },
+  transition: {
+    type: 'spring',
+    stiffness: 300,
+    damping: 20,
+  },
 };
 
 const loaderAnimation = {

@@ -3,6 +3,7 @@ import PostsList from '@/components/features/posts/PostList';
 import PostsFilterForm from '@/components/features/posts/PostsFilterForm';
 import { PostListResponse } from '@/schema/schema_post';
 import { TagsResponse } from '@/schema/schema_tag';
+import NotificationBar from '@/components/shared/NotificationBar';
 
 /**
  * The main component for the posts shared with the listing and search pages.
@@ -19,6 +20,7 @@ const PostsMain = ({
 }) => {
   return (
     <>
+      <NotificationBar />
       {children}
       <div className='inner-container flex flex-col items-start'>
         <MotionH1>Posts</MotionH1>
