@@ -100,7 +100,7 @@ const getVariantClasses = (
       );
     case 'ghost':
       return cn(
-        'bg-transparent text-muted-foreground hover:bg-foreground/5 transition-colors duration-150 easeInOut',
+        'bg-transparent text-muted-foreground hover:bg-foreground/5 hover:text-foreground transition-colors duration-150 easeInOut',
         border,
         width,
       );
