@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 import { HTMLMotionProps, motion } from 'framer-motion';
 import { Loader } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { btnAnimation, btnPrimaryAnimation, loaderAnimation } from '@/lib/animations';
+import { btnAnimation, loaderAnimation } from '@/lib/animations';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -76,10 +76,11 @@ const getVariantClasses = (
   variant: ButtonVariant,
   text: string | undefined,
   size: ButtonSize,
+  isFullWidth?: boolean,
 ): string => {
   // border is not applied if the button is Icon-only.
   const border = text && 'border';
-  const width = text ? widthClasses[size] : 'aspect-square';
+  const width = isFullWidth ? 'w-full' : text ? widthClasses[size] : 'aspect-square';
 
   switch (variant) {
     case 'highlight':
@@ -159,22 +160,18 @@ const BaseButton = (props: MotionButtonProps) => {
     getVariantClasses(props.variant, props.text, props.size),
     disabled && 'pointer-events-none cursor-not-allowed opacity-50',
     props.btnClass,
+    fullWidth,
   );
 
   // The animation for the button, depending on the variant and whether it is disabled
-  const animation = disabled
-    ? undefined
-    : props.variant === 'primary' || props.variant === 'highlight'
-      ? btnPrimaryAnimation
-      : btnAnimation;
+  const animation = disabled ? undefined : btnAnimation;
 
   // The icon and text inside the button
   const child = (
     <span
       className={cn(
-        'flex items-center',
+        'flex items-center gap-[0.5em]',
         'buttonType' in props && props.isLoading && 'invisible',
-        fullWidth,
         iconPosition,
       )}
     >

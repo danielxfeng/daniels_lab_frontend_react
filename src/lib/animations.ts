@@ -84,32 +84,17 @@ const picAnimation = {
 
 const btnAnimation = {
   whileHover: {
-    opacity: [0.8, 0.86, 0.92, 0.84, 0.8],
+    filter: ['brightness(1) contrast(1)', 'brightness(1.35) contrast(1.35)'],
     transition: {
-      duration: 1.8,
+      duration: 1,
       repeat: Infinity,
+      repeatType: 'reverse' as const,
       ease: 'easeInOut',
     },
   },
   whileTap: {
     scale: 0.98,
     transition: { type: 'spring', stiffness: 500, damping: 30 },
-  },
-};
-
-const btnPrimaryAnimation = {
-  whileHover: {
-    scale: 1.015,
-    opacity: 0.95,
-    boxShadow: '0px 2px 8px rgba(0,0,0,0.12)',
-  },
-  whileTap: {
-    scale: 0.98,
-  },
-  transition: {
-    type: 'spring',
-    stiffness: 300,
-    damping: 20,
   },
 };
 
@@ -138,6 +123,5 @@ export {
   picAnimation,
   slideIn,
   btnAnimation,
-  btnPrimaryAnimation,
   loaderAnimation,
 };
