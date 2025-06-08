@@ -126,7 +126,7 @@
    * Then the bg color covers all the width,
    * and the content's max width is still limited by `.inner-container` */
   .outer-container {
-    @apply flex w-full flex-col items-center justify-center;
+    @apply flex w-full flex-col items-center;
   }
 
   /* Work with `.outer-container` to represent a top level container
