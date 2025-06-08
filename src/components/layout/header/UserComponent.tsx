@@ -14,7 +14,7 @@ const AvatarComponent = ({
   avatar: string | undefined;
   firstChar: string;
 }) => (
-  <Avatar className='h-10 w-10 lg:h-12 lg:w-12'>
+  <Avatar className='h-8 w-8'>
     <AvatarImage src={avatar} alt={`${name}'s avatar`} />
     <AvatarFallback>{firstChar}</AvatarFallback>
   </Avatar>
@@ -35,7 +35,7 @@ const UserComponent = () => {
     return (
       <MotionIconLink
         to={`/user/login?redirectTo=${encodeURIComponent(currentPath)}`}
-        icon={<LogIn className='text-primary h-6 w-6' />}
+        icon={<LogIn className='text-primary h-4 w-4' />}
         ariaLabel='Login'
         isExternal={false}
         tooltip='Login'

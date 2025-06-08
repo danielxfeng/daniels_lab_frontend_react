@@ -33,7 +33,7 @@ const Header = ({ isBasic }: { isBasic?: boolean }) => {
 
         {/* Right side: SearchBar/Btn, UserComponent, ThemeToggle, NavLinksMobile */}
         {!isBasic && (
-          <div className='flex items-center justify-end gap-4'>
+          <div className='flex items-center justify-end lg:gap-3'>
             {/* Show only in desktop mode */}
             <div className='hidden items-center justify-center lg:flex'>
               <SearchBar />

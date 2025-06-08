@@ -4,10 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Search } from 'lucide-react';
 import useSearchHistoryStore from '@/stores/useSearchHistoryStore';
 import { KeywordSearchQuerySchema } from '@/schema/schema_post';
-import MotionIconButton from '@/components/motion_components/MotionIconButton';
 import { AnimatePresence, easeInOut, motion } from 'framer-motion';
 import { useNavigate } from 'react-router';
 import StyledInput from '@/components/shared/StyledInput';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 // Define a type for form input.
 type FormValues = { keyword: string };
@@ -144,11 +144,14 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
           <InputComponent register={register} setShowDropdown={setShowDropdown} />
 
           {/* The search button */}
-          <MotionIconButton
-            icon={<Search className='h-5 w-5' />}
+          <MotionButton
+            buttonType='submit'
+            variant='ghost'
+            size='sm'
+            supportingText='Search posts'
+            icon={<Search />}
             type='submit'
-            ariaLabel='Search'
-            className='text-muted-foreground hover:text-primary absolute top-1/2 right-2 -translate-y-1/2 p-1'
+            btnClass='absolute top-1/2 right-2 -translate-y-1/2 p-1'
             disabled={isSubmitting}
           />
         </fieldset>
