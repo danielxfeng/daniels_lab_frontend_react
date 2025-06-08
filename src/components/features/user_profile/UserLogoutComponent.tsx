@@ -54,7 +54,7 @@ const UserLogoutComponent = ({ deviceId }: { deviceId: string }) => {
   };
 
   return (
-    <div className='flex items-center'>
+    <div className='flex w-full items-center'>
       {/* Ensure atomic logout */}
       {doLogout && <AtomicLogout to='/' timeout={1000} />}
       {/* Logout button */}
@@ -68,6 +68,7 @@ const UserLogoutComponent = ({ deviceId }: { deviceId: string }) => {
             text='Logout'
             isLoading={loading}
             disabled={loading}
+            isFullWidth={true}
           />
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>

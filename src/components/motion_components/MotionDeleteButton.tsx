@@ -23,6 +23,7 @@ type MotionDeleteButtonProps = {
   size: ButtonSize;
   isLoading: boolean;
   variant?: ButtonVariant;
+  btnClass?: string;
 };
 
 const getTextIcon = (textOrIcon: 'text' | 'icon' | 'mixed') => {
@@ -40,12 +41,14 @@ const getTextIcon = (textOrIcon: 'text' | 'icon' | 'mixed') => {
 
 /**
  * @summary A delete button with a confirmation dialog.
- * @param - toDelete - The name of the item to be deleted, displayed in the confirmation dialog.
- * @param - tooltip - The tooltip text for the button, also used as the aria-label.
+ * @param - deleteItem - The name of the item to be deleted, displayed in the confirmation dialog.
+ * @param - supportingText - The tooltip text for the button, also used as the aria-label.
  * @param - deleteHandler - The function to call when the user confirms deletion.
+ * @param - textOrIcon - Determines whether to display text, an icon, or both in the button. Options are 'text', 'icon', or 'mixed'.
  * @param - size - The size of the icon, defaults to `h-6 w-6`.
  * @param - isLoading - Whether the button is in a loading state, which disables the button and prevents interaction, defaults to false.
- * @param - className - Optional additional classes for styling the button, defaults to 'text-destructive'.
+ * @param - variant - The button variant, which determines the styling of the button. Defaults to 'destructive'.
+ * @param - btnClass - Additional CSS classes to apply to the button.
  */
 const MotionDeleteButton = (props: MotionDeleteButtonProps) => {
   const btnVariant = props.variant || 'destructive';

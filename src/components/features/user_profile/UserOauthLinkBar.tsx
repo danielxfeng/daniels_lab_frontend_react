@@ -82,7 +82,7 @@ const UserOauthLinkBar = ({
 
   return (
     <div className='flex w-full flex-col items-center gap-4'>
-      <h2>Manage linked accounts</h2>
+      <h3>Manage linked accounts</h3>
       <div className='lg: flex w-full max-w-md flex-col gap-5'>
         {OauthProviderValues.map((provider) => {
           const isLinked = user.oauthProviders?.includes(provider);

@@ -134,7 +134,7 @@
    * Then the bg color covers all the width,
    * and the content's max width is still limited by `.inner-container` */
   .inner-container {
-    @apply w-full items-center px-4 lg:max-w-7xl lg:px-8;
+    @apply w-full px-4 lg:max-w-7xl lg:px-8;
   }
 }
 
