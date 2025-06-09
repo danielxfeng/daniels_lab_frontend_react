@@ -7,9 +7,9 @@ import { HiOutlineMail } from 'react-icons/hi';
  * @type {ContactLinkProps[]}
  */
 const contactIconList: ContactLinkProps[] = [
-  { Icon: FaGithub, href: 'https://github.com', ariaLabel: 'GitHub' },
-  { Icon: FaLinkedin, href: 'https://linkedin.com', ariaLabel: 'LinkedIn' },
-  { Icon: HiOutlineMail, href: 'mailto:admin@fancyblog.com', ariaLabel: 'Email' },
+  { Icon: FaGithub, to: 'https://github.com', supportText: 'GitHub' },
+  { Icon: FaLinkedin, to: 'https://linkedin.com', supportText: 'LinkedIn' },
+  { Icon: HiOutlineMail, to: 'mailto:admin@fancyblog.com', supportText: 'Email' },
 ];
 
 export default contactIconList;

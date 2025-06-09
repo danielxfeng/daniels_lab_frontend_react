@@ -2,6 +2,7 @@ import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionInput from '@/components/motion_components/MotionInput';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
+import NotificationBar from '@/components/shared/NotificationBar';
 import {
   Form,
   FormControl,
@@ -117,6 +118,7 @@ const JoinAdminPage = () => {
   return (
     <div className='inner-container w-full'>
       <title>{`User Profile – ${siteMeta.siteName}`}</title>
+      <NotificationBar />
       <MotionH1>Join Admin</MotionH1>
       <div className='flex w-full items-center justify-center'>
         <JoinAdminForm deviceId={deviceId} />

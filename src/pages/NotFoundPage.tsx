@@ -1,4 +1,5 @@
 import MotionTextButtonLink from '@/components/motion_components/MotionTextButtonLink';
+import NotificationBar from '@/components/shared/NotificationBar';
 import { useLocation } from 'react-router-dom';
 
 // 404 page.
@@ -7,6 +8,7 @@ const NotFoundPage = () => {
   console.warn('404 warning', location.pathname);
   return (
     <div className='inner-container flex flex-col gap-4'>
+      <NotificationBar />
       <h1>Oops! Page not found.</h1>
 
       <p>The page "{location.pathname}" does not exist.</p>

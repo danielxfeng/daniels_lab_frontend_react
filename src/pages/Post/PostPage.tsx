@@ -1,5 +1,4 @@
 import { useLoaderData } from 'react-router-dom';
-import { Pencil } from 'lucide-react';
 import useUserStore from '@/stores/useUserStore';
 import { PostResponse } from '@/schema/schema_post';
 import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';
@@ -10,8 +9,9 @@ import Comments from '@/components/features/comments/Comments';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import siteMeta from '@/constants/siteMeta';
 import ShareBar from '@/components/features/post/ShareBar';
-import MotionIconLink from '@/components/motion_components/MotionIconLink';
 import PostDeleteComponent from '@/components/features/post/PostDeleteComponent';
+import NotificationBar from '@/components/shared/NotificationBar';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 // A component to set the meta information for SEO
 const MetaInfo = ({ post }: { post: PostResponse }) => (
@@ -41,6 +41,7 @@ const PostPage = () => {
   return (
     <>
       <MetaInfo post={post} />
+      <NotificationBar />
       {/* The post page */}
       <article className='inner-container mb-10 flex max-w-3xl flex-col items-center gap-6 lg:mb-10'>
         {/* The post cover image */}
@@ -49,15 +50,17 @@ const PostPage = () => {
         <MotionH1 className='text-center'>{post.title}</MotionH1>
 
         {/* The possible operation panel */}
-        <div className='flex w-full items-center justify-end gap-2'>
+        <div className='flex w-full items-center justify-end gap-4'>
           {isAuthor && (
-            <MotionIconLink
+            <MotionButton
+              supportingText='Edit post'
+              size='md'
+              variant='secondary'
+              text='Edit'
               to={`/blog/posts/edit/${post.slug}`}
               state={{ post }}
-              icon={<Pencil className='h-6 w-6' />}
-              ariaLabel='Edit post'
-              tooltip='Edit post'
               isExternal={false}
+              textClass='px-3.5'
             />
           )}
           {isAdmin && <PostDeleteComponent postId={post.id} />}

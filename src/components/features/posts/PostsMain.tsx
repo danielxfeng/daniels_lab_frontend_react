@@ -24,12 +24,12 @@ const PostsMain = ({
       {children}
       <div className='inner-container flex flex-col items-start'>
         <MotionH1>Posts</MotionH1>
-        <div className='posts flex flex-col-reverse gap-10 lg:flex-row lg:justify-between'>
-          <div className='w-full lg:w-1/4'>
-            <PostsFilterForm hotTags={hotTags} />
-          </div>
+        <div className='posts flex flex-col gap-10 lg:flex-row lg:justify-between w-full'>
           <div className='w-full lg:w-3/4'>
             <PostsList postsResponse={postsListRes} />
+          </div>
+          <div className='w-full lg:w-1/4'>
+            <PostsFilterForm hotTags={hotTags} />
           </div>
         </div>
       </div>

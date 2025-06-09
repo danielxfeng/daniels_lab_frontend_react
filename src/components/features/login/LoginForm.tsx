@@ -15,15 +15,19 @@ import { toast } from 'sonner';
 import useUserStore from '@/stores/useUserStore';
 import { loginUser } from '@/services/service_auth';
 import { OauthProviderValues } from '@/schema/schema_components';
-import MotionIconLink from '@/components/motion_components/MotionIconLink';
 import siteMeta from '@/constants/siteMeta';
 import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
 import MotionInput from '@/components/motion_components/MotionInput';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 const iconMap = {
-  google: <FaGoogle className='h-12 w-12' />,
-  github: <FaGithub className='h-12 w-12' />,
-  linkedin: <FaLinkedin className='h-12 w-12' />,
+  google: <FaGoogle />,
+  github: <FaGithub />,
+  linkedin: <FaLinkedin />,
+};
+
+const capitalizeFirstLetter = (string: string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 // A component for the OAuth login bar
@@ -32,15 +36,17 @@ const OauthLoginBar = ({ deviceId }: { deviceId: string }) => {
   if (redirectTo === '/user/login') redirectTo = '/';
 
   return (
-    <div className='flex w-full justify-center gap-8'>
+    <div className='flex w-full flex-col justify-center gap-8'>
       {OauthProviderValues.map((provider) => (
-        <MotionIconLink
+        <MotionButton
+          variant='highlight'
+          size='md'
+          supportingText={`Login with ${provider}`}
+          text={'Login with ' + capitalizeFirstLetter(provider)}
           to={`${siteMeta.apiUrl}/auth/oauth/${provider}?deviceId=${deviceId}&consentAt=${new Date().toISOString()}&redirectTo=${encodeURIComponent(redirectTo)}`}
           key={provider}
-          ariaLabel={`Login with ${provider}`}
           icon={iconMap[provider as keyof typeof iconMap]}
           isExternal={false}
-          tooltip={`Login with ${provider}`}
         />
       ))}
     </div>
@@ -112,9 +118,11 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
   };
 
   return (
-    <div className='mt-8 flex flex-1 flex-col gap-12'>
+    <div className='mt-10 flex flex-1 flex-col'>
+      <h3>Connect with:</h3>
       <OauthLoginBar deviceId={deviceId} />
-      <hr className='text-muted-foreground' />
+      <hr className='text-muted-foreground my-9' />
+      <h3>By your account:</h3>
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
           <fieldset className='flex flex-col gap-4'>

@@ -17,12 +17,14 @@ import SelectableTags from '@/components/features/tags/SelectableTags';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
-import { CalendarIcon } from 'lucide-react';
+import { CalendarIcon, Plus } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import siteMeta from '@/constants/siteMeta';
 import useConditionalDebounce from '@/hooks/useConditionalDebounce';
+import useUserStore from '@/stores/useUserStore';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 const FilterFormSchema = z.object({
   tags: z.array(tagSchema),
@@ -104,10 +106,25 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
   useEffect(() => {
     setDebounce({ values: currValues, conditions: dateCloseStatus });
   }, [currValues, dateCloseStatus, setDebounce]);
-
+  // A snapshot of the user from the Zustand store
+  const user = useUserStore.getState().user;
   return (
-    <aside className='w-full lg:mt-10'>
-      <h2>Filter the posts</h2>
+    <aside className='border-border w-full rounded-2xl border px-5 py-8'>
+      {/* A new post button for admin user */}
+      {user?.isAdmin && (
+        <div className='flex justify-start'>
+          <MotionButton
+            supportingText='Create a new post'
+            text='New Post'
+            size='md'
+            variant='highlight'
+            icon={<Plus />}
+            to='/blog/posts/new'
+            isExternal={false}
+          />
+        </div>
+      )}
+      {user?.isAdmin && <hr className='border-border mt-9' />}
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
           <fieldset className='flex flex-col gap-10 lg:my-10' disabled={isSubmitting}>
@@ -128,7 +145,6 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                 </FormItem>
               )}
             />
-            <hr className='border-muted' />
 
             {/* Date pickers */}
             <div className='flex flex-col gap-6 lg:gap-10'>
@@ -187,8 +203,6 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
               ))}
             </div>
 
-            <hr className='border-muted' />
-
             <div className='mx-auto flex w-3/4 justify-between gap-2'>
               {/* Reset button */}
               <MotionTextButton
@@ -198,15 +212,6 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                 onClick={() => form.reset({ tags: [], from: undefined, to: undefined })}
                 disabled={isSubmitting}
                 className='bg-muted text-muted-foreground w-fit'
-              />
-              {/* Submit button */}
-              <MotionTextButton
-                label='Filter'
-                ariaLabel='Filter posts'
-                type='submit'
-                disabled={isSubmitting}
-                className='w-fit'
-                isLoading={isSubmitting}
               />
             </div>
           </fieldset>

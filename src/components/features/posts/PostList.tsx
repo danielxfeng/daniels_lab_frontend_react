@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import useUserStore from '@/stores/useUserStore';
 import { PostListResponse, PostResponse } from '@/schema/schema_post';
 import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';
 import LazyImage from '@/components/shared/LazyImage';
@@ -8,8 +7,6 @@ import { hoverEffect, tapEffect } from '@/lib/animations';
 import Pagination from '@/components/features/posts/Pagination';
 import AuthorDateBar from '../post/AuthorDateBar';
 import TagsBar from '../tags/TagsBar';
-import MotionIconLink from '@/components/motion_components/MotionIconLink';
-import { Plus } from 'lucide-react';
 
 // A post component that displays a single post
 const Post = ({ post }: { post: PostResponse }) => (
@@ -63,28 +60,8 @@ const Post = ({ post }: { post: PostResponse }) => (
  * @returns A posts list component.
  */
 const PostsList = ({ postsResponse }: { postsResponse: PostListResponse }) => {
-  // A snapshot of the user from the Zustand store
-  const user = useUserStore.getState().user;
-
   return (
     <section className='flex flex-col gap-2'>
-      {/* A new post button for admin user */}
-      {user?.isAdmin && (
-        <div className='flex justify-start'>
-          <MotionIconLink
-            icon={
-              <>
-                <Plus className='h-6 w-6' />
-                <span className='mx-2'>New Post</span>
-              </>
-            }
-            to='/blog/posts/new'
-            ariaLabel='New Post'
-            className='bg-gradient text-highlight-foreground mb-2 rounded-lg px-4 py-2'
-            isExternal={false}
-          />
-        </div>
-      )}
       {/* Posts list */}
       {postsResponse.posts.map((post) => (
         <Post key={post.id} post={post} />

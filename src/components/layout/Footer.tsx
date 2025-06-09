@@ -8,9 +8,9 @@ import MotionTextLink from '../motion_components/MotionTextLink';
 const Footer = () => (
   <footer className='outer-container text-muted-foreground my-3 mt-12 py-3 text-sm lg:mb-16'>
     <div className='inner-container flex flex-col items-center justify-center gap-3 lg:max-w-2xl lg:flex-row lg:gap-12'>
-      <div className='flex gap-4'>
+      <div className='flex'>
         {contactIconList.map((prop) => (
-          <ContactLink key={prop.ariaLabel} {...prop} />
+          <ContactLink key={prop.supportText} {...prop} />
         ))}
       </div>
       <div>

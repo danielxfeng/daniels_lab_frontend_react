@@ -12,7 +12,7 @@ const ErrorBoundary = () => {
     <div className='bg-background text-foreground flex min-h-screen flex-col'>
       <Header isBasic={true} />
 
-      <main className='outer-container flex-grow'>
+      <main className='outer-container flex flex-grow items-center justify-center'>
         <div className='inner-container flex flex-col gap-4'>
           <h1>Oops! Something went wrong.</h1>
 

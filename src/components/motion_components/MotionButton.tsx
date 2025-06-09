@@ -48,7 +48,7 @@ type MotionSubmitButtonProps = {
 type MotionLinkButtonProps = {
   to: string;
   isExternal: boolean;
-  state?: string;
+  state?: object;
 } & CommonProps;
 
 type MotionButtonProps = MotionSubmitButtonProps | MotionLinkButtonProps;
@@ -76,10 +76,11 @@ const getVariantClasses = (
   variant: ButtonVariant,
   text: string | undefined,
   size: ButtonSize,
+  btnClass?: string,
   isFullWidth?: boolean,
 ): string => {
   // border is not applied if the button is Icon-only.
-  const border = text && 'border';
+  const border = text && !btnClass?.includes('border-none') && 'border';
   const width = isFullWidth ? 'w-full' : text ? widthClasses[size] : 'aspect-square';
 
   switch (variant) {
@@ -107,7 +108,7 @@ const getVariantClasses = (
       );
     case 'destructive':
       return cn(
-        'border-destructive text-destructive bg-transparent hover:bg-destructive/5 hover:text-highlight transition-colors duration-150 easeInOut',
+        'border-destructive text-destructive bg-transparent hover:bg-destructive/5 transition-colors duration-150 easeInOut',
         border,
         width,
       );
@@ -157,7 +158,7 @@ const BaseButton = (props: MotionButtonProps) => {
   const btnClass = cn(
     'relative inline-flex items-center justify-center rounded-md transition-all',
     sizeClasses[props.size],
-    getVariantClasses(props.variant, props.text, props.size),
+    getVariantClasses(props.variant, props.text, props.size, props.btnClass, props.isFullWidth),
     disabled && 'pointer-events-none cursor-not-allowed opacity-50',
     props.btnClass,
     fullWidth,

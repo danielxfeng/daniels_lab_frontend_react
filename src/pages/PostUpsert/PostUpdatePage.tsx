@@ -7,6 +7,7 @@ import Loading from '@/components/shared/Loading';
 import { throwWithValidationErr } from '@/lib/throwWithErr';
 import useUserStore from '@/stores/useUserStore';
 import siteMeta from '@/constants/siteMeta';
+import NotificationBar from '@/components/shared/NotificationBar';
 
 // A page to update a post
 const PostUpdatePage = () => {
@@ -46,6 +47,7 @@ const PostUpdatePage = () => {
   return (
     <div className='inner-container'>
       <title>{`Update a post – ${siteMeta.siteName}`}</title>
+      <NotificationBar />
       <MotionH1>Update a post</MotionH1>
       <PostUpsertForm post={validatedPost} />
     </div>

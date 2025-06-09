@@ -1,8 +1,7 @@
 import useUserStore from '@/stores/useUserStore';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { LogIn } from 'lucide-react';
-import MotionIconLink from '@/components/motion_components/MotionIconLink';
 import { useLocation } from 'react-router-dom';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 // This component shows the user avatar or username.
 const AvatarComponent = ({
@@ -33,30 +32,23 @@ const UserComponent = () => {
   if (userStatus === 'unauthenticated' || !user) {
     const currentPath = location.pathname + location.search;
     return (
-      <MotionIconLink
+      <MotionButton
+        supportingText='Login'
+        size='sm'
+        variant='highlight'
         to={`/user/login?redirectTo=${encodeURIComponent(currentPath)}`}
-        icon={<LogIn className='text-primary h-4 w-4' />}
-        ariaLabel='Login'
+        text='Login'
         isExternal={false}
-        tooltip='Login'
       />
     );
   }
 
   // Show user avatar or username
   return (
-    <MotionIconLink
-      to='/user'
-      icon={
-        <AvatarComponent
-          name={user.username ?? 'User'}
-          avatar={user.avatarUrl || undefined}
-          firstChar={user.username?.[0]?.toUpperCase() ?? 'U'}
-        />
-      }
-      ariaLabel={user.username ?? 'User'}
-      isExternal={false}
-      tooltip='User Profile'
+    <AvatarComponent
+      name={user.username ?? 'User'}
+      avatar={user.avatarUrl || undefined}
+      firstChar={user.username?.[0]?.toUpperCase() ?? 'U'}
     />
   );
 };
