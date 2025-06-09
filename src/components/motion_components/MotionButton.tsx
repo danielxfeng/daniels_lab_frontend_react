@@ -90,24 +90,24 @@ const getVariantClasses = (
       );
     case 'primary':
       return cn(
-        'bg-primary text-primary-foreground shadow-primary/20 shadow hover:shadow-primary/30 transition-colors duration-150 ease-out',
+        'bg-primary text-primary-foreground hover:text-highlight transition-colors duration-150 ease-out',
         width,
       );
     case 'secondary':
       return cn(
-        'border-border bg-transparent text-foreground hover:bg-foreground/5 transition-colors duration-150 ease-out',
+        'border-border bg-transparent text-foreground hover:text-highlight transition-colors duration-150 ease-out',
         border,
         width,
       );
     case 'ghost':
       return cn(
-        'border-border bg-transparent text-muted-foreground hover:bg-foreground/5 hover:text-foreground transition-colors duration-150 easeInOut',
+        'border-border bg-transparent text-muted-foreground hover:text-highlight transition-colors duration-150 easeInOut',
         border,
         width,
       );
     case 'destructive':
       return cn(
-        'border-destructive text-destructive bg-transparent hover:bg-destructive/5 transition-colors duration-150 easeInOut',
+        'border-destructive text-destructive bg-transparent hover:bg-destructive/5 hover:text-highlight transition-colors duration-150 easeInOut',
         border,
         width,
       );
@@ -164,7 +164,7 @@ const BaseButton = (props: MotionButtonProps) => {
   );
 
   // The animation for the button, depending on the variant and whether it is disabled
-  const animation = disabled ? undefined : btnAnimation;
+  const animation = disabled ? undefined : btnAnimation(props.variant);
 
   // The icon and text inside the button
   const child = (
