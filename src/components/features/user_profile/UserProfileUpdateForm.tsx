@@ -94,7 +94,7 @@ const UserProfileUpdateForm = () => {
   };
 
   return (
-    <div className='w-full flex flex-col items-center justify-center'>
+    <div className='flex w-full flex-col items-center justify-center'>
       <h3>Update your profile</h3>
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className='mt-6 w-full max-w-xl'>

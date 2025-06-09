@@ -95,13 +95,13 @@ const getVariantClasses = (
       );
     case 'secondary':
       return cn(
-        'bg-transparent text-foreground hover:bg-foreground/5 transition-colors duration-150 ease-out',
+        'border-border bg-transparent text-foreground hover:bg-foreground/5 transition-colors duration-150 ease-out',
         border,
         width,
       );
     case 'ghost':
       return cn(
-        'bg-transparent text-muted-foreground hover:bg-foreground/5 hover:text-foreground transition-colors duration-150 easeInOut',
+        'border-border bg-transparent text-muted-foreground hover:bg-foreground/5 hover:text-foreground transition-colors duration-150 easeInOut',
         border,
         width,
       );
