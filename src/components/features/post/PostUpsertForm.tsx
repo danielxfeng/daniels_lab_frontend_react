@@ -25,7 +25,7 @@ import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import TagSelector from '@/components/features/tags/TagsSelector';
-import StyledInput from '@/components/shared/StyledInput';
+import MotionInput from '@/components/motion_components/MotionInput';
 
 // A helper function to get the slug from the response
 const getSlug = (isCreate: boolean, res: AxiosResponse<PostResponse | undefined>) => {
@@ -90,7 +90,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <StyledInput placeholder='Post title' {...field} />
+                  <MotionInput placeholder='Post title' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -105,7 +105,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
               <FormItem>
                 <FormLabel>Cover Image URL</FormLabel>
                 <FormControl>
-                  <StyledInput placeholder='https://your.cover.url' {...field} />
+                  <MotionInput placeholder='https://your.cover.url' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

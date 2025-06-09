@@ -1,7 +1,7 @@
 import MotionH1 from '@/components/motion_components/MotionH1';
+import MotionInput from '@/components/motion_components/MotionInput';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
-import StyledInput from '@/components/shared/StyledInput';
 import {
   Form,
   FormControl,
@@ -79,7 +79,7 @@ const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Reference Code</FormLabel>
                 <FormControl>
-                  <StyledInput {...field} placeholder='Enter your reference code' />
+                  <MotionInput {...field} placeholder='Enter your reference code' />
                 </FormControl>
                 <FormMessage />
               </FormItem>

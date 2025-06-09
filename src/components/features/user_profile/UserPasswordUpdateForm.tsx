@@ -18,7 +18,7 @@ import {
 import { changePassword } from '@/services/service_auth';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
-import StyledInput from '@/components/shared/StyledInput';
+import MotionInput from '@/components/motion_components/MotionInput';
 
 /**
  * @summary UserPasswordUpdateForm
@@ -94,7 +94,7 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Current Password</FormLabel>
                 <FormControl>
-                  <StyledInput type='password' placeholder='Current password' {...field} />
+                  <MotionInput type='password' placeholder='Current password' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -109,7 +109,7 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>New Password</FormLabel>
                 <FormControl>
-                  <StyledInput type='password' placeholder='New password' {...field} />
+                  <MotionInput type='password' placeholder='New password' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -124,7 +124,7 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <StyledInput type='password' placeholder='Confirm new password' {...field} />
+                  <MotionInput type='password' placeholder='Confirm new password' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

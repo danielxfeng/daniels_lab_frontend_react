@@ -14,7 +14,7 @@ import { AuthResponseSchema, SetPasswordBody, SetPasswordBodySchema } from '@/sc
 import { setPassword } from '@/services/service_auth';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
-import StyledInput from '@/components/shared/StyledInput';
+import MotionInput from '@/components/motion_components/MotionInput';
 
 /**
  * @summary UserPasswordInsertionForm
@@ -75,7 +75,7 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <StyledInput type='password' placeholder='password' {...field} />
+                  <MotionInput type='password' placeholder='password' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -90,7 +90,7 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <StyledInput type='password' placeholder='Confirm password' {...field} />
+                  <MotionInput type='password' placeholder='Confirm password' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

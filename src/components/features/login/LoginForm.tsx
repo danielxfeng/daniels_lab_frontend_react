@@ -18,7 +18,7 @@ import { OauthProviderValues } from '@/schema/schema_components';
 import MotionIconLink from '@/components/motion_components/MotionIconLink';
 import siteMeta from '@/constants/siteMeta';
 import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
-import StyledInput from '@/components/shared/StyledInput';
+import MotionInput from '@/components/motion_components/MotionInput';
 
 const iconMap = {
   google: <FaGoogle className='h-12 w-12' />,
@@ -126,7 +126,7 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <StyledInput {...field} />
+                    <MotionInput {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -140,7 +140,7 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <StyledInput type='password' {...field} />
+                    <MotionInput type='password' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

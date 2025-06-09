@@ -14,7 +14,7 @@ import {
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import useUserStore from '@/stores/useUserStore';
 import { useNavigate } from 'react-router-dom';
-import StyledInput from '@/components/shared/StyledInput';
+import MotionInput from '@/components/motion_components/MotionInput';
 
 /**
  * @summary UserProfileUpdateForm
@@ -107,7 +107,7 @@ const UserProfileUpdateForm = () => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <StyledInput placeholder='A new username' {...field} />
+                    <MotionInput placeholder='A new username' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

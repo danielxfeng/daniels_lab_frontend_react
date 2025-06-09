@@ -6,8 +6,8 @@ import useSearchHistoryStore from '@/stores/useSearchHistoryStore';
 import { KeywordSearchQuerySchema } from '@/schema/schema_post';
 import { AnimatePresence, easeInOut, motion } from 'framer-motion';
 import { useNavigate } from 'react-router';
-import StyledInput from '@/components/shared/StyledInput';
 import MotionButton from '@/components/motion_components/MotionButton';
+import MotionInput from '@/components/motion_components/MotionInput';
 
 // Define a type for form input.
 type FormValues = { keyword: string };
@@ -20,7 +20,7 @@ const InputComponent = ({
   register: UseFormRegister<FormValues>;
   setShowDropdown: React.Dispatch<React.SetStateAction<boolean>>;
 }) => (
-  <StyledInput
+  <MotionInput
     //We register the keyword to component
     {...register('keyword')}
     placeholder='Search posts...'
