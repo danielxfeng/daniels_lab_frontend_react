@@ -184,7 +184,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
                         <Button
                           variant={'outline'}
                           className={cn(
-                            'w-full pl-3 text-left font-normal',
+                            'border-border w-full pl-3 text-left font-normal',
                             !field.value && 'text-muted-foreground',
                           )}
                         >
@@ -239,7 +239,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
                         <Button
                           variant={'outline'}
                           className={cn(
-                            'w-full pl-3 text-left font-normal',
+                            'border-border w-full pl-3 text-left font-normal',
                             !field.value && 'text-muted-foreground',
                           )}
                         >

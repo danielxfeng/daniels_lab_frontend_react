@@ -157,7 +157,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                               <Button
                                 variant='outline'
                                 className={cn(
-                                  'min-w-2/3 flex-1 justify-start text-left font-normal',
+                                  'border-border min-w-2/3 flex-1 justify-start text-left font-normal',
                                   !valueAsDate && 'text-muted-foreground',
                                 )}
                               >
