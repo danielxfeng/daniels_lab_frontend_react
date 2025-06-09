@@ -21,6 +21,6 @@ const MotionInput = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes
     );
   },
 );
-MotionInput.displayName = 'Input';
+MotionInput.displayName = 'MotionInput';
 
 export default MotionInput;

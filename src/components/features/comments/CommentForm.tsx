@@ -1,5 +1,4 @@
 import { Form, FormField, FormItem, FormControl, FormMessage } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
 import {
   CreateCommentBody,
   CreateCommentBodySchema,
@@ -13,6 +12,7 @@ import { toast } from 'sonner';
 import { CommentResponse, CommentResponseSchema } from '@/schema/schema_comment';
 import { UserResponse } from '@/schema/schema_users';
 import { createComment, getComment, updateComment } from '@/services/service_comments';
+import MotionTextarea from '@/components/motion_components/MotionTextArea';
 
 const CommentForm = ({
   user,
@@ -121,10 +121,10 @@ const CommentForm = ({
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Textarea
+                  <MotionTextarea
                     {...field}
                     placeholder='Leave a comment...'
-                    className='min-h-[100px] focus-visible:ring-1'
+                    className='min-h-[100px]'
                   />
                 </FormControl>
                 <FormMessage />

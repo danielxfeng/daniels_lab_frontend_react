@@ -12,7 +12,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
 import { CreateOrUpdatePostBodySchema, PostResponseSchema } from '@/schema/schema_post';
 import type { CreateOrUpdatePostBody, PostResponse } from '@/schema/schema_post';
 import MotionTextButton from '@/components/motion_components/MotionTextButton';
@@ -26,6 +25,7 @@ import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import TagSelector from '@/components/features/tags/TagsSelector';
 import MotionInput from '@/components/motion_components/MotionInput';
+import MotionTextarea from '@/components/motion_components/MotionTextArea';
 
 // A helper function to get the slug from the response
 const getSlug = (isCreate: boolean, res: AxiosResponse<PostResponse | undefined>) => {
@@ -120,10 +120,10 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
               <FormItem>
                 <FormLabel>Markdown Content</FormLabel>
                 <FormControl>
-                  <Textarea
+                  <MotionTextarea
                     placeholder='Write in markdown...'
                     {...field}
-                    className='border-muted bg-muted min-h-96 ring-1'
+                    className='min-h-96'
                   />
                 </FormControl>
                 <FormMessage />
