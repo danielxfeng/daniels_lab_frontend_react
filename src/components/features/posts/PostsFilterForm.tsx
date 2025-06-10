@@ -24,7 +24,7 @@ import siteMeta from '@/constants/siteMeta';
 import useConditionalDebounce from '@/hooks/useConditionalDebounce';
 import useUserStore from '@/stores/useUserStore';
 import MotionButton from '@/components/motion_components/MotionButton';
-import { GlowingEffect } from '@/components/third_party/glowing-effect';
+import { GlowingEffect } from '@/components/third_party/GlowingEffect';
 
 const FilterFormSchema = z.object({
   tags: z.array(tagSchema),
