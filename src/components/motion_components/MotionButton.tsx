@@ -216,7 +216,7 @@ const BaseButton = (props: MotionButtonProps) => {
     );
 
   // link component
-  const Cmp = props.isExternal ? motion.a : motion(Link);
+  const Cmp = props.isExternal ? motion.a : motion.create(Link);
 
   return (
     <Cmp

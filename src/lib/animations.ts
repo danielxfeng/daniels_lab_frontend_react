@@ -84,6 +84,29 @@ const picAnimation = {
   transition: tweenTransition,
 };
 
+const avatarAnimation = {
+  initial: {
+    opacity: 1,
+  },
+  animate: {
+    opacity: 1,
+  },
+  whileHover: {
+    opacity: 0.7,
+    transition: {
+      opacity: { duration: 0.5, ease: 'easeInOut' },
+    },
+  },
+  whileTap: {
+    scale: 0.98,
+    transition: {
+      type: 'spring',
+      stiffness: 300,
+      damping: 20,
+    },
+  },
+};
+
 const defaultShadowColor = '53, 98, 226'; // RGB for primary color
 const destructiveShadowColor = '237, 59, 70'; // RGB for destructive color
 const highlightShadowColor = '100, 200, 255'; // RGB for highlight color
@@ -202,4 +225,5 @@ export {
   slideIn,
   btnAnimation,
   loaderAnimation,
+  avatarAnimation,
 };

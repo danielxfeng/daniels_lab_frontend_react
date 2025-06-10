@@ -1,7 +1,10 @@
 import useUserStore from '@/stores/useUserStore';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import MotionButton from '@/components/motion_components/MotionButton';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { motion } from 'framer-motion';
+import { avatarAnimation } from '@/lib/animations';
 
 // This component shows the user avatar or username.
 const AvatarComponent = ({
@@ -39,17 +42,27 @@ const UserComponent = () => {
         to={`/user/login?redirectTo=${encodeURIComponent(currentPath)}`}
         text='Login'
         isExternal={false}
+        btnClass='mx-2'
       />
     );
   }
 
   // Show user avatar or username
   return (
-    <AvatarComponent
-      name={user.username ?? 'User'}
-      avatar={user.avatarUrl || undefined}
-      firstChar={user.username?.[0]?.toUpperCase() ?? 'U'}
-    />
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <motion.div className='flex items-center justify-center' {...avatarAnimation}>
+          <Link to={`/user`}>
+            <AvatarComponent
+              name={user.username ?? 'User'}
+              avatar={user.avatarUrl || undefined}
+              firstChar={user.username?.[0]?.toUpperCase() ?? 'U'}
+            />
+          </Link>
+        </motion.div>
+      </TooltipTrigger>
+      <TooltipContent>{'User profile'}</TooltipContent>
+    </Tooltip>
   );
 };
 
