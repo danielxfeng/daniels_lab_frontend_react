@@ -1,6 +1,6 @@
+import MotionButton from '@/components/motion_components/MotionButton';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionInput from '@/components/motion_components/MotionInput';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
 import NotificationBar from '@/components/shared/NotificationBar';
 import {
@@ -88,11 +88,13 @@ const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
           />
 
           {/* submit button */}
-          <MotionTextButton
-            type='submit'
-            label='Submit'
-            ariaLabel='Submit'
-            className='btn-primary'
+          <MotionButton
+            buttonType='submit'
+            variant='highlight'
+            size='md'
+            isFullWidth={true}
+            text='Submit'
+            supportingText='Submit'
             disabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
           />

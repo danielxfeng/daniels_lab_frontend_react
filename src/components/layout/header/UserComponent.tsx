@@ -16,7 +16,7 @@ const AvatarComponent = ({
   avatar: string | undefined;
   firstChar: string;
 }) => (
-  <Avatar className='h-8 w-8'>
+  <Avatar className='h-8 w-8 mx-2'>
     <AvatarImage src={avatar} alt={`${name}'s avatar`} />
     <AvatarFallback>{firstChar}</AvatarFallback>
   </Avatar>

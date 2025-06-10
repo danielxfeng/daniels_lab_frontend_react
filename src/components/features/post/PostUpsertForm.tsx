@@ -14,7 +14,6 @@ import {
 } from '@/components/ui/form';
 import { CreateOrUpdatePostBodySchema, PostResponseSchema } from '@/schema/schema_post';
 import type { CreateOrUpdatePostBody, PostResponse } from '@/schema/schema_post';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import { createPost, updatePost } from '@/services/services_posts';
 import { throwWithValidationErr } from '@/lib/throwWithErr';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -26,6 +25,7 @@ import { Calendar } from '@/components/ui/calendar';
 import TagSelector from '@/components/features/tags/TagsSelector';
 import MotionInput from '@/components/motion_components/MotionInput';
 import MotionTextarea from '@/components/motion_components/MotionTextArea';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 // A helper function to get the slug from the response
 const getSlug = (isCreate: boolean, res: AxiosResponse<PostResponse | undefined>) => {
@@ -272,11 +272,13 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
           />
 
           {/* Submit */}
-          <MotionTextButton
-            label={post ? 'Update Post' : 'Create Post'}
-            ariaLabel='Submit post'
-            type='submit'
-            className='btn-primary'
+          <MotionButton
+            text={post ? 'Update Post' : 'Create Post'}
+            supportingText='Submit post'
+            buttonType='submit'
+            variant='highlight'
+            size='md'
+            isFullWidth={true}
             disabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
           />

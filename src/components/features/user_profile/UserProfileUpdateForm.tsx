@@ -11,10 +11,10 @@ import {
   FormControl,
   FormMessage,
 } from '@/components/ui/form';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import useUserStore from '@/stores/useUserStore';
 import { useNavigate } from 'react-router-dom';
 import MotionInput from '@/components/motion_components/MotionInput';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 /**
  * @summary UserProfileUpdateForm
@@ -115,11 +115,13 @@ const UserProfileUpdateForm = () => {
             />
 
             {/* Submit button */}
-            <MotionTextButton
-              label='Update'
-              ariaLabel='Update'
-              type='submit'
-              className='btn-primary'
+            <MotionButton
+              variant='highlight'
+              size='md'
+              isFullWidth={true}
+              text='Update'
+              supportingText='Update'
+              buttonType='submit'
               disabled={!isValid || isSubmitting}
               isLoading={isSubmitting}
             />

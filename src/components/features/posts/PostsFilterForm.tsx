@@ -14,7 +14,6 @@ import {
 import { tagSchema, TagsResponse } from '@/schema/schema_tag';
 import { DateTimeSchema } from '@/schema/schema_components';
 import SelectableTags from '@/components/features/tags/SelectableTags';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
 import { CalendarIcon, Plus } from 'lucide-react';
@@ -121,13 +120,14 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
             icon={<Plus />}
             to='/blog/posts/new'
             isExternal={false}
+            isFullWidth={true}
           />
         </div>
       )}
       {user?.isAdmin && <hr className='border-border mt-9' />}
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-          <fieldset className='flex flex-col gap-10 lg:my-10' disabled={isSubmitting}>
+          <fieldset className='flex flex-col gap-6 lg:my-10' disabled={isSubmitting}>
             {/* Tags */}
             <FormField
               control={control}
@@ -135,11 +135,26 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <SelectableTags
-                      tags={hotTags.tags}
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
+                    <div className='flex flex-col gap-2'>
+                      <div className='mt-3 flex items-center justify-between'>
+                        <h4>🔥 tags:</h4>
+                        {/* Reset button */}
+                        <MotionButton
+                          text='Reset'
+                          supportingText='Cancel filter'
+                          buttonType='button'
+                          onClick={() => form.reset({ tags: [], from: undefined, to: undefined })}
+                          disabled={isSubmitting}
+                          variant='ghost'
+                          size='sm'
+                        />
+                      </div>
+                      <SelectableTags
+                        tags={hotTags.tags}
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -147,7 +162,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
             />
 
             {/* Date pickers */}
-            <div className='flex flex-col gap-6 lg:gap-10'>
+            <div className='flex flex-col gap-2'>
               {['from', 'to'].map((fieldName, i) => (
                 <FormField
                   key={fieldName}
@@ -201,18 +216,6 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                   }}
                 />
               ))}
-            </div>
-
-            <div className='mx-auto flex w-3/4 justify-between gap-2'>
-              {/* Reset button */}
-              <MotionTextButton
-                label='Reset'
-                ariaLabel='Cancel filter'
-                type='button'
-                onClick={() => form.reset({ tags: [], from: undefined, to: undefined })}
-                disabled={isSubmitting}
-                className='bg-muted text-muted-foreground w-fit'
-              />
             </div>
           </fieldset>
         </form>

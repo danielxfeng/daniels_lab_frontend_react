@@ -16,9 +16,9 @@ import {
   ChangePasswordBodySchema,
 } from '@/schema/schema_auth';
 import { changePassword } from '@/services/service_auth';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
 import MotionInput from '@/components/motion_components/MotionInput';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 /**
  * @summary UserPasswordUpdateForm
@@ -132,11 +132,13 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
           />
 
           {/* submit button */}
-          <MotionTextButton
-            type='submit'
-            label='Update Password'
-            ariaLabel='Update Password'
-            className='btn-primary'
+          <MotionButton
+            buttonType='submit'
+            text='Update Password'
+            supportingText='Update your password'
+            variant='highlight'
+            isFullWidth={true}
+            size='md'
             disabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
           />

@@ -29,28 +29,25 @@ const SelectableTags = ({
   value: string[];
   onChange: (tags: string[]) => void;
 }) => (
-  <div className='flex flex-col gap-2'>
-    <h4>🔥 tags:</h4>
-    <ToggleGroup
-      type='multiple'
-      variant='outline'
-      value={value}
-      onValueChange={onChange}
-      className='flex flex-wrap gap-2 !shadow-none'
-    >
-      {tags.map((tag) => (
-        <motion.div key={tag} layout whileTap={tapEffect}>
-          <ToggleGroupItem
-            value={tag}
-            aria-label={`toggle-tag-${tag}`}
-            className={tagClass(value.includes(tag))}
-          >
-            {tag}
-          </ToggleGroupItem>
-        </motion.div>
-      ))}
-    </ToggleGroup>
-  </div>
+  <ToggleGroup
+    type='multiple'
+    variant='outline'
+    value={value}
+    onValueChange={onChange}
+    className='flex flex-wrap gap-2 !shadow-none'
+  >
+    {tags.map((tag) => (
+      <motion.div key={tag} layout whileTap={tapEffect}>
+        <ToggleGroupItem
+          value={tag}
+          aria-label={`toggle-tag-${tag}`}
+          className={tagClass(value.includes(tag))}
+        >
+          {tag}
+        </ToggleGroupItem>
+      </motion.div>
+    ))}
+  </ToggleGroup>
 );
 
 export default SelectableTags;

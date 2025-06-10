@@ -9,7 +9,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import { AuthResponseSchema, LoginBody, LoginBodySchema } from '@/schema/schema_auth';
 import { toast } from 'sonner';
 import useUserStore from '@/stores/useUserStore';
@@ -155,13 +154,15 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
               )}
             />
             {/* Submit */}
-            <MotionTextButton
-              type='submit'
-              label='Login'
-              ariaLabel='Login'
+            <MotionButton
+              buttonType='submit'
+              text='Login'
+              supportingText='Login'
               disabled={!isValid || isSubmitting}
               isLoading={isSubmitting}
-              className='w-full'
+              isFullWidth={true}
+              variant='highlight'
+              size='md'
             />
           </fieldset>
         </form>

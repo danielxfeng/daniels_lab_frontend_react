@@ -12,9 +12,9 @@ import {
 } from '@/components/ui/form';
 import { AuthResponseSchema, SetPasswordBody, SetPasswordBodySchema } from '@/schema/schema_auth';
 import { setPassword } from '@/services/service_auth';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
 import MotionInput from '@/components/motion_components/MotionInput';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 /**
  * @summary UserPasswordInsertionForm
@@ -98,11 +98,13 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
           />
 
           {/* submit button */}
-          <MotionTextButton
-            type='submit'
-            label='Set Password'
-            ariaLabel='Set Password'
-            className='btn-primary'
+          <MotionButton
+            buttonType='submit'
+            text='Set Password'
+            supportingText='Set Password'
+            variant='highlight'
+            isFullWidth={true}
+            size='md'
             disabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
           />
