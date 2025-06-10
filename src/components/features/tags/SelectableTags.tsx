@@ -1,3 +1,4 @@
+import MotionButton from '@/components/motion_components/MotionButton';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { tapEffect } from '@/lib/animations';
 import { cn } from '@/lib/utils';
@@ -28,26 +29,37 @@ const SelectableTags = ({
   tags: string[];
   value: string[];
   onChange: (tags: string[]) => void;
-}) => (
-  <ToggleGroup
-    type='multiple'
-    variant='outline'
-    value={value}
-    onValueChange={onChange}
-    className='flex flex-wrap gap-2 !shadow-none'
-  >
-    {tags.map((tag) => (
-      <motion.div key={tag} layout whileTap={tapEffect}>
-        <ToggleGroupItem
-          value={tag}
-          aria-label={`toggle-tag-${tag}`}
-          className={tagClass(value.includes(tag))}
-        >
-          {tag}
-        </ToggleGroupItem>
-      </motion.div>
-    ))}
-  </ToggleGroup>
-);
+}) => {
+  const toggleTag = (tag: string) => {
+    if (value.includes(tag)) {
+      onChange(value.filter((t) => t !== tag));
+    } else {
+      onChange([...value, tag]);
+    }
+  };
+
+  return (
+    <div className='flex flex-wrap gap-3 my-2'>
+      {tags.map((tag) => {
+        const selected = value.includes(tag);
+        return (
+          <MotionButton
+            key={tag}
+            buttonType='button'
+            variant='tag'
+            size='sm'
+            text={tag}
+            onClick={() => toggleTag(tag)}
+            btnClass={cn(selected && 'border-highlight')}
+            textClass={cn(selected && 'text-highlight')}
+            supportingText={`toggle-tag-${tag}`}
+          >
+            {tag}
+          </MotionButton>
+        );
+      })}
+    </div>
+  );
+};
 
 export default SelectableTags;
