@@ -22,7 +22,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 
 type ButtonSize = 'sm' | 'md' | 'lg';
 type ButtonType = 'button' | 'submit';
-type ButtonVariant = 'highlight' | 'primary' | 'secondary' | 'ghost' | 'destructive';
+type ButtonVariant = 'highlight' | 'primary' | 'secondary' | 'ghost' | 'destructive' | 'tag';
 type IconPosition = 'left' | 'right';
 
 type CommonProps = {
@@ -112,6 +112,10 @@ const getVariantClasses = (
         border,
         width,
       );
+    case 'tag':
+      return cn(
+        'h-6 border-border text-muted-foreground bg-transparent px-2.5 border py-0 rounded-2xl  hover:text-highlight hover:border-highlight transition-colors duration-150 easeInOut',
+      );
     default:
       return '';
   }
@@ -159,7 +163,7 @@ const BaseButton = (props: MotionButtonProps) => {
     'relative inline-flex items-center justify-center rounded-md transition-all',
     sizeClasses[props.size],
     getVariantClasses(props.variant, props.text, props.size, props.btnClass, props.isFullWidth),
-    disabled && 'pointer-events-none cursor-not-allowed opacity-50',
+    disabled && 'pointer-events-none cursor-not-allowed bg-transparent text-muted-foreground',
     props.btnClass,
     fullWidth,
   );

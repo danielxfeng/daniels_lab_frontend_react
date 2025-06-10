@@ -77,6 +77,23 @@ const easeInOut = {
   transition: { duration: 0.2, ease: 'easeInOut' },
 };
 
+// The animation for the link component
+const linkAnimation = {
+  whileHover: {
+    scale: 1.05,
+    transition: {
+      type: 'tween',
+      ease: 'easeInOut',
+      duration: 0.4,
+    },
+  },
+  whileTap: {
+    scale: 0.95,
+    transition: { type: 'spring', stiffness: 200, damping: 11 },
+  },
+};
+
+// The animation for the picture component
 const picAnimation = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -84,6 +101,7 @@ const picAnimation = {
   transition: tweenTransition,
 };
 
+// The animation for the avatar component
 const avatarAnimation = {
   initial: {
     opacity: 1,
@@ -111,6 +129,7 @@ const defaultShadowColor = '53, 98, 226'; // RGB for primary color
 const destructiveShadowColor = '237, 59, 70'; // RGB for destructive color
 const highlightShadowColor = '100, 200, 255'; // RGB for highlight color
 
+// The animation for the button component
 const btnAnimation = (variant: ButtonVariant) => {
   let color;
 
@@ -199,6 +218,7 @@ const btnAnimation = (variant: ButtonVariant) => {
   };
 };
 
+// The animation for the loader component
 const loaderAnimation = {
   animate: {
     rotate: 360,
@@ -221,6 +241,7 @@ export {
   tapEffect,
   springEffect,
   easeInOut,
+  linkAnimation,
   picAnimation,
   slideIn,
   btnAnimation,
