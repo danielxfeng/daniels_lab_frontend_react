@@ -109,7 +109,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
   // A snapshot of the user from the Zustand store
   const user = useUserStore.getState().user;
   return (
-    <div className='border-border relative w-full rounded-2xl border p-2 md:rounded-3xl md:p-3'>
+    <div className='border-border relative w-full rounded-2xl border p-2 lg:sticky lg:top-[80px] lg:rounded-3xl lg:p-3'>
       <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} />
       <aside className='border-0.75 border-border z-10 overflow-hidden rounded-xl px-5 py-8'>
         {/* A new post button for admin user */}
@@ -127,10 +127,10 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
             />
           </div>
         )}
-        {user?.isAdmin && <hr className='border-border mt-9' />}
+        {user?.isAdmin && <hr className='border-border mt-6' />}
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-            <fieldset className='flex flex-col gap-6 lg:my-10' disabled={isSubmitting}>
+            <fieldset className='flex flex-col gap-6' disabled={isSubmitting}>
               {/* Tags */}
               <FormField
                 control={control}

@@ -31,7 +31,6 @@ const PostsMain = ({
           </div>
           <div className='w-full lg:w-1/4'>
             <PostsFilterForm hotTags={hotTags} />
-            
           </div>
         </div>
       </div>
