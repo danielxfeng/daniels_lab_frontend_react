@@ -140,11 +140,11 @@ const btnAnimation = (variant: ButtonVariant) => {
       },
       whileHover: {
         ...baseHover,
-        scale: 1.02,
+        scale: [1, 1.01, 1.02, 1.01, 1],
         opacity: 0.9,
         transition: {
           ...baseTransition,
-          scale: { duration: 0.5, ease: 'easeInOut' },
+          scale: { duration: 1.8, repeat: Infinity, ease: 'linear' },
           opacity: { duration: 0.5, ease: 'easeInOut' },
         },
       },
