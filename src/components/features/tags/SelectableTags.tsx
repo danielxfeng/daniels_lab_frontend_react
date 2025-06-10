@@ -1,18 +1,5 @@
 import MotionButton from '@/components/motion_components/MotionButton';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { tapEffect } from '@/lib/animations';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
-
-// To toggle the style of the tag.
-const tagClass = (selected: boolean) =>
-  cn(
-    'rounded-full border px-3 text-sm transition-colors duration-200 shadow-sm',
-    'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
-    selected
-      ? '!bg-highlight !text-background shadow'
-      : 'bg-muted text-muted-foreground hover:bg-muted/70',
-  );
 
 /**x
  * @summary A component that displays a list of tags that can be selected.
