@@ -24,6 +24,7 @@ import siteMeta from '@/constants/siteMeta';
 import useConditionalDebounce from '@/hooks/useConditionalDebounce';
 import useUserStore from '@/stores/useUserStore';
 import MotionButton from '@/components/motion_components/MotionButton';
+import { GlowingEffect } from '@/components/third_party/glowing-effect';
 
 const FilterFormSchema = z.object({
   tags: z.array(tagSchema),
@@ -108,119 +109,122 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
   // A snapshot of the user from the Zustand store
   const user = useUserStore.getState().user;
   return (
-    <aside className='border-border w-full rounded-2xl border px-5 py-8'>
-      {/* A new post button for admin user */}
-      {user?.isAdmin && (
-        <div className='flex justify-start'>
-          <MotionButton
-            supportingText='Create a new post'
-            text='New Post'
-            size='md'
-            variant='highlight'
-            icon={<Plus />}
-            to='/blog/posts/new'
-            isExternal={false}
-            isFullWidth={true}
-          />
-        </div>
-      )}
-      {user?.isAdmin && <hr className='border-border mt-9' />}
-      <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-          <fieldset className='flex flex-col gap-6 lg:my-10' disabled={isSubmitting}>
-            {/* Tags */}
-            <FormField
-              control={control}
-              name='tags'
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <div className='flex flex-col gap-2'>
-                      <div className='mt-3 flex items-center justify-between'>
-                        <h4>🔥 tags:</h4>
-                        {/* Reset button */}
-                        <MotionButton
-                          text='Reset'
-                          supportingText='Cancel filter'
-                          buttonType='button'
-                          onClick={() => form.reset({ tags: [], from: undefined, to: undefined })}
-                          disabled={isSubmitting}
-                          variant='ghost'
-                          size='sm'
+    <div className='border-border relative w-full rounded-2xl border p-2 md:rounded-3xl md:p-3'>
+      <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} />
+      <aside className='border-0.75 border-border z-10 overflow-hidden rounded-xl px-5 py-8'>
+        {/* A new post button for admin user */}
+        {user?.isAdmin && (
+          <div className='flex justify-start'>
+            <MotionButton
+              supportingText='Create a new post'
+              text='New Post'
+              size='md'
+              variant='highlight'
+              icon={<Plus />}
+              to='/blog/posts/new'
+              isExternal={false}
+              isFullWidth={true}
+            />
+          </div>
+        )}
+        {user?.isAdmin && <hr className='border-border mt-9' />}
+        <Form {...form}>
+          <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
+            <fieldset className='flex flex-col gap-6 lg:my-10' disabled={isSubmitting}>
+              {/* Tags */}
+              <FormField
+                control={control}
+                name='tags'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className='flex flex-col gap-2'>
+                        <div className='mt-3 flex items-center justify-between'>
+                          <h4>🔥 tags:</h4>
+                          {/* Reset button */}
+                          <MotionButton
+                            text='Reset'
+                            supportingText='Cancel filter'
+                            buttonType='button'
+                            onClick={() => form.reset({ tags: [], from: undefined, to: undefined })}
+                            disabled={isSubmitting}
+                            variant='ghost'
+                            size='sm'
+                          />
+                        </div>
+                        <SelectableTags
+                          tags={hotTags.tags}
+                          value={field.value}
+                          onChange={field.onChange}
                         />
                       </div>
-                      <SelectableTags
-                        tags={hotTags.tags}
-                        value={field.value}
-                        onChange={field.onChange}
-                      />
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            {/* Date pickers */}
-            <div className='flex flex-col gap-2'>
-              {['from', 'to'].map((fieldName, i) => (
-                <FormField
-                  key={fieldName}
-                  control={control}
-                  name={fieldName as 'from' | 'to'}
-                  render={({ field }) => {
-                    const valueAsDate = field.value ? new Date(field.value) : undefined;
-                    return (
-                      <FormItem className='flex flex-col'>
-                        <FormLabel>{fieldName === 'from' ? 'From' : 'To'}</FormLabel>
-                        <Popover
-                          onOpenChange={(open) => {
-                            setDateCloseStatus((prev) => {
-                              if (prev[i] === !open) return prev; // No update, no re-render
-                              const newStatus = [...prev];
-                              newStatus[i] = !open;
-                              return newStatus;
-                            });
-                          }}
-                        >
-                          <PopoverTrigger asChild>
-                            <FormControl>
-                              <Button
-                                variant='outline'
-                                className={cn(
-                                  'border-border min-w-2/3 flex-1 justify-start text-left font-normal',
-                                  !valueAsDate && 'text-muted-foreground',
-                                )}
-                              >
-                                <CalendarIcon className='mr-2 h-4 w-4' />
-                                {valueAsDate ? (
-                                  format(valueAsDate, 'PPP')
-                                ) : (
-                                  <span>Pick a date</span>
-                                )}
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent className='w-auto p-0'>
-                            <Calendar
-                              mode='single'
-                              selected={valueAsDate}
-                              onSelect={(date) => field.onChange(date?.toISOString())}
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        <FormMessage />
-                      </FormItem>
-                    );
-                  }}
-                />
-              ))}
-            </div>
-          </fieldset>
-        </form>
-      </Form>
-    </aside>
+              {/* Date pickers */}
+              <div className='flex flex-col gap-2'>
+                {['from', 'to'].map((fieldName, i) => (
+                  <FormField
+                    key={fieldName}
+                    control={control}
+                    name={fieldName as 'from' | 'to'}
+                    render={({ field }) => {
+                      const valueAsDate = field.value ? new Date(field.value) : undefined;
+                      return (
+                        <FormItem className='flex flex-col'>
+                          <FormLabel>{fieldName === 'from' ? 'From' : 'To'}</FormLabel>
+                          <Popover
+                            onOpenChange={(open) => {
+                              setDateCloseStatus((prev) => {
+                                if (prev[i] === !open) return prev; // No update, no re-render
+                                const newStatus = [...prev];
+                                newStatus[i] = !open;
+                                return newStatus;
+                              });
+                            }}
+                          >
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  variant='outline'
+                                  className={cn(
+                                    'border-border min-w-2/3 flex-1 justify-start text-left font-normal',
+                                    !valueAsDate && 'text-muted-foreground',
+                                  )}
+                                >
+                                  <CalendarIcon className='mr-2 h-4 w-4' />
+                                  {valueAsDate ? (
+                                    format(valueAsDate, 'PPP')
+                                  ) : (
+                                    <span>Pick a date</span>
+                                  )}
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent className='w-auto p-0'>
+                              <Calendar
+                                mode='single'
+                                selected={valueAsDate}
+                                onSelect={(date) => field.onChange(date?.toISOString())}
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+                ))}
+              </div>
+            </fieldset>
+          </form>
+        </Form>
+      </aside>
+    </div>
   );
 };
 

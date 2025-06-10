@@ -4,6 +4,7 @@ import PostsFilterForm from '@/components/features/posts/PostsFilterForm';
 import { PostListResponse } from '@/schema/schema_post';
 import { TagsResponse } from '@/schema/schema_tag';
 import NotificationBar from '@/components/shared/NotificationBar';
+//import Test from './test';
 
 /**
  * The main component for the posts shared with the listing and search pages.
@@ -30,6 +31,7 @@ const PostsMain = ({
           </div>
           <div className='w-full lg:w-1/4'>
             <PostsFilterForm hotTags={hotTags} />
+            
           </div>
         </div>
       </div>
