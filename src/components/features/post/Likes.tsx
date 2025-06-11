@@ -104,7 +104,7 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
         isLoading={loading}
       />
       {/* Like count */}
-      <span className='text-muted-foreground text-md font-medium'>{count}</span>
+      <span className='text-muted-foreground text-sm'>{count}</span>
     </div>
   );
 };

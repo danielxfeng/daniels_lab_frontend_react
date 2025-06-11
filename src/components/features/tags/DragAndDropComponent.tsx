@@ -1,4 +1,4 @@
-import { tweenTransition } from '@/lib/animations';
+import { draggableAnimation } from '@/lib/animations';
 import { cn } from '@/lib/utils';
 import { CreateOrUpdatePostBody } from '@/schema/schema_post';
 import {
@@ -50,10 +50,7 @@ const DroppableTrash = ({ dragging }: { dragging: boolean }) => {
         <motion.div
           ref={setNodeRef}
           id='trash'
-          initial={{ opacity: 0, y: -12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={tweenTransition}
+          {...draggableAnimation}
           className={cn(
             'absolute -top-28 left-1/2 z-50 w-11/12 max-w-md -translate-x-1/2 rounded-xl border-2 border-dashed px-6 py-6 text-center text-sm transition-all',
             'pointer-events-none backdrop-blur-sm select-none',

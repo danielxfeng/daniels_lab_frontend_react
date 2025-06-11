@@ -59,7 +59,7 @@ const CommentCard = ({
   if (editMode) return <CommentForm user={user} comment={comment} setComments={setComments} />;
 
   return (
-    <article className='border-muted-foreground/50 flex w-full flex-col gap-2 border-b px-2 py-2 transition-shadow'>
+    <article className='border-border flex w-full flex-col gap-2 border-b px-2 py-2 transition-shadow'>
       <header className='w-full'>
         <AuthorDateBar
           authorName={comment.authorName}
@@ -68,7 +68,7 @@ const CommentCard = ({
           updatedAt={comment.updatedAt}
         />
       </header>
-      <p>{comment.content}</p>
+      <p className='text-primary'>{comment.content}</p>
       {/* The possible operation panel */}
       <footer className='flex items-center justify-end gap-0'>
         {user?.id === comment.authorId && (

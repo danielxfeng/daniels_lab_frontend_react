@@ -47,9 +47,15 @@ const PostPage = () => {
       <MotionScroll className='my-10 px-4'>
         <article className='inner-container mb-10 flex max-w-3xl flex-col items-center gap-6 lg:mb-10'>
           {/* The post cover image */}
-          <LazyImage src={post.cover} alt={post.title} className='w-3/4 rounded-xl shadow-2xl' />
+          <LazyImage
+            src={post.cover}
+            alt={post.title}
+            className='aspect-[2/1] w-3/4 rounded-xl shadow-2xl'
+          />
 
-          <MotionH1 className='text-center !tracking-normal lg:mt-8'>{post.title}</MotionH1>
+          <MotionH1 className='text-center leading-normal !tracking-normal lg:mt-8'>
+            {post.title}
+          </MotionH1>
 
           {/* The possible operation panel */}
           <div className='flex w-full items-center justify-end gap-4'>
@@ -88,8 +94,8 @@ const PostPage = () => {
               {/* The post likes */}
               <Likes postId={post.id} userId={user?.id} />
               {/* The post tags */}
-              <div className='flex gap-2'>
-                <div className='mr-2'>Tags:</div>
+              <div className='flex items-center gap-2'>
+                <div className='mr-2 text-sm'>Tags:</div>
                 <div className='flex flex-wrap gap-2'>
                   {post.tags.map((tag: string) => (
                     <span
@@ -102,6 +108,7 @@ const PostPage = () => {
                 </div>
               </div>
             </div>
+            <hr className='border-border my-3 w-full border-t' />
             {/* The post comments */}
             <Comments postId={post.id} />
           </footer>

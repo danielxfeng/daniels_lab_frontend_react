@@ -139,7 +139,7 @@
 }
 
 h1 {
-  @apply mb-6 text-4xl tracking-tighter text-balance max-lg:font-medium lg:text-5xl;
+  @apply mb-10 text-4xl tracking-tighter text-balance max-lg:font-medium lg:text-5xl;
 }
 
 h2 {
@@ -151,7 +151,7 @@ h3 {
 }
 
 h4 {
-  @apply mb-3 text-xl font-medium tracking-normal text-balance;
+  @apply text-xl font-medium tracking-normal text-balance;
 }
 
 /* Ensure code block styles are preserved when rendering Markdown with DOMPurify. */

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Sun, Moon, SunMoon } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
 import useThemeStore, { ThemeType } from '@/stores/useThemeStore';
 import MotionButton from '@/components/motion_components/MotionButton';
 
@@ -31,9 +31,9 @@ const ThemeToggle = () => {
   }, [theme]);
 
   const icon = {
-    system: <SunMoon className={className} />,
     light: <Sun className={className} />,
     dark: <Moon className={className} />,
+    system: <Sun className={className} />, // Default icon for system theme
   }[theme];
 
   return (

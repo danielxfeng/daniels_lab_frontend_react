@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { PostListResponse, PostResponse } from '@/schema/schema_post';
 import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';
 import LazyImage from '@/components/shared/LazyImage';
-import { hoverEffect, tapEffect } from '@/lib/animations';
+import { postCardAnimation } from '@/lib/animations';
 import Pagination from '@/components/features/posts/Pagination';
 import AuthorDateBar from '../post/AuthorDateBar';
 import TagsBar from '../tags/TagsBar';
@@ -11,9 +11,9 @@ import TagsBar from '../tags/TagsBar';
 // A post component that displays a single post
 const Post = ({ post }: { post: PostResponse }) => (
   <motion.article
-    whileHover={hoverEffect}
-    whileTap={tapEffect}
-    className='bg-background flex flex-col gap-2 rounded-lg px-5 py-5 shadow-md transition-shadow hover:shadow-lg'
+    {...postCardAnimation}
+    className='bg-background flex flex-col gap-2 rounded-lg px-5 py-5 shadow-md transition-all hover:shadow-lg hover:bg-white dark:hover:bg-neutral-950'
+
   >
     <Link to={`/blog/posts/${post.slug}`}>
       <header>
@@ -25,7 +25,7 @@ const Post = ({ post }: { post: PostResponse }) => (
         <LazyImage
           src={post.cover}
           alt={post.title}
-          className='mx-auto h-36 rounded-lg text-center shadow-2xl'
+          className='mx-auto h-36 aspect-[2/1] rounded-lg text-center shadow-2xl'
         />
       </Link>
       <div className='bg-border hidden h-24 w-px rounded lg:flex' />

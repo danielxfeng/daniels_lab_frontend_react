@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { tweenTransition } from '@/lib/animations';
+import { Skeleton } from '../ui/skeleton';
 
 /**
  * @summary LazyImage component
@@ -19,9 +19,9 @@ const LazyImage = ({ src, alt, className }: { src: string; alt: string; classNam
   const actualSrc = error ? '/cover.png' : src;
 
   return (
-    <div className={cn('bg-muted relative overflow-hidden', className)}>
+    <div className={cn('bg-muted relative w-full overflow-hidden', className)}>
       {/* Loading placeholder */}
-      {!loaded && <div className='bg-muted absolute inset-0 animate-pulse' aria-hidden />}
+      {!loaded && <Skeleton className='absolute inset-0 h-full w-full' aria-hidden />}
 
       <motion.img
         src={actualSrc}
@@ -29,11 +29,8 @@ const LazyImage = ({ src, alt, className }: { src: string; alt: string; classNam
         loading='lazy'
         onLoad={() => setLoaded(true)}
         onError={() => setError(true)}
-        initial={{ opacity: 0 }}
-        animate={loaded ? { opacity: 1 } : {}}
-        transition={tweenTransition}
         className={cn(
-          'h-full w-full object-cover transition-opacity duration-300',
+          'absolute inset-0 h-full w-full object-cover transition-opacity duration-500',
           loaded ? 'opacity-100' : 'opacity-0',
         )}
       />

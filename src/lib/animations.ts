@@ -11,10 +11,12 @@ import { ButtonVariant } from '@/components/motion_components/MotionButton';
 const logoImageMotion = {
   animate: { rotate: 0 },
   whileHover: {
-    rotate: 360,
-    transition: { repeat: Infinity, duration: 0.8, ease: 'linear' },
+    rotate: [0, -3, 3, -2, 2, 0],
+    transition: {
+      duration: 0.5,
+      ease: 'easeInOut',
+    },
   },
-  transition: { type: 'spring', stiffness: 300, damping: 12 },
 };
 
 /**
@@ -22,49 +24,43 @@ const logoImageMotion = {
  * @description Animation configuration for the underline effect on navigation links.
  */
 const navUnderline = {
-  initial: { width: 0 },
-  hover: { width: '100%', opacity: 0.8 },
+  initial: { width: 0, opacity: 0 },
+  hover: {
+    width: '100%',
+    opacity: 1,
+    transition: {
+      type: 'tween',
+      ease: 'easeInOut',
+      duration: 0.4,
+    },
+  },
 };
 
 /**
- * @constant tweenTransition
- * @description Animation configuration for the transition effect.
+ * @constant draggableAnimation
+ * @description Animation configuration for draggable elements.
  */
-const tweenTransition = {
-  type: 'tween',
-  ease: 'easeInOut',
-  duration: 0.4,
+const draggableAnimation = {
+  initial: { opacity: 0, y: -12 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -12 },
+  transition: { type: 'tween', ease: 'easeInOut', duration: 0.4 },
 };
 
 /**
- * @constant springEffect
- * @description Spring effect configuration for animations.
+ * @constant navTextAnimation
  */
-const springEffect = { type: 'spring', stiffness: 200, damping: 11 };
-
-/**
- * @constant hoverEffect
- * @description Hover animation suitable for Icon buttons/links.
- */
-const hoverEffect = { scale: 1.05, transition: tweenTransition };
-
-/**
- * @constant hoverOpacity
- * @description Hover animation with opacity effect.
- */
-const hoverOpacity = { opacity: 0.7, transition: springEffect };
-
-/**
- * @constant tapEffect
- * @description Tap animation suitable for Icon buttons/links.
- */
-const tapEffect = { scale: 0.95, transition: springEffect };
-
-/**
- * @constant slideIn
- * @description Slide-in animation configuration.
- */
-const slideIn = { initial: { opacity: 0, scale: 1.2 }, animate: { opacity: 1, scale: 1 } };
+const navTextAnimation = {
+  whileHover: {
+    scale: 1.02,
+    transition: {
+      type: 'tween',
+      ease: 'easeInOut',
+      duration: 0.6,
+    },
+  },
+  whileTap: { scale: 0.95, transition: { type: 'spring', stiffness: 200, damping: 11 } },
+};
 
 /**
  * @constant easeInOut
@@ -75,6 +71,25 @@ const easeInOut = {
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -10 },
   transition: { duration: 0.2, ease: 'easeInOut' },
+};
+
+const h1Animation = {
+  initial: { opacity: 0, scale: 1.2 },
+  animate: { opacity: 1, scale: 1 },
+  transition: { duration: 0.5, ease: 'linear' },
+};
+
+const postCardAnimation = {
+  whileHover: {
+    y: -4,
+    scale: 1.01,
+    transition: {
+      type: 'spring',
+      stiffness: 280,
+      damping: 14,
+    },
+  },
+  whileTap: { scale: 0.98, transition: { type: 'spring', stiffness: 200, damping: 11 } },
 };
 
 // The animation for the link component
@@ -98,7 +113,11 @@ const picAnimation = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
   whileHover: { scale: 1.02 },
-  transition: tweenTransition,
+  transition: {
+    type: 'tween',
+    ease: 'easeInOut',
+    duration: 0.4,
+  },
 };
 
 // The animation for the avatar component
@@ -235,15 +254,13 @@ const loaderAnimation = {
 export {
   logoImageMotion,
   navUnderline,
-  tweenTransition,
-  hoverEffect,
-  hoverOpacity,
-  tapEffect,
-  springEffect,
+  navTextAnimation,
   easeInOut,
+  h1Animation,
+  draggableAnimation,
+  postCardAnimation,
   linkAnimation,
   picAnimation,
-  slideIn,
   btnAnimation,
   loaderAnimation,
   avatarAnimation,

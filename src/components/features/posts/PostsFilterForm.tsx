@@ -111,7 +111,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
   return (
     <div className='border-border relative w-full rounded-2xl border p-2 lg:sticky lg:top-[80px] lg:rounded-3xl lg:p-3'>
       <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} />
-      <aside className='border-0.75 border-border z-10 overflow-hidden rounded-xl px-5 py-8'>
+      <aside className='border-0.75 border-border z-10 overflow-hidden rounded-xl px-5 py-5'>
         {/* A new post button for admin user */}
         {user?.isAdmin && (
           <div className='flex justify-start'>
@@ -139,7 +139,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                   <FormItem>
                     <FormControl>
                       <div className='flex flex-col gap-2'>
-                        <div className='mt-3 flex items-center justify-between'>
+                        <div className='flex items-center justify-between'>
                           <h4>🔥 tags:</h4>
                           {/* Reset button */}
                           <MotionButton
@@ -175,7 +175,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                       const valueAsDate = field.value ? new Date(field.value) : undefined;
                       return (
                         <FormItem className='flex flex-col'>
-                          <FormLabel>{fieldName === 'from' ? 'From' : 'To'}</FormLabel>
+                          <FormLabel className='text-muted-foreground'>{fieldName === 'from' ? 'From' : 'To'}</FormLabel>
                           <Popover
                             onOpenChange={(open) => {
                               setDateCloseStatus((prev) => {
@@ -191,7 +191,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                                 <Button
                                   variant='outline'
                                   className={cn(
-                                    'border-border min-w-2/3 flex-1 justify-start text-left font-normal',
+                                    'border-border min-w-2/3 flex-1 justify-start text-left font-normal hover:text-highlight transition-all duration-150',
                                     !valueAsDate && 'text-muted-foreground',
                                   )}
                                 >

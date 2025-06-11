@@ -112,8 +112,9 @@ const Comments = ({ postId }: { postId: string }) => {
           disabled={isLoading}
           isLoading={isLoading}
           size='sm'
-          variant='ghost'
+          variant='secondary'
           isFullWidth={true}
+          btnClass='mt-3'
         />
       )}
 
