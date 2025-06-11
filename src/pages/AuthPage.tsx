@@ -6,6 +6,7 @@ import { oauthGetUserInfo } from '@/services/service_auth';
 import useUserStore from '@/stores/useUserStore';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 /**
  * @summary AuthPage Component
@@ -55,6 +56,8 @@ const AuthPage = () => {
             JSON.stringify(validatedUserInfo.error),
           );
         }
+
+        toast.success('Login successful');
 
         // Set the accessToken and user info to the store.
         setAccessToken(accessToken);

@@ -12,8 +12,7 @@ import TagsBar from '../tags/TagsBar';
 const Post = ({ post }: { post: PostResponse }) => (
   <motion.article
     {...postCardAnimation}
-    className='bg-background flex flex-col gap-2 rounded-lg px-5 py-5 shadow-md transition-all hover:shadow-lg hover:bg-white dark:hover:bg-neutral-950'
-
+    className='bg-background flex flex-col gap-2 rounded-lg px-5 py-5 shadow-md transition-all hover:bg-white hover:shadow-lg dark:hover:bg-neutral-950'
   >
     <Link to={`/blog/posts/${post.slug}`}>
       <header>
@@ -25,7 +24,7 @@ const Post = ({ post }: { post: PostResponse }) => (
         <LazyImage
           src={post.cover}
           alt={post.title}
-          className='mx-auto h-36 aspect-[2/1] rounded-lg text-center shadow-2xl'
+          className='mx-auto aspect-[2/1] h-36 rounded-lg text-center shadow-2xl'
         />
       </Link>
       <div className='bg-border hidden h-24 w-px rounded lg:flex' />

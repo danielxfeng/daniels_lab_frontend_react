@@ -88,9 +88,9 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
         return;
       }
 
+      toast.success('Login successful');
       setAccessToken(validatedRes.data.accessToken);
       setUser(validatedRes.data);
-      toast.success('Login successful');
       setTimeout(() => {
         reset();
         const redirectTo = new URLSearchParams(location.search).get('redirectTo') || '/';
