@@ -87,7 +87,7 @@ const UserProfilePage = () => {
             <UserDeleteComponent user={user} />
           </div>
         </TabsContent>
-        <TabsContent value='password'>
+        <TabsContent value='password' className='w-full lg:max-w-md'>
           <div className='flex w-full flex-col items-center gap-4'>
             {user.hasPassword ? (
               <UserPasswordUpdateForm deviceId={deviceId} />
@@ -95,9 +95,9 @@ const UserProfilePage = () => {
               <UserPasswordInsertionForm deviceId={deviceId} />
             )}
           </div>
-        </TabsContent>
+        </TabsContent >
         {user.isAdmin && (
-          <TabsContent value='admin'>
+          <TabsContent value='admin' className='w-full lg:max-w-md'>
             <div className='my-10 flex w-full justify-center'>
               <MotionTextLink to='/user/admin' isExternal={false} label='-> Admin Panel' />
             </div>
