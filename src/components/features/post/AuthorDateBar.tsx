@@ -1,5 +1,4 @@
 import Author from '@/components/features/post/Author';
-import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 
 /**
@@ -15,35 +14,17 @@ const AuthorDateBar = ({
   authorAvatar,
   createdAt,
   updatedAt,
-  position,
 }: {
   authorName: string;
   authorAvatar: string | null;
   createdAt: string | undefined;
   updatedAt?: string | undefined;
-  position: 'list' | 'post' | 'comment';
 }) => (
   <div className='flex w-full items-center justify-between'>
     <Author name={authorName} avatarUrl={authorAvatar ?? undefined} />
-    {!updatedAt || createdAt === updatedAt ? (
-      <div className='text-muted-foreground text-sm'>
-        Published: <span className='italic'>{format(new Date(createdAt!), 'PP')}</span>
-      </div>
-    ) : (
-      <div
-        className={cn(
-          'text-muted-foreground flex flex-col items-end text-sm',
-          position === 'post' ? '' : 'lg:flex-row lg:gap-2',
-        )}
-      >
-        <p>
-          Updated: <span className='italic'>{format(new Date(updatedAt!), 'PP')}</span>
-        </p>
-        <p>
-          Published: <span className='italic'>{format(new Date(createdAt!), 'PP')}</span>
-        </p>
-      </div>
-    )}
+    <div className='text-muted-foreground text-sm'>
+      Updated At:{' '}<span className='italic'>{format(new Date(updatedAt || createdAt!), 'PP')}</span>
+    </div>
   </div>
 );
 

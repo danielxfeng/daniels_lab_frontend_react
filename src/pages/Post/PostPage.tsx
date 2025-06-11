@@ -49,7 +49,7 @@ const PostPage = () => {
           {/* The post cover image */}
           <LazyImage src={post.cover} alt={post.title} className='w-3/4 rounded-xl shadow-2xl' />
 
-          <MotionH1 className='text-center'>{post.title}</MotionH1>
+          <MotionH1 className='text-center !tracking-normal lg:mt-8'>{post.title}</MotionH1>
 
           {/* The possible operation panel */}
           <div className='flex w-full items-center justify-end gap-4'>
@@ -77,7 +77,6 @@ const PostPage = () => {
             authorAvatar={post.authorAvatar}
             createdAt={post.createdAt}
             updatedAt={post.updatedAt}
-            position='post'
           />
 
           {/* The post content */}

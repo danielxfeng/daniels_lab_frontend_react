@@ -13,44 +13,36 @@ const Post = ({ post }: { post: PostResponse }) => (
   <motion.article
     whileHover={hoverEffect}
     whileTap={tapEffect}
-    className='bg-background flex items-center gap-2 px-2 py-2 transition-shadow hover:shadow-lg'
+    className='bg-background flex flex-col gap-2 rounded-lg px-5 py-5 shadow-md transition-shadow hover:shadow-lg'
   >
     <Link to={`/blog/posts/${post.slug}`}>
-      <LazyImage
-        src={post.cover}
-        alt={post.title}
-        className='hidden h-16 w-28 shrink-0 rounded-xl shadow-2xl lg:flex lg:h-32 lg:w-56'
-      />
+      <header>
+        <h4 className='line-clamp-2'>{post.title}</h4>
+      </header>
     </Link>
-    <div className='flex flex-1 flex-col gap-2 p-4'>
-      <Link to={`/blog/posts/${post.slug}`}>
-        <header>
-          <h3 className='line-clamp-1'>{post.title}</h3>
-        </header>
-      </Link>
-      <Link to={`/blog/posts/${post.slug}`}>
+    <div className='flex flex-col gap-8 py-4 lg:flex-row lg:items-center'>
+      <Link to={`/blog/posts/${post.slug}`} className='shrink-0'>
         <LazyImage
           src={post.cover}
           alt={post.title}
-          className='mx-auto h-32 w-56 shrink-0 rounded-2xl text-center shadow-2xl lg:hidden'
+          className='mx-auto h-36 rounded-lg text-center shadow-2xl'
         />
       </Link>
-
+      <div className='bg-border hidden h-24 w-px rounded lg:flex' />
       {/* The post excerpt */}
-      <div className='mt-2 overflow-hidden'>
+      <Link to={`/blog/posts/${post.slug}`} className='overflow-hidden text-sm italic'>
         <SafeStyledMarkdown markdown={post.excerpt} />
-      </div>
-      <footer className='text-muted-foreground mt-auto flex flex-col justify-between gap-2.5 pt-3 text-xs'>
-        <TagsBar tags={post.tags} />
-        <AuthorDateBar
-          authorName={post.authorName}
-          authorAvatar={post.authorAvatar}
-          createdAt={post.createdAt}
-          updatedAt={post.updatedAt}
-          position='list'
-        />
-      </footer>
+      </Link>
     </div>
+    <footer className='text-muted-foreground mt-auto flex flex-col items-start gap-2 text-xs'>
+      <TagsBar tags={post.tags} />
+      <AuthorDateBar
+        authorName={post.authorName}
+        authorAvatar={post.authorAvatar}
+        createdAt={post.createdAt}
+        updatedAt={post.updatedAt}
+      />
+    </footer>
   </motion.article>
 );
 
@@ -61,7 +53,7 @@ const Post = ({ post }: { post: PostResponse }) => (
  */
 const PostsList = ({ postsResponse }: { postsResponse: PostListResponse }) => {
   return (
-    <section className='flex flex-col gap-2'>
+    <section className='flex flex-col gap-8'>
       {/* Posts list */}
       {postsResponse.posts.map((post) => (
         <Post key={post.id} post={post} />

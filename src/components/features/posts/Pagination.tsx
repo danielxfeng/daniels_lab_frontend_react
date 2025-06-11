@@ -79,6 +79,7 @@ const Pagination = ({
           isExternal={false}
           textClass='hidden lg:block'
           btnClass='border-none'
+          iconPosition='right'
         />
       )}
     </nav>

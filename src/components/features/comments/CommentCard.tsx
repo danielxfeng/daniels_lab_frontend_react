@@ -66,7 +66,6 @@ const CommentCard = ({
           authorAvatar={comment.authorAvatar}
           createdAt={comment.createdAt}
           updatedAt={comment.updatedAt}
-          position='comment'
         />
       </header>
       <p>{comment.content}</p>

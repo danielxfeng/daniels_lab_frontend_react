@@ -21,12 +21,19 @@ export const TracingBeam = ({
   const [svgHeight, setSvgHeight] = useState(0);
 
   useEffect(() => {
-    if (contentRef.current) {
-      setSvgHeight(contentRef.current.offsetHeight);
-    }
+    const element = contentRef.current;
+    if (!element) return;
+
+    const observer = new ResizeObserver(() => {
+      setSvgHeight(element.offsetHeight);
+    });
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
   }, []);
 
-  const y1 = useSpring(useTransform(scrollYProgress, [0, 0.8], [90, svgHeight + 300]), {
+  const y1 = useSpring(useTransform(scrollYProgress, [0, 0.8], [90, svgHeight + 100]), {
     stiffness: 500,
     damping: 90,
   });
