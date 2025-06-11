@@ -1,10 +1,9 @@
-// https://ui.aceternity.com/components/tracing-beam
-// Some custom tweaks to the original code:
+// Inspired by https://ui.aceternity.com/components/tracing-beam
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useTransform, useScroll, useSpring } from 'motion/react';
 import { cn } from '@/lib/utils';
 
-export const TracingBeam = ({
+const MotionScroll = ({
   children,
   className,
 }: {
@@ -45,30 +44,6 @@ export const TracingBeam = ({
   return (
     <motion.div ref={ref} className={cn('relative mx-auto h-full w-full max-w-4xl', className)}>
       <div className='absolute top-3 -left-4 md:-left-20'>
-        {/*
-        <motion.div
-          transition={{
-            duration: 0.2,
-            delay: 0.5,
-          }}
-          animate={{
-            boxShadow: scrollYProgress.get() > 0 ? 'none' : 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-          }}
-          className='border-netural-200 ml-[27px] flex h-4 w-4 items-center justify-center rounded-full border shadow-sm'
-        >
-          <motion.div
-            transition={{
-              duration: 0.2,
-              delay: 0.5,
-            }}
-            animate={{
-              backgroundColor: scrollYProgress.get() > 0 ? 'white' : '#10b981',
-              borderColor: scrollYProgress.get() > 0 ? 'white' : '#059669',
-            }}
-            className='h-2 w-2 rounded-full border border-neutral-300 bg-white'
-          />
-        </motion.div>
-        */}
         <svg
           viewBox={`0 0 20 ${svgHeight}`}
           width='20'
@@ -116,4 +91,4 @@ export const TracingBeam = ({
     </motion.div>
   );
 };
-export default TracingBeam;
+export default MotionScroll;

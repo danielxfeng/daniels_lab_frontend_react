@@ -12,7 +12,7 @@ import ShareBar from '@/components/features/post/ShareBar';
 import PostDeleteComponent from '@/components/features/post/PostDeleteComponent';
 import NotificationBar from '@/components/shared/NotificationBar';
 import MotionButton from '@/components/motion_components/MotionButton';
-import TracingBeam from '@/components/third_party/TracingBeam';
+import MotionScroll from '@/components/motion_components/MotionScroll';
 
 // A component to set the meta information for SEO
 const MetaInfo = ({ post }: { post: PostResponse }) => (
@@ -44,7 +44,7 @@ const PostPage = () => {
       <MetaInfo post={post} />
       <NotificationBar />
       {/* The post page */}
-      <TracingBeam className='my-10 px-4'>
+      <MotionScroll className='my-10 px-4'>
         <article className='inner-container mb-10 flex max-w-3xl flex-col items-center gap-6 lg:mb-10'>
           {/* The post cover image */}
           <LazyImage src={post.cover} alt={post.title} className='w-3/4 rounded-xl shadow-2xl' />
@@ -106,7 +106,7 @@ const PostPage = () => {
             <Comments postId={post.id} />
           </footer>
         </article>
-      </TracingBeam>
+      </MotionScroll>
     </>
   );
 };
