@@ -144,7 +144,6 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
               text='Register'
               supportingText='Register'
               disabled={!isValid || isSubmitting}
-              className='w-full'
               isLoading={isSubmitting}
               isFullWidth={true}
               variant='highlight'
