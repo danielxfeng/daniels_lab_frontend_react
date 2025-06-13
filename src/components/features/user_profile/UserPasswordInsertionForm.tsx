@@ -105,7 +105,7 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
             variant='highlight'
             isFullWidth={true}
             size='md'
-            disabled={!isValid || isSubmitting}
+            isDisabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
           />
         </fieldset>

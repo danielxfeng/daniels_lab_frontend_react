@@ -67,7 +67,7 @@ const UserLogoutComponent = ({ deviceId }: { deviceId: string }) => {
             variant='ghost'
             text='Logout'
             isLoading={loading}
-            disabled={loading}
+            isDisabled={loading}
             isFullWidth={true}
           />
         </DropdownMenuTrigger>

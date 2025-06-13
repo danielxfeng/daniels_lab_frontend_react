@@ -96,7 +96,7 @@ const UserOauthLinkBar = ({
                   icon={oauthMap[provider]}
                   text={`Unlink ${capitalizeFirstLetter(provider)}`}
                   onClick={() => handleUnlinkClick(provider)}
-                  disabled={currentLoadingProvider === provider}
+                  isDisabled={currentLoadingProvider === provider}
                   supportingText={`Unlink ${provider}`}
                   isFullWidth={true}
                 />
@@ -108,7 +108,7 @@ const UserOauthLinkBar = ({
                   icon={oauthMap[provider]}
                   text={`Link ${capitalizeFirstLetter(provider)}`}
                   onClick={() => handleLinkClick(provider)}
-                  disabled={currentLoadingProvider === provider}
+                  isDisabled={currentLoadingProvider === provider}
                   supportingText={`Link ${provider}`}
                   isFullWidth={true}
                 />

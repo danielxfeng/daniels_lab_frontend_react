@@ -100,7 +100,7 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
         type='button'
         onClick={handleLikeToggle}
         iconClass={liked ? 'text-red-500' : undefined}
-        disabled={loading}
+        isDisabled={loading}
         isLoading={loading}
       />
       {/* Like count */}

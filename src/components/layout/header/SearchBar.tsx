@@ -152,7 +152,7 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
             icon={<Search />}
             type='submit'
             btnClass='absolute top-1/2 right-2 -translate-y-1/2 p-1'
-            disabled={isSubmitting}
+            isDisabled={isSubmitting}
           />
         </fieldset>
       </form>

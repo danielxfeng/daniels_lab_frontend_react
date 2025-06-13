@@ -279,7 +279,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
             variant='highlight'
             size='md'
             isFullWidth={true}
-            disabled={!isValid || isSubmitting}
+            isDisabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
           />
         </fieldset>

@@ -116,6 +116,8 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
     }
   };
 
+  console.log('LoginForm disabled', !isValid || isSubmitting);
+
   return (
     <div className='mt-10 flex flex-1 flex-col'>
       <h3>Connect with:</h3>
@@ -158,7 +160,7 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
               buttonType='submit'
               text='Login'
               supportingText='Login'
-              disabled={!isValid || isSubmitting}
+              isDisabled={!isValid || isSubmitting}
               isLoading={isSubmitting}
               isFullWidth={true}
               variant='highlight'

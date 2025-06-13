@@ -79,7 +79,7 @@ const CommentCard = ({
             icon={<Pencil />}
             type='button'
             supportingText='Edit comment'
-            disabled={loading}
+            isDisabled={loading}
             onClick={() => setEditMode(true)}
             isLoading={loading}
           />

@@ -154,6 +154,8 @@ const getRestProps = (
 const BaseButton = (props: MotionButtonProps) => {
   // disabled is true if the button is loading or disabled, only applicable for submit buttons.
   const disabled = 'buttonType' in props ? props.isDisabled || props.isLoading : undefined;
+  console.log('MotionButton disabled:', 'buttonType' in props ? props.isDisabled : 'not button');
+  console.log('MotionButton props:', disabled, props.text);
 
   const fullWidth = props.isFullWidth ? 'w-full' : '';
   const iconPosition = props.iconPosition === 'right' ? 'flex-row-reverse' : 'flex-row';
@@ -163,9 +165,9 @@ const BaseButton = (props: MotionButtonProps) => {
     'relative inline-flex items-center justify-center rounded-lg transition-all',
     sizeClasses[props.size],
     getVariantClasses(props.variant, props.text, props.size, props.btnClass, props.isFullWidth),
-    disabled && 'pointer-events-none cursor-not-allowed bg-transparent text-muted-foreground',
     props.btnClass,
     fullWidth,
+    disabled && 'pointer-events-none cursor-not-allowed opacity-50', // Apply styles when the button is disabled
   );
 
   // The animation for the button, depending on the variant and whether it is disabled

@@ -122,7 +122,7 @@ const UserProfileUpdateForm = () => {
               text='Update'
               supportingText='Update'
               buttonType='submit'
-              disabled={!isValid || isSubmitting}
+              isDisabled={!isValid || isSubmitting}
               isLoading={isSubmitting}
             />
           </fieldset>

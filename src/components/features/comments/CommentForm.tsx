@@ -139,7 +139,7 @@ const CommentForm = ({
               variant='ghost'
               text={comment ? 'Update' : 'Comment'}
               supportingText={comment ? 'Update a comment' : 'Create a Comment'}
-              disabled={!isValid || isSubmitting}
+              isDisabled={!isValid || isSubmitting}
               isLoading={isSubmitting}
             />
           </div>

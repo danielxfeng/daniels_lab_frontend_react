@@ -95,7 +95,7 @@ const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
             isFullWidth={true}
             text='Submit'
             supportingText='Submit'
-            disabled={!isValid || isSubmitting}
+            isDisabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
           />
         </fieldset>

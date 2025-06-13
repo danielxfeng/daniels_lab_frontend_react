@@ -147,7 +147,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                             supportingText='Cancel filter'
                             buttonType='button'
                             onClick={() => form.reset({ tags: [], from: undefined, to: undefined })}
-                            disabled={isSubmitting}
+                            isDisabled={isSubmitting}
                             variant='ghost'
                             size='sm'
                           />

@@ -143,7 +143,7 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
               buttonType='submit'
               text='Register'
               supportingText='Register'
-              disabled={!isValid || isSubmitting}
+              isDisabled={!isValid || isSubmitting}
               isLoading={isSubmitting}
               isFullWidth={true}
               variant='highlight'
