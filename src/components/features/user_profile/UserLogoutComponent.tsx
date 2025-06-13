@@ -71,7 +71,7 @@ const UserLogoutComponent = ({ deviceId }: { deviceId: string }) => {
             isFullWidth={true}
           />
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='end'>
+        <DropdownMenuContent align='end' className='border-border text-muted-foreground'>
           <DropdownMenuLabel>Options</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => logoutHandler(false)}>

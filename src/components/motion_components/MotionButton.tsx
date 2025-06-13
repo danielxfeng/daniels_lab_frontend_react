@@ -154,8 +154,6 @@ const getRestProps = (
 const BaseButton = (props: MotionButtonProps) => {
   // disabled is true if the button is loading or disabled, only applicable for submit buttons.
   const disabled = 'buttonType' in props ? props.isDisabled || props.isLoading : undefined;
-  console.log('MotionButton disabled:', 'buttonType' in props ? props.isDisabled : 'not button');
-  console.log('MotionButton props:', disabled, props.text);
 
   const fullWidth = props.isFullWidth ? 'w-full' : '';
   const iconPosition = props.iconPosition === 'right' ? 'flex-row-reverse' : 'flex-row';

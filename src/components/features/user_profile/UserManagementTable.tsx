@@ -148,7 +148,7 @@ const UserManagementTable = () => {
   if (users.length === 0) return <Loading />;
 
   return (
-    <div className='mt-5 rounded-md border'>
+    <div className='mt-5 rounded-md'>
       <Table className='min-w-full'>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

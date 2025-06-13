@@ -127,7 +127,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
             />
           </div>
         )}
-        {user?.isAdmin && <hr className='border-border mt-6' />}
+        {user?.isAdmin && <hr className='border-border mt-6 mb-5' />}
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
             <fieldset className='flex flex-col gap-6' disabled={isSubmitting}>
