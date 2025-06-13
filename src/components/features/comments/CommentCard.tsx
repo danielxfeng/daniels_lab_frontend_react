@@ -59,7 +59,7 @@ const CommentCard = ({
   if (editMode) return <CommentForm user={user} comment={comment} setComments={setComments} />;
 
   return (
-    <article className='border-border flex w-full flex-col gap-2 border-b px-2 py-2 transition-shadow'>
+    <article className='border-border flex w-full flex-col gap-2 border-b px-2 py-2'>
       <header className='w-full'>
         <AuthorDateBar
           authorName={comment.authorName}

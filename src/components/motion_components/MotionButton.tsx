@@ -160,7 +160,7 @@ const BaseButton = (props: MotionButtonProps) => {
 
   // The class for the button, combining size, variant, and other classes
   const btnClass = cn(
-    'relative inline-flex items-center justify-center rounded-md transition-all',
+    'relative inline-flex items-center justify-center rounded-lg transition-all',
     sizeClasses[props.size],
     getVariantClasses(props.variant, props.text, props.size, props.btnClass, props.isFullWidth),
     disabled && 'pointer-events-none cursor-not-allowed bg-transparent text-muted-foreground',

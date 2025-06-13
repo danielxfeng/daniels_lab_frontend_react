@@ -43,7 +43,7 @@ const MotionScroll = ({
 
   return (
     <motion.div ref={ref} className={cn('relative mx-auto h-full w-full max-w-4xl', className)}>
-      <div className='absolute top-3 -left-4 md:-left-20'>
+      <div className='absolute top-3 -left-4 lg:-left-20'>
         <svg
           viewBox={`0 0 20 ${svgHeight}`}
           width='20'

@@ -11,9 +11,10 @@ import { ButtonVariant } from '@/components/motion_components/MotionButton';
 const logoImageMotion = {
   animate: { rotate: 0 },
   whileHover: {
-    rotate: [0, -3, 3, -2, 2, 0],
+    rotate: [0, 1.5, 0],
+    filter: ['brightness(100%)', 'brightness(150%)', 'brightness(100%)'],
     transition: {
-      duration: 0.5,
+      duration: 0.3,
       ease: 'easeInOut',
     },
   },

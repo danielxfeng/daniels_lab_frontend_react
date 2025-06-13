@@ -12,7 +12,7 @@ import TagsBar from '../tags/TagsBar';
 const Post = ({ post }: { post: PostResponse }) => (
   <motion.article
     {...postCardAnimation}
-    className='bg-background flex flex-col gap-2 rounded-lg px-5 py-5 shadow-md transition-all hover:bg-white hover:shadow-lg dark:hover:bg-neutral-950'
+    className='bg-background flex flex-col gap-2 rounded-2xl px-5 py-5 shadow-md transition-all hover:bg-white hover:shadow-lg dark:hover:bg-neutral-950'
   >
     <Link to={`/blog/posts/${post.slug}`}>
       <header>
