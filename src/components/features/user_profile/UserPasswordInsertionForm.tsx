@@ -12,9 +12,9 @@ import {
 } from '@/components/ui/form';
 import { AuthResponseSchema, SetPasswordBody, SetPasswordBodySchema } from '@/schema/schema_auth';
 import { setPassword } from '@/services/service_auth';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
-import StyledInput from '@/components/shared/StyledInput';
+import MotionInput from '@/components/motion_components/MotionInput';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 /**
  * @summary UserPasswordInsertionForm
@@ -75,7 +75,7 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <StyledInput type='password' placeholder='password' {...field} />
+                  <MotionInput type='password' placeholder='password' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -90,7 +90,7 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <StyledInput type='password' placeholder='Confirm password' {...field} />
+                  <MotionInput type='password' placeholder='Confirm password' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -98,12 +98,14 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
           />
 
           {/* submit button */}
-          <MotionTextButton
-            type='submit'
-            label='Set Password'
-            ariaLabel='Set Password'
-            className='btn-primary'
-            disabled={!isValid || isSubmitting}
+          <MotionButton
+            buttonType='submit'
+            text='Set Password'
+            supportingText='Set Password'
+            variant='highlight'
+            isFullWidth={true}
+            size='md'
+            isDisabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
           />
         </fieldset>

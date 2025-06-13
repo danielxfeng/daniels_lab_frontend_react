@@ -126,10 +126,11 @@ const UserManagementTable = () => {
       header: 'Operation',
       cell: ({ row }) => (
         <MotionDeleteButton
-          toDelete={`User ${row.getValue('username')}`}
-          tooltip={`Delete Account ${row.getValue('username')}`}
+          deleteItem={`User ${row.getValue('username')}`}
+          supportingText={`Delete Account ${row.getValue('username')}`}
+          textOrIcon='icon'
           deleteHandler={() => handleDeleteUser(row.getValue('id'))}
-          size='h-6 w-6'
+          size='sm'
           isLoading={loadingUserId === row.getValue('id')}
         />
       ),
@@ -147,7 +148,7 @@ const UserManagementTable = () => {
   if (users.length === 0) return <Loading />;
 
   return (
-    <div className='mt-5 rounded-md border'>
+    <div className='mt-5 rounded-md'>
       <Table className='min-w-full'>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

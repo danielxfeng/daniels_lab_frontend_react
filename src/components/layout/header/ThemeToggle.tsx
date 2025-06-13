@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { Sun, Moon, SunMoon } from 'lucide-react';
-import MotionIconButton from '@/components/motion_components/MotionIconButton';
+import { Sun, Moon } from 'lucide-react';
 import useThemeStore, { ThemeType } from '@/stores/useThemeStore';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 const className = 'text-primary h-6 w-6';
 
@@ -23,7 +23,7 @@ const setHtmlTheme = (theme: ThemeType) => {
 // This component is a button that toggles the theme between light, dark, and system.
 const ThemeToggle = () => {
   const theme = useThemeStore((s) => s.theme); // Subscribe to the theme state
-  const toggleTheme  = useThemeStore.getState().toggleTheme;
+  const toggleTheme = useThemeStore.getState().toggleTheme;
 
   // We need the useEffect hook to handle the side effect.
   useEffect(() => {
@@ -31,18 +31,19 @@ const ThemeToggle = () => {
   }, [theme]);
 
   const icon = {
-    system: <SunMoon className={className} />,
     light: <Sun className={className} />,
     dark: <Moon className={className} />,
+    system: <Sun className={className} />, // Default icon for system theme
   }[theme];
 
   return (
-    <MotionIconButton
+    <MotionButton
+      supportingText='Toggle Theme'
+      size='sm'
+      variant='secondary'
+      buttonType='button'
       icon={icon}
-      ariaLabel='Toggle Theme'
-      type='button'
       onClick={toggleTheme}
-      tooltip='Toggle Theme'
     />
   );
 };

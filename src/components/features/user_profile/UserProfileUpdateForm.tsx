@@ -11,10 +11,10 @@ import {
   FormControl,
   FormMessage,
 } from '@/components/ui/form';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import useUserStore from '@/stores/useUserStore';
 import { useNavigate } from 'react-router-dom';
-import StyledInput from '@/components/shared/StyledInput';
+import MotionInput from '@/components/motion_components/MotionInput';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 /**
  * @summary UserProfileUpdateForm
@@ -94,36 +94,41 @@ const UserProfileUpdateForm = () => {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className='mt-6 w-full max-w-xl'>
-        <fieldset disabled={isSubmitting} className='flex flex-col gap-6'>
-          {/* Username is required */}
-          <FormField
-            control={form.control}
-            name='username'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <StyledInput placeholder='A new username' {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+    <div className='flex w-full flex-col items-center justify-center'>
+      <h3>Update your profile</h3>
+      <Form {...form}>
+        <form onSubmit={handleSubmit(onSubmit)} className='mt-6 w-full max-w-xl'>
+          <fieldset disabled={isSubmitting} className='flex flex-col gap-6'>
+            {/* Username is required */}
+            <FormField
+              control={form.control}
+              name='username'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <MotionInput placeholder='A new username' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          {/* Submit button */}
-          <MotionTextButton
-            label='Update'
-            ariaLabel='Update'
-            type='submit'
-            className='btn-primary'
-            disabled={!isValid || isSubmitting}
-            isLoading={isSubmitting}
-          />
-        </fieldset>
-      </form>
-    </Form>
+            {/* Submit button */}
+            <MotionButton
+              variant='highlight'
+              size='md'
+              isFullWidth={true}
+              text='Update'
+              supportingText='Update'
+              buttonType='submit'
+              isDisabled={!isValid || isSubmitting}
+              isLoading={isSubmitting}
+            />
+          </fieldset>
+        </form>
+      </Form>
+    </div>
   );
 };
 

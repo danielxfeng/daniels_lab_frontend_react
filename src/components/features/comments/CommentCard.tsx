@@ -5,9 +5,9 @@ import { AuthResponse as User } from '@/schema/schema_auth';
 import { deleteComment } from '@/services/service_comments';
 import { CommentResponse } from '@/schema/schema_comment';
 import AuthorDateBar from '@/components/features/post/AuthorDateBar';
-import MotionIconButton from '@/components/motion_components/MotionIconButton';
 import CommentForm from '@/components/features/comments/CommentForm';
 import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 /**
  * @summary A component to display a comment, with edit and delete functionality.
@@ -59,38 +59,40 @@ const CommentCard = ({
   if (editMode) return <CommentForm user={user} comment={comment} setComments={setComments} />;
 
   return (
-    <article className='border-muted-foreground/50 flex w-full flex-col gap-2 border-b px-2 py-2 transition-shadow'>
+    <article className='border-border flex w-full flex-col gap-2 border-b px-2 py-2'>
       <header className='w-full'>
         <AuthorDateBar
           authorName={comment.authorName}
           authorAvatar={comment.authorAvatar}
           createdAt={comment.createdAt}
           updatedAt={comment.updatedAt}
-          position='comment'
         />
       </header>
-      <p>{comment.content}</p>
+      <p className='text-primary'>{comment.content}</p>
       {/* The possible operation panel */}
-      <footer className='flex items-center justify-end gap-2'>
+      <footer className='flex items-center justify-end gap-0'>
         {user?.id === comment.authorId && (
-          <MotionIconButton
-            icon={<Pencil className='h-4 w-4' />}
+          <MotionButton
+            buttonType='button'
+            variant='ghost'
+            size='sm'
+            icon={<Pencil />}
             type='button'
-            ariaLabel='Edit comment'
-            disabled={loading}
+            supportingText='Edit comment'
+            isDisabled={loading}
             onClick={() => setEditMode(true)}
-            tooltip='Edit comment'
             isLoading={loading}
           />
         )}
         {(user?.id === comment.authorId || user?.isAdmin) && (
           <MotionDeleteButton
-            toDelete='the comment'
-            tooltip='Delete comment'
+            deleteItem='the comment'
+            supportingText='Delete comment'
+            textOrIcon='icon'
             deleteHandler={handleDelete}
-            size='h-4 w-4'
+            size='sm'
             isLoading={loading}
-            className='text-muted-foreground'
+            variant='ghost'
           />
         )}
       </footer>

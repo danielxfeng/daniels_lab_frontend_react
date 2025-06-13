@@ -12,10 +12,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
 import { CreateOrUpdatePostBodySchema, PostResponseSchema } from '@/schema/schema_post';
 import type { CreateOrUpdatePostBody, PostResponse } from '@/schema/schema_post';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import { createPost, updatePost } from '@/services/services_posts';
 import { throwWithValidationErr } from '@/lib/throwWithErr';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -25,7 +23,9 @@ import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import TagSelector from '@/components/features/tags/TagsSelector';
-import StyledInput from '@/components/shared/StyledInput';
+import MotionInput from '@/components/motion_components/MotionInput';
+import MotionTextarea from '@/components/motion_components/MotionTextArea';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 // A helper function to get the slug from the response
 const getSlug = (isCreate: boolean, res: AxiosResponse<PostResponse | undefined>) => {
@@ -90,7 +90,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <StyledInput placeholder='Post title' {...field} />
+                  <MotionInput placeholder='Post title' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -105,7 +105,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
               <FormItem>
                 <FormLabel>Cover Image URL</FormLabel>
                 <FormControl>
-                  <StyledInput placeholder='https://your.cover.url' {...field} />
+                  <MotionInput placeholder='https://your.cover.url' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -120,10 +120,10 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
               <FormItem>
                 <FormLabel>Markdown Content</FormLabel>
                 <FormControl>
-                  <Textarea
+                  <MotionTextarea
                     placeholder='Write in markdown...'
                     {...field}
-                    className='border-muted bg-muted min-h-96 ring-1'
+                    className='min-h-96'
                   />
                 </FormControl>
                 <FormMessage />
@@ -184,7 +184,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
                         <Button
                           variant={'outline'}
                           className={cn(
-                            'w-full pl-3 text-left font-normal',
+                            'border-border w-full pl-3 text-left font-normal',
                             !field.value && 'text-muted-foreground',
                           )}
                         >
@@ -239,7 +239,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
                         <Button
                           variant={'outline'}
                           className={cn(
-                            'w-full pl-3 text-left font-normal',
+                            'border-border w-full pl-3 text-left font-normal',
                             !field.value && 'text-muted-foreground',
                           )}
                         >
@@ -272,12 +272,14 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
           />
 
           {/* Submit */}
-          <MotionTextButton
-            label={post ? 'Update Post' : 'Create Post'}
-            ariaLabel='Submit post'
-            type='submit'
-            className='btn-primary'
-            disabled={!isValid || isSubmitting}
+          <MotionButton
+            text={post ? 'Update Post' : 'Create Post'}
+            supportingText='Submit post'
+            buttonType='submit'
+            variant='highlight'
+            size='md'
+            isFullWidth={true}
+            isDisabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
           />
         </fieldset>

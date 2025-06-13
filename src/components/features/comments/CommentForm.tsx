@@ -1,5 +1,4 @@
 import { Form, FormField, FormItem, FormControl, FormMessage } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
 import {
   CreateCommentBody,
   CreateCommentBodySchema,
@@ -8,11 +7,12 @@ import {
 } from '@/schema/schema_comment';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import { toast } from 'sonner';
 import { CommentResponse, CommentResponseSchema } from '@/schema/schema_comment';
 import { UserResponse } from '@/schema/schema_users';
 import { createComment, getComment, updateComment } from '@/services/service_comments';
+import MotionTextarea from '@/components/motion_components/MotionTextArea';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 const CommentForm = ({
   user,
@@ -121,10 +121,10 @@ const CommentForm = ({
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Textarea
+                  <MotionTextarea
                     {...field}
                     placeholder='Leave a comment...'
-                    className='min-h-[100px] focus-visible:ring-1'
+                    className='min-h-[100px]'
                   />
                 </FormControl>
                 <FormMessage />
@@ -132,13 +132,14 @@ const CommentForm = ({
             )}
           />
 
-          <div className='my-2 flex w-full'>
-            <MotionTextButton
-              type='submit'
-              label={comment ? 'Update' : 'Comment'}
-              ariaLabel={comment ? 'Update a comment' : 'Create a Comment'}
-              disabled={!isValid || isSubmitting}
-              className='bg-muted-foreground text-muted w-full px-3.5 py-1.5 text-sm'
+          <div className='my-2 flex w-full justify-end'>
+            <MotionButton
+              buttonType='submit'
+              size='sm'
+              variant='ghost'
+              text={comment ? 'Update' : 'Comment'}
+              supportingText={comment ? 'Update a comment' : 'Create a Comment'}
+              isDisabled={!isValid || isSubmitting}
               isLoading={isSubmitting}
             />
           </div>

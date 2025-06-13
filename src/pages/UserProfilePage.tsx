@@ -7,13 +7,14 @@ import MotionH1 from '@/components/motion_components/MotionH1';
 import useUserStore from '@/stores/useUserStore';
 import siteMeta from '@/constants/siteMeta';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import UserLogoutComponent from '@/components/features/user_profile/UserLogoutComponent';
 import UserProfileUpdateForm from '@/components/features/user_profile/UserProfileUpdateForm';
 import UserDeleteComponent from '@/components/features/user_profile/UserDeleteComponent';
 import UserPasswordUpdateForm from '@/components/features/user_profile/UserPasswordUpdateForm';
 import UserOauthLinkBar from '@/components/features/user_profile/UserOauthLinkBar';
 import UserPasswordInsertionForm from '@/components/features/user_profile/UserPasswordInsertionForm';
 import MotionTextLink from '@/components/motion_components/MotionTextLink';
+import NotificationBar from '@/components/shared/NotificationBar';
+import UserLogoutComponent from '@/components/features/user_profile/UserLogoutComponent';
 
 /**
  * @summary UserProfilePage
@@ -55,40 +56,38 @@ const UserProfilePage = () => {
   return !user || !deviceId ? null : (
     <div className='inner-container'>
       <title>{`User Profile – ${siteMeta.siteName}`}</title>
+      <NotificationBar />
       {/* UserProfileCard */}
-      <div className='flex w-full items-center justify-between'>
+      <div className='flex w-full items-center justify-start gap-5'>
         {/* User avatar and username */}
-        <div className='flex items-center gap-5'>
-          <Avatar className='h-16 w-16 items-center'>
-            <AvatarImage
-              src={user.avatarUrl ? user.avatarUrl : undefined}
-              alt={`${user.username}'s avatar`}
-            />
-            <AvatarFallback>{user.username?.[0]?.toUpperCase() ?? 'U'}</AvatarFallback>
-          </Avatar>
-          <MotionH1>{user.username}</MotionH1>
-        </div>
-        {/* Logout button */}
-        <div className='mx-5'>
-          <UserLogoutComponent deviceId={deviceId} />
-        </div>
+        <Avatar className='h-16 w-16 items-center'>
+          <AvatarImage
+            src={user.avatarUrl ? user.avatarUrl : undefined}
+            alt={`${user.username}'s avatar`}
+          />
+          <AvatarFallback>{user.username?.[0]?.toUpperCase() ?? 'U'}</AvatarFallback>
+        </Avatar>
+        <MotionH1>{user.username}</MotionH1>
       </div>
 
-      <Tabs defaultValue='account' className='mx-auto mt-8 flex max-w-2xl'>
-        <TabsList className='w-full'>
+      <Tabs defaultValue='account' className='mx-auto mt-8 flex max-w-2xl items-center'>
+        <TabsList className='w-full mb-4'>
           <TabsTrigger value='account'>Account</TabsTrigger>
           <TabsTrigger value='password'>Password</TabsTrigger>
           {user.isAdmin && <TabsTrigger value='admin'>Admin</TabsTrigger>}
         </TabsList>
-        <TabsContent value='account'>
+        <TabsContent value='account' className='w-full lg:max-w-md'>
           {' '}
           <div className='flex w-full flex-col items-center gap-5'>
             <UserOauthLinkBar user={user} deviceId={deviceId} />
+            <div className="w-full border-t border-border mt-4" />
             <UserProfileUpdateForm />
+              <div className="w-full border-t border-border my-4" />
+            <UserLogoutComponent deviceId={deviceId} />
             <UserDeleteComponent user={user} />
           </div>
         </TabsContent>
-        <TabsContent value='password'>
+        <TabsContent value='password' className='w-full lg:max-w-md'>
           <div className='flex w-full flex-col items-center gap-4'>
             {user.hasPassword ? (
               <UserPasswordUpdateForm deviceId={deviceId} />
@@ -96,15 +95,11 @@ const UserProfilePage = () => {
               <UserPasswordInsertionForm deviceId={deviceId} />
             )}
           </div>
-        </TabsContent>
+        </TabsContent >
         {user.isAdmin && (
-          <TabsContent value='admin'>
-            <div className='flex w-full justify-center my-10'>
-            <MotionTextLink
-              to='/user/admin'
-              isExternal={false}
-              label='-> Admin Panel'
-            />
+          <TabsContent value='admin' className='w-full lg:max-w-md'>
+            <div className='my-10 flex w-full justify-center'>
+              <MotionTextLink to='/user/admin' isExternal={false} label='-> Admin Panel' />
             </div>
           </TabsContent>
         )}

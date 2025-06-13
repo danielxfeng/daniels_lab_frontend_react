@@ -8,8 +8,8 @@ import {
   SheetTitle,
   SheetDescription,
 } from '@/components/ui/sheet';
-import MotionIconButton from '@/components/motion_components/MotionIconButton';
 import SearchBar from '@/components/layout/header/SearchBar';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 // This component is a button that opens a search bar in a sheet when clicked.
 // It uses in the mobile view only.
@@ -20,9 +20,12 @@ const SearchButton = () => {
     <div className='flex items-center lg:hidden'>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <MotionIconButton
-            icon={<Search className='h-6 w-6' />}
-            ariaLabel='Open Search'
+          <MotionButton
+            buttonType='button'
+            variant='secondary'
+            size='sm'
+            supportingText='Open Search'
+            icon={<Search />}
             onClick={() => setOpen(true)}
           />
         </SheetTrigger>

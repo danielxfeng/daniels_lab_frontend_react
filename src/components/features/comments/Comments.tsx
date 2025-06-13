@@ -9,9 +9,9 @@ import useUserStore from '@/stores/useUserStore';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import CommentForm from '@/components/features/comments/CommentForm';
 import CommentCard from '@/components/features/comments/CommentCard';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import Spinner from '@/components/shared/Spinner';
 import insertToSet from '@/lib/insertToSet';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 // Get of Crud comments
 const getCommentsHelper = async (postId: string, offset: number): Promise<CommentsListResponse> => {
@@ -104,13 +104,17 @@ const Comments = ({ postId }: { postId: string }) => {
       ))}
 
       {total > siteMeta.paginationLimit + offset && (
-        <MotionTextButton
-          label={'Load more'}
-          ariaLabel={'Load more'}
-          type={'button'}
+        <MotionButton
+          text='Load more'
+          supportingText='Load more'
+          buttonType={'button'}
           onClick={async () => await fetchComments(offset + siteMeta.paginationLimit)}
           disabled={isLoading}
-          className={'bg-muted text-muted-foreground mt-3 py-2 text-sm'}
+          isLoading={isLoading}
+          size='sm'
+          variant='secondary'
+          isFullWidth={true}
+          btnClass='mt-3'
         />
       )}
 

@@ -34,7 +34,7 @@ const useThemeStore = create<ThemeState>()(
             nextTheme = 'dark';
             break;
           case 'dark':
-            nextTheme = 'system';
+            nextTheme = 'light';
             break;
           default:
             nextTheme = 'system';

@@ -3,16 +3,20 @@ import { UserResponse } from '@/schema/schema_users';
 import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
 import { toast } from 'sonner';
 import { OauthProvider, OauthProviderValues } from '@/schema/schema_components';
-import MotionIconButton from '@/components/motion_components/MotionIconButton';
 import { oauthLinkUser, oauthUnlinkUser } from '@/services/service_auth';
 import { OAuthConsentQuery, OAuthRedirectResponseSchema } from '@/schema/schema_auth';
 import useUserStore from '@/stores/useUserStore';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 const iconStyle = 'h-8 w-8 lg:h-12 lg:w-12';
 const oauthMap = {
   google: <FaGoogle className={iconStyle} />,
   github: <FaGithub className={iconStyle} />,
   linkedin: <FaLinkedin className={iconStyle} />,
+};
+
+const capitalizeFirstLetter = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
 // List of OAuth providers
@@ -78,28 +82,35 @@ const UserOauthLinkBar = ({
 
   return (
     <div className='flex w-full flex-col items-center gap-4'>
-      <h2>Manage linked accounts</h2>
-      <div className='flex gap-2'>
+      <h3>Manage linked accounts</h3>
+      <div className='lg: flex w-full max-w-md flex-col gap-5'>
         {OauthProviderValues.map((provider) => {
           const isLinked = user.oauthProviders?.includes(provider);
           return (
-            <div key={provider} className='flex items-center gap-2'>
+            <div key={provider} className='flex w-full items-center'>
               {isLinked ? (
-                <MotionIconButton
+                <MotionButton
+                  buttonType='button'
+                  variant='highlight'
+                  size='md'
                   icon={oauthMap[provider]}
+                  text={`Unlink ${capitalizeFirstLetter(provider)}`}
                   onClick={() => handleUnlinkClick(provider)}
-                  disabled={currentLoadingProvider === provider}
-                  ariaLabel={`Unlink ${provider}`}
-                  tooltip={`Unlink ${provider}`}
+                  isDisabled={currentLoadingProvider === provider}
+                  supportingText={`Unlink ${provider}`}
+                  isFullWidth={true}
                 />
               ) : (
-                <MotionIconButton
+                <MotionButton
+                  buttonType='button'
+                  variant='ghost'
+                  size='md'
                   icon={oauthMap[provider]}
+                  text={`Link ${capitalizeFirstLetter(provider)}`}
                   onClick={() => handleLinkClick(provider)}
-                  disabled={currentLoadingProvider === provider}
-                  ariaLabel={`Link ${provider}`}
-                  className='text-muted-foreground/40'
-                  tooltip={`Link ${provider}`}
+                  isDisabled={currentLoadingProvider === provider}
+                  supportingText={`Link ${provider}`}
+                  isFullWidth={true}
                 />
               )}
             </div>

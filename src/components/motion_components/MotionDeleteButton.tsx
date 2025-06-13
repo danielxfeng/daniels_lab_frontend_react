@@ -10,63 +10,78 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import MotionIconButton from '@/components/motion_components/MotionIconButton';
+import MotionButton, {
+  ButtonSize,
+  ButtonVariant,
+} from '@/components/motion_components/MotionButton';
 
 type MotionDeleteButtonProps = {
-  toDelete: string;
-  tooltip: string;
+  deleteItem: string;
+  supportingText: string;
   deleteHandler: () => void;
-  size?: string;
-  isLoading?: boolean;
-  className?: string;
+  textOrIcon: 'text' | 'icon' | 'mixed';
+  size: ButtonSize;
+  isLoading: boolean;
+  variant?: ButtonVariant;
+  btnClass?: string;
+};
+
+const getTextIcon = (textOrIcon: 'text' | 'icon' | 'mixed') => {
+  switch (textOrIcon) {
+    case 'text':
+      return { text: 'Delete' };
+    case 'icon':
+      return { icon: <Trash2 /> };
+    case 'mixed':
+      return { text: 'Delete', icon: <Trash2 /> };
+    default:
+      return null;
+  }
 };
 
 /**
  * @summary A delete button with a confirmation dialog.
- * @param - toDelete - The name of the item to be deleted, displayed in the confirmation dialog.
- * @param - tooltip - The tooltip text for the button, also used as the aria-label.
+ * @param - deleteItem - The name of the item to be deleted, displayed in the confirmation dialog.
+ * @param - supportingText - The tooltip text for the button, also used as the aria-label.
  * @param - deleteHandler - The function to call when the user confirms deletion.
+ * @param - textOrIcon - Determines whether to display text, an icon, or both in the button. Options are 'text', 'icon', or 'mixed'.
  * @param - size - The size of the icon, defaults to `h-6 w-6`.
  * @param - isLoading - Whether the button is in a loading state, which disables the button and prevents interaction, defaults to false.
- * @param - className - Optional additional classes for styling the button, defaults to 'text-destructive'.
+ * @param - variant - The button variant, which determines the styling of the button. Defaults to 'destructive'.
+ * @param - btnClass - Additional CSS classes to apply to the button.
  */
-const MotionDeleteButton = ({
-  toDelete,
-  tooltip,
-  deleteHandler,
-  size = 'h-6 w-6',
-  isLoading = false,
-  className = 'text-destructive',
-}: MotionDeleteButtonProps) => {
+const MotionDeleteButton = (props: MotionDeleteButtonProps) => {
+  const btnVariant = props.variant || 'destructive';
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <MotionIconButton
-          icon={<Trash2 className={size} />}
-          ariaLabel={tooltip}
-          type='button'
-          disabled={isLoading}
-          isLoading={isLoading}
-          className={className}
-          tooltip={tooltip}
+        <MotionButton
+          buttonType='button'
+          variant={btnVariant}
+          supportingText={props.supportingText}
+          size={props.size}
+          {...getTextIcon(props.textOrIcon)}
         />
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle className='text-primary'>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete:{'  '}
-            <span className='text-destructive'>{toDelete}</span>.
+            <span className='text-destructive'>{props.deleteItem}</span>.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className='text-muted-foreground' disabled={isLoading}>
+          <AlertDialogCancel
+            className='text-muted-foreground hover:bg-foreground/5 easeInOut border bg-transparent transition-colors duration-150'
+            disabled={props.isLoading}
+          >
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
-            onClick={deleteHandler}
-            disabled={isLoading}
-            className='bg-destructive hover:bg-destructive'
+            onClick={props.deleteHandler}
+            disabled={props.isLoading}
+            className='border-destructive text-destructive hover:bg-destructive/15 easeInOut border bg-transparent transition-colors duration-150'
           >
             Yes, delete
           </AlertDialogAction>

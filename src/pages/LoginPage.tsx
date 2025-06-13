@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
 import getDeviceId from '@/lib/deviceid';
+import NotificationBar from '@/components/shared/NotificationBar';
 
 // A component for the GDPR notice
 const GDPR = () => (
@@ -51,17 +52,18 @@ const LoginPage = () => {
   return (
     <div className='inner-container'>
       <title>{`Login – ${siteMeta.siteName}`}</title>
+      <NotificationBar />
       <MotionH1>Login</MotionH1>
       <Tabs defaultValue='login' className='mx-auto mt-8 flex max-w-2xl'>
         <TabsList className='w-full'>
           <TabsTrigger value='login'>Login</TabsTrigger>
           <TabsTrigger value='register'>Register</TabsTrigger>
         </TabsList>
-        <TabsContent value='login'>
+        <TabsContent value='login' className='w-full lg:max-w-lg mx-auto'>
           {' '}
           <LoginForm deviceId={deviceId} />
         </TabsContent>
-        <TabsContent value='register'>
+        <TabsContent value='register' className='w-full lg:max-w-lg mx-auto'>
           <RegisterForm deviceId={deviceId} />
         </TabsContent>
       </Tabs>

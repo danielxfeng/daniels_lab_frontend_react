@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { LogOut } from 'lucide-react';
 import { toast } from 'sonner';
 import { DeviceIdBodySchema } from '@/schema/schema_auth';
 import { logoutUser } from '@/services/service_auth';
-import MotionIconButton from '@/components/motion_components/MotionIconButton';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import AtomicLogout from '@/components/shared/AtomicLogout';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 /**
  * @summary UserLogoutComponent
@@ -55,23 +54,24 @@ const UserLogoutComponent = ({ deviceId }: { deviceId: string }) => {
   };
 
   return (
-    <div className='flex items-center'>
+    <div className='flex w-full items-center'>
       {/* Ensure atomic logout */}
       {doLogout && <AtomicLogout to='/' timeout={1000} />}
       {/* Logout button */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <MotionIconButton
-            icon={<LogOut className='h-8 w-8' />}
-            ariaLabel='Logout'
-            type='button'
-            className='text-muted-foreground w-fit'
-            tooltip='Logout'
+          <MotionButton
+            buttonType='button'
+            size='md'
+            supportingText='Logout'
+            variant='ghost'
+            text='Logout'
             isLoading={loading}
-            disabled={loading}
+            isDisabled={loading}
+            isFullWidth={true}
           />
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='end'>
+        <DropdownMenuContent align='end' className='border-border text-muted-foreground'>
           <DropdownMenuLabel>Options</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => logoutHandler(false)}>

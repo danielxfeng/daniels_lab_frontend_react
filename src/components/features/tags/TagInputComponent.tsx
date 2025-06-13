@@ -4,7 +4,7 @@ import { ControllerRenderProps } from 'react-hook-form';
 import { CreateOrUpdatePostBody } from '@/schema/schema_post';
 import { tagSchema, TagsResponseSchema } from '@/schema/schema_tag';
 import { debouncedSearchTagsByPrefix } from '@/services/service_tags';
-import StyledInput from '@/components/shared/StyledInput';
+import MotionInput from '@/components/motion_components/MotionInput';
 
 /**
  * @summary A tag input component.
@@ -80,7 +80,7 @@ const TagInputComponent = ({
       {/* Input + Suggestions */}
       <div className='relative'>
         {/* Input field */}
-        <StyledInput
+        <MotionInput
           value={inputValue}
           id={inputId}
           onChange={(e) => setInputValue(e.target.value)}

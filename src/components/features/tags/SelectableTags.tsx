@@ -1,17 +1,5 @@
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { tapEffect } from '@/lib/animations';
+import MotionButton from '@/components/motion_components/MotionButton';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
-
-// To toggle the style of the tag.
-const tagClass = (selected: boolean) =>
-  cn(
-    'rounded-full border px-3 text-sm transition-colors duration-200 shadow-sm',
-    'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
-    selected
-      ? '!bg-highlight !text-background shadow'
-      : 'bg-muted text-muted-foreground hover:bg-muted/70',
-  );
 
 /**x
  * @summary A component that displays a list of tags that can be selected.
@@ -28,29 +16,37 @@ const SelectableTags = ({
   tags: string[];
   value: string[];
   onChange: (tags: string[]) => void;
-}) => (
-  <div className='flex flex-col gap-2'>
-    <h4>🔥 tags:</h4>
-    <ToggleGroup
-      type='multiple'
-      variant='outline'
-      value={value}
-      onValueChange={onChange}
-      className='flex flex-wrap gap-2 !shadow-none'
-    >
-      {tags.map((tag) => (
-        <motion.div key={tag} layout whileTap={tapEffect}>
-          <ToggleGroupItem
-            value={tag}
-            aria-label={`toggle-tag-${tag}`}
-            className={tagClass(value.includes(tag))}
+}) => {
+  const toggleTag = (tag: string) => {
+    if (value.includes(tag)) {
+      onChange(value.filter((t) => t !== tag));
+    } else {
+      onChange([...value, tag]);
+    }
+  };
+
+  return (
+    <div className='flex flex-wrap gap-3 my-2'>
+      {tags.map((tag) => {
+        const selected = value.includes(tag);
+        return (
+          <MotionButton
+            key={tag}
+            buttonType='button'
+            variant='tag'
+            size='sm'
+            text={tag}
+            onClick={() => toggleTag(tag)}
+            btnClass={cn(selected && 'border-highlight')}
+            textClass={cn(selected && 'text-highlight')}
+            supportingText={`toggle-tag-${tag}`}
           >
             {tag}
-          </ToggleGroupItem>
-        </motion.div>
-      ))}
-    </ToggleGroup>
-  </div>
-);
+          </MotionButton>
+        );
+      })}
+    </div>
+  );
+};
 
 export default SelectableTags;

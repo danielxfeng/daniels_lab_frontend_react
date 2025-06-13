@@ -38,10 +38,11 @@ const UserDeleteComponent = ({ user }: { user: Partial<UserResponse> }) => {
       {/* Ensure atomic logout */}
       {doLogout && <AtomicLogout to='/' timeout={1000} />}
       <MotionDeleteButton
-        toDelete='my account'
-        tooltip='Delete my account'
+        deleteItem='my account'
+        supportingText='Delete my account'
+        textOrIcon='text'
         deleteHandler={deleteHandler}
-        size='h-10 w-10'
+        size='sm'
         isLoading={loading}
       />
     </>

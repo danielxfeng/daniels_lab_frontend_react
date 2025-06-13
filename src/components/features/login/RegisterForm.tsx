@@ -10,12 +10,11 @@ import {
   FormControl,
   FormMessage,
 } from '@/components/ui/form';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
 import { AuthResponseSchema, RegisterBody, RegisterBodySchema } from '@/schema/schema_auth';
-
 import useUserStore from '@/stores/useUserStore';
 import { registerUser } from '@/services/service_auth';
-import StyledInput from '@/components/shared/StyledInput';
+import MotionInput from '@/components/motion_components/MotionInput';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 /// This component is used to register a new user
 const RegisterForm = ({ deviceId }: { deviceId: string }) => {
@@ -103,7 +102,7 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <StyledInput {...field} />
+                    <MotionInput {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -118,7 +117,7 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <StyledInput type='password' {...field} />
+                    <MotionInput type='password' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,20 +132,22 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
-                    <StyledInput type='password' {...field} />
+                    <MotionInput type='password' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <MotionTextButton
-              type='submit'
-              label='Register'
-              ariaLabel='Register'
-              disabled={!isValid || isSubmitting}
-              className='w-full'
+            <MotionButton
+              buttonType='submit'
+              text='Register'
+              supportingText='Register'
+              isDisabled={!isValid || isSubmitting}
               isLoading={isSubmitting}
+              isFullWidth={true}
+              variant='highlight'
+              size='md'
             />
           </fieldset>
         </form>

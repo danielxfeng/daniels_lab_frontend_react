@@ -1,7 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import siteMeta from '@/constants/siteMeta';
-import MotionIconLink from '@/components/motion_components/MotionIconLink';
+import MotionButton from '@/components/motion_components/MotionButton';
 
 /**
  * A custom pagination component for navigating through pages of content.
@@ -56,33 +56,30 @@ const Pagination = ({
   return (
     <nav className='mx-auto flex items-center gap-8 py-2'>
       {hasPrevious && (
-        <MotionIconLink
+        <MotionButton
+          supportingText='Previous Page'
+          variant='ghost'
+          size='sm'
           to={goToPrev()}
-          icon={
-            <>
-              <span className='hidden lg:block'>Prev ...</span>
-              <ChevronLeftIcon className='text-foreground/80 h-8 w-8' />
-            </>
-          }
-          ariaLabel='navigate to previous page'
+          icon={<ChevronLeftIcon />}
+          text='Prev ...'
           isExternal={false}
-          className='hover:bg-muted/90'
-          tooltip='Previous Page'
+          textClass='hidden lg:block'
+          btnClass='border-none'
         />
       )}
       {hasNext && (
-        <MotionIconLink
+        <MotionButton
+          supportingText='Next Page'
+          variant='ghost'
+          size='sm'
           to={goToNext()}
-          icon={
-            <>
-              <ChevronRightIcon className='text-foreground/80 h-8 w-8' />{' '}
-              <span className='hidden lg:block'>Next ...</span>
-            </>
-          }
-          ariaLabel='navigate to next page'
+          icon={<ChevronRightIcon />}
+          text='... Next'
           isExternal={false}
-          className='hover:bg-muted'
-          tooltip='Next Page'
+          textClass='hidden lg:block'
+          btnClass='border-none'
+          iconPosition='right'
         />
       )}
     </nav>

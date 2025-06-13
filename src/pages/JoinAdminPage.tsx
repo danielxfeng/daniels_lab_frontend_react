@@ -1,7 +1,8 @@
+import MotionButton from '@/components/motion_components/MotionButton';
 import MotionH1 from '@/components/motion_components/MotionH1';
-import MotionTextButton from '@/components/motion_components/MotionTextButton';
+import MotionInput from '@/components/motion_components/MotionInput';
 import AtomicLogout from '@/components/shared/AtomicLogout';
-import StyledInput from '@/components/shared/StyledInput';
+import NotificationBar from '@/components/shared/NotificationBar';
 import {
   Form,
   FormControl,
@@ -79,7 +80,7 @@ const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Reference Code</FormLabel>
                 <FormControl>
-                  <StyledInput {...field} placeholder='Enter your reference code' />
+                  <MotionInput {...field} placeholder='Enter your reference code' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -87,12 +88,14 @@ const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
           />
 
           {/* submit button */}
-          <MotionTextButton
-            type='submit'
-            label='Submit'
-            ariaLabel='Submit'
-            className='btn-primary'
-            disabled={!isValid || isSubmitting}
+          <MotionButton
+            buttonType='submit'
+            variant='highlight'
+            size='md'
+            isFullWidth={true}
+            text='Submit'
+            supportingText='Submit'
+            isDisabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
           />
         </fieldset>
@@ -117,6 +120,7 @@ const JoinAdminPage = () => {
   return (
     <div className='inner-container w-full'>
       <title>{`User Profile – ${siteMeta.siteName}`}</title>
+      <NotificationBar />
       <MotionH1>Join Admin</MotionH1>
       <div className='flex w-full items-center justify-center'>
         <JoinAdminForm deviceId={deviceId} />

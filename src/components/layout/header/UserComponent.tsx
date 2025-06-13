@@ -1,8 +1,10 @@
 import useUserStore from '@/stores/useUserStore';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { LogIn } from 'lucide-react';
-import MotionIconLink from '@/components/motion_components/MotionIconLink';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import MotionButton from '@/components/motion_components/MotionButton';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { motion } from 'framer-motion';
+import { avatarAnimation } from '@/lib/animations';
 
 // This component shows the user avatar or username.
 const AvatarComponent = ({
@@ -14,7 +16,7 @@ const AvatarComponent = ({
   avatar: string | undefined;
   firstChar: string;
 }) => (
-  <Avatar className='h-10 w-10 lg:h-12 lg:w-12'>
+  <Avatar className='h-8 w-8 mx-2'>
     <AvatarImage src={avatar} alt={`${name}'s avatar`} />
     <AvatarFallback>{firstChar}</AvatarFallback>
   </Avatar>
@@ -33,31 +35,34 @@ const UserComponent = () => {
   if (userStatus === 'unauthenticated' || !user) {
     const currentPath = location.pathname + location.search;
     return (
-      <MotionIconLink
+      <MotionButton
+        supportingText='Login'
+        size='sm'
+        variant='highlight'
         to={`/user/login?redirectTo=${encodeURIComponent(currentPath)}`}
-        icon={<LogIn className='text-primary h-6 w-6' />}
-        ariaLabel='Login'
+        text='Login'
         isExternal={false}
-        tooltip='Login'
+        btnClass='mx-2'
       />
     );
   }
 
   // Show user avatar or username
   return (
-    <MotionIconLink
-      to='/user'
-      icon={
-        <AvatarComponent
-          name={user.username ?? 'User'}
-          avatar={user.avatarUrl || undefined}
-          firstChar={user.username?.[0]?.toUpperCase() ?? 'U'}
-        />
-      }
-      ariaLabel={user.username ?? 'User'}
-      isExternal={false}
-      tooltip='User Profile'
-    />
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <motion.div className='flex items-center justify-center' {...avatarAnimation}>
+          <Link to={`/user`}>
+            <AvatarComponent
+              name={user.username ?? 'User'}
+              avatar={user.avatarUrl || undefined}
+              firstChar={user.username?.[0]?.toUpperCase() ?? 'U'}
+            />
+          </Link>
+        </motion.div>
+      </TooltipTrigger>
+      <TooltipContent>{'User profile'}</TooltipContent>
+    </Tooltip>
   );
 };
 
