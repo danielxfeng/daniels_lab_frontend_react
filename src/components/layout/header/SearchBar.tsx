@@ -74,8 +74,7 @@ const DropdownHistory = ({
             <li
               key={item}
               className='hover:bg-muted text-muted-foreground cursor-pointer overflow-hidden px-4 py-1 text-sm'
-              // When clicked, we also set the keyword and fire the submit.
-              onClick={async () => {
+              onPointerDown={() => {
                 onSelect(item);
               }}
             >
@@ -123,7 +122,7 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
     reValidateMode: 'onSubmit',
   });
 
-  const keyword = watch('keyword'); // Watch the keyword input
+  const keyword = watch('keyword'); // Watch the keyword input, needed for filtering the dropdown history
 
   // We create a closure to handle the form submission
   const onSubmit = (data: FormValues) => {
@@ -161,9 +160,12 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
       <DropdownHistory
         showDropdown={showDropdown}
         keyword={keyword}
-        onSelect={async (selectedKeyword) => {
+        onSelect={(selectedKeyword) => {
           setValue('keyword', selectedKeyword);
-          await handleSubmit(onSubmit)();
+          // next tick, because the setValue is async.
+          setTimeout(() => {
+            handleSubmit(onSubmit)();
+          }, 0);
         }}
       />
     </div>
