@@ -19,12 +19,13 @@ type InputComponentProps = {
   filtered: string[];
   keyboardNavigationIndex: number;
   setKeyboardNavigationIndex: React.Dispatch<React.SetStateAction<number>>;
-  onSelect: (keyword: string) => void;
-};
+  onKeySelect: (keyword: string) => void;
+} & React.InputHTMLAttributes<HTMLInputElement>;
 
 type DropdownHistoryProps = {
   showDropdown: boolean;
   keyboardNavigationIndex: number;
+  setKeyboardNavigationIndex: React.Dispatch<React.SetStateAction<number>>;
   filtered: string[];
   onSelect: (keyword: string) => void;
 };
@@ -36,11 +37,12 @@ const InputComponent = ({
   filtered,
   keyboardNavigationIndex,
   setKeyboardNavigationIndex,
-  onSelect,
+  onKeySelect,
 }: InputComponentProps) => (
   <MotionInput
     //We register the keyword to component
     {...register('keyword')}
+    autoComplete='off'
     placeholder='Search posts...'
     // We expand the dropdown history when the input is focused
     onFocus={() => {
@@ -81,7 +83,7 @@ const InputComponent = ({
         }
         case 'Enter': {
           if (keyboardNavigationIndex >= 0 && keyboardNavigationIndex < filtered.length)
-            onSelect(filtered[keyboardNavigationIndex]);
+            onKeySelect(filtered[keyboardNavigationIndex]);
           break;
         }
       }
@@ -94,6 +96,7 @@ const InputComponent = ({
 const DropdownHistory = ({
   showDropdown,
   keyboardNavigationIndex,
+  setKeyboardNavigationIndex,
   filtered,
   onSelect,
 }: DropdownHistoryProps) => {
@@ -102,6 +105,9 @@ const DropdownHistory = ({
       {showDropdown && filtered.length > 0 && (
         <motion.ul
           {...easeInOut}
+          id='search-suggestion-list'
+          role='listbox'
+          aria-label='Search suggestions'
           className='bg-background dropdown-history absolute z-10 mt-1 flex w-full flex-col gap-0 px-2 pb-2 lg:rounded-lg lg:shadow-md'
         >
           {/* Iterate all items */}
@@ -109,12 +115,18 @@ const DropdownHistory = ({
             <li
               key={item}
               className={cn(
-                'hover:bg-muted text-muted-foreground cursor-pointer overflow-hidden rounded-lg px-4 py-1 text-sm',
+                'text-muted-foreground cursor-pointer overflow-hidden rounded-lg px-4 py-1 text-sm',
                 i === keyboardNavigationIndex && 'bg-muted',
               )}
               onPointerDown={() => {
                 onSelect(item);
               }}
+              onMouseEnter={() => {
+                setKeyboardNavigationIndex(i); // Set the keyboard navigation index on hover
+              }}
+              role='option'
+              aria-selected={i === keyboardNavigationIndex}
+              id={`search-suggestion-${i}`}
             >
               {item}
             </li>
@@ -150,6 +162,7 @@ const DropdownHistory = ({
  * - The dropdown history:
  *  - Displays the search history the parent provider.
  *  - Filters the history based on the keyword input.
+ *  - Sets the keyboard navigation index on hover or keyboard navigation.
  *  - Sets the input value, submits the form, blurs the input when an item is selected(on click, or on `Enter` key).
  *  - Visual feedback on hover, or keyboard navigation.
  * - Submission:
@@ -202,6 +215,7 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
     ? history.filter((item) => item.toLowerCase().includes(keyword.toLowerCase()))
     : history;
 
+  // to handle the side effects
   useEffect(() => {
     // Reset the keyboard navigation index when user is typing
     setKeyboardNavigationIndex(-1);
@@ -241,19 +255,29 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
             filtered={filtered}
             keyboardNavigationIndex={keyboardNavigationIndex}
             setKeyboardNavigationIndex={setKeyboardNavigationIndex}
-            onSelect={onSelect}
+            onKeySelect={onSelect}
+            role='combobox'
+            aria-expanded={showDropdown}
+            aria-controls='search-suggestion-list'
+            aria-autocomplete='list'
+            aria-activedescendant={
+              keyboardNavigationIndex >= 0
+                ? `search-suggestion-${keyboardNavigationIndex}`
+                : undefined
+            }
           />
 
           {/* The search button */}
           <MotionButton
-            buttonType='submit'
+            buttonType='button'
+            onClick={() => {
+              handleSubmit(onSubmit)(); // Submit the form
+            }}
             variant='ghost'
             size='sm'
             supportingText='Search posts'
             icon={<Search />}
-            type='submit'
             btnClass='absolute top-1/2 right-2 -translate-y-1/2 p-1'
-            isDisabled={isSubmitting}
           />
         </fieldset>
       </form>
@@ -264,6 +288,7 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
         filtered={filtered}
         keyboardNavigationIndex={keyboardNavigationIndex}
         onSelect={onSelect}
+        setKeyboardNavigationIndex={setKeyboardNavigationIndex}
       />
     </div>
   );
