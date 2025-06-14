@@ -19,9 +19,12 @@ import UserComponent from '@/components/layout/header/UserComponent';
 const Header = ({ isBasic }: { isBasic?: boolean }) => {
   return (
     <header className='outer-container bg-[linear-gradient(to_bottom,theme(colors.background)_0%,theme(colors.background)_80%,transparent_100%)] sticky top-0 z-50'>
-      <div className='inner-container flex items-center justify-between py-3 text-sm'>
+      <div
+        className='inner-container flex items-center justify-between py-3 text-sm'
+        data-role='header'
+      >
         {/* Left side: Logo and NavLinksDesktop */}
-        <div className='flex items-center justify-start gap-2 lg:gap-16'>
+        <div className='flex items-center justify-start gap-2 lg:gap-16' data-role='header-left'>
           <div className='flex items-center justify-center lg:hidden'>
             {/* Show only in mobile mode */}
             <NavLinksMobile />
@@ -37,7 +40,7 @@ const Header = ({ isBasic }: { isBasic?: boolean }) => {
 
         {/* Right side: SearchBar/Btn, UserComponent, ThemeToggle, NavLinksMobile */}
         {!isBasic && (
-          <div className='flex items-center justify-end lg:gap-3'>
+          <div className='flex items-center justify-end lg:gap-3' data-role='header-right'>
             {/* Show only in desktop mode */}
             <div className='hidden items-center justify-center lg:flex'>
               <SearchBar />

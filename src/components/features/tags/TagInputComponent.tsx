@@ -98,9 +98,15 @@ const TagInputComponent = ({
             }
           }}
           placeholder='Add tag...'
+          data-role='input-tag'
+          autoComplete='off'
         />
         {/* Error message */}
-        {tagError && <p className='text-destructive text-sm'>{tagError}</p>}
+        {tagError && (
+          <p className='text-destructive text-sm' data-role='tag-input-error'>
+            {tagError}
+          </p>
+        )}
 
         {/* Dropdown for suggestions */}
         <AnimatePresence>
@@ -110,12 +116,16 @@ const TagInputComponent = ({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               className='bg-background absolute z-10 mt-1 w-full rounded-md shadow'
+              data-role='tag-suggestions'
             >
               {suggestions.map((s) => (
                 <li
                   key={s}
                   onClick={() => addTag(s)}
                   className='hover:bg-muted cursor-pointer px-3 py-1'
+                  data-role='tag-suggestion-item'
+                  role='option'
+                  aria-label={`Add tag: ${s}`}
                 >
                   {s}
                 </li>

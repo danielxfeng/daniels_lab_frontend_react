@@ -28,6 +28,7 @@ const NavLinksMobile = () => {
             supportingText='Open Menu'
             icon={<Menu />}
             onClick={() => setOpen(true)}
+            dataRole='button-open-menu'
           />
         </SheetTrigger>
         <SheetContent
@@ -38,7 +39,11 @@ const NavLinksMobile = () => {
             <SheetTitle>Menu</SheetTitle>
             <SheetDescription>Click the navigation link below</SheetDescription>
           </SheetHeader>
-          <div className='flex flex-col items-start gap-2 px-10'>
+          <div
+            className='flex flex-col items-start gap-2 px-10'
+            data-role='nav-links-mobile'
+            aria-label='Main Navigation Links'
+          >
             {navMenu.map((item) => (
               <SheetClose asChild key={item.title}>
                 <MotionTextLink label={item.title} to={item.link} isExternal={false} />

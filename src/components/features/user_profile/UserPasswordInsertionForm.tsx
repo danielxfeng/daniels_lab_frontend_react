@@ -66,7 +66,12 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
     <Form {...form}>
       {/* Ensure atomic logout */}
       {doLogout && <AtomicLogout to='/' timeout={1000} />}
-      <form onSubmit={handleSubmit(onSubmit)} className='mt-6 w-full max-w-xl'>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='mt-6 w-full max-w-xl'
+        data-role='user-password-insertion-form'
+        aria-label='User Password Insertion Form'
+      >
         <fieldset disabled={isSubmitting} className='flex flex-col gap-6'>
           {/* new password */}
           <FormField
@@ -76,7 +81,13 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <MotionInput type='password' placeholder='password' {...field} />
+                  <MotionInput
+                    type='password'
+                    placeholder='password'
+                    {...field}
+                    data-role='input-password'
+                    autoComplete='new-password'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -91,7 +102,13 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <MotionInput type='password' placeholder='Confirm password' {...field} />
+                  <MotionInput
+                    type='password'
+                    placeholder='Confirm password'
+                    {...field}
+                    data-role='confirm-password'
+                    autoComplete='new-password'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -108,6 +125,7 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
             size='md'
             isDisabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
+            dataRole='button-submit-set-password'
           />
         </fieldset>
       </form>

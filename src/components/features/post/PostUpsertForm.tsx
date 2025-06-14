@@ -81,7 +81,12 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className='mx-auto mt-6 w-full max-w-2xl'>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='mx-auto mt-6 w-full max-w-2xl'
+        data-role='post-upsert-form'
+        aria-label='Post Upsert Form'
+      >
         <fieldset disabled={isSubmitting} className='flex flex-col gap-6'>
           {/* Title */}
           <FormField
@@ -91,7 +96,12 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <MotionInput placeholder='Post title' {...field} />
+                  <MotionInput
+                    placeholder='Post title'
+                    {...field}
+                    data-role='input-title'
+                    autoComplete='off'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -106,7 +116,12 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
               <FormItem>
                 <FormLabel>Cover Image URL</FormLabel>
                 <FormControl>
-                  <MotionInput placeholder='https://your.cover.url' {...field} />
+                  <MotionInput
+                    placeholder='https://your.cover.url'
+                    {...field}
+                    data-role='input-cover-url'
+                    autoComplete='off'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -125,6 +140,8 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
                     placeholder='Write in markdown...'
                     {...field}
                     className='min-h-96'
+                    data-role='input-markdown'
+                    autoComplete='off'
                   />
                 </FormControl>
                 <FormMessage />
@@ -174,7 +191,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
             render={({ field }) => {
               const valueAsDate = field.value ? new Date(field.value) : undefined;
               return (
-                <FormItem className='flex flex-col'>
+                <FormItem className='flex flex-col' data-role='date-picker-creation-date'>
                   <FormLabel>Post creation date</FormLabel>
                   <FormDescription>
                     Used to record when this article was originally written.
@@ -188,6 +205,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
                             'border-border w-full pl-3 text-left font-normal',
                             !field.value && 'text-muted-foreground',
                           )}
+                          aria-label='Pick creation date'
                         >
                           {field.value ? (
                             valueAsDate ? (
@@ -226,6 +244,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
           <FormField
             control={form.control}
             name='updatedAt'
+            data-role='date-picker-update-date'
             render={({ field }) => {
               const valueAsDate = field.value ? new Date(field.value) : undefined;
               return (
@@ -243,6 +262,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
                             'border-border w-full pl-3 text-left font-normal',
                             !field.value && 'text-muted-foreground',
                           )}
+                          aria-label='Pick update date'
                         >
                           {field.value ? (
                             valueAsDate ? (
@@ -282,6 +302,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
             isFullWidth={true}
             isDisabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
+            dataRole='button-submit-post'
           />
         </fieldset>
       </form>

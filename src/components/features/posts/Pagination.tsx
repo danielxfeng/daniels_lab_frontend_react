@@ -4,6 +4,12 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import MotionButton from '@/components/motion_components/MotionButton';
 import siteMeta from '@/constants/siteMeta';
 
+type PaginationProps = {
+  total: number;
+  offset: number;
+  isPrevEnabled?: boolean;
+};
+
 /**
  * A custom pagination component for navigating through pages of content.
  * @param total - The total number of items.
@@ -11,15 +17,7 @@ import siteMeta from '@/constants/siteMeta';
  * @param isPrevEnabled - A flag to enable or disable the previous button.
  * @returns A pagination component.
  */
-const Pagination = ({
-  total,
-  offset,
-  isPrevEnabled = true,
-}: {
-  total: number;
-  offset: number;
-  isPrevEnabled: boolean;
-}) => {
+const Pagination = ({ total, offset, isPrevEnabled = true }: PaginationProps) => {
   const [searchParams] = useSearchParams();
 
   const limit = siteMeta.paginationLimit;
@@ -55,7 +53,11 @@ const Pagination = ({
   };
 
   return (
-    <nav className='mx-auto flex items-center gap-8 py-2'>
+    <nav
+      className='mx-auto flex items-center gap-8 py-2'
+      data-role='pagination'
+      aria-label='Pagination navigation'
+    >
       {hasPrevious && (
         <MotionButton
           supportingText='Previous Page'
@@ -67,6 +69,7 @@ const Pagination = ({
           isExternal={false}
           textClass='hidden lg:block'
           btnClass='border-none'
+          dataRole='button-pagination-prev'
         />
       )}
       {hasNext && (
@@ -81,6 +84,7 @@ const Pagination = ({
           textClass='hidden lg:block'
           btnClass='border-none'
           iconPosition='right'
+          dataRole='button-pagination-next'
         />
       )}
     </nav>

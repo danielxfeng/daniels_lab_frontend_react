@@ -98,7 +98,12 @@ const UserProfileUpdateForm = () => {
     <div className='flex w-full flex-col items-center justify-center'>
       <h3>Update your profile</h3>
       <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)} className='mt-6 w-full max-w-xl'>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className='mt-6 w-full max-w-xl'
+          data-role='user-profile-update-form'
+          aria-label='User Profile Update Form'
+        >
           <fieldset disabled={isSubmitting} className='flex flex-col gap-6'>
             {/* Username is required */}
             <FormField
@@ -108,7 +113,12 @@ const UserProfileUpdateForm = () => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <MotionInput placeholder='A new username' {...field} />
+                    <MotionInput
+                      placeholder='A new username'
+                      {...field}
+                      data-role='input-username'
+                      autoComplete='off'
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -125,6 +135,7 @@ const UserProfileUpdateForm = () => {
               buttonType='submit'
               isDisabled={!isValid || isSubmitting}
               isLoading={isSubmitting}
+              dataRole='button-submit-update-profile'
             />
           </fieldset>
         </form>

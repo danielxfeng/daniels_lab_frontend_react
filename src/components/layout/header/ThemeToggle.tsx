@@ -45,6 +45,7 @@ const ThemeToggle = () => {
       buttonType='button'
       icon={icon}
       onClick={toggleTheme}
+      dataRole='button-theme-toggle'
     />
   );
 };

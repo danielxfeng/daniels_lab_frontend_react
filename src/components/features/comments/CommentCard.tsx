@@ -10,6 +10,12 @@ import { AuthResponse as User } from '@/schema/schema_auth';
 import { CommentResponse } from '@/schema/schema_comment';
 import { deleteComment } from '@/services/service_comments';
 
+type CommentCardProps = {
+  user: Partial<User> | null;
+  comment: CommentResponse;
+  setComments: React.Dispatch<React.SetStateAction<CommentResponse[]>>;
+};
+
 /**
  * @summary A component to display a comment, with edit and delete functionality.
  * @param user - The user object to get the user information
@@ -17,15 +23,7 @@ import { deleteComment } from '@/services/service_comments';
  * @param setComments - The hook to set the comments state
  * @returns
  */
-const CommentCard = ({
-  user,
-  comment,
-  setComments,
-}: {
-  user: Partial<User> | null;
-  comment: CommentResponse;
-  setComments: React.Dispatch<React.SetStateAction<CommentResponse[]>>;
-}) => {
+const CommentCard = ({ user, comment, setComments }: CommentCardProps) => {
   const [loading, setLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);
   // need to update the edit mode when the comment is updated
@@ -60,8 +58,11 @@ const CommentCard = ({
   if (editMode) return <CommentForm user={user} comment={comment} setComments={setComments} />;
 
   return (
-    <article className='border-border flex w-full flex-col gap-2 border-b px-2 py-2'>
-      <header className='w-full'>
+    <article
+      className='border-border flex w-full flex-col gap-2 border-b px-2 py-2'
+      data-role='comment-card'
+    >
+      <header className='w-full' data-role='comment-card-header'>
         <AuthorDateBar
           authorName={comment.authorName}
           authorAvatar={comment.authorAvatar}
@@ -69,9 +70,11 @@ const CommentCard = ({
           updatedAt={comment.updatedAt}
         />
       </header>
-      <p className='text-primary'>{comment.content}</p>
+      <p className='text-primary' data-role='comment-card-comment'>
+        {comment.content}
+      </p>
       {/* The possible operation panel */}
-      <footer className='flex items-center justify-end gap-0'>
+      <footer className='flex items-center justify-end gap-0' data-role='comment-card-footer'>
         {user?.id === comment.authorId && (
           <MotionButton
             buttonType='button'
@@ -83,6 +86,7 @@ const CommentCard = ({
             isDisabled={loading}
             onClick={() => setEditMode(true)}
             isLoading={loading}
+            dataRole='button-edit-comment'
           />
         )}
         {(user?.id === comment.authorId || user?.isAdmin) && (
@@ -94,6 +98,7 @@ const CommentCard = ({
             size='sm'
             isLoading={loading}
             variant='ghost'
+            dataRole='button-delete-comment'
           />
         )}
       </footer>

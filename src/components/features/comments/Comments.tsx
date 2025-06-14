@@ -98,7 +98,11 @@ const Comments = ({ postId }: { postId: string }) => {
   }, [fetchComments]);
 
   return (
-    <aside className='mx-auto flex w-full max-w-2xl flex-col gap-2'>
+    <aside
+      className='mx-auto flex w-full max-w-2xl flex-col gap-2'
+      data-role='comments'
+      aria-label='Comments section'
+    >
       <CommentForm user={user} comment={undefined} postId={postId} setComments={setComments} />
       {comments.map((comment) => (
         <CommentCard key={comment.id} comment={comment} user={user} setComments={setComments} />
@@ -116,6 +120,7 @@ const Comments = ({ postId }: { postId: string }) => {
           variant='secondary'
           isFullWidth={true}
           btnClass='mt-3'
+          dataRole='button-load-more-comments'
         />
       )}
 

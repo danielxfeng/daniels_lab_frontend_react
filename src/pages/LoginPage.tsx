@@ -12,7 +12,7 @@ import getDeviceId from '@/lib/deviceid';
 
 // A component for the GDPR notice
 const GDPR = () => (
-  <div className={'text-muted-foreground mt-8 w-full text-center text-sm'}>
+  <div className={'text-muted-foreground mt-8 w-full text-center text-sm'} data-role='gdpr-notice'>
     By continuing, you agree to our{' '}
     <a
       href='/terms'
@@ -51,7 +51,7 @@ const LoginPage = () => {
   if (!deviceId) return null;
 
   return (
-    <div className='inner-container'>
+    <div className='inner-container' data-role='login-page'>
       <title>{`Login – ${siteMeta.siteName}`}</title>
       <NotificationBar />
       <MotionH1>Login</MotionH1>

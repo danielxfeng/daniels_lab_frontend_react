@@ -55,7 +55,7 @@ const UserProfilePage = () => {
   }, []);
 
   return !user || !deviceId ? null : (
-    <div className='inner-container'>
+    <div className='inner-container' data-role='user-profile-page'>
       <title>{`User Profile – ${siteMeta.siteName}`}</title>
       <NotificationBar />
       {/* UserProfileCard */}

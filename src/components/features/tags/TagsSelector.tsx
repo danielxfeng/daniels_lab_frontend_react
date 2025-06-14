@@ -19,7 +19,12 @@ const TagSelector = ({
   inputId: string;
 }) => {
   return (
-    <div className='flex flex-col gap-2 space-y-2'>
+    <div
+      className='flex flex-col gap-2 space-y-2'
+      data-role='tag-selector'
+      aria-label='Tag selector including drag and drop and tag input'
+      role='group'
+    >
       {/* Drag and drop container */}
       <DragDropComponent field={field} />
       {/* Input field with a suggestion dropdown */}

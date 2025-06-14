@@ -10,8 +10,10 @@ const TagsBar = ({ tags }: { tags: string[] }) => {
     return null; // Return null if there are no tags to display
   }
   return (
-    <div className='flex items-center gap-2'>
-      <div className='mr-2'>Tags:</div>
+    <div className='flex items-center gap-2' data-role='tags-bar'>
+      <div className='mr-2' data-role='tags-bar-label'>
+        Tags:
+      </div>
       <div className='flex flex-wrap items-center gap-1.5'>
         {tags.map((tag) => (
           <MotionButton
@@ -22,6 +24,7 @@ const TagsBar = ({ tags }: { tags: string[] }) => {
             to={`/blog/posts/?tags=${tag}`}
             text={`${tag}`}
             isExternal={false}
+            dataRole={`tag-${tag}`}
           />
         ))}
       </div>

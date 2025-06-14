@@ -71,7 +71,12 @@ const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
     <Form {...form}>
       {/* Ensure atomic logout */}
       {doLogout && <AtomicLogout to='/' timeout={1000} />}
-      <form onSubmit={handleSubmit(onSubmit)} className='flex w-full max-w-96 flex-col gap-4'>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='flex w-full max-w-96 flex-col gap-4'
+        data-role='join-admin-form'
+        aria-label='Join Admin Form'
+      >
         <fieldset disabled={isSubmitting} className='flex flex-col gap-6'>
           {/* Reference Code Input */}
           <FormField
@@ -81,7 +86,12 @@ const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Reference Code</FormLabel>
                 <FormControl>
-                  <MotionInput {...field} placeholder='Enter your reference code' />
+                  <MotionInput
+                    {...field}
+                    placeholder='Enter your reference code'
+                    data-role='input-reference-code'
+                    autoComplete='off'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -98,6 +108,7 @@ const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
             supportingText='Submit'
             isDisabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
+            dataRole='button-submit-join-admin'
           />
         </fieldset>
       </form>
@@ -119,7 +130,7 @@ const JoinAdminPage = () => {
 
   if (!deviceId) return null;
   return (
-    <div className='inner-container w-full'>
+    <div className='inner-container w-full' data-role='join-admin-page'>
       <title>{`User Profile – ${siteMeta.siteName}`}</title>
       <NotificationBar />
       <MotionH1>Join Admin</MotionH1>

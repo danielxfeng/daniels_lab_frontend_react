@@ -8,7 +8,7 @@ const NotFoundPage = () => {
   const location = useLocation();
   console.warn('404 warning', location.pathname);
   return (
-    <div className='inner-container flex flex-col gap-4'>
+    <div className='inner-container flex flex-col gap-4' data-role='not-found-page'>
       <NotificationBar />
       <h1>Oops! Page not found.</h1>
 
@@ -22,6 +22,7 @@ const NotFoundPage = () => {
         to='/'
         text='Home'
         isExternal={false}
+        dataRole='button-go-home'
       />
     </div>
   );

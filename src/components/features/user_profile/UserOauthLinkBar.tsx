@@ -9,11 +9,10 @@ import { UserResponse } from '@/schema/schema_users';
 import { oauthLinkUser, oauthUnlinkUser } from '@/services/service_auth';
 import useUserStore from '@/stores/useUserStore';
 
-const iconStyle = 'h-8 w-8 lg:h-12 lg:w-12';
 const oauthMap = {
-  google: <FaGoogle className={iconStyle} />,
-  github: <FaGithub className={iconStyle} />,
-  linkedin: <FaLinkedin className={iconStyle} />,
+  google: <FaGoogle />,
+  github: <FaGithub />,
+  linkedin: <FaLinkedin />,
 };
 
 const capitalizeFirstLetter = (str: string) => {
@@ -82,9 +81,9 @@ const UserOauthLinkBar = ({
   };
 
   return (
-    <div className='flex w-full flex-col items-center gap-4'>
+    <div className='flex w-full flex-col items-center gap-4' data-role='user-oauth-link-bar'>
       <h3>Manage linked accounts</h3>
-      <div className='lg: flex w-full max-w-md flex-col gap-5'>
+      <div className='lg: flex w-full max-w-md flex-col gap-5' data-role='oauth-link-buttons'>
         {OauthProviderValues.map((provider) => {
           const isLinked = user.oauthProviders?.includes(provider);
           return (
@@ -100,6 +99,7 @@ const UserOauthLinkBar = ({
                   isDisabled={currentLoadingProvider === provider}
                   supportingText={`Unlink ${provider}`}
                   isFullWidth={true}
+                  dataRole={`button-unlink-${provider}`}
                 />
               ) : (
                 <MotionButton
@@ -112,6 +112,7 @@ const UserOauthLinkBar = ({
                   isDisabled={currentLoadingProvider === provider}
                   supportingText={`Link ${provider}`}
                   isFullWidth={true}
+                  dataRole={`button-link-${provider}`}
                 />
               )}
             </div>

@@ -2,7 +2,10 @@ import NotificationBar from '@/components/shared/NotificationBar';
 import siteMeta from '@/constants/siteMeta';
 
 const TermsPage = () => (
-  <div className='inner-container flex flex-col items-start justify-start gap-4 text-left'>
+  <div
+    className='inner-container flex flex-col items-start justify-start gap-4 text-left'
+    data-role='terms-page'
+  >
     <title>{`Terms, conditions, and privacy policy – ${siteMeta.siteName}`}</title>
     <NotificationBar />
     <h1>Terms and Conditions, Privacy Policy</h1>

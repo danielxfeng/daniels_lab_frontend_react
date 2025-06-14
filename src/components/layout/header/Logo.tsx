@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { logoImageMotion } from '@/lib/animations';
 
 const Logo = () => (
-  <Link to='/' className='flex items-end justify-start'>
+  <Link to='/' className='flex items-end justify-start' data-role='logo-link' aria-label='Home'>
     <motion.img
       src='/icon.svg'
       alt='Logo light'

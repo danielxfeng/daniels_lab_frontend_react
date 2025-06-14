@@ -15,17 +15,15 @@ import { CommentResponse, CommentResponseSchema } from '@/schema/schema_comment'
 import { UserResponse } from '@/schema/schema_users';
 import { createComment, getComment, updateComment } from '@/services/service_comments';
 
-const CommentForm = ({
-  user,
-  comment,
-  postId,
-  setComments,
-}: {
+type CommentFormProps = {
   user: Partial<UserResponse> | null;
   comment?: CommentResponse;
   postId?: string;
   setComments: React.Dispatch<React.SetStateAction<CommentResponse[]>>;
-}) => {
+};
+
+// An upsert form for comment.
+const CommentForm = ({ user, comment, postId, setComments }: CommentFormProps) => {
   if (!comment && !postId) throw new Error('Either comment or postId must be provided');
   const isCreate = !comment;
 
@@ -114,11 +112,17 @@ const CommentForm = ({
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className='my-3'>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='my-3'
+        aria-label={comment ? 'Edit comment form' : 'New comment form'}
+        data-role='form-comment'
+      >
         <fieldset disabled={isSubmitting} className='flex flex-col gap-2'>
           <FormField
             control={form.control}
             name='content'
+            aria-label='Comment content'
             render={({ field }) => (
               <FormItem>
                 <FormControl>
@@ -126,6 +130,7 @@ const CommentForm = ({
                     {...field}
                     placeholder='Leave a comment...'
                     className='min-h-[100px]'
+                    autoComplete='off'
                   />
                 </FormControl>
                 <FormMessage />
@@ -142,6 +147,7 @@ const CommentForm = ({
               supportingText={comment ? 'Update a comment' : 'Create a Comment'}
               isDisabled={!isValid || isSubmitting}
               isLoading={isSubmitting}
+              dataRole='button-submit-comment'
             />
           </div>
         </fieldset>

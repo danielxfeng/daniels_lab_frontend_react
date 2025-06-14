@@ -45,6 +45,7 @@ const UserDeleteComponent = ({ user }: { user: Partial<UserResponse> }) => {
         deleteHandler={deleteHandler}
         size='sm'
         isLoading={loading}
+        dataRole='button-delete-user'
       />
     </>
   );

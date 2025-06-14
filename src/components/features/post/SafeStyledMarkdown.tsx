@@ -85,6 +85,7 @@ const SafeStyledMarkdown = ({ markdown, className }: { markdown: string; classNa
     <div
       className={cn('prose dark:prose-invert w-full max-w-none', className)}
       dangerouslySetInnerHTML={{ __html: html }}
+      data-role="safe-styled-markdown"
     />
   );
 };

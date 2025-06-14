@@ -36,7 +36,7 @@ const OauthLoginBar = ({ deviceId }: { deviceId: string }) => {
   if (redirectTo === '/user/login') redirectTo = '/';
 
   return (
-    <div className='flex w-full flex-col justify-center gap-8'>
+    <div className='flex w-full flex-col justify-center gap-8' data-role='oauth-login-bar'>
       {OauthProviderValues.map((provider) => (
         <MotionButton
           variant='highlight'
@@ -47,12 +47,14 @@ const OauthLoginBar = ({ deviceId }: { deviceId: string }) => {
           key={provider}
           icon={iconMap[provider as keyof typeof iconMap]}
           isExternal={false}
+          dataRole={`button-oauth-login-${provider}`}
         />
       ))}
     </div>
   );
 };
 
+// The main login form component
 const LoginForm = ({ deviceId }: { deviceId: string }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -124,7 +126,12 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
       <hr className='text-muted-foreground my-9' />
       <h3>By your account:</h3>
       <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className='space-y-4'
+          aria-label='login-form'
+          data-role='form-login'
+        >
           <fieldset className='flex flex-col gap-4'>
             {/* Username */}
             <FormField
@@ -134,7 +141,7 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <MotionInput {...field} />
+                    <MotionInput {...field} autoComplete='username' data-role='input-username' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -148,7 +155,12 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <MotionInput type='password' {...field} />
+                    <MotionInput
+                      type='password'
+                      {...field}
+                      autoComplete='current-password'
+                      data-role='input-password'
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -164,6 +176,7 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
               isFullWidth={true}
               variant='highlight'
               size='md'
+              dataRole='button-submit-login'
             />
           </fieldset>
         </form>
