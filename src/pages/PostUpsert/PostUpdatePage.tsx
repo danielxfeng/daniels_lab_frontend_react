@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLoaderData, useLocation, useNavigate } from 'react-router';
+import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 
 import PostUpsertForm from '@/components/features/post/PostUpsertForm';
 import MotionH1 from '@/components/motion_components/MotionH1';
