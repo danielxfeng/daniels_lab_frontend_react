@@ -91,7 +91,11 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
   };
 
   return (
-    <div className='mt-8 flex flex-1 flex-col gap-4'>
+    <div
+      className='mt-8 flex flex-1 flex-col gap-4'
+      data-role='register-form'
+      aria-label='Register form'
+    >
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
           <fieldset className='flex flex-col gap-4' disabled={isSubmitting}>
@@ -103,7 +107,7 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <MotionInput {...field} />
+                    <MotionInput {...field} autoComplete='username' data-role='input-username' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -118,7 +122,12 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <MotionInput type='password' {...field} />
+                    <MotionInput
+                      type='password'
+                      {...field}
+                      autoComplete='new-password'
+                      data-role='input-password'
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,7 +142,12 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
                 <FormItem>
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
-                    <MotionInput type='password' {...field} />
+                    <MotionInput
+                      type='password'
+                      {...field}
+                      autoComplete='new-password'
+                      data-role='input-confirm-password'
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -149,6 +163,7 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
               isFullWidth={true}
               variant='highlight'
               size='md'
+              dataRole='button-submit-register'
             />
           </fieldset>
         </form>

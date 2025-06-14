@@ -14,14 +14,14 @@ import useSearchHistoryStore from '@/stores/useSearchHistoryStore';
 // Define a type for form input.
 type FormValues = { keyword: string };
 
-type InputComponentProps = {
+interface InputComponentProps extends React.InputHTMLAttributes<HTMLInputElement> {
   register: UseFormRegister<FormValues>;
   setShowDropdown: React.Dispatch<React.SetStateAction<boolean>>;
   filtered: string[];
   keyboardNavigationIndex: number;
   setKeyboardNavigationIndex: React.Dispatch<React.SetStateAction<number>>;
   onKeySelect: (keyword: string) => void;
-} & React.InputHTMLAttributes<HTMLInputElement>;
+}
 
 type DropdownHistoryProps = {
   showDropdown: boolean;
@@ -90,6 +90,8 @@ const InputComponent = ({
       }
     }}
     className='lg:bg-background h-8 bg-transparent text-sm'
+    data-role='search-input'
+    aria-label='Search posts'
   />
 );
 
@@ -109,6 +111,7 @@ const DropdownHistory = ({
           id='search-suggestion-list'
           role='listbox'
           aria-label='Search suggestions'
+          data-role='search-suggestions'
           className='dropdown-history lg:bg-background absolute z-10 mt-1 flex w-full flex-col gap-0 bg-transparent px-2 pb-2 lg:rounded-lg lg:shadow-md'
         >
           {/* Iterate all items */}
@@ -128,6 +131,7 @@ const DropdownHistory = ({
               role='option'
               aria-selected={i === keyboardNavigationIndex}
               id={`search-suggestion-${i}`}
+              data-role='search-suggestion-item'
             >
               {item}
             </li>
@@ -245,7 +249,7 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
   };
 
   return (
-    <div className='relative w-full max-w-md'>
+    <div className='relative w-full max-w-md' data-role='search-bar'>
       {/* The form */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset disabled={isSubmitting}>
@@ -266,6 +270,7 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
                 ? `search-suggestion-${keyboardNavigationIndex}`
                 : undefined
             }
+            data-role='search-input-component'
           />
 
           {/* The search button */}
@@ -279,6 +284,7 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
             supportingText='Search posts'
             icon={<Search />}
             btnClass='absolute top-1/2 right-2 -translate-y-1/2 p-1'
+            dataRole='search-button'
           />
         </fieldset>
       </form>

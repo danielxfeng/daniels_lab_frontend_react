@@ -12,7 +12,13 @@ import navMenu from '@/constants/navMenu';
 import { navTextAnimation, navUnderline } from '@/lib/animations';
 
 const MotionNavLink = ({ title, link }: { title: string; link: string }) => (
-  <motion.div whileHover='hover' initial='initial' className='text-primary relative'>
+  <motion.div
+    whileHover='hover'
+    initial='initial'
+    className='text-primary relative'
+    data-role='nav-link'
+    aria-label='Navigation Link'
+  >
     <motion.div {...navTextAnimation}>
       <Link to={link} className='hover:text-highlight transition-all duration-200'>
         {title}
@@ -43,7 +49,11 @@ const NavList = ({ title, link }: { title: string; link: string }) => (
  * The full desktop nav component.
  */
 const NavLinksDesktop = () => (
-  <NavigationMenu className='hidden items-center lg:flex'>
+  <NavigationMenu
+    className='hidden items-center lg:flex'
+    data-role='nav-links-desktop'
+    aria-label='Main Navigation Bar'
+  >
     {navMenu.map((item, i) => (
       <React.Fragment key={item.title}>
         {i > 0 && <span className='text-ring px-2'>|</span>}

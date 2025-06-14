@@ -1,6 +1,12 @@
 import MotionButton from '@/components/motion_components/MotionButton';
 import { cn } from '@/lib/utils';
 
+type SelectableTagsProps = {
+  tags: string[];
+  value: string[];
+  onChange: (tags: string[]) => void;
+};
+
 /**x
  * @summary A component that displays a list of tags that can be selected.
  * @param tags - The list of tags to display.
@@ -8,15 +14,7 @@ import { cn } from '@/lib/utils';
  * @param setSelectedTags - The `setState` of useState that updates the selected tags.
  * @returns A component that displays a list of tags that can be selected.
  */
-const SelectableTags = ({
-  tags,
-  value,
-  onChange,
-}: {
-  tags: string[];
-  value: string[];
-  onChange: (tags: string[]) => void;
-}) => {
+const SelectableTags = ({ tags, value, onChange }: SelectableTagsProps) => {
   const toggleTag = (tag: string) => {
     if (value.includes(tag)) {
       onChange(value.filter((t) => t !== tag));
@@ -26,7 +24,7 @@ const SelectableTags = ({
   };
 
   return (
-    <div className='my-2 flex flex-wrap gap-3'>
+    <div className='my-2 flex flex-wrap gap-3' data-role='selectable-tags'>
       {tags.map((tag) => {
         const selected = value.includes(tag);
         return (
@@ -40,6 +38,7 @@ const SelectableTags = ({
             btnClass={cn(selected && 'border-highlight')}
             textClass={cn(selected && 'text-highlight')}
             supportingText={`toggle-tag-${tag}`}
+            dataRole={`tag-${tag}`}
           >
             {tag}
           </MotionButton>

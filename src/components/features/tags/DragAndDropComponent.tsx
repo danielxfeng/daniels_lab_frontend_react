@@ -34,6 +34,9 @@ const DraggableTag = ({ tag, isOverlay = false }: { tag: string; isOverlay?: boo
         'border-border text-muted-foreground pointer-events-auto z-10 inline-flex w-auto max-w-[160px] items-center justify-center gap-2 overflow-hidden rounded-xl border bg-transparent px-2.5 py-0.5 text-sm text-ellipsis whitespace-nowrap shadow transition-colors',
         isOverlay && 'bg-destructive text-background',
       )}
+      data-role='draggable-tag'
+      aria-label={`Draggable tag: ${tag}`}
+      role='button'
     >
       <span>{tag}</span>
     </motion.div>
@@ -59,6 +62,9 @@ const DroppableTrash = ({ dragging }: { dragging: boolean }) => {
               ? 'bg-destructive/60 border-destructive scale-105 text-white'
               : 'bg-destructive/10 text-destructive scale-100',
           )}
+          data-role='droppable-trash'
+          aria-label='Trash area. Drop tag here to delete'
+          role='region'
         >
           Drop here to delete
         </motion.div>
@@ -151,11 +157,11 @@ const DragDropComponent = ({
       onDragEnd={handleDragEnd}
       sensors={sensors}
     >
-      <div className='relative'>
+      <div className='relative' data-role='drag-drop-container'>
         {/* The trash zone */}
         <DroppableTrash dragging={!!activeTag} />
         {/* The tags container */}
-        <div className='flex flex-wrap gap-2 p-2'>
+        <div className='flex flex-wrap gap-2 p-2' data-role='tags-container'>
           {tags.map((tag) =>
             tag === activeTagMoving ? null : (
               // This layer is for other tags, which takes the dragging tag's place

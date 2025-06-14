@@ -26,6 +26,7 @@ const ContactLink = ({ Icon, to, supportText }: ContactLinkProps) => (
     to={to}
     icon={<Icon />}
     isExternal={true}
+    dataRole='button-contact-link'
   />
 );
 

@@ -103,9 +103,12 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
         iconClass={liked ? 'text-red-500' : undefined}
         isDisabled={loading}
         isLoading={loading}
+        dataRole='button-like-toggle'
       />
       {/* Like count */}
-      <span className='text-muted-foreground text-sm'>{count}</span>
+      <span className='text-muted-foreground text-sm' data-role='like-count'>
+        {count}
+      </span>
     </div>
   );
 };

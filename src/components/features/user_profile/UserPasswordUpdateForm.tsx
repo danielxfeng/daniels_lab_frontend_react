@@ -85,7 +85,12 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
     <Form {...form}>
       {/* Ensure atomic logout */}
       {doLogout && <AtomicLogout to='/' timeout={1000} />}
-      <form onSubmit={handleSubmit(onSubmit)} className='mt-6 w-full max-w-xl'>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='mt-6 w-full max-w-xl'
+        data-role='user-password-update-form'
+        aria-label='User Password Update Form'
+      >
         <fieldset disabled={isSubmitting} className='flex flex-col gap-6'>
           {/* current password */}
           <FormField
@@ -95,7 +100,13 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Current Password</FormLabel>
                 <FormControl>
-                  <MotionInput type='password' placeholder='Current password' {...field} />
+                  <MotionInput
+                    type='password'
+                    placeholder='Current password'
+                    {...field}
+                    data-role='input-current-password'
+                    autoComplete='current-password'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -110,7 +121,13 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>New Password</FormLabel>
                 <FormControl>
-                  <MotionInput type='password' placeholder='New password' {...field} />
+                  <MotionInput
+                    type='password'
+                    placeholder='New password'
+                    {...field}
+                    data-role='input-new-password'
+                    autoComplete='new-password'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -125,7 +142,13 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <MotionInput type='password' placeholder='Confirm new password' {...field} />
+                  <MotionInput
+                    type='password'
+                    placeholder='Confirm new password'
+                    {...field}
+                    data-role='confirm-password'
+                    autoComplete='new-password'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -142,6 +165,7 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
             size='md'
             isDisabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
+            dataRole='button-submit-update-password'
           />
         </fieldset>
       </form>

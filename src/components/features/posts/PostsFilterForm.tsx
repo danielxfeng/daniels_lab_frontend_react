@@ -137,7 +137,11 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
   return (
     <div className='border-border relative w-full rounded-2xl border p-2 lg:sticky lg:top-[80px] lg:rounded-3xl lg:p-3'>
       <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} />
-      <aside className='border-0.75 border-border z-10 overflow-hidden rounded-xl px-5 py-5'>
+      <aside
+        className='border-0.75 border-border z-10 overflow-hidden rounded-xl px-5 py-5'
+        data-role='posts-operation-panel'
+        aria-label='Posts operation panel'
+      >
         {/* A new post button for admin user */}
         {user?.isAdmin && (
           <div className='flex justify-start'>
@@ -150,12 +154,18 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
               to='/blog/posts/new'
               isExternal={false}
               isFullWidth={true}
+              dataRole='button-new-post'
             />
           </div>
         )}
         {user?.isAdmin && <hr className='border-border mt-6 mb-5' />}
         <Form {...form}>
-          <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className='space-y-4'
+            aria-label='posts-filter-form'
+            data-role='form-posts-filter'
+          >
             <fieldset className='flex flex-col gap-6' disabled={isSubmitting}>
               {/* Tags */}
               <FormField
@@ -176,6 +186,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                             isDisabled={isSubmitting}
                             variant='ghost'
                             size='sm'
+                            dataRole='button-reset-posts-filter'
                           />
                         </div>
                         <SelectableTags
@@ -222,6 +233,8 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                                     'border-border hover:text-highlight min-w-2/3 flex-1 justify-start text-left font-normal transition-all duration-150',
                                     !valueAsDate && 'text-muted-foreground',
                                   )}
+                                  data-role={`button-${fieldName}-date-picker`}
+                                  aria-label={`Pick a date for ${fieldName}`}
                                 >
                                   <CalendarIcon className='mr-2 h-4 w-4' />
                                   {valueAsDate ? (

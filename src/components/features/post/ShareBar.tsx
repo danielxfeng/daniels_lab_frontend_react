@@ -25,7 +25,7 @@ const ShareBar = ({ url, title }: { url: string; title: string }) => {
   };
 
   return (
-    <div className='flex w-full justify-end'>
+    <div className='flex w-full justify-end' data-role='share-bar'>
       {/* LinkedIn */}
       <MotionButton
         to={`https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}`}
@@ -35,6 +35,7 @@ const ShareBar = ({ url, title }: { url: string; title: string }) => {
         supportingText='Share on LinkedIn'
         isExternal={true}
         btnClass='-mr-3'
+        dataRole='button-share-linkedin'
       />
 
       {/* X (Twitter) */}
@@ -45,7 +46,7 @@ const ShareBar = ({ url, title }: { url: string; title: string }) => {
         icon={<FaXTwitter />}
         supportingText='Share on X'
         isExternal={true}
-        btnClass='-mr-3'
+        dataRole='button-share-x-twitter'
       />
 
       {/* Facebook */}
@@ -57,6 +58,7 @@ const ShareBar = ({ url, title }: { url: string; title: string }) => {
         supportingText='Share on Facebook'
         isExternal={true}
         btnClass='-mr-3'
+        dataRole='button-share-facebook'
       />
 
       {/* Copy link on Instagram */}
@@ -68,6 +70,7 @@ const ShareBar = ({ url, title }: { url: string; title: string }) => {
         onClick={copyLinkToClipboard}
         supportingText='Copy link for Instagram'
         btnClass='-mr-3'
+        dataRole='button-copy-link-instagram'
       />
     </div>
   );

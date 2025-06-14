@@ -30,6 +30,7 @@ type CommonProps = {
   supportingText: string;
   size: ButtonSize;
   variant: ButtonVariant;
+  dataRole: string;
   isFullWidth?: boolean;
   iconPosition?: IconPosition;
   icon?: ReactNode;
@@ -138,6 +139,7 @@ const getRestProps = (
     btnClass,
     iconClass,
     textClass,
+    dataRole,
     ...restProps
   } = props;
 
@@ -208,6 +210,7 @@ const BaseButton = (props: MotionButtonProps) => {
         aria-disabled={disabled}
         aria-busy={props.isLoading}
         onClick={props.onClick}
+        data-role={props.dataRole}
         {...animation}
         {...(restProps as HTMLMotionProps<'button'>)}
       >
@@ -227,6 +230,7 @@ const BaseButton = (props: MotionButtonProps) => {
     <Cmp
       className={btnClass}
       aria-label={props.supportingText}
+      data-role={props.dataRole}
       {...animation}
       {...(props.isExternal
         ? { href: props.to, target: '_blank', rel: 'noopener noreferrer' }

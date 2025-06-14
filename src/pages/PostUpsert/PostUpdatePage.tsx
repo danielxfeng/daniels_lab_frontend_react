@@ -46,7 +46,7 @@ const PostUpdatePage = () => {
   if (!validatedPost) return <Loading />;
 
   return (
-    <div className='inner-container'>
+    <div className='inner-container' data-role='post-update-page'>
       <title>{`Update a post – ${siteMeta.siteName}`}</title>
       <NotificationBar />
       <MotionH1>Update a post</MotionH1>

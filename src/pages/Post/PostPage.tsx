@@ -46,7 +46,10 @@ const PostPage = () => {
       <NotificationBar />
       {/* The post page */}
       <MotionScroll className='my-10 px-4'>
-        <article className='inner-container mb-10 flex max-w-3xl flex-col items-center gap-6 lg:mb-10'>
+        <article
+          className='inner-container mb-10 flex max-w-3xl flex-col items-center gap-6 lg:mb-10'
+          data-role='post-page'
+        >
           {/* The post cover image */}
           <LazyImage
             src={post.cover}
@@ -70,6 +73,7 @@ const PostPage = () => {
                 state={{ post }}
                 isExternal={false}
                 textClass='px-3.5'
+                dataRole='button-edit-post'
               />
             )}
             {isAdmin && <PostDeleteComponent postId={post.id} />}
@@ -90,18 +94,24 @@ const PostPage = () => {
           <SafeStyledMarkdown markdown={post.markdown!} className='w-full lg:mt-3' />
 
           {/* The post footer */}
-          <footer className='text-muted-foreground mt-6 flex w-full flex-col items-start justify-start gap-3'>
+          <footer
+            className='text-muted-foreground mt-6 flex w-full flex-col items-start justify-start gap-3'
+            data-role='post-footer'
+          >
             <div className='flex w-full flex-col items-start justify-between gap-2 lg:flex-row lg:items-center'>
               {/* The post likes */}
               <Likes postId={post.id} userId={user?.id} />
               {/* The post tags */}
-              <div className='flex items-center gap-2'>
-                <div className='mr-2 text-sm'>Tags:</div>
-                <div className='flex flex-wrap gap-2'>
+              <div className='flex items-center gap-2' data-role='post-tags'>
+                <div className='mr-2 text-sm' data-role='post-tags-label'>
+                  Tags:
+                </div>
+                <div className='flex flex-wrap gap-2' data-role='post-tags-list'>
                   {post.tags.map((tag: string) => (
                     <span
                       key={`${tag}`}
                       className='border-muted-foreground bg-background text-muted-foreground inline-block rounded-lg border px-2 py-0.5 text-sm'
+                      data-role='post-tag'
                     >
                       {`#${tag}`}
                     </span>

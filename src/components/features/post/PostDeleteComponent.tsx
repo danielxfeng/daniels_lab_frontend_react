@@ -34,6 +34,7 @@ const PostDeleteComponent = ({ postId }: { postId: string }) => {
       deleteHandler={deleteHandler}
       size='md'
       isLoading={isLoading}
+      dataRole='button-delete-post'
     />
   );
 };

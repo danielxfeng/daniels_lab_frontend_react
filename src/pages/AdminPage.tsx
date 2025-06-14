@@ -4,7 +4,7 @@ import NotificationBar from '@/components/shared/NotificationBar';
 import siteMeta from '@/constants/siteMeta';
 
 const AdminPage = () => (
-  <div className='inner-container'>
+  <div className='inner-container' data-role='admin-page'>
     <title>{`User Management – ${siteMeta.siteName}`}</title>
     <NotificationBar />
     <MotionH1>User Management</MotionH1>

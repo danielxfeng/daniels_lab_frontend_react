@@ -70,6 +70,7 @@ const UserLogoutComponent = ({ deviceId }: { deviceId: string }) => {
             isLoading={loading}
             isDisabled={loading}
             isFullWidth={true}
+            dataRole='button-logout'
           />
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end' className='border-border text-muted-foreground'>

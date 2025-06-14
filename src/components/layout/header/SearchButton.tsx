@@ -28,6 +28,7 @@ const SearchButton = () => {
             supportingText='Open Search'
             icon={<Search />}
             onClick={() => setOpen(true)}
+            dataRole='button-open-search'
           />
         </SheetTrigger>
         <SheetContent

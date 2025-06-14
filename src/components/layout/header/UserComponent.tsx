@@ -44,6 +44,7 @@ const UserComponent = () => {
         text='Login'
         isExternal={false}
         btnClass='mx-2'
+        dataRole='button-login'
       />
     );
   }

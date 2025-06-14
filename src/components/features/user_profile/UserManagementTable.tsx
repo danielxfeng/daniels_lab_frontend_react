@@ -71,7 +71,7 @@ const UserManagementTable = () => {
       accessorKey: 'avatarUrl',
       header: 'Avatar',
       cell: ({ row }) => (
-        <div className='flex justify-center'>
+        <div className='flex justify-center' data-role='user-avatar'>
           <Avatar className='h-6 w-6'>
             <AvatarImage
               src={row.getValue('avatarUrl')}
@@ -89,9 +89,30 @@ const UserManagementTable = () => {
         const providers = row.getValue('oauthProviders') as string[];
         return (
           <div className='flex justify-center gap-1.5'>
-            {providers.includes('google') && <FaGoogle key='google' className='h-6 w-6' />}
-            {providers.includes('github') && <FaGithub key='github' className='h-6 w-6' />}
-            {providers.includes('linkedin') && <FaLinkedin key='linkedin' className='h-6 w-6' />}
+            {providers.includes('google') && (
+              <FaGoogle
+                key='google'
+                className='h-6 w-6'
+                data-role='provider-google'
+                aria-label='Google user'
+              />
+            )}
+            {providers.includes('github') && (
+              <FaGithub
+                key='github'
+                className='h-6 w-6'
+                data-role='provider-github'
+                aria-label='Github user'
+              />
+            )}
+            {providers.includes('linkedin') && (
+              <FaLinkedin
+                key='linkedin'
+                className='h-6 w-6'
+                data-role='provider-linkedin'
+                aria-label='LinkedIn user'
+              />
+            )}
           </div>
         );
       },
@@ -132,6 +153,7 @@ const UserManagementTable = () => {
           deleteHandler={() => handleDeleteUser(row.getValue('id'))}
           size='sm'
           isLoading={loadingUserId === row.getValue('id')}
+          dataRole='button-delete-user'
         />
       ),
     },
@@ -170,7 +192,11 @@ const UserManagementTable = () => {
             table.getRowModel().rows.map((row) => (
               <TableRow key={row.id} className='hover:bg-muted'>
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id} className='px-3 py-2 text-center'>
+                  <TableCell
+                    key={cell.id}
+                    className='px-3 py-2 text-center'
+                    data-role='user-table-cell'
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}

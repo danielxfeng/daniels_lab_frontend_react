@@ -15,6 +15,7 @@ const Post = ({ post }: { post: PostResponse }) => (
   <motion.article
     {...postCardAnimation}
     className='bg-background flex flex-col gap-2 rounded-2xl px-5 py-5 shadow-md transition-all hover:bg-white hover:shadow-lg dark:hover:bg-neutral-950'
+    data-role='post-card'
   >
     <Link to={`/blog/posts/${post.slug}`}>
       <header>
@@ -27,6 +28,7 @@ const Post = ({ post }: { post: PostResponse }) => (
           src={post.cover}
           alt={post.title}
           className='mx-auto aspect-[2/1] h-36 rounded-lg text-center shadow-2xl'
+          data-role='post-card-cover-image'
         />
       </Link>
       <div className='bg-border hidden h-24 w-px rounded lg:flex' />
@@ -35,7 +37,10 @@ const Post = ({ post }: { post: PostResponse }) => (
         <SafeStyledMarkdown markdown={post.excerpt} />
       </Link>
     </div>
-    <footer className='text-muted-foreground mt-auto flex flex-col items-start gap-2 text-xs'>
+    <footer
+      className='text-muted-foreground mt-auto flex flex-col items-start gap-2 text-xs'
+      data-role='post-card-footer'
+    >
       <TagsBar tags={post.tags} />
       <AuthorDateBar
         authorName={post.authorName}

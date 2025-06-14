@@ -23,6 +23,7 @@ type MotionDeleteButtonProps = {
   textOrIcon: 'text' | 'icon' | 'mixed';
   size: ButtonSize;
   isLoading: boolean;
+  dataRole: string;
   variant?: ButtonVariant;
   btnClass?: string;
 };
@@ -61,6 +62,7 @@ const MotionDeleteButton = (props: MotionDeleteButtonProps) => {
           variant={btnVariant}
           supportingText={props.supportingText}
           size={props.size}
+          dataRole={props.dataRole}
           {...getTextIcon(props.textOrIcon)}
         />
       </AlertDialogTrigger>
