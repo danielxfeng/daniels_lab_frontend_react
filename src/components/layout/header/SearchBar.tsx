@@ -88,7 +88,7 @@ const InputComponent = ({
         }
       }
     }}
-    className='h-8 text-sm'
+    className='lg:bg-background h-8 bg-transparent text-sm'
   />
 );
 
@@ -108,14 +108,14 @@ const DropdownHistory = ({
           id='search-suggestion-list'
           role='listbox'
           aria-label='Search suggestions'
-          className='bg-background dropdown-history absolute z-10 mt-1 flex w-full flex-col gap-0 px-2 pb-2 lg:rounded-lg lg:shadow-md'
+          className='dropdown-history lg:bg-background absolute z-10 mt-1 flex w-full flex-col gap-0 bg-transparent px-2 pb-2 lg:rounded-lg lg:shadow-md'
         >
           {/* Iterate all items */}
           {filtered.map((item, i) => (
             <li
               key={item}
               className={cn(
-                'text-muted-foreground cursor-pointer overflow-hidden rounded-lg px-4 py-1 text-sm',
+                'text-foreground lg:text-muted-foreground cursor-pointer overflow-hidden rounded-lg px-4 py-1 text-sm',
                 i === keyboardNavigationIndex && 'bg-muted',
               )}
               onPointerDown={() => {
