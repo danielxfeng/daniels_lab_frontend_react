@@ -1,7 +1,7 @@
-import deepEqual from 'fast-deep-equal';
 import { useEffect, useState } from 'react';
+import deepEqual from 'fast-deep-equal';
 
-type DebounceSetter<T> = (params: { values: T; conditions: boolean[] }) => void;
+type DebounceSetter<T> = (params: { initValues: T; values: T; conditions: boolean[] }) => void;
 
 /**
  * @summary A custom hook to handle the conditional debounce logic for form auto-submission.
@@ -29,8 +29,8 @@ type DebounceSetter<T> = (params: { values: T; conditions: boolean[] }) => void;
  *
  * @template T - The type of the form values.
  *
- * @param initValue - The initial value of the form
  * @param delay - The debounce delay in milliseconds.
+ * @param initValue - The initial value of the form
  * @param formValue - The current value of the form.
  * @param openStates - An array of boolean values indicating whether each date picker is open.
  *
@@ -38,13 +38,7 @@ type DebounceSetter<T> = (params: { values: T; conditions: boolean[] }) => void;
  * - `debounce`: The debounced value of the form, or `null` if the conditions are not met.
  * - `setDebounceHandler`: A setter function to update the debounce value based on the current form values and conditions.
  */
-const useConditionalDebounce = <T>({
-  initValues,
-  delay,
-}: {
-  initValues: T;
-  delay: number;
-}): [T | null, DebounceSetter<T>] => {
+const useConditionalDebounce = <T>({ delay }: { delay: number }): [T | null, DebounceSetter<T>] => {
   const [debounce, setDebounce] = useState<T | null>(null);
   // A buffer to hold the pending values because `setTimeout` is fired in useEffect for clearing the timer.
   const [pending, setPending] = useState<T | null>(null);
@@ -54,10 +48,11 @@ const useConditionalDebounce = <T>({
    * @description
    * We check the conditions, then set the buffer `pending` value.
    *
+   * @param initValues - The initial values of the form.
    * @param values - The current values of the form.
    * @param conditions - An array of boolean values indicating whether each condition is met.
    */
-  const setDebounceHandler: DebounceSetter<T> = ({ values, conditions }) => {
+  const setDebounceHandler: DebounceSetter<T> = ({ initValues, values, conditions }) => {
     // If any condition is false, or values are equal to initValues, reset the debounce.
     if (conditions.some((condition) => condition === false) || deepEqual(values, initValues)) {
       setPending(null);
