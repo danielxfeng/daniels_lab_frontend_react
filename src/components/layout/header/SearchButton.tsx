@@ -29,7 +29,10 @@ const SearchButton = () => {
             onClick={() => setOpen(true)}
           />
         </SheetTrigger>
-        <SheetContent side='top' className='text-foreground h-screen w-full p-4'>
+        <SheetContent
+          side='top'
+          className='text-foreground bg-background/60 border-border h-screen w-full border p-4 backdrop-blur-sm'
+        >
           <SheetHeader>
             <SheetTitle>Search</SheetTitle>
             <SheetDescription>Search posts by title, content, or tags.</SheetDescription>

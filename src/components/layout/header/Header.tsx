@@ -21,7 +21,11 @@ const Header = ({ isBasic }: { isBasic?: boolean }) => {
     <header className='outer-container bg-[linear-gradient(to_bottom,theme(colors.background)_0%,theme(colors.background)_80%,transparent_100%)] sticky top-0 z-50'>
       <div className='inner-container flex items-center justify-between py-3 text-sm'>
         {/* Left side: Logo and NavLinksDesktop */}
-        <div className='flex items-center justify-start gap-16'>
+        <div className='flex items-center justify-start gap-2 lg:gap-16'>
+          <div className='flex items-center justify-center lg:hidden'>
+            {/* Show only in mobile mode */}
+            <NavLinksMobile />
+          </div>
           <Logo />
           {/* Hide in mobile mode */}
           {!isBasic && (
@@ -44,10 +48,6 @@ const Header = ({ isBasic }: { isBasic?: boolean }) => {
               <SearchButton />
             </div>
             <ThemeToggle />
-            <div className='flex items-center justify-center lg:hidden'>
-              {/* Show only in mobile mode */}
-              <NavLinksMobile />
-            </div>
           </div>
         )}
       </div>

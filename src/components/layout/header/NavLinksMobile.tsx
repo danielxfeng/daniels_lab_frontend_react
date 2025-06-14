@@ -29,7 +29,10 @@ const NavLinksMobile = () => {
             onClick={() => setOpen(true)}
           />
         </SheetTrigger>
-        <SheetContent side='top' className='text-foreground h-screen w-full p-4'>
+        <SheetContent
+          side='top'
+          className='text-foreground border-border bg-background/60 h-screen w-full border backdrop-blur-sm'
+        >
           <SheetHeader>
             <SheetTitle>Menu</SheetTitle>
             <SheetDescription>Click the navigation link below</SheetDescription>
