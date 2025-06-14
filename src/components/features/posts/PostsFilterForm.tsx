@@ -1,8 +1,17 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { format } from 'date-fns';
+import deepEqual from 'fast-deep-equal';
+import { CalendarIcon, Plus } from 'lucide-react';
 import { z } from 'zod';
+
+import SelectableTags from '@/components/features/tags/SelectableTags';
+import MotionButton from '@/components/motion_components/MotionButton';
+import { GlowingEffect } from '@/components/third_party/GlowingEffect';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Form,
   FormControl,
@@ -11,20 +20,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { tagSchema, TagsResponse } from '@/schema/schema_tag';
-import { DateTimeSchema } from '@/schema/schema_components';
-import SelectableTags from '@/components/features/tags/SelectableTags';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Button } from '@/components/ui/button';
-import { CalendarIcon, Plus } from 'lucide-react';
-import { Calendar } from '@/components/ui/calendar';
-import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
 import siteMeta from '@/constants/siteMeta';
 import useConditionalDebounce from '@/hooks/useConditionalDebounce';
+import { cn } from '@/lib/utils';
+import { DateTimeSchema } from '@/schema/schema_components';
+import { tagSchema, TagsResponse } from '@/schema/schema_tag';
 import useUserStore from '@/stores/useUserStore';
-import MotionButton from '@/components/motion_components/MotionButton';
-import { GlowingEffect } from '@/components/third_party/GlowingEffect';
 
 const FilterFormSchema = z.object({
   tags: z.array(tagSchema),
@@ -51,31 +53,28 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
   // the params in the URL
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  // To track the status of the date pickers (open/closed)
   const [dateCloseStatus, setDateCloseStatus] = useState<boolean[]>([true, true]);
+  // A ref to store the values from searchParams.
+  const initValues = useRef<FormValues>({
+    tags: [],
+    from: undefined,
+    to: undefined,
+  });
 
-  // Define the init values on re-rendering.
-  // useEffect is not needed here since the URL driven logic of the page.
-  // The loader re-fetches hotTags on URL change, so the from is re-rendered when URL changes.
-  // Therefore, initValues always reflect the latest URL state.
-  const initValues: FormValues = {
-    tags: searchParams.getAll('tags').filter((tag) => hotTags.tags.includes(tag)),
-    from: searchParams.get('from') ?? undefined,
-    to: searchParams.get('to') ?? undefined,
-  };
-
-  // Init a conditional debounce hook, initValues and delay are captured in closure,
-  // since it's stable during the component's lifecycle.
-  const [debounce, setDebounce] = useConditionalDebounce<FormValues>({ initValues, delay: 1000 }); // 1000ms delay
+  // Init a conditional debounce hook, delay are captured in closure,
+  const [debounce, setDebounce] = useConditionalDebounce<FormValues>({ delay: 1000 }); // 1000ms delay
 
   // init the form
   const form = useForm<FormValues>({
     resolver: zodResolver(FilterFormSchema),
-    defaultValues: initValues,
+    defaultValues: initValues.current,
   });
 
   const {
     control,
     handleSubmit,
+    reset,
     formState: { isSubmitting },
   } = form;
 
@@ -97,6 +96,25 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
     [navigate],
   );
 
+  // Sync the form with the searchParams, we also set the initValues,
+  // which is compared by the debounce hook, so the value changes by searchParams will not trigger a submit
+  useEffect(() => {
+    const currSearchParamsValues: FormValues = {
+      tags: searchParams.getAll('tags') ?? [],
+      from: searchParams.get('from') ?? undefined,
+      to: searchParams.get('to') ?? undefined,
+    };
+
+    // Check the current searchParams values against the previous initValues
+    const isNewValues = !deepEqual(currSearchParamsValues, initValues.current);
+
+    // Reset the values only if they are new
+    if (isNewValues) {
+      initValues.current = currSearchParamsValues;
+      reset(currSearchParamsValues);
+    }
+  }, [searchParams, reset]);
+
   // Fire the auto submit when the debounce value is stable (values are not null))
   useEffect(() => {
     if (debounce) onSubmit(debounce);
@@ -104,8 +122,16 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
 
   // Send instable values to the hook.
   useEffect(() => {
-    setDebounce({ values: currValues, conditions: dateCloseStatus });
+    setDebounce({
+      initValues: initValues.current,
+      values: currValues,
+      conditions: dateCloseStatus,
+    });
   }, [currValues, dateCloseStatus, setDebounce]);
+
+  // Prepare the tags to display, we use a Set to remove duplicates
+  const displayTags = [...new Set([...hotTags.tags, ...initValues.current.tags])];
+
   // A snapshot of the user from the Zustand store
   const user = useUserStore.getState().user;
   return (
@@ -153,7 +179,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                           />
                         </div>
                         <SelectableTags
-                          tags={hotTags.tags}
+                          tags={displayTags}
                           value={field.value}
                           onChange={field.onChange}
                         />
@@ -175,7 +201,9 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                       const valueAsDate = field.value ? new Date(field.value) : undefined;
                       return (
                         <FormItem className='flex flex-col'>
-                          <FormLabel className='text-muted-foreground'>{fieldName === 'from' ? 'From' : 'To'}</FormLabel>
+                          <FormLabel className='text-muted-foreground'>
+                            {fieldName === 'from' ? 'From' : 'To'}
+                          </FormLabel>
                           <Popover
                             onOpenChange={(open) => {
                               setDateCloseStatus((prev) => {
@@ -191,7 +219,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                                 <Button
                                   variant='outline'
                                   className={cn(
-                                    'border-border min-w-2/3 flex-1 justify-start text-left font-normal hover:text-highlight transition-all duration-150',
+                                    'border-border hover:text-highlight min-w-2/3 flex-1 justify-start text-left font-normal transition-all duration-150',
                                     !valueAsDate && 'text-muted-foreground',
                                   )}
                                 >
