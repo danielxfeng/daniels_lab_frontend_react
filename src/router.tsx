@@ -1,18 +1,19 @@
-import { createBrowserRouter, redirect } from 'react-router-dom';
 import { lazy } from 'react';
-import { adminGuard, authGuard } from '@/lib/authGuard';
+import { createBrowserRouter, redirect } from 'react-router-dom';
+
 import AppLayout from '@/components/layout/AppLayout';
 import Loading from '@/components/shared/Loading';
-import NotFoundPage from '@/pages/NotFoundPage';
+import { adminGuard, authGuard } from '@/lib/authGuard';
+import AuthPage from '@/pages/AuthPage';
 import ErrorBoundary from '@/pages/ErrorBoundary';
-import postsLoader from '@/pages/Posts/postsLoader';
-import PostsPage from '@/pages/Posts/PostsPage';
+import LoginPage from '@/pages/LoginPage';
+import NotFoundPage from '@/pages/NotFoundPage';
 import PostPage from '@/pages/Post/PostPage';
 import postPageLoader from '@/pages/Post/postPageLoader';
-import LoginPage from '@/pages/LoginPage';
-import UserProfilePage from '@/pages/UserProfilePage';
+import postsLoader from '@/pages/Posts/postsLoader';
+import PostsPage from '@/pages/Posts/PostsPage';
 import PostsSearchPage from '@/pages/Posts/PostsSearchPage';
-import AuthPage from '@/pages/AuthPage';
+import UserProfilePage from '@/pages/UserProfilePage';
 
 // The router of the app.
 const router = createBrowserRouter([

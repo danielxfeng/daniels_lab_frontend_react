@@ -1,8 +1,17 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AxiosResponse } from 'axios';
-import { useNavigate } from 'react-router';
+import { format } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
 import { toast } from 'sonner';
+
+import TagSelector from '@/components/features/tags/TagsSelector';
+import MotionButton from '@/components/motion_components/MotionButton';
+import MotionInput from '@/components/motion_components/MotionInput';
+import MotionTextarea from '@/components/motion_components/MotionTextArea';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Form,
   FormControl,
@@ -12,20 +21,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { CreateOrUpdatePostBodySchema, PostResponseSchema } from '@/schema/schema_post';
-import type { CreateOrUpdatePostBody, PostResponse } from '@/schema/schema_post';
-import { createPost, updatePost } from '@/services/services_posts';
-import { throwWithValidationErr } from '@/lib/throwWithErr';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Button } from '@/components/ui/button';
+import { throwWithValidationErr } from '@/lib/throwWithErr';
 import { cn } from '@/lib/utils';
-import { format } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
-import { Calendar } from '@/components/ui/calendar';
-import TagSelector from '@/components/features/tags/TagsSelector';
-import MotionInput from '@/components/motion_components/MotionInput';
-import MotionTextarea from '@/components/motion_components/MotionTextArea';
-import MotionButton from '@/components/motion_components/MotionButton';
+import type { CreateOrUpdatePostBody, PostResponse } from '@/schema/schema_post';
+import { CreateOrUpdatePostBodySchema, PostResponseSchema } from '@/schema/schema_post';
+import { createPost, updatePost } from '@/services/services_posts';
 
 // A helper function to get the slug from the response
 const getSlug = (isCreate: boolean, res: AxiosResponse<PostResponse | undefined>) => {

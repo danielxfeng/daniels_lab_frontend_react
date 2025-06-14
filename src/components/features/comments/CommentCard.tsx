@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import { toast } from 'sonner';
 import { Pencil } from 'lucide-react';
-import { AuthResponse as User } from '@/schema/schema_auth';
-import { deleteComment } from '@/services/service_comments';
-import { CommentResponse } from '@/schema/schema_comment';
-import AuthorDateBar from '@/components/features/post/AuthorDateBar';
+import { toast } from 'sonner';
+
 import CommentForm from '@/components/features/comments/CommentForm';
-import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
+import AuthorDateBar from '@/components/features/post/AuthorDateBar';
 import MotionButton from '@/components/motion_components/MotionButton';
+import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
+import { AuthResponse as User } from '@/schema/schema_auth';
+import { CommentResponse } from '@/schema/schema_comment';
+import { deleteComment } from '@/services/service_comments';
 
 /**
  * @summary A component to display a comment, with edit and delete functionality.

@@ -1,5 +1,6 @@
-import useThemeStore from '@/stores/useThemeStore';
 import { Toaster } from 'sonner';
+
+import useThemeStore from '@/stores/useThemeStore';
 
 /**
  * @summary A component to add theme to the Toaster.

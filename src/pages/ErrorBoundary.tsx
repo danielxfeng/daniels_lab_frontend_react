@@ -1,7 +1,8 @@
-import { useRouteError, Link } from 'react-router-dom';
-import Header from '@/components/layout/header/Header';
-import Footer from '@/components/layout/Footer';
+import { Link, useRouteError } from 'react-router-dom';
 import { isAxiosError } from 'axios';
+
+import Footer from '@/components/layout/Footer';
+import Header from '@/components/layout/header/Header';
 import { isHttpResponseError } from '@/lib/throwWithErr';
 
 const ErrorBoundary = () => {

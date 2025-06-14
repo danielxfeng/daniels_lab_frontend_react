@@ -1,6 +1,7 @@
+import { useLocation } from 'react-router-dom';
+
 import MotionButton from '@/components/motion_components/MotionButton';
 import NotificationBar from '@/components/shared/NotificationBar';
-import { useLocation } from 'react-router-dom';
 
 // 404 page.
 const NotFoundPage = () => {

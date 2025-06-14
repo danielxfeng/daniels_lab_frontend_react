@@ -1,20 +1,21 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { UpdateUserBody, UpdateUserBodySchema, UserResponseSchema } from '@/schema/schema_users';
-import { updateUser } from '@/services/service_user';
+
+import MotionButton from '@/components/motion_components/MotionButton';
+import MotionInput from '@/components/motion_components/MotionInput';
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormControl,
   FormMessage,
 } from '@/components/ui/form';
+import { UpdateUserBody, UpdateUserBodySchema, UserResponseSchema } from '@/schema/schema_users';
+import { updateUser } from '@/services/service_user';
 import useUserStore from '@/stores/useUserStore';
-import { useNavigate } from 'react-router-dom';
-import MotionInput from '@/components/motion_components/MotionInput';
-import MotionButton from '@/components/motion_components/MotionButton';
 
 /**
  * @summary UserProfileUpdateForm

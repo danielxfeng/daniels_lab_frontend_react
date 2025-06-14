@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ControllerRenderProps } from 'react-hook-form';
+import { AnimatePresence, motion } from 'framer-motion';
+
+import MotionInput from '@/components/motion_components/MotionInput';
 import { CreateOrUpdatePostBody } from '@/schema/schema_post';
 import { tagSchema, TagsResponseSchema } from '@/schema/schema_tag';
 import { debouncedSearchTagsByPrefix } from '@/services/service_tags';
-import MotionInput from '@/components/motion_components/MotionInput';
 
 /**
  * @summary A tag input component.

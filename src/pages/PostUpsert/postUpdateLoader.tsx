@@ -1,6 +1,7 @@
 import { LoaderFunctionArgs, redirect } from 'react-router';
-import useUserStore from '@/stores/useUserStore';
+
 import { fetchPost } from '@/lib/fetchPost';
+import useUserStore from '@/stores/useUserStore';
 
 // Loader for the post update page.
 // ABAC and response validation are needed in Page.

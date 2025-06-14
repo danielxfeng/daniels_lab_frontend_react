@@ -1,9 +1,10 @@
-import { Heart } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { Heart } from 'lucide-react';
 import { toast } from 'sonner';
-import { getLikeStatus, likePost, unlikePost } from '@/services/service_likes';
-import { LikeStatusResponse, LikeStatusResponseSchema } from '@/schema/schema_like';
+
 import MotionButton from '@/components/motion_components/MotionButton';
+import { LikeStatusResponse, LikeStatusResponseSchema } from '@/schema/schema_like';
+import { getLikeStatus, likePost, unlikePost } from '@/services/service_likes';
 
 // Fallback value
 const fallback: LikeStatusResponse = {

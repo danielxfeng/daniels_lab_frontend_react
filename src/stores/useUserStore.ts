@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+
 import { AuthResponse as User } from '@/schema/schema_auth';
 
 type UserState = {

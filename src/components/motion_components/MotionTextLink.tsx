@@ -1,8 +1,9 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { cn } from '@/lib/utils';
 import type { ComponentProps } from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
 import { linkAnimation } from '@/lib/animations';
+import { cn } from '@/lib/utils';
 interface MotionTextLinkProps extends ComponentProps<'a'> {
   to: string;
   label: string;
@@ -24,7 +25,7 @@ const MotionTextLink = ({ to, label, isExternal, className, ...props }: MotionTe
   const content = (
     <motion.span
       {...linkAnimation}
-      className={cn('transition-all hover:underline hover:text-highlight', className)}
+      className={cn('hover:text-highlight transition-all hover:underline', className)}
     >
       {label}
     </motion.span>

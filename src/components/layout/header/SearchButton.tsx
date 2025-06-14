@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { Search } from 'lucide-react';
+
+import SearchBar from '@/components/layout/header/SearchBar';
+import MotionButton from '@/components/motion_components/MotionButton';
 import {
   Sheet,
   SheetContent,
-  SheetTrigger,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
+  SheetTrigger,
 } from '@/components/ui/sheet';
-import SearchBar from '@/components/layout/header/SearchBar';
-import MotionButton from '@/components/motion_components/MotionButton';
 
 // This component is a button that opens a search bar in a sheet when clicked.
 // It uses in the mobile view only.

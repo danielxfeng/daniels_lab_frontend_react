@@ -4,19 +4,20 @@
  * This file contains the schemas for the parameters and responses of the comment routes.
  */
 import { z } from 'zod';
+
 import {
-  UUIDSchema,
-  PostIdSchema,
-  UsernameSchema,
-  UrlSchema,
-  OffsetSchema,
+  AuthorIdSchema,
+  CreateAtSchema,
+  LimitOutputSchema,
   LimitSchema,
   OffsetOutputSchema,
-  LimitOutputSchema,
-  CreateAtSchema,
-  UpdateAtSchema,
+  OffsetSchema,
+  PostIdSchema,
   TotalOutputSchema,
-  AuthorIdSchema,
+  UpdateAtSchema,
+  UrlSchema,
+  UsernameSchema,
+  UUIDSchema,
 } from './schema_components';
 
 //
@@ -95,12 +96,12 @@ const CommentsListResponseSchema = z.object({
 });
 
 export {
-  GetCommentsQuerySchema,
-  CreateCommentBodySchema,
-  UpdateCommentBodySchema,
   CommentIdParamSchema,
   CommentResponseSchema,
   CommentsListResponseSchema,
+  CreateCommentBodySchema,
+  GetCommentsQuerySchema,
+  UpdateCommentBodySchema,
 };
 
 // Inferred Types
@@ -136,10 +137,10 @@ type CommentResponse = z.infer<typeof CommentResponseSchema>;
 type CommentsListResponse = z.infer<typeof CommentsListResponseSchema>;
 
 export type {
-  GetCommentsQuery,
-  CreateCommentBody,
-  UpdateCommentBody,
   CommentIdParam,
   CommentResponse,
   CommentsListResponse,
+  CreateCommentBody,
+  GetCommentsQuery,
+  UpdateCommentBody,
 };

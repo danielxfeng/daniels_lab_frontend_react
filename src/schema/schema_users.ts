@@ -5,7 +5,14 @@
  */
 
 import { z } from 'zod';
-import { UrlSchema, CreateAtSchema, UpdateAtSchema, UsernameSchema, OauthProvidersSchema } from './schema_components';
+
+import {
+  CreateAtSchema,
+  OauthProvidersSchema,
+  UpdateAtSchema,
+  UrlSchema,
+  UsernameSchema,
+} from './schema_components';
 
 //
 // Schema components
@@ -81,4 +88,4 @@ type UserResponse = z.infer<typeof UserResponseSchema>;
  */
 type UserListResponse = z.infer<typeof UsersResponseSchema>;
 
-export type { UpdateUserBody, UserIdParam, UserResponse, UserListResponse };
+export type { UpdateUserBody, UserIdParam, UserListResponse, UserResponse };

@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { PostListResponse, PostResponse } from '@/schema/schema_post';
+
 import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';
+import Pagination from '@/components/features/posts/Pagination';
 import LazyImage from '@/components/shared/LazyImage';
 import { postCardAnimation } from '@/lib/animations';
-import Pagination from '@/components/features/posts/Pagination';
+import { PostListResponse, PostResponse } from '@/schema/schema_post';
+
 import AuthorDateBar from '../post/AuthorDateBar';
 import TagsBar from '../tags/TagsBar';
 

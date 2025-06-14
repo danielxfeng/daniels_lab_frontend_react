@@ -1,5 +1,6 @@
 import ContactLink from '@/components/shared/ContactLink';
 import contactIconList from '@/constants/contactLinks';
+
 import MotionTextLink from '../motion_components/MotionTextLink';
 
 /**

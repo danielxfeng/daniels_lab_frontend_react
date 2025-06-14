@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+
 import { authAxios, optAxios } from '@/lib/axiosInstance';
 import { LikeStatusResponse } from '@/schema/schema_like';
 

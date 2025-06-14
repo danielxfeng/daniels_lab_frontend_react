@@ -1,13 +1,14 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import MotionH1 from '@/components/motion_components/MotionH1';
-import LoginForm from '@/components/features/login/LoginForm';
-import RegisterForm from '@/components/features/login/RegisterForm';
-import siteMeta from '@/constants/siteMeta';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'sonner';
-import { useEffect, useState } from 'react';
-import getDeviceId from '@/lib/deviceid';
+
+import LoginForm from '@/components/features/login/LoginForm';
+import RegisterForm from '@/components/features/login/RegisterForm';
+import MotionH1 from '@/components/motion_components/MotionH1';
 import NotificationBar from '@/components/shared/NotificationBar';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import siteMeta from '@/constants/siteMeta';
+import getDeviceId from '@/lib/deviceid';
 
 // A component for the GDPR notice
 const GDPR = () => (
@@ -59,11 +60,11 @@ const LoginPage = () => {
           <TabsTrigger value='login'>Login</TabsTrigger>
           <TabsTrigger value='register'>Register</TabsTrigger>
         </TabsList>
-        <TabsContent value='login' className='w-full lg:max-w-lg mx-auto'>
+        <TabsContent value='login' className='mx-auto w-full lg:max-w-lg'>
           {' '}
           <LoginForm deviceId={deviceId} />
         </TabsContent>
-        <TabsContent value='register' className='w-full lg:max-w-lg mx-auto'>
+        <TabsContent value='register' className='mx-auto w-full lg:max-w-lg'>
           <RegisterForm deviceId={deviceId} />
         </TabsContent>
       </Tabs>

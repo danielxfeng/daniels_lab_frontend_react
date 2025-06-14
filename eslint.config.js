@@ -6,7 +6,16 @@ import tseslint from 'typescript-eslint';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  {
+    ignores: [
+      'node_modules',
+      'dist',
+      'public',
+      'coverage',
+      'components/ui/*',
+      'components/third_party/*',
+    ],
+  },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],
@@ -25,11 +34,7 @@ export default tseslint.config(
       'simple-import-sort/imports': [
         'warn',
         {
-          groups: [
-            ['^react', '^@?\\w'],
-            ['^@/'],
-            ['^\\.'],
-          ],
+          groups: [['^react', '^@?\\w'], ['^@/'], ['^\\.']],
         },
       ],
       'simple-import-sort/exports': 'warn',

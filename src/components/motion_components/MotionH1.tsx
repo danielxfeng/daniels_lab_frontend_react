@@ -1,7 +1,8 @@
-import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
 import type { HTMLAttributes, ReactNode } from 'react';
+import { motion } from 'framer-motion';
+
 import { h1Animation } from '@/lib/animations';
+import { cn } from '@/lib/utils';
 
 const MotionH1 = ({
   children,

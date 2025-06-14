@@ -1,6 +1,7 @@
 // Inspired by https://ui.aceternity.com/components/tracing-beam
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useTransform, useScroll, useSpring } from 'motion/react';
+import { motion, useScroll, useSpring, useTransform } from 'motion/react';
+
 import { cn } from '@/lib/utils';
 
 const MotionScroll = ({

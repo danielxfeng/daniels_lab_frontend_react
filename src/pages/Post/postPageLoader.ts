@@ -1,6 +1,7 @@
+import type { LoaderFunctionArgs } from 'react-router-dom';
+
 import { fetchPost } from '@/lib/fetchPost';
 import { PostResponse } from '@/schema/schema_post';
-import type { LoaderFunctionArgs } from 'react-router-dom';
 
 /**
  * @summary A loader function for post page.

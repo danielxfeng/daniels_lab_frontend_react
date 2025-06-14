@@ -4,12 +4,13 @@
  */
 
 import { z, ZodTypeAny } from 'zod';
+
 import {
   DateTimeSchema,
-  UUIDSchema,
-  UsernameSchema,
-  UrlSchema,
   OauthProvidersSchema,
+  UrlSchema,
+  UsernameSchema,
+  UUIDSchema,
 } from './schema_components';
 
 //
@@ -233,25 +234,25 @@ const TokenRefreshResponseSchema = z.object({
  * @summary OAuth redirect response including redirectUrl
  */
 const OAuthRedirectResponseSchema = z.object({
-  redirectUrl: z.string().trim()
+  redirectUrl: z.string().trim(),
 });
 
 export {
-  RegisterBodySchema,
-  LoginBodySchema,
+  AuthResponseSchema,
   ChangePasswordBodySchema,
-  RefreshTokenBodySchema,
-  OAuthProviderParamSchema,
-  OAuthConsentQuerySchema,
-  JoinAdminBodySchema,
-  SetPasswordBodySchema,
   DeviceIdBodySchema,
-  UserNameBodySchema,
+  JoinAdminBodySchema,
+  LoginBodySchema,
+  OAuthConsentQuerySchema,
+  OAuthProviderParamSchema,
+  OAuthRedirectResponseSchema,
   OauthStateSchema,
   OauthUserInfoSchema,
-  AuthResponseSchema,
+  RefreshTokenBodySchema,
+  RegisterBodySchema,
+  SetPasswordBodySchema,
   TokenRefreshResponseSchema,
-  OAuthRedirectResponseSchema,
+  UserNameBodySchema,
 };
 
 //
@@ -334,19 +335,19 @@ type OauthUserInfo = z.infer<typeof OauthUserInfoSchema>;
 type OAuthRedirectResponse = z.infer<typeof OAuthRedirectResponseSchema>;
 
 export type {
-  RegisterBody,
-  LoginBody,
+  AuthResponse,
   ChangePasswordBody,
-  RefreshTokenBody,
-  JoinAdminBody,
-  OAuthProviderParam,
-  OAuthConsentQuery,
   DeviceIdBody,
-  UserNameBody,
-  SetPasswordBody,
+  JoinAdminBody,
+  LoginBody,
+  OAuthConsentQuery,
+  OAuthProviderParam,
+  OAuthRedirectResponse,
   OauthState,
   OauthUserInfo,
-  AuthResponse,
+  RefreshTokenBody,
+  RegisterBody,
+  SetPasswordBody,
   TokenRefreshResponse,
-  OAuthRedirectResponse,
+  UserNameBody,
 };

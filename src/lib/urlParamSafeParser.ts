@@ -6,9 +6,7 @@
  * @param searchParams - The URLSearchParams object containing the search parameters.
  * @returns The object containing the parsed search parameters.
  */
-const urlParamSafeParser = (
-  searchParams: URLSearchParams,
-): Record<string, string | string[]> => {
+const urlParamSafeParser = (searchParams: URLSearchParams): Record<string, string | string[]> => {
   const result: Record<string, string | string[]> = {};
 
   for (const [k, v] of searchParams.entries()) {

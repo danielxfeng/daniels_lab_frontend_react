@@ -26,7 +26,7 @@ const SelectableTags = ({
   };
 
   return (
-    <div className='flex flex-wrap gap-3 my-2'>
+    <div className='my-2 flex flex-wrap gap-3'>
       {tags.map((tag) => {
         const selected = value.includes(tag);
         return (

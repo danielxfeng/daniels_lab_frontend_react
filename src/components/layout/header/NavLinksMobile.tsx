@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { Menu } from 'lucide-react';
+
+import MotionButton from '@/components/motion_components/MotionButton';
+import MotionTextLink from '@/components/motion_components/MotionTextLink';
 import {
   Sheet,
+  SheetClose,
   SheetContent,
-  SheetTrigger,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
-  SheetClose,
+  SheetTrigger,
 } from '@/components/ui/sheet';
-import MotionTextLink from '@/components/motion_components/MotionTextLink';
 import navMenu from '@/constants/navMenu';
-import MotionButton from '@/components/motion_components/MotionButton';
 
 const NavLinksMobile = () => {
   const [open, setOpen] = useState(false);

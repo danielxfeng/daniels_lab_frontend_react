@@ -1,7 +1,8 @@
 import { AxiosResponse } from 'axios';
+
 import { anonymousAxios } from '@/lib/axiosInstance';
-import { TagsResponse, TagsResponseSchema } from '@/schema/schema_tag';
 import { throwDebouncedErr, throwWithValidationErr } from '@/lib/throwWithErr';
+import { TagsResponse, TagsResponseSchema } from '@/schema/schema_tag';
 
 let lastSendTs: number = 0;
 let lastReceivedTs: number = 0;
@@ -21,7 +22,9 @@ const getHotTags = async (): Promise<AxiosResponse<TagsResponse>> => {
  * If the response is stale (the timestamp in the response is less than the last received timestamp), it will throw an error.
  * @param prefix the prefix to search for tag
  */
-const debouncedSearchTagsByPrefix = async (prefix: string): Promise<AxiosResponse<TagsResponse>> => {
+const debouncedSearchTagsByPrefix = async (
+  prefix: string,
+): Promise<AxiosResponse<TagsResponse>> => {
   // Debounce the requests, if the last request was sent less than 500ms ago, throw an error
   const ts = Date.now();
   if (ts - lastSendTs < 500)
@@ -45,4 +48,4 @@ const debouncedSearchTagsByPrefix = async (prefix: string): Promise<AxiosRespons
   return response;
 };
 
-export { getHotTags, debouncedSearchTagsByPrefix };
+export { debouncedSearchTagsByPrefix, getHotTags };

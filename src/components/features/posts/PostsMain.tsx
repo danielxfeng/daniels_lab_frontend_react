@@ -1,9 +1,9 @@
-import MotionH1 from '@/components/motion_components/MotionH1';
 import PostsList from '@/components/features/posts/PostList';
 import PostsFilterForm from '@/components/features/posts/PostsFilterForm';
+import MotionH1 from '@/components/motion_components/MotionH1';
+import NotificationBar from '@/components/shared/NotificationBar';
 import { PostListResponse } from '@/schema/schema_post';
 import { TagsResponse } from '@/schema/schema_tag';
-import NotificationBar from '@/components/shared/NotificationBar';
 //import Test from './test';
 
 /**

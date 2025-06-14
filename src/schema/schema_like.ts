@@ -4,7 +4,7 @@
  * This file contains the schemas for the parameters and responses of the like routes.
  */
 
-import { z } from "zod";
+import { z } from 'zod';
 
 //
 // Response Schemas

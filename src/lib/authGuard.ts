@@ -1,5 +1,6 @@
-import useUserStore from '@/stores/useUserStore';
 import { redirect } from 'react-router-dom';
+
+import useUserStore from '@/stores/useUserStore';
 
 /**
  * @summary Auth guard for protecting routes.
@@ -30,4 +31,4 @@ const adminGuard = ({ request }: { request: Request }): null => {
   return null;
 };
 
-export { authGuard, adminGuard };
+export { adminGuard, authGuard };

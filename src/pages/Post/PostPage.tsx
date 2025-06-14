@@ -1,18 +1,19 @@
 import { useLoaderData } from 'react-router-dom';
-import useUserStore from '@/stores/useUserStore';
-import { PostResponse } from '@/schema/schema_post';
-import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';
-import LazyImage from '@/components/shared/LazyImage';
+
+import Comments from '@/components/features/comments/Comments';
 import AuthorDateBar from '@/components/features/post/AuthorDateBar';
 import Likes from '@/components/features/post/Likes';
-import Comments from '@/components/features/comments/Comments';
-import MotionH1 from '@/components/motion_components/MotionH1';
-import siteMeta from '@/constants/siteMeta';
-import ShareBar from '@/components/features/post/ShareBar';
 import PostDeleteComponent from '@/components/features/post/PostDeleteComponent';
-import NotificationBar from '@/components/shared/NotificationBar';
+import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';
+import ShareBar from '@/components/features/post/ShareBar';
 import MotionButton from '@/components/motion_components/MotionButton';
+import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionScroll from '@/components/motion_components/MotionScroll';
+import LazyImage from '@/components/shared/LazyImage';
+import NotificationBar from '@/components/shared/NotificationBar';
+import siteMeta from '@/constants/siteMeta';
+import { PostResponse } from '@/schema/schema_post';
+import useUserStore from '@/stores/useUserStore';
 
 // A component to set the meta information for SEO
 const MetaInfo = ({ post }: { post: PostResponse }) => (

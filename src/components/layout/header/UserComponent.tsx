@@ -1,10 +1,11 @@
-import useUserStore from '@/stores/useUserStore';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Link, useLocation } from 'react-router-dom';
-import MotionButton from '@/components/motion_components/MotionButton';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { motion } from 'framer-motion';
+
+import MotionButton from '@/components/motion_components/MotionButton';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { avatarAnimation } from '@/lib/animations';
+import useUserStore from '@/stores/useUserStore';
 
 // This component shows the user avatar or username.
 const AvatarComponent = ({
@@ -16,7 +17,7 @@ const AvatarComponent = ({
   avatar: string | undefined;
   firstChar: string;
 }) => (
-  <Avatar className='h-8 w-8 mx-2'>
+  <Avatar className='mx-2 h-8 w-8'>
     <AvatarImage src={avatar} alt={`${name}'s avatar`} />
     <AvatarFallback>{firstChar}</AvatarFallback>
   </Avatar>

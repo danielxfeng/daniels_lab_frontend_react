@@ -1,11 +1,13 @@
 import axios, { AxiosInstance } from 'axios';
-import useUserStore from '@/stores/useUserStore';
-import getDeviceId from './deviceid';
+
 import {
   RefreshTokenBodySchema,
   TokenRefreshResponse,
   TokenRefreshResponseSchema,
 } from '@/schema/schema_auth';
+import useUserStore from '@/stores/useUserStore';
+
+import getDeviceId from './deviceid';
 
 const baseURL = import.meta.env.VITE_API_BASE_URL || '/api';
 const headers = {
@@ -340,4 +342,4 @@ if (import.meta.hot) {
   });
 }
 
-export { anonymousAxios, optAxios, authAxios };
+export { anonymousAxios, authAxios, optAxios };

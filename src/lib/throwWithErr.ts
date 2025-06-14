@@ -81,10 +81,10 @@ const throwWithUserValidationErr = (message: string, err: string): never => {
 
 export {
   HttpResponseError,
-  throwDebouncedErr,
-  throwWithErr,
-  throwWithAxiosErr,
-  throwWithValidationErr,
-  throwWithUserValidationErr,
   isHttpResponseError,
+  throwDebouncedErr,
+  throwWithAxiosErr,
+  throwWithErr,
+  throwWithUserValidationErr,
+  throwWithValidationErr,
 };

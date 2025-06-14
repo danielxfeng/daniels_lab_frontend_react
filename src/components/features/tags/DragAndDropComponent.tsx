@@ -1,22 +1,23 @@
-import { draggableAnimation } from '@/lib/animations';
-import { cn } from '@/lib/utils';
-import { CreateOrUpdatePostBody } from '@/schema/schema_post';
+import { useState } from 'react';
+import { ControllerRenderProps } from 'react-hook-form';
 import {
   DndContext,
   DragEndEvent,
+  DragMoveEvent,
   DragOverEvent,
   DragOverlay,
+  PointerSensor,
   pointerWithin,
   useDraggable,
   useDroppable,
-  useSensors,
   useSensor,
-  PointerSensor,
-  DragMoveEvent,
+  useSensors,
 } from '@dnd-kit/core';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
-import { ControllerRenderProps } from 'react-hook-form';
+
+import { draggableAnimation } from '@/lib/animations';
+import { cn } from '@/lib/utils';
+import { CreateOrUpdatePostBody } from '@/schema/schema_post';
 
 // Draggable: A tag
 const DraggableTag = ({ tag, isOverlay = false }: { tag: string; isOverlay?: boolean }) => {
@@ -30,7 +31,7 @@ const DraggableTag = ({ tag, isOverlay = false }: { tag: string; isOverlay?: boo
       {...attributes}
       {...listeners}
       className={cn(
-        'border-border bg-transparent text-muted-foreground pointer-events-auto z-10 inline-flex w-auto max-w-[160px] items-center justify-center gap-2 overflow-hidden rounded-xl border px-2.5 py-0.5 text-sm text-ellipsis whitespace-nowrap shadow transition-colors',
+        'border-border text-muted-foreground pointer-events-auto z-10 inline-flex w-auto max-w-[160px] items-center justify-center gap-2 overflow-hidden rounded-xl border bg-transparent px-2.5 py-0.5 text-sm text-ellipsis whitespace-nowrap shadow transition-colors',
         isOverlay && 'bg-destructive text-background',
       )}
     >

@@ -1,7 +1,8 @@
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
-import siteMeta from '@/constants/siteMeta';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+
 import MotionButton from '@/components/motion_components/MotionButton';
+import siteMeta from '@/constants/siteMeta';
 
 /**
  * A custom pagination component for navigating through pages of content.

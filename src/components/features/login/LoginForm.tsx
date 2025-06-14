@@ -1,6 +1,11 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+
+import MotionButton from '@/components/motion_components/MotionButton';
+import MotionInput from '@/components/motion_components/MotionInput';
 import {
   Form,
   FormControl,
@@ -9,15 +14,11 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { AuthResponseSchema, LoginBody, LoginBodySchema } from '@/schema/schema_auth';
-import { toast } from 'sonner';
-import useUserStore from '@/stores/useUserStore';
-import { loginUser } from '@/services/service_auth';
-import { OauthProviderValues } from '@/schema/schema_components';
 import siteMeta from '@/constants/siteMeta';
-import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
-import MotionInput from '@/components/motion_components/MotionInput';
-import MotionButton from '@/components/motion_components/MotionButton';
+import { AuthResponseSchema, LoginBody, LoginBodySchema } from '@/schema/schema_auth';
+import { OauthProviderValues } from '@/schema/schema_components';
+import { loginUser } from '@/services/service_auth';
+import useUserStore from '@/stores/useUserStore';
 
 const iconMap = {
   google: <FaGoogle />,

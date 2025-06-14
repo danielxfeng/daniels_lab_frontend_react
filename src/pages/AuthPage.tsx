@@ -1,12 +1,13 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+
 import Loading from '@/components/shared/Loading';
 import getDeviceId from '@/lib/deviceid';
 import { throwWithValidationErr } from '@/lib/throwWithErr';
 import { AuthResponseSchema } from '@/schema/schema_auth';
 import { oauthGetUserInfo } from '@/services/service_auth';
 import useUserStore from '@/stores/useUserStore';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
 
 /**
  * @summary AuthPage Component

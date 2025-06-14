@@ -1,5 +1,6 @@
-import MotionHoverWrapper from '@/components/motion_components/MotionHoverWrapper';
 import React from 'react';
+
+import MotionHoverWrapper from '@/components/motion_components/MotionHoverWrapper';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 

@@ -1,4 +1,9 @@
 import { Trash2 } from 'lucide-react';
+
+import MotionButton, {
+  ButtonSize,
+  ButtonVariant,
+} from '@/components/motion_components/MotionButton';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,10 +15,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import MotionButton, {
-  ButtonSize,
-  ButtonVariant,
-} from '@/components/motion_components/MotionButton';
 
 type MotionDeleteButtonProps = {
   deleteItem: string;

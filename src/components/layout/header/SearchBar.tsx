@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useForm, UseFormRegister } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Search } from 'lucide-react';
-import useSearchHistoryStore from '@/stores/useSearchHistoryStore';
-import { KeywordSearchQuerySchema } from '@/schema/schema_post';
-import { AnimatePresence, easeInOut, motion } from 'framer-motion';
 import { useNavigate } from 'react-router';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AnimatePresence, easeInOut, motion } from 'framer-motion';
+import { Search } from 'lucide-react';
+
 import MotionButton from '@/components/motion_components/MotionButton';
 import MotionInput from '@/components/motion_components/MotionInput';
 import { cn } from '@/lib/utils';
+import { KeywordSearchQuerySchema } from '@/schema/schema_post';
+import useSearchHistoryStore from '@/stores/useSearchHistoryStore';
 
 // Define a type for form input.
 type FormValues = { keyword: string };

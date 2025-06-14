@@ -1,20 +1,21 @@
-import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
-import getDeviceId from '@/lib/deviceid';
 import { useLocation } from 'react-router-dom';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import MotionH1 from '@/components/motion_components/MotionH1';
-import useUserStore from '@/stores/useUserStore';
-import siteMeta from '@/constants/siteMeta';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import UserProfileUpdateForm from '@/components/features/user_profile/UserProfileUpdateForm';
+import { toast } from 'sonner';
+
 import UserDeleteComponent from '@/components/features/user_profile/UserDeleteComponent';
-import UserPasswordUpdateForm from '@/components/features/user_profile/UserPasswordUpdateForm';
+import UserLogoutComponent from '@/components/features/user_profile/UserLogoutComponent';
 import UserOauthLinkBar from '@/components/features/user_profile/UserOauthLinkBar';
 import UserPasswordInsertionForm from '@/components/features/user_profile/UserPasswordInsertionForm';
+import UserPasswordUpdateForm from '@/components/features/user_profile/UserPasswordUpdateForm';
+import UserProfileUpdateForm from '@/components/features/user_profile/UserProfileUpdateForm';
+import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionTextLink from '@/components/motion_components/MotionTextLink';
 import NotificationBar from '@/components/shared/NotificationBar';
-import UserLogoutComponent from '@/components/features/user_profile/UserLogoutComponent';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import siteMeta from '@/constants/siteMeta';
+import getDeviceId from '@/lib/deviceid';
+import useUserStore from '@/stores/useUserStore';
 
 /**
  * @summary UserProfilePage
@@ -71,7 +72,7 @@ const UserProfilePage = () => {
       </div>
 
       <Tabs defaultValue='account' className='mx-auto mt-8 flex max-w-2xl items-center'>
-        <TabsList className='w-full mb-4'>
+        <TabsList className='mb-4 w-full'>
           <TabsTrigger value='account'>Account</TabsTrigger>
           <TabsTrigger value='password'>Password</TabsTrigger>
           {user.isAdmin && <TabsTrigger value='admin'>Admin</TabsTrigger>}
@@ -80,9 +81,9 @@ const UserProfilePage = () => {
           {' '}
           <div className='flex w-full flex-col items-center gap-5'>
             <UserOauthLinkBar user={user} deviceId={deviceId} />
-            <div className="w-full border-t border-border mt-4" />
+            <div className='border-border mt-4 w-full border-t' />
             <UserProfileUpdateForm />
-              <div className="w-full border-t border-border my-4" />
+            <div className='border-border my-4 w-full border-t' />
             <UserLogoutComponent deviceId={deviceId} />
             <UserDeleteComponent user={user} />
           </div>
@@ -95,7 +96,7 @@ const UserProfilePage = () => {
               <UserPasswordInsertionForm deviceId={deviceId} />
             )}
           </div>
-        </TabsContent >
+        </TabsContent>
         {user.isAdmin && (
           <TabsContent value='admin' className='w-full lg:max-w-md'>
             <div className='my-10 flex w-full justify-center'>
