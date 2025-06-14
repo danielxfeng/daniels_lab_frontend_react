@@ -1,3 +1,8 @@
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+
 import MotionButton from '@/components/motion_components/MotionButton';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionInput from '@/components/motion_components/MotionInput';
@@ -15,10 +20,6 @@ import siteMeta from '@/constants/siteMeta';
 import getDeviceId from '@/lib/deviceid';
 import { AuthResponseSchema, JoinAdminBody, JoinAdminBodySchema } from '@/schema/schema_auth';
 import { joinAdmin } from '@/services/service_auth';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 
 // A form to join admin with a reference code
 const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {

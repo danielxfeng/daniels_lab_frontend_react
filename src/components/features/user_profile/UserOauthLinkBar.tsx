@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { UserResponse } from '@/schema/schema_users';
 import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
 import { toast } from 'sonner';
-import { OauthProvider, OauthProviderValues } from '@/schema/schema_components';
-import { oauthLinkUser, oauthUnlinkUser } from '@/services/service_auth';
-import { OAuthConsentQuery, OAuthRedirectResponseSchema } from '@/schema/schema_auth';
-import useUserStore from '@/stores/useUserStore';
+
 import MotionButton from '@/components/motion_components/MotionButton';
+import { OAuthConsentQuery, OAuthRedirectResponseSchema } from '@/schema/schema_auth';
+import { OauthProvider, OauthProviderValues } from '@/schema/schema_components';
+import { UserResponse } from '@/schema/schema_users';
+import { oauthLinkUser, oauthUnlinkUser } from '@/services/service_auth';
+import useUserStore from '@/stores/useUserStore';
 
 const iconStyle = 'h-8 w-8 lg:h-12 lg:w-12';
 const oauthMap = {

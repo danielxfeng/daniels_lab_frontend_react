@@ -16,9 +16,10 @@ import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { HTMLMotionProps, motion } from 'framer-motion';
 import { Loader } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { btnAnimation, loaderAnimation } from '@/lib/animations';
+
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { btnAnimation, loaderAnimation } from '@/lib/animations';
+import { cn } from '@/lib/utils';
 
 type ButtonSize = 'sm' | 'md' | 'lg';
 type ButtonType = 'button' | 'submit';
@@ -288,6 +289,6 @@ export type {
   ButtonSize,
   ButtonType,
   ButtonVariant,
-  MotionSubmitButtonProps,
   MotionLinkButtonProps,
+  MotionSubmitButtonProps,
 };

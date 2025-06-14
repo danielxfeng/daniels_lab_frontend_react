@@ -1,20 +1,21 @@
 import { useState } from 'react';
-import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+
+import MotionButton from '@/components/motion_components/MotionButton';
+import MotionInput from '@/components/motion_components/MotionInput';
+import AtomicLogout from '@/components/shared/AtomicLogout';
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormControl,
   FormMessage,
 } from '@/components/ui/form';
 import { AuthResponseSchema, SetPasswordBody, SetPasswordBodySchema } from '@/schema/schema_auth';
 import { setPassword } from '@/services/service_auth';
-import AtomicLogout from '@/components/shared/AtomicLogout';
-import MotionInput from '@/components/motion_components/MotionInput';
-import MotionButton from '@/components/motion_components/MotionButton';
 
 /**
  * @summary UserPasswordInsertionForm

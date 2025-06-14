@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
+
+import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
+import AtomicLogout from '@/components/shared/AtomicLogout';
 import { UserResponse } from '@/schema/schema_users';
 import { deleteUser } from '@/services/service_auth';
-import AtomicLogout from '@/components/shared/AtomicLogout';
-import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
 
 /**
  * @summary UserDeleteComponent

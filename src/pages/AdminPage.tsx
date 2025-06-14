@@ -8,8 +8,8 @@ const AdminPage = () => (
     <title>{`User Management – ${siteMeta.siteName}`}</title>
     <NotificationBar />
     <MotionH1>User Management</MotionH1>
-    <div className='w-full overflow-x-auto mt-8'>
-    <UserManagementTable />
+    <div className='mt-8 w-full overflow-x-auto'>
+      <UserManagementTable />
     </div>
   </div>
 );

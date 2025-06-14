@@ -1,6 +1,7 @@
-import MotionButton from '@/components/motion_components/MotionButton';
-import { FaXTwitter, FaLinkedin, FaFacebook, FaInstagram } from 'react-icons/fa6';
+import { FaFacebook, FaInstagram, FaLinkedin, FaXTwitter } from 'react-icons/fa6';
 import { toast } from 'sonner';
+
+import MotionButton from '@/components/motion_components/MotionButton';
 
 /**
  * @summary A component that displays a share bar with social media links.

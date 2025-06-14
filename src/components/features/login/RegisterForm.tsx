@@ -1,20 +1,21 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
+
+import MotionButton from '@/components/motion_components/MotionButton';
+import MotionInput from '@/components/motion_components/MotionInput';
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormControl,
   FormMessage,
 } from '@/components/ui/form';
 import { AuthResponseSchema, RegisterBody, RegisterBodySchema } from '@/schema/schema_auth';
-import useUserStore from '@/stores/useUserStore';
 import { registerUser } from '@/services/service_auth';
-import MotionInput from '@/components/motion_components/MotionInput';
-import MotionButton from '@/components/motion_components/MotionButton';
+import useUserStore from '@/stores/useUserStore';
 
 /// This component is used to register a new user
 const RegisterForm = ({ deviceId }: { deviceId: string }) => {

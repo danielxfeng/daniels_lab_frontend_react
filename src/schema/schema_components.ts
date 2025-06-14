@@ -131,9 +131,7 @@ const PostIdSchema = UUIDSchema;
  * - Slug can only contain lowercase letters, numbers, and hyphens
  * - Slug must start with a lowercase letter or number
  */
-const PostSlugSchema = z
-  .string()
-  .min(1, 'Slug is required');
+const PostSlugSchema = z.string().min(1, 'Slug is required');
 
 /**
  * @summary CreateAt schema
@@ -160,25 +158,25 @@ const PostSlugQuerySchema = z.object({
 const AuthorIdSchema = UUIDSchema;
 
 export {
-  DateTimeSchema,
-  UUIDSchema,
-  UsernameSchema,
-  UrlSchema,
-  ConsentSchema,
-  OauthProvidersSchema,
-  PostIdSchema,
-  PostSlugSchema,
-  OffsetSchema,
-  OffsetOutputSchema,
-  LimitSchema,
-  LimitOutputSchema,
-  CreateAtSchema,
-  UpdateAtSchema,
-  PostIdQuerySchema,
-  PostSlugQuerySchema,
-  TotalOutputSchema,
   AuthorIdSchema,
+  ConsentSchema,
+  CreateAtSchema,
+  DateTimeSchema,
+  LimitOutputSchema,
+  LimitSchema,
+  OauthProvidersSchema,
   OauthProviderValues,
+  OffsetOutputSchema,
+  OffsetSchema,
+  PostIdQuerySchema,
+  PostIdSchema,
+  PostSlugQuerySchema,
+  PostSlugSchema,
+  TotalOutputSchema,
+  UpdateAtSchema,
+  UrlSchema,
+  UsernameSchema,
+  UUIDSchema,
 };
 
 //
@@ -195,4 +193,4 @@ type PostIdQuery = z.infer<typeof PostIdQuerySchema>;
  */
 type PostSlugQuery = z.infer<typeof PostSlugQuerySchema>;
 
-export type { PostIdQuery, PostSlugQuery, OauthProvider };
+export type { OauthProvider, PostIdQuery, PostSlugQuery };

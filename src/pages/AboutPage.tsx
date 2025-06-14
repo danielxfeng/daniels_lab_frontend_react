@@ -1,9 +1,10 @@
-import ContactLink from '@/components/shared/ContactLink';
-import MotionH1 from '@/components/motion_components/MotionH1';
-import contactIconList from '@/constants/contactLinks';
-import { picAnimation } from '@/lib/animations';
 import { motion } from 'framer-motion';
+
+import MotionH1 from '@/components/motion_components/MotionH1';
+import ContactLink from '@/components/shared/ContactLink';
+import contactIconList from '@/constants/contactLinks';
 import siteMeta from '@/constants/siteMeta';
+import { picAnimation } from '@/lib/animations';
 
 const AboutPage = () => (
   <div className='inner-container flex flex-col-reverse items-center gap-8 lg:flex-row lg:justify-between lg:gap-16'>

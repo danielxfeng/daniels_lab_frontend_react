@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
-import { CreateOrUpdatePostBody, PostListResponse, PostResponse } from '@/schema/schema_post';
+
 import { anonymousAxios, authAxios } from '@/lib/axiosInstance';
+import { CreateOrUpdatePostBody, PostListResponse, PostResponse } from '@/schema/schema_post';
 
 /**
  * @summary A function to get posts by keyword
@@ -65,11 +66,11 @@ const deletePost = async (id: string): Promise<AxiosResponse<undefined>> => {
 };
 
 export {
-  getPostsByKeyword,
-  getPosts,
-  searchPostsByKeywords,
-  getPost,
   createPost,
-  updatePost,
   deletePost,
+  getPost,
+  getPosts,
+  getPostsByKeyword,
+  searchPostsByKeywords,
+  updatePost,
 };

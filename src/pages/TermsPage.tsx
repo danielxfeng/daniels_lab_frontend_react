@@ -1,5 +1,5 @@
-import NotificationBar from "@/components/shared/NotificationBar";
-import siteMeta from "@/constants/siteMeta";
+import NotificationBar from '@/components/shared/NotificationBar';
+import siteMeta from '@/constants/siteMeta';
 
 const TermsPage = () => (
   <div className='inner-container flex flex-col items-start justify-start gap-4 text-left'>

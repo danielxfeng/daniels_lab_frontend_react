@@ -253,16 +253,16 @@ const loaderAnimation = {
 };
 
 export {
-  logoImageMotion,
-  navUnderline,
-  navTextAnimation,
+  avatarAnimation,
+  btnAnimation,
+  draggableAnimation,
   easeInOut,
   h1Animation,
-  draggableAnimation,
-  postCardAnimation,
   linkAnimation,
-  picAnimation,
-  btnAnimation,
   loaderAnimation,
-  avatarAnimation,
+  logoImageMotion,
+  navTextAnimation,
+  navUnderline,
+  picAnimation,
+  postCardAnimation,
 };

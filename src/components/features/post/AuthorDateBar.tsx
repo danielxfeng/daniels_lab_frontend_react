@@ -1,5 +1,6 @@
-import Author from '@/components/features/post/Author';
 import { format } from 'date-fns';
+
+import Author from '@/components/features/post/Author';
 
 /**
  * @summary The AuthorDateBar component displays the author's name and avatar along with the post's creation date.
@@ -23,7 +24,7 @@ const AuthorDateBar = ({
   <div className='flex w-full items-center justify-between'>
     <Author name={authorName} avatarUrl={authorAvatar ?? undefined} />
     <div className='text-muted-foreground text-sm'>
-      Updated At:{' '}<span className='italic'>{format(new Date(updatedAt || createdAt!), 'PP')}</span>
+      Updated At: <span className='italic'>{format(new Date(updatedAt || createdAt!), 'PP')}</span>
     </div>
   </div>
 );

@@ -1,11 +1,12 @@
 import { PostSlugQuerySchema } from '@/schema/schema_components';
 import { PostResponse, PostResponseSchema } from '@/schema/schema_post';
+import { getPost } from '@/services/services_posts';
+
 import {
   throwWithAxiosErr,
   throwWithUserValidationErr,
   throwWithValidationErr,
 } from './throwWithErr';
-import { getPost } from '@/services/services_posts';
 
 /**
  * A loader helper function for post page.

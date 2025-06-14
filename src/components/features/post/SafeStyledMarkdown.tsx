@@ -1,21 +1,23 @@
-import { marked } from 'marked';
+import { useEffect, useState } from 'react';
 import DOMPurify from 'dompurify';
 import hljs from 'highlight.js/lib/core';
-import javascript from 'highlight.js/lib/languages/javascript';
-import json from 'highlight.js/lib/languages/json';
-import go from 'highlight.js/lib/languages/go';
-import python from 'highlight.js/lib/languages/python';
-import typescript from 'highlight.js/lib/languages/typescript';
+import bash from 'highlight.js/lib/languages/bash';
 import c from 'highlight.js/lib/languages/c';
+import cpp from 'highlight.js/lib/languages/cpp';
 import csharp from 'highlight.js/lib/languages/csharp';
 import css from 'highlight.js/lib/languages/css';
-import html from 'highlight.js/lib/languages/xml';
+import go from 'highlight.js/lib/languages/go';
 import java from 'highlight.js/lib/languages/java';
-import cpp from 'highlight.js/lib/languages/cpp';
-import bash from 'highlight.js/lib/languages/bash';
-import 'highlight.js/styles/github-dark.css';
-import { useEffect, useState } from 'react';
+import javascript from 'highlight.js/lib/languages/javascript';
+import json from 'highlight.js/lib/languages/json';
+import python from 'highlight.js/lib/languages/python';
+import typescript from 'highlight.js/lib/languages/typescript';
+import html from 'highlight.js/lib/languages/xml';
+import { marked } from 'marked';
+
 import { cn } from '@/lib/utils';
+
+import 'highlight.js/styles/github-dark.css';
 
 // Configure marked to use GitHub Flavored Markdown (GFM) and enable line breaks
 marked.setOptions({

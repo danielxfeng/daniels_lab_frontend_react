@@ -1,5 +1,3 @@
-
-
 /**
  * Defines the site metadata for the application.
  */

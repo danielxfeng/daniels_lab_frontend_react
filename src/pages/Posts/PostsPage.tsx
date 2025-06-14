@@ -1,6 +1,7 @@
 import { useLoaderData } from 'react-router-dom';
-import siteMeta from '@/constants/siteMeta';
+
 import PostsMain from '@/components/features/posts/PostsMain';
+import siteMeta from '@/constants/siteMeta';
 
 // A component to set the meta information for SEO
 const MetaInfo = () => (

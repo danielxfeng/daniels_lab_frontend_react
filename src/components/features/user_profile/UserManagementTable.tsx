@@ -1,5 +1,11 @@
+import { useEffect, useState } from 'react';
+import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { toast } from 'sonner';
 
+import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
+import Loading from '@/components/shared/Loading';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Table,
   TableBody,
@@ -8,15 +14,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
-import { getUsers } from '@/services/service_user';
 import { UserResponse, UsersResponseSchema } from '@/schema/schema_users';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
 import { deleteUser } from '@/services/service_auth';
-import Loading from '@/components/shared/Loading';
-import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
+import { getUsers } from '@/services/service_user';
 
 // A component to manage user accounts, displaying a table of users with options to delete them.
 // Emoji is used for fun.

@@ -1,6 +1,7 @@
 import { ControllerRenderProps } from 'react-hook-form';
-import TagInputComponent from '@/components/features/tags/TagInputComponent';
+
 import DragDropComponent from '@/components/features/tags/DragAndDropComponent';
+import TagInputComponent from '@/components/features/tags/TagInputComponent';
 import { CreateOrUpdatePostBody } from '@/schema/schema_post';
 
 /**

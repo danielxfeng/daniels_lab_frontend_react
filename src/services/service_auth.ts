@@ -1,3 +1,6 @@
+import { AxiosResponse } from 'axios';
+
+import { anonymousAxios, authAxios } from '@/lib/axiosInstance';
 import {
   AuthResponse,
   ChangePasswordBody,
@@ -9,8 +12,6 @@ import {
   RegisterBody,
   SetPasswordBody,
 } from '@/schema/schema_auth';
-import { anonymousAxios, authAxios } from '@/lib/axiosInstance';
-import { AxiosResponse } from 'axios';
 import { OauthProvider } from '@/schema/schema_components';
 
 /**
@@ -130,14 +131,14 @@ const joinAdmin = async (body: JoinAdminBody): Promise<AxiosResponse<AuthRespons
 };
 
 export {
-  loginUser,
-  registerUser,
-  oauthGetUserInfo,
-  oauthUnlinkUser,
-  oauthLinkUser,
-  logoutUser,
   changePassword,
-  setPassword,
   deleteUser,
   joinAdmin,
+  loginUser,
+  logoutUser,
+  oauthGetUserInfo,
+  oauthLinkUser,
+  oauthUnlinkUser,
+  registerUser,
+  setPassword,
 };

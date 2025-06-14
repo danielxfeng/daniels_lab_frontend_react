@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { DeviceIdBodySchema } from '@/schema/schema_auth';
-import { logoutUser } from '@/services/service_auth';
+
+import MotionButton from '@/components/motion_components/MotionButton';
+import AtomicLogout from '@/components/shared/AtomicLogout';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,8 +11,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import AtomicLogout from '@/components/shared/AtomicLogout';
-import MotionButton from '@/components/motion_components/MotionButton';
+import { DeviceIdBodySchema } from '@/schema/schema_auth';
+import { logoutUser } from '@/services/service_auth';
 
 /**
  * @summary UserLogoutComponent

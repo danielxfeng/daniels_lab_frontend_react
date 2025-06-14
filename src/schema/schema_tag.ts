@@ -4,7 +4,7 @@
  * This file contains the schemas for the parameters and responses of the tag routes.
  */
 
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * @summary Schema for a tag.
@@ -19,8 +19,7 @@ const tagSchema = z
   .max(20)
   .transform((val) => val.toLowerCase())
   .refine((val) => /^[a-z0-9._-]+$/.test(val), {
-    message:
-      "Tag must contain only letters, numbers, dots, hyphens, or underscores.",
+    message: 'Tag must contain only letters, numbers, dots, hyphens, or underscores.',
   });
 
 /**
@@ -36,7 +35,7 @@ const tagsSchema = z
   .default([])
   .transform((val) => (Array.isArray(val) ? val : [val]))
   .refine((arr) => arr.length <= 10, {
-    message: "Maximum 10 tags allowed",
+    message: 'Maximum 10 tags allowed',
   });
 
 /**
@@ -45,7 +44,7 @@ const tagsSchema = z
  */
 const TagQuerySchema = z.object({
   tag: tagSchema,
-  ts: z.number()
+  ts: z.number(),
 });
 
 const TagsResponseSchema = z.object({
@@ -53,7 +52,7 @@ const TagsResponseSchema = z.object({
   ts: z.number().optional(),
 });
 
-export { tagSchema, tagsSchema, TagQuerySchema, TagsResponseSchema };
+export { TagQuerySchema, tagSchema, TagsResponseSchema, tagsSchema };
 
 //
 // Inferred Types

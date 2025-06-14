@@ -1,11 +1,12 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
 import {
   NavigationMenu,
-  NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuLink,
+  NavigationMenuList,
 } from '@/components/ui/navigation-menu';
 import navMenu from '@/constants/navMenu';
 import { navTextAnimation, navUnderline } from '@/lib/animations';

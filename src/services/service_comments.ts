@@ -1,10 +1,11 @@
 import { AxiosResponse } from 'axios';
+
 import { anonymousAxios, authAxios } from '@/lib/axiosInstance';
 import {
+  CommentResponse,
+  CommentsListResponse,
   CreateCommentBody,
   UpdateCommentBody,
-  CommentsListResponse,
-  CommentResponse,
 } from '@/schema/schema_comment';
 
 /**
@@ -61,4 +62,4 @@ const deleteComment = async (commentId: string) => {
   return await authAxios!.delete(`/blog/comments/${commentId}`);
 };
 
-export { getComments, getComment, createComment, updateComment, deleteComment };
+export { createComment, deleteComment, getComment, getComments, updateComment };
