@@ -6,6 +6,7 @@ import Loading from '@/components/shared/Loading';
 import { adminGuard, authGuard } from '@/lib/authGuard';
 import AuthPage from '@/pages/AuthPage';
 import ErrorBoundary from '@/pages/ErrorBoundary';
+import HomePage from '@/pages/HomePage';
 import LoginPage from '@/pages/LoginPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import PostPage from '@/pages/Post/PostPage';
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
     children: [
       // /
       // redirect to /blog/posts
-      { index: true, loader: () => redirect('/blog/posts') },
+      { index: true, Component: HomePage },
       // /blog
       {
         path: 'blog',
