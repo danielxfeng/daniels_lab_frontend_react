@@ -183,12 +183,13 @@ const ParticlesTransitionComp = ({
   return (
     <motion.div
       ref={ref}
-      className='absolute inset-0 z-10'
+      className='absolute inset-0 z-[-1]'
       data-role='particles-transition'
+      aria-hidden='true'
       {...fadeInAnimation}
     >
       <Canvas className='h-full w-full'>
-        <PerspectiveCamera makeDefault position={[0, 0, 1000]} near={1} far={1000} fov={50} />
+        <PerspectiveCamera makeDefault position={[0, 0, 100]} near={1} far={1000} fov={50} />
         <ambientLight />
         <directionalLight position={[10, 10, 10]} />
         <OrbitControls />

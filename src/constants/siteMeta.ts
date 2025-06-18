@@ -1,13 +1,18 @@
+const env = import.meta.env;
+
 /**
  * Defines the site metadata for the application.
  */
 const siteMeta = {
   paginationLimit: 10, // Number of posts per page
-  siteName: "Daniel's Lab",
-  siteDescription:
-    "Daniel's personal site — a playground for web development and AI experimentation",
+  siteName: env.VITE_SITE_NAME || "Daniel's Lab",
+  siteDescription: env.VITE_SITE_DESCRIPTION || 'A personal blog and portfolio',
+  me: env.VITE_SITE_ME || 'Daniel',
+  myLocation: env.VITE_MY_LOCATION || 'Helsinki',
+  myProfession: env.VITE_MY_PROFESSION || 'Software Engineer',
+  myAvatar: env.VITE_MY_AVATAR || 'https://api.dicebear.com/7.x/lorelei/svg?seed=Daniel',
   siteUrl: 'https://danielslab.dev',
-  apiUrl: 'http://localhost:3000/api', // Base URL for the API
+  apiUrl: env.VITE_API_URL || 'http://localhost:3000/api',
 };
 
 export default siteMeta;

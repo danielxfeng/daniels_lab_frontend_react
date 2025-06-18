@@ -33,7 +33,7 @@ const HomePage = () => {
     <>
       <MetaInfo />
       <NotificationBar isVisible={false} />
-      <section className='inner-container flex flex-col items-center gap-6' data-role='home-page'>
+      <section className='flex w-full flex-col items-center gap-6' data-role='home-page'>
         <Hero />
         <ProjectCards />
         <FeaturedPosts />
