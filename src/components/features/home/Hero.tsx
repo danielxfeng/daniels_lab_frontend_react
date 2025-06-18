@@ -1,8 +1,17 @@
 import { lazy, Suspense } from 'react';
 
+import MotionSpan from '@/components/motion_components/MotionSpan';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import siteMeta from '@/constants/siteMeta';
 
+/**
+ * @summary Hero component for the homepage.
+ * @description
+ * It includes:
+ * - A background gradient.
+ * - A particles transition effect.
+ * - A hero section with an avatar and introductory text.
+ */
 const Hero = () => {
   const ParticlesTransitionComp = lazy(() => import('@/components/3d/ParticlesTransition'));
   return (
@@ -38,34 +47,47 @@ const Hero = () => {
             className='bg-background/40 flex w-fit flex-col rounded-xl p-2 backdrop-blur-sm'
           >
             <p>
-              <span className='flex items-end gap-2'>
-                <span className='text-2xl font-light'>Hi!</span>
-                <span>Welcome to my lab!</span>
+              <span className='flex items-end gap-2' aria-hidden='true'>
+                <span className='text-2xl font-light' aria-hidden='true'>
+                  Hi!
+                </span>
+                <span aria-hidden='true'>Welcome to my lab!</span>
               </span>
             </p>
             <p>
-              <span className='inline-block'>
+              <span className='inline-block' aria-hidden='true'>
                 I am{' '}
-                <span className='text-highlight px-2 py-1 text-3xl font-bold text-shadow-md dark:text-blue-500'>
-                  {siteMeta.me}
-                </span>
+                <MotionSpan
+                  text={siteMeta.me}
+                  className='text-highlight px-2 py-1 text-3xl font-bold text-shadow-md dark:text-blue-500'
+                />
                 ,
                 <br />
-                <span className='text-muted-foreground italic'>a </span>
-                <span className='text-foreground text-xl font-semibold'>
+                <span className='text-muted-foreground italic' aria-hidden='true'>
+                  a{' '}
+                </span>
+                <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
                   {siteMeta.myProfession}
                 </span>
-                <span className='text-muted-foreground italic'> based in </span>
-                <span className='text-foreground text-xl font-semibold'>{siteMeta.myLocation}</span>
+                <span className='text-muted-foreground italic' aria-hidden='true'>
+                  {' '}
+                  based in{' '}
+                </span>
+                <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
+                  {siteMeta.myLocation}
+                </span>
                 .
               </span>
             </p>
             <p>
-              <span className='text-muted-foreground inline-block'>
-                I focus on <span className='text-foreground text-xl font-semibold'>full stack</span>{' '}
+              <span className='text-muted-foreground inline-block' aria-hidden='true'>
+                I focus on{' '}
+                <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
+                  full stack
+                </span>{' '}
                 development, both backend and frontend, <br />
                 and also enjoy{' '}
-                <span className='text-foreground text-xl font-semibold'>
+                <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
                   system programming
                 </span>{' '}
                 and building <span className='text-foreground text-xl font-semibold'>AI</span> toys.

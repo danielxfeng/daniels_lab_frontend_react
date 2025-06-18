@@ -259,6 +259,18 @@ const fadeInAnimation = {
   transition: { duration: 1.2, ease: 'easeInOut', delay: 0.3 },
 };
 
+// The animation for span elements
+const spanAnimation = (index: number) => {
+  return {
+    initial: { opacity: 0, filter: 'blur(10px)' },
+    animate: { opacity: 1, filter: 'blur(0px)' },
+    transition: {
+      delay: index * 0.03,
+      duration: 0.1,
+    },
+  };
+};
+
 export {
   avatarAnimation,
   btnAnimation,
@@ -273,4 +285,5 @@ export {
   navUnderline,
   picAnimation,
   postCardAnimation,
+  spanAnimation,
 };
