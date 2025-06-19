@@ -254,8 +254,8 @@ const loaderAnimation = {
 
 // The animation for fade-in effects
 const fadeInAnimation = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
   transition: { duration: 1.2, ease: 'easeInOut', delay: 0.3 },
 };
 

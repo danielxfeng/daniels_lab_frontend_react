@@ -1,11 +1,12 @@
-import { Suspense, useEffect, useRef } from 'react';
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
+import { Dispatch, SetStateAction, Suspense, useEffect, useRef } from 'react';
+import { PerspectiveCamera } from '@react-three/drei';
 import { Canvas, Size } from '@react-three/fiber';
 import { useFrame, useThree } from '@react-three/fiber';
 import { motion, useInView } from 'framer-motion';
 import * as THREE from 'three';
 
 import { fadeInAnimation } from '@/lib/animations';
+import { cn } from '@/lib/utils';
 
 type ParticlesTransitionMode = 'wrapped' | 'full-screen';
 
@@ -23,15 +24,8 @@ const getParticleScale = (mode: ParticlesTransitionMode): number => {
     case 'full-screen':
       return Math.random() * 200 + 100; // Scale between 100 and 300
     default:
-      return Math.random() * 2 + 0.5; // Scale between 0.5 and 2.5
+      return Math.random() * 200 + 100; // Scale between 0.5 and 2.5
   }
-};
-
-// Returns different color values based on the transition mode
-const getParticleColor = (mode: ParticlesTransitionMode, baseColor: string): THREE.Color => {
-  //if (mode === 'wrapped') return new THREE.Color(baseColor);
-  if (mode === 'full-screen') return new THREE.Color(baseColor);
-  return new THREE.Color(Math.random() * 0xffffff);
 };
 
 /**
@@ -50,11 +44,11 @@ const isValidParticle = (
   return particle.position.x ** 2 + particle.position.y ** 2 < radius2;
 };
 
+// Generates the particles properties based on the numbers, mode, size and base color
 const generateParticlesProperties = (
   numbers: number,
   mode: ParticlesTransitionMode,
   size: Size,
-  baseColor: string,
 ): ParticleProperties[] => {
   const particles: ParticleProperties[] = [];
   // Used for isValidParticle, pre-calculate for performance
@@ -63,9 +57,9 @@ const generateParticlesProperties = (
   for (let i = 0; i < numbers; i++) {
     // Generate random properties for each particle
     const position = new THREE.Vector3(
-      Math.random() * 100 - 50,
-      Math.random() * 60 - 30,
-      Math.random() * 80 - 40,
+      Math.random() * 10000 - 5000,
+      Math.random() * 10000 - 5000,
+      Math.random() * 10000 - 5000,
     );
     const rotation = new THREE.Euler(
       Math.random() * Math.PI * 2,
@@ -75,7 +69,7 @@ const generateParticlesProperties = (
 
     const scale = getParticleScale(mode);
 
-    const color = getParticleColor(mode, baseColor);
+    const color = new THREE.Color(Math.random() * 0xffffff);
 
     const particle: ParticleProperties = {
       position,
@@ -94,12 +88,10 @@ const generateParticlesProperties = (
 const ParticlesTransition = ({
   numbers,
   mode,
-  baseColor,
   active,
 }: {
   numbers: number;
   mode: ParticlesTransitionMode;
-  baseColor: string;
   active: boolean;
 }) => {
   const { size } = useThree();
@@ -114,7 +106,7 @@ const ParticlesTransition = ({
     console.log('Generating particles...', numbers, mode, size);
     if (!meshRef.current) return;
     const dummy = new THREE.Object3D();
-    const particlesProps = generateParticlesProperties(numbers, mode, size, baseColor);
+    const particlesProps = generateParticlesProperties(numbers, mode, size);
     console.log(`Generated ${particlesProps.length} particles`);
     for (let i = 0; i < particlesProps.length; i++) {
       dummy.position.copy(particlesProps[i].position);
@@ -123,11 +115,11 @@ const ParticlesTransition = ({
       dummy.updateMatrix();
 
       meshRef.current.setMatrixAt(i, dummy.matrix);
-      meshRef.current.setColorAt(i, getParticleColor(mode, baseColor)); // Default color, will be updated below
+      meshRef.current.setColorAt(i, particlesProps[i].color); // Default color, will be updated below
     }
     meshRef.current.instanceMatrix.needsUpdate = true;
     meshRef.current.instanceColor!.needsUpdate = true;
-  }, [baseColor, mode, numbers, size]);
+  }, [mode, numbers, size]);
 
   // Update the render target size when the canvas size changes
   useEffect(() => {
@@ -135,18 +127,16 @@ const ParticlesTransition = ({
   }, [size]);
 
   // The animation loop, disabled when not active
-  useFrame((state, delta) => {
-    if (!active) return; // Skip the animation if not active
-    if (groupRef.current) {
-      groupRef.current.rotation.x += delta * 0.1;
-      groupRef.current.rotation.y += delta * 0.2;
-    }
+  useFrame((_state, delta) => {
+    if (!active || !groupRef.current) return;
+    groupRef.current.rotation.x += delta * 0.1;
+    groupRef.current.rotation.y += delta * 0.2;
   });
 
   return (
     <group ref={groupRef}>
       <instancedMesh ref={meshRef} args={[undefined, undefined, numbers]}>
-        <icosahedronGeometry args={[1, 1]} />
+        <icosahedronGeometry args={[0.25, 1]} />
         <meshStandardMaterial flatShading />
       </instancedMesh>
     </group>
@@ -163,38 +153,39 @@ const ParticlesTransition = ({
  * periodically and on hover.
  * The effect is active only when the component is in view for performance reasons.
  * But I don't unmount it since the loading may also be expensive.
- *
- * @param - numbers - The number of particles to generate.
- * @param - mode - Shows in section hero, or in a standalone page.
  */
 const ParticlesTransitionComp = ({
-  numbers,
-  baseColor,
   mode,
+  setParticlesMode,
 }: {
-  numbers: number;
-  baseColor: string;
   mode: ParticlesTransitionMode;
+  setParticlesMode: Dispatch<SetStateAction<ParticlesTransitionMode>>;
 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: '-100px 0px' });
-  console.log(mode, isInView);
+  setParticlesMode(mode);
+
+  const numbers = mode === 'wrapped' ? 1000 : 1000; // Adjust numbers based on mode
+  const position =
+    mode === 'wrapped' ? new THREE.Vector3(0, 0, 30000) : new THREE.Vector3(0, 0, 80000);
 
   return (
     <motion.div
       ref={ref}
-      className='absolute inset-0 z-[-1]'
+      className={cn(
+        'absolute top-6 right-4 z-0 aspect-square w-1/4 lg:top-auto lg:right-0 lg:bottom-10 lg:w-1/6',
+      )}
       data-role='particles-transition'
       aria-hidden='true'
       {...fadeInAnimation}
     >
-      <Canvas className='h-full w-full'>
-        <PerspectiveCamera makeDefault position={[0, 0, 100]} near={1} far={1000} fov={50} />
-        <ambientLight />
-        <directionalLight position={[10, 10, 10]} />
-        <OrbitControls />
-        <Suspense fallback={null}>
-          <ParticlesTransition numbers={numbers} baseColor={baseColor} mode={mode} active={true} />
+      <Canvas className='h-100 w-100'>
+        <Suspense fallback={<div className='absolute inset-0 z-0 bg-black' />}>
+          <PerspectiveCamera makeDefault position={position} near={1} far={100000} fov={20} />
+          <ambientLight intensity={0.15} />
+          <hemisphereLight args={[0x0099ff, 0xaa5500, 0.4]} />
+          <directionalLight position={[10, 10, 10]} intensity={1.2} />
+          <ParticlesTransition numbers={numbers} mode={mode} active={isInView} />
         </Suspense>
       </Canvas>
     </motion.div>
@@ -202,3 +193,5 @@ const ParticlesTransitionComp = ({
 };
 
 export default ParticlesTransitionComp;
+
+export type { ParticlesTransitionMode };

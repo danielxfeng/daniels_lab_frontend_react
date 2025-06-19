@@ -1,8 +1,10 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState } from 'react';
 
+import { ParticlesTransitionMode } from '@/components/3d/ParticlesTransition';
 import MotionSpan from '@/components/motion_components/MotionSpan';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import siteMeta from '@/constants/siteMeta';
+import { cn } from '@/lib/utils';
 
 /**
  * @summary Hero component for the homepage.
@@ -14,8 +16,9 @@ import siteMeta from '@/constants/siteMeta';
  */
 const Hero = () => {
   const ParticlesTransitionComp = lazy(() => import('@/components/3d/ParticlesTransition'));
+  const [particlesMode, setParticlesMode] = useState<ParticlesTransitionMode>('wrapped');
   return (
-    <section data-role='hero' className='relative w-full overflow-hidden'>
+    <section data-role='hero' className='relative w-full overflow-hidden leading-relaxed'>
       {/* Background gradient for the hero section */}
       <div
         className='pointer-events-none absolute inset-0 z-5'
@@ -32,11 +35,10 @@ const Hero = () => {
       >
         {/* Background particles transition effect */}
         <Suspense fallback={null}>
-          <ParticlesTransitionComp numbers={1000} mode='wrapped' baseColor='#0066ff' />
+          <ParticlesTransitionComp mode={particlesMode} setParticlesMode={setParticlesMode} />
         </Suspense>
-
         {/* Hero content */}
-        <div data-role='hero-content' className='flex flex-col gap-6 text-lg'>
+        <div data-role='hero-content' className='z-10 flex flex-col gap-6 text-lg'>
           <h1 className='sr-only'>{siteMeta.siteName}</h1>
           <Avatar className='ring-offset-background ring-muted h-24 w-24 shadow-xl ring-2 ring-offset-2'>
             <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
@@ -44,7 +46,10 @@ const Hero = () => {
           </Avatar>
           <div
             data-role='hero-text'
-            className='bg-background/40 flex w-fit flex-col rounded-xl p-2 backdrop-blur-sm'
+            className={cn(
+              'flex w-fit flex-col rounded-xl p-2',
+              //'bg-background/40 backdrop-blur-sm',
+            )}
           >
             <p>
               <span className='flex items-end gap-2' aria-hidden='true'>
