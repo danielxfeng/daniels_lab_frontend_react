@@ -1,6 +1,5 @@
 import { lazy, Suspense, useState } from 'react';
 
-import { ParticlesTransitionMode } from '@/components/3d/ParticlesTransition';
 import MotionSpan from '@/components/motion_components/MotionSpan';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import siteMeta from '@/constants/siteMeta';
@@ -16,7 +15,7 @@ import { cn } from '@/lib/utils';
  */
 const Hero = () => {
   const ParticlesTransitionComp = lazy(() => import('@/components/3d/ParticlesTransition'));
-  const [particlesMode, setParticlesMode] = useState<ParticlesTransitionMode>('wrapped');
+  const [isParticlesHover, setIsParticlesHover] = useState(false);
   return (
     <section data-role='hero' className='relative w-full overflow-hidden leading-relaxed'>
       {/* Background gradient for the hero section */}
@@ -33,22 +32,26 @@ const Hero = () => {
         data-role='hero-main'
         className='relative z-10 mx-auto max-w-4xl px-4 py-6 sm:px-6 lg:px-8'
       >
-        {/* Background particles transition effect */}
+        {/* Background particles transition effect, we keep it z-50 */}
         <Suspense fallback={null}>
-          <ParticlesTransitionComp mode={particlesMode} setParticlesMode={setParticlesMode} />
+          <ParticlesTransitionComp
+            mode='container'
+            isParticlesHover={isParticlesHover}
+            setIsParticlesHover={setIsParticlesHover}
+          />
         </Suspense>
         {/* Hero content */}
         <div data-role='hero-content' className='z-10 flex flex-col gap-6 text-lg'>
           <h1 className='sr-only'>{siteMeta.siteName}</h1>
-          <Avatar className='ring-offset-background ring-muted h-24 w-24 shadow-xl ring-2 ring-offset-2'>
+          <Avatar className='ring-offset-background ring-muted z-100 h-24 w-24 shadow-xl ring-2 ring-offset-2'>
             <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
             <AvatarFallback>Daniel</AvatarFallback>{' '}
           </Avatar>
           <div
             data-role='hero-text'
             className={cn(
-              'flex w-fit flex-col rounded-xl p-2',
-              //'bg-background/40 backdrop-blur-sm',
+              'z-100 flex w-fit flex-col rounded-xl p-2',
+              isParticlesHover && 'bg-background/40 backdrop-blur-sm',
             )}
           >
             <p>
