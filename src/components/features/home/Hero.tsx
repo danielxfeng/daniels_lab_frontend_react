@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
  * - A hero section with an avatar and introductory text.
  */
 const Hero = () => {
-  const ParticlesTransitionComp = lazy(() => import('@/components/3d/ParticlesTransition'));
+  const GravityParticles = lazy(() => import('@/components/3d/gravity_particles/GravityParticles'));
   const [isParticlesHover, setIsParticlesHover] = useState(false);
   return (
     <section data-role='hero' className='relative w-full overflow-hidden leading-relaxed'>
@@ -34,7 +34,7 @@ const Hero = () => {
       >
         {/* Background particles transition effect, we keep it z-50 */}
         <Suspense fallback={null}>
-          <ParticlesTransitionComp
+          <GravityParticles
             mode='container'
             isParticlesHover={isParticlesHover}
             setIsParticlesHover={setIsParticlesHover}

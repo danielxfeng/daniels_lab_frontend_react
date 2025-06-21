@@ -9,7 +9,7 @@ import * as THREE from 'three';
 import { fadeInAnimation } from '@/lib/animations';
 import { cn } from '@/lib/utils';
 
-type ParticlesTransitionMode = 'container' | 'full-screen';
+type GravityParticlesMode = 'container' | 'full-screen';
 
 // The properties of each particle
 type ParticleProperties = {
@@ -57,7 +57,7 @@ const AnimatedMesh = ({
   setIsParticlesHover,
 }: {
   numbers: number;
-  mode: ParticlesTransitionMode;
+  mode: GravityParticlesMode;
   active: boolean;
   isParticlesHover: boolean;
   setIsParticlesHover: Dispatch<SetStateAction<boolean>>;
@@ -210,12 +210,12 @@ const AnimatedMesh = ({
  * The effect is active only when the component is in view for performance reasons.
  * But I don't unmount it since the loading may also be expensive.
  */
-const ParticlesTransitionComp = ({
+const GravityParticles = ({
   mode,
   isParticlesHover,
   setIsParticlesHover,
 }: {
-  mode: ParticlesTransitionMode;
+  mode: GravityParticlesMode;
   isParticlesHover: boolean;
   setIsParticlesHover: Dispatch<SetStateAction<boolean>>;
 }) => {
@@ -261,6 +261,4 @@ const ParticlesTransitionComp = ({
   );
 };
 
-export default ParticlesTransitionComp;
-
-export type { ParticlesTransitionMode };
+export default GravityParticles;
