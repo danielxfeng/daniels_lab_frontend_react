@@ -69,6 +69,7 @@ const AnimatedMesh = ({
     new THREE.WebGLRenderTarget(size.width, size.height),
   );
 
+  // State to manage hover state of the particles
   const deBouncedHoverToggle = useRef<NodeJS.Timeout | null>(null);
   const hoverToggleCoolingDown = useRef<NodeJS.Timeout | null>(null);
 
@@ -84,7 +85,7 @@ const AnimatedMesh = ({
     scale: mode === 'full-screen' || isParticlesHover ? 1 : responsiveScale,
     position:
       mode === 'full-screen' || isParticlesHover ? new THREE.Vector3(0, 0, 0) : responsivePosition,
-    config: { tension: 300, friction: 500, velocity: 0.05 },
+    config: { tension: 120, friction: 30 },
   });
 
   // Generate particles based on the numbers, mode and size
@@ -143,6 +144,11 @@ const AnimatedMesh = ({
     debouncedHoverToggle(false); // Set hover state to false with debounce
   };
 
+  // Toggle the hover state on click.
+  const hoverToggleHandler = () => {
+    debouncedHoverToggle(!isParticlesHover); // Set hover state to false with debounce
+  };
+
   // On mount protector.
   useEffect(() => {
     hoverToggleCoolingDown.current = setTimeout(() => {
@@ -173,10 +179,11 @@ const AnimatedMesh = ({
     <animated.group ref={groupRef} scale={scale} position={position}>
       {/* The helper box for event handling. */}
       <mesh
-        onPointerMove={hoverHandler}
-        onPointerLeave={hoverEndHandler}
-        onPointerDown={hoverHandler}
-        visible={visibleHoverHelper}
+        onPointerMove={hoverHandler} // Handle hover start (not work on mobile)
+        onPointerLeave={hoverEndHandler} // Handle hover end (not work on mobile)
+        onPointerDown={hoverToggleHandler} // Handle click to toggle hover state (works on desktop/mobile)
+        onPointerMissed={hoverEndHandler} // Handle click outside to end hover state (may not work on mobile)
+        visible={visibleHoverHelper} // Toggle visibility of the helper box(for debugging)
         frustumCulled={false}
       >
         <boxGeometry args={[helperBoxSize, helperBoxSize, helperBoxSize]} />
@@ -186,7 +193,7 @@ const AnimatedMesh = ({
       {/* Particles */}
       <instancedMesh ref={meshRef} args={[undefined, undefined, numbers]}>
         <icosahedronGeometry args={[0.25, 1]} />
-        <meshStandardMaterial flatShading />
+        <meshStandardMaterial flatShading metalness={0.8} roughness={0.5} />
       </instancedMesh>
     </animated.group>
   );
