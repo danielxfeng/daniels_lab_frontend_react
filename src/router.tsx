@@ -58,6 +58,11 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // /gravity-particles
+      {
+        path: 'gravity-particles',
+        children: [{ index: true, Component: lazy(() => import('@/pages/GravityParticlesPage')) }],
+      },
       // /user
       {
         path: 'user',

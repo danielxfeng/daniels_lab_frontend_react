@@ -253,7 +253,7 @@ const GravityParticles = ({
   return (
     <motion.div
       ref={ref}
-      className={cn('h-full w-full', mode === 'container' && 'absolute inset-0 z-50')}
+      className={cn('absolute h-full w-full', mode === 'container' && 'inset-0 z-50')}
       data-role='particles-transition'
       aria-hidden='true'
       {...animation}
