@@ -20,7 +20,7 @@ const MetaInfo = () => (
       content='Gravity Particles, a toy built by three.js and React Three Fiber'
     />
     <meta property='og:type' content='article' />
-    <meta property='og:url' content={`${siteMeta.siteUrl}`} />
+    <meta property='og:url' content={`${siteMeta.siteUrl}/gravity-particles`} />
     <meta property='og:image' content={`${siteMeta.siteUrl}/cover.png`} />
     <meta property='og:site_name' content={siteMeta.siteName} />
     <meta name='twitter:card' content='summary_large_image' />

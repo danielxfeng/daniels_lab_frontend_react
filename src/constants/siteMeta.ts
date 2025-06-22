@@ -11,6 +11,9 @@ const siteMeta = {
   myLocation: env.VITE_MY_LOCATION || 'Helsinki',
   myProfession: env.VITE_MY_PROFESSION || 'Software Engineer',
   myAvatar: env.VITE_MY_AVATAR || 'https://api.dicebear.com/7.x/lorelei/svg?seed=Daniel',
+  myGithub: env.VITE_MY_GITHUB || 'https://www.github.com',
+  myLinkedIn: env.VITE_MY_LINKEDIN || 'https://www.linkedin.com',
+  myEmail: env.VITE_MY_EMAIL || 'mailto: hi@email.com',
   siteUrl: 'https://danielslab.dev',
   apiUrl: env.VITE_API_URL || 'http://localhost:3000/api',
 };
