@@ -23,8 +23,8 @@ const ProjectCards = () => {
   const projects = parsedProjects.data;
 
   return (
-    <section data-role='projects-section' className='inner-container'>
-      <h2 className='my-6'>Projects</h2>
+    <section data-role='projects-section' className='inner-container py-6'>
+      <h2 className='my-3'>Projects</h2>
       <div
         data-role='projects-list'
         className='grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3'
