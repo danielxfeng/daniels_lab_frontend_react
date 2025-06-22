@@ -58,7 +58,7 @@ const AnimatedMesh = ({
 
   const responsivePosition = useMemo(() => {
     return size.width > 768
-      ? ([size.width * 1.6, size.height * -0.99, 0] as [number, number, number])
+      ? ([size.width * 1.6, size.height * -0.7, 0] as [number, number, number])
       : ([size.width * 1.1, size.height * 1.25, 0] as [number, number, number]);
   }, [size.width, size.height]);
   const responsiveScale = size.width > 768 ? 0.05 : 0.04;
@@ -70,13 +70,9 @@ const AnimatedMesh = ({
     position: isMinimal ? ([0, 0, 0] as [number, number, number]) : responsivePosition,
 
     onChange: () => {
-      if (!hoverLock.current) {
-        hoverLock.current = true;
-        console.log('Animation started, lock ON');
-      }
+      if (!hoverLock.current) hoverLock.current = true;
     },
     onRest: () => {
-      console.log('Animation finished, lock OFF');
       hoverLock.current = false;
       if (queuedHover.current !== null && queuedHover.current !== isParticlesHover) {
         setIsParticlesHover(queuedHover.current);
@@ -252,16 +248,17 @@ const GravityParticles = ({
         : new THREE.Vector3(0, 0, 5000)
       : new THREE.Vector3(0, 0, 5000);
 
+  const animation = mode === 'container' ? fadeInAnimation : undefined;
   return (
     <motion.div
       ref={ref}
-      className={cn('absolute inset-0 z-50 h-full w-full')}
+      className={cn('h-full w-full', mode === 'container' && 'absolute inset-0 z-50')}
       data-role='particles-transition'
       aria-hidden='true'
-      {...fadeInAnimation}
+      {...animation}
     >
       <Canvas
-        className='z-8 h-full w-full'
+        className='h-full w-full'
         gl={{
           antialias: true,
           alpha: true,

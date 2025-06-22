@@ -56,49 +56,59 @@ const Hero = () => {
           >
             <p>
               <span className='flex items-end gap-2' aria-hidden='true'>
-                <span className='text-2xl font-light' aria-hidden='true'>
+                <span className='text-2xl' aria-hidden='true'>
                   Hi!
                 </span>
                 <span aria-hidden='true'>Welcome to my lab!</span>
               </span>
             </p>
             <p>
-              <span className='inline-block' aria-hidden='true'>
-                I am{' '}
-                <MotionSpan
-                  text={siteMeta.me}
-                  className='text-highlight px-2 py-1 text-3xl font-bold text-shadow-md dark:text-blue-500'
-                />
-                ,
-                <br />
-                <span className='text-muted-foreground italic' aria-hidden='true'>
-                  a{' '}
+              <span data-role='span-line' className='my-0.5 block' aria-hidden='true'>
+                <span className='inline-block' aria-hidden='true'>
+                  I am{' '}
+                  <MotionSpan
+                    text={siteMeta.me}
+                    className='text-highlight px-2 py-1 text-3xl font-bold text-shadow-md dark:text-blue-500'
+                  />
+                  ,
                 </span>
-                <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
-                  {siteMeta.myProfession}
+                <span data-role='span-line' className='my-0.5 block' aria-hidden='true'>
+                  <span className='text-muted-foreground italic' aria-hidden='true'>
+                    a{' '}
+                  </span>
+                  <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
+                    {siteMeta.myProfession}
+                  </span>
+                  <span className='text-muted-foreground italic' aria-hidden='true'>
+                    {' '}
+                    based in{' '}
+                  </span>
+                  <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
+                    {siteMeta.myLocation}
+                  </span>
+                  .
                 </span>
-                <span className='text-muted-foreground italic' aria-hidden='true'>
-                  {' '}
-                  based in{' '}
-                </span>
-                <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
-                  {siteMeta.myLocation}
-                </span>
-                .
               </span>
             </p>
             <p>
-              <span className='text-muted-foreground inline-block' aria-hidden='true'>
-                I focus on{' '}
-                <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
-                  full stack
-                </span>{' '}
-                development, both backend and frontend, <br />
-                and also enjoy{' '}
-                <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
-                  system programming
-                </span>{' '}
-                and building <span className='text-foreground text-xl font-semibold'>AI</span> toys.
+              <span data-role='span-line' className='my-0.5 block' aria-hidden='true'>
+                <span className='text-muted-foreground inline-block' aria-hidden='true'>
+                  I focus on{' '}
+                  <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
+                    full stack
+                  </span>{' '}
+                  development, both backend and frontend,{' '}
+                </span>
+              </span>
+              <span data-role='span-line' className='my-0.5 block' aria-hidden='true'>
+                <span className='text-muted-foreground inline-block' aria-hidden='true'>
+                  and also enjoy{' '}
+                  <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
+                    system programming
+                  </span>{' '}
+                  and building <span className='text-foreground text-xl font-semibold'>AI</span>{' '}
+                  toys.
+                </span>
               </span>
             </p>
           </div>
