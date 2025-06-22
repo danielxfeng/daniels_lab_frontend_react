@@ -3,6 +3,11 @@ import { motion } from 'motion/react';
 
 import { cn } from '@/lib/utils';
 
+/**
+ * @summary Motion Card component
+ * @description
+ * inspired by https://ui.aceternity.com/components/wobble-card
+ */
 const MotionWobbleCard = ({
   children,
   containerClassName,

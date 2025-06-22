@@ -7,6 +7,9 @@ import rawProjects from '@/constants/projects.json';
 import { throwWithUserValidationErr } from '@/lib/throwWithErr';
 import { ProjectsSchema } from '@/schema/schema_json';
 
+/**
+ * @summary A grid of projects
+ */
 const ProjectCards = () => {
   const parsedProjects = ProjectsSchema.safeParse(rawProjects);
   if (parsedProjects.error) {
