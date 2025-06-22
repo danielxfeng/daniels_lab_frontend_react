@@ -10,7 +10,7 @@ import particlesFactory, {
   ParticleMaterial,
   ParticleMaterialEnum,
   ParticleMeshes,
-} from '@/components/3d/gravity_particles/particles_factory';
+} from '@/components/features/gravity_particles/particles_factory';
 import { fadeInAnimation } from '@/lib/animations';
 import { cn } from '@/lib/utils';
 
