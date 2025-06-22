@@ -256,7 +256,7 @@ const loaderAnimation = {
 const fadeInAnimation = {
   initial: { opacity: 0 },
   animate: { opacity: 1 },
-  transition: { duration: 1.3, delay: 2 },
+  transition: { duration: 0.8, delay: 1 },
 };
 
 // The animation for span elements

@@ -1,8 +1,9 @@
-import { Link, useRouteError } from 'react-router-dom';
+import { useRouteError } from 'react-router-dom';
 import { isAxiosError } from 'axios';
 
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/header/Header';
+import MotionButton from '@/components/motion_components/MotionButton';
 import { isHttpResponseError } from '@/lib/throwWithErr';
 
 const ErrorBoundary = () => {
@@ -10,11 +11,11 @@ const ErrorBoundary = () => {
   console.error(error);
 
   return (
-    <div className='bg-background text-foreground flex min-h-screen flex-col'>
+    <div className='bg-background text-foreground flex min-h-screen flex-grow flex-col items-center justify-center'>
       <Header isBasic={true} />
 
       <main className='outer-container flex flex-grow items-center justify-center'>
-        <div className='inner-container flex flex-col gap-4'>
+        <div className='inner-container flex flex-col gap-4 flex-grow items-center justify-center'>
           <h1>Oops! Something went wrong.</h1>
 
           {/* Handle custom HttpResponseError (recommended) */}
@@ -60,7 +61,16 @@ const ErrorBoundary = () => {
             <p>Unknown error: {JSON.stringify(error)}</p>
           )}
 
-          <Link to='/'>Go back to home</Link>
+          <MotionButton
+            to='/'
+            supportingText='home'
+            text='home'
+            variant='highlight'
+            isExternal={false}
+            size='md'
+            dataRole='button-home'
+            isFullWidth={false}
+          />
         </div>
       </main>
 
