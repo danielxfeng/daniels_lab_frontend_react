@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
  * @description
  * It includes:
  * - A background gradient.
- * - A particles transition effect.
+ * - A Gravity Particle toy.
  * - A hero section with an avatar and introductory text.
  */
 const Hero = () => {

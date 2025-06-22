@@ -92,6 +92,7 @@ const AnimatedMesh = ({
     renderTarget.current.setSize(size.width, size.height);
   }, [size]);
 
+  // A simple interaction to change the rotation direction by the position of mouse.
   const directionRotationMap: Record<PointerPosition, [number, number]> = {
     top: [1, -1],
     bottom: [-1, -1],
