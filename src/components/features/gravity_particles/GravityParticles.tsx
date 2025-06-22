@@ -247,7 +247,7 @@ const GravityParticles = ({
       ? isParticlesHover
         ? new THREE.Vector3(0, 0, 2000)
         : new THREE.Vector3(0, 0, 5000)
-      : new THREE.Vector3(0, 0, 5000);
+      : new THREE.Vector3(0, 0, 3000);
 
   const animation = mode === 'container' ? fadeInAnimation : undefined;
   return (
