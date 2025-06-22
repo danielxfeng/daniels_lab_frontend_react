@@ -16,7 +16,7 @@ import { cn } from '@/lib/utils';
 
 type GravityParticlesMode = 'container' | 'full-screen';
 
-type PointerPosition = 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom' | null;
+type PointerPosition = 'top' | 'bottom' | 'none';
 
 // Mesh of particles with auto rotation
 const AnimatedMesh = ({
@@ -33,7 +33,7 @@ const AnimatedMesh = ({
   setIsParticlesHover: Dispatch<SetStateAction<boolean>>;
 }) => {
   // hooks for three.
-  const { size } = useThree();
+  const { gl, size } = useThree();
   const groupRef = useRef<THREE.Group>(null);
   const renderTarget = useRef<THREE.WebGLRenderTarget>(
     new THREE.WebGLRenderTarget(size.width, size.height),
@@ -50,7 +50,7 @@ const AnimatedMesh = ({
 
   // To determine if the device support hover.
   const supportHover = typeof window !== 'undefined' && matchMedia('(hover: hover)').matches;
-  const pointerPosRef = useRef<PointerPosition>(null);
+  const pointerPosRef = useRef<PointerPosition>('none');
 
   const hoverLock = useRef(false); // lock to prevent interaction during active animation
   const debouncedLock = useRef<NodeJS.Timeout | null>(null); // lock to prevent before hoverLock is set.
@@ -96,12 +96,19 @@ const AnimatedMesh = ({
     renderTarget.current.setSize(size.width, size.height);
   }, [size]);
 
+  const directionRotationMap: Record<PointerPosition, [number, number]> = {
+    top: [1, -1],
+    bottom: [-1, -1],
+    none: [1, 1],
+  };
+
   // Rotate the particles group, pause when not active
   useFrame((state, delta) => {
     if (!active || !groupRef.current) return;
     // Rotation effect
-    groupRef.current.rotation.x += delta * 0.1;
-    groupRef.current.rotation.y += delta * 0.2;
+    const [xFactor, yFactor] = directionRotationMap[pointerPosRef.current];
+    groupRef.current.rotation.x += delta * 0.1 * xFactor;
+    groupRef.current.rotation.y += delta * 0.2 * yFactor;
 
     // Breath effect for plastic
     const plasticMesh = meshRefs.current.plastic;
@@ -125,12 +132,13 @@ const AnimatedMesh = ({
 
   // A debounced toggle helper.
   const debouncedToggle = (value: boolean) => {
-    if (hoverLock.current || debouncedLock.current) {
-      if (queuedHover.current !== value) queuedHover.current = value;
+    if (debouncedLock.current) return;
+    if (hoverLock.current && queuedHover.current !== value) {
+      queuedHover.current = value;
       return;
     }
-    debouncedLock.current = setTimeout(() => (debouncedLock.current = null), 100);
-    if (!value) pointerPosRef.current = null;
+    debouncedLock.current = setTimeout(() => (debouncedLock.current = null), 50);
+    if (!value) pointerPosRef.current = 'none';
     setIsParticlesHover(value);
   };
 
@@ -150,22 +158,18 @@ const AnimatedMesh = ({
   const pointerDownHandler = () => {
     if (supportHover || hoverLock.current) return;
     setIsParticlesHover((prev) => {
-      if (prev) pointerPosRef.current = null;
+      if (prev) pointerPosRef.current = 'none';
       return !prev;
     });
   };
 
   // Set the position of mouse.
   const pointerMoveHandler = (e: ThreeEvent<PointerEvent>) => {
-    if (!supportHover || !isParticlesHover || hoverLock) return;
-    const { clientX, clientY } = e;
+    if (!supportHover || !isParticlesHover || hoverLock.current) return;
+    const canvasBounds = gl.domElement.getBoundingClientRect();
+    const clientY = e.clientY - canvasBounds.top;
 
-    const isLeft = clientX < size.width / 2;
-    const isTop = clientY < size.height / 2;
-
-    let pointerPos: PointerPosition = null;
-    if (isLeft) pointerPos = isTop ? 'left-top' : 'left-bottom';
-    else pointerPos = isTop ? 'right-top' : 'right-bottom';
+    const pointerPos: PointerPosition = clientY > canvasBounds.height / 2 ? 'top' : 'bottom';
 
     if (pointerPos != pointerPosRef.current) pointerPosRef.current = pointerPos;
   };
@@ -179,7 +183,7 @@ const AnimatedMesh = ({
   }, []);
 
   // To toggle visibility of the hover helper box
-  const visibleHoverHelper = true;
+  const visibleHoverHelper = false;
 
   const helperBoxSize = isParticlesHover ? Math.max(size.width, size.height) * 1.5 : 10000;
 
@@ -217,8 +221,11 @@ const AnimatedMesh = ({
 /**
  * @summary ParticlesTransition component
  * @description
- * This component is inspired by https://github.com/bobbyroe/transition-effect.
- * I ported it to React-Three-Fiber and modified to fit the needs of the project.
+ * The small toy was originally inspired by my mini-rt project developed at Hive Helsinki,
+ * the project https://github.com/bobbyroe/transition-effect also provided a concrete example
+ * and a helpful reference for how such effects can be implemented by Three.js.
+ *
+ * I ported them to React-Three-Fiber and modified to fit the project.
  *
  * This component generates bunch of particles, and performs a transition effect
  * periodically and on hover/click.
@@ -237,7 +244,7 @@ const GravityParticles = ({
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: '-100px 0px' });
 
-  const numbers = mode === 'container' ? 1000 : 1000; // Adjust numbers based on mode
+  const numbers = mode === 'container' ? 2000 : 5000; // Adjust numbers based on mode
   const position =
     mode === 'container'
       ? isParticlesHover
