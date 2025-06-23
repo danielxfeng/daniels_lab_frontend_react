@@ -30,11 +30,10 @@ const ProjectCards = () => {
         className='grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3'
       >
         {projects.map((project) => (
-          <Link to={project.link}>
+          <Link to={project.link} key={project.id}>
             <MotionWobbleCard containerClassName='h-full dark:border-muted dark:border dark:lg:border-none'>
               <article
                 data-role='project-card'
-                key={project.id}
                 className='flex h-full flex-col justify-between gap-3'
               >
                 <div data-role='project-card-top' className='flex flex-col justify-start'>

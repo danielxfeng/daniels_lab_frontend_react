@@ -14,6 +14,7 @@ import postPageLoader from '@/pages/Post/postPageLoader';
 import postsLoader from '@/pages/Posts/postsLoader';
 import PostsPage from '@/pages/Posts/PostsPage';
 import PostsSearchPage from '@/pages/Posts/PostsSearchPage';
+import ProjectsPage from '@/pages/ProjectsPage';
 import UserProfilePage from '@/pages/UserProfilePage';
 
 // The router of the app.
@@ -57,6 +58,11 @@ const router = createBrowserRouter([
             ],
           },
         ],
+      },
+      // /projects
+      {
+        path: 'projects',
+        children: [{ index: true, Component: ProjectsPage }],
       },
       // /gravity-particles
       {
