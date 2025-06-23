@@ -1,10 +1,12 @@
-// Inspired by https://ui.aceternity.com/components/tracing-beam
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useSpring, useTransform } from 'motion/react';
 
 import { cn } from '@/lib/utils';
 
-// A component that creates a scroll-based motion effect with a gradient line
+/**
+ * @summary A Motion scroll bar, based on:
+ * @see https://ui.aceternity.com/components/tracing-beam
+ */
 const MotionScroll = ({
   children,
   className,

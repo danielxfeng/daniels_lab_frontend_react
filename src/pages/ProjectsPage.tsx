@@ -1,4 +1,4 @@
-import AboutMe from '@/components/features/home/AboutMe';
+import ProjectCards from '@/components/features/home/ProjectCards';
 import NotificationBar from '@/components/shared/NotificationBar';
 import siteMeta from '@/constants/siteMeta';
 
@@ -21,12 +21,16 @@ const MetaInfo = () => (
   </>
 );
 
-const AboutPage = () => (
+/**
+ * @summary A simple landing page for Gravity Particles
+ * More features is building.
+ */
+const GravityParticlesPage = () => (
   <>
     <MetaInfo />
     <NotificationBar />
-    <AboutMe position={'page'} />
+    <ProjectCards position='page'/>
   </>
 );
 
-export default AboutPage;
+export default GravityParticlesPage;

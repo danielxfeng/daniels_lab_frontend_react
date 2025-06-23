@@ -11,10 +11,8 @@ type MotionHoverWrapperProps = {
 const radius = 100; // The radius of the circle
 
 /**
- * @summary A wrapper to provide a hover effect with radial gradient background.
- * @details
- * The hover effect is inspired from:
- * https://ui.aceternity.com/components/signup-form
+ * @summary A wrapper to provide a hover effect with radial gradient background, based on:
+ * @see https://ui.aceternity.com/components/signup-form
  *
  * @remarks
  * The idea is to wrap the component inside a `motion.div`,

@@ -8,7 +8,7 @@ const TermsPage = () => (
   >
     <title>{`Terms, conditions, and privacy policy – ${siteMeta.siteName}`}</title>
     <NotificationBar />
-    <h1>Terms and Conditions, Privacy Policy</h1>
+    <h1>Terms, Conditions, and Privacy Policy</h1>
     <p>
       <strong>Last updated:</strong> April 30, 2025
     </p>

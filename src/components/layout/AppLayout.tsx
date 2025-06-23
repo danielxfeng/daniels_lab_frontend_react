@@ -11,7 +11,7 @@ const AppLayout = () => {
   return (
     <div className='bg-background text-foreground flex min-h-screen flex-col'>
       <Header />
-      <main className='outer-container flex-grow'>
+      <main className='outer-container flex flex-grow flex-col'>
         <Suspense fallback={<Loading />}>
           <TooltipProvider>
             <Outlet />
