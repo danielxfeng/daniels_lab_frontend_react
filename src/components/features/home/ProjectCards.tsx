@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';
-import MotionButton from '@/components/motion_components/MotionButton';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionWobbleCard from '@/components/motion_components/MotionWobbleCard';
 import LazyImage from '@/components/shared/LazyImage';
@@ -79,40 +78,6 @@ const ProjectCards = ({ position }: { position: 'page' | 'div' }) => {
                         {s}
                       </span>
                     ))}
-                  </p>
-
-                  {/* Site of the project, maybe coming soon, or null for backend. */}
-                  <p>
-                    {project.hasSite ? (
-                      project.siteLink ? (
-                        <span className='flex w-full justify-center'>
-                          <MotionButton
-                            to={project.projectLink}
-                            supportingText={project.title}
-                            text='Try It Live'
-                            isExternal={true}
-                            variant='highlight'
-                            size='sm'
-                            dataRole='project-site-link'
-                          />
-                        </span>
-                      ) : (
-                        <span
-                          className='text-muted inline-block w-full py-1.5 text-center'
-                          data-role='project-site-coming-soon'
-                        >
-                          Coming soon!
-                        </span>
-                      )
-                    ) : (
-                      <span
-                        className='invisible inline-block w-full py-1.5 select-none'
-                        data-role='project-no-site-link'
-                        aria-hidden={true}
-                      >
-                        Placeholder
-                      </span>
-                    )}
                   </p>
                 </div>
               </article>

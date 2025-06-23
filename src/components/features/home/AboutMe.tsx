@@ -192,7 +192,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
           data-role='about-me-tech'
           className='flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-around'
         >
-          <div data-role='about-me-tech-stack' className='flex flex-col gap-4 lg:gap-2'>
+          <div data-role='about-me-tech-stack' className='flex flex-col gap-4 lg:gap-2 mt-10'>
             {techStack.map((item) => (
               <div key={item.title} className='mb-2 flex items-center gap-2'>
                 <div className='text-muted-foreground font-semibold italic'>
