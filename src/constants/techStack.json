@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Backend",
+    "stacks": [
+      "TypeScript",
+      "Node.js",
+      "Go",
+      "Java",
+      "Python",
+      "Spring Boot",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis"
+    ]
+  },
+  {
+    "title": "Frontend",
+    "stacks": [
+      "TypeScript",
+      "React",
+      "Tailwind CSS",
+      "ShadCN UI",
+      "Framer Motion",
+      "Playwright",
+      "Vitest"
+    ]
+  },
+  {
+    "title": "Systems",
+    "stacks": ["C", "C++", "Go"]
+  }
+]

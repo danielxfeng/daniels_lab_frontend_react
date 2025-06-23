@@ -260,12 +260,12 @@ const fadeInAnimation = {
 };
 
 // The animation for span elements
-const spanAnimation = (index: number) => {
+const spanAnimation = (index: number, delay: number = 0.03) => {
   return {
     initial: { opacity: 0, filter: 'blur(10px)' },
     animate: { opacity: 1, filter: 'blur(0px)' },
     transition: {
-      delay: index * 0.03,
+      delay: index * delay,
       duration: 0.1,
     },
   };

@@ -9,13 +9,22 @@ import { spanAnimation } from '@/lib/animations';
  * with a fade-in and blur effect. It is useful for creating dynamic text.
  * @param text - The text to animate.
  * @param className - The CSS class to apply to the span.
+ * @param delay - The delay between character.
  */
-const MotionSpan = ({ text, className }: { text: string; className: string }) => {
+const MotionSpan = ({
+  text,
+  className,
+  delay = 0.03,
+}: {
+  text: string;
+  className: string;
+  delay?: number;
+}) => {
   const textArray = text.split('');
   return (
     <span className={className} aria-hidden='true'>
       {textArray.map((word, index) => (
-        <motion.span key={index} aria-hidden='true' {...spanAnimation(index)}>
+        <motion.span key={index} aria-hidden='true' {...spanAnimation(index, delay)}>
           {word}
         </motion.span>
       ))}
