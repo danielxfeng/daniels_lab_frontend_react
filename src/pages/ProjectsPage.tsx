@@ -29,7 +29,7 @@ const GravityParticlesPage = () => (
   <>
     <MetaInfo />
     <NotificationBar />
-    <ProjectCards />
+    <ProjectCards position='page'/>
   </>
 );
 

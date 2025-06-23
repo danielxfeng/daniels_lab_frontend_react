@@ -5,7 +5,9 @@
     "coverUrl": "https://picsum.photos/1200/600?random=6",
     "description": "A modern, **full-featured** blogging system with full-text search and a **custom authentication system** built from scratch. Includes:\n- A modular backend built with **Node.js**, **PostgreSQL**, **Zod**, and **Meilisearch**\n- A reactive frontend built with **React**, **Tailwind CSS**, **Zustand**, **Shadcn UI**, and **Motion Framer**",
     "stack": ["Node.js", "React", "TypeScript", "PostgreSQL"],
-    "link": "https://www.google.com/?q=sss",
+    "projectLink": "https://www.google.com/?q=sss",
+    "siteLink": "https://www.google.com/?q=sss",
+    "hasSite": true,
     "tags": ["web", "fullstack", "js", "ts", "react", "node", "frontend", "backend", "cicd"]
   },
   {
@@ -14,7 +16,9 @@
     "coverUrl": "https://picsum.photos/1200/600?random=7",
     "description": "A lightweight async job system written in **Go**, used across my projects to handle background tasks through **Redis** queues.\n- In the blog platform, it updates **Meilisearch** indexes without blocking the main app\n- it buffers inference requests via a **queue** to prevent **concurrency** issues caused by high memory usage during model execution",
     "stack": ["Go", "Redis", "Message Queue", "Concurrency"],
-    "link": "https://www.google.com/?q=sss",
+    "projectLink": "https://www.google.com/?q=sss",
+    "siteLink": "https://www.google.com/?q=sss",
+    "hasSite": false,
     "tags": [
       "ai",
       "machine_learning",
@@ -33,7 +37,9 @@
     "coverUrl": "https://picsum.photos/1200/600?random=8",
     "description": "A simple particle toy built with **Three.js** and **React Three Fiber**, inspired by my earlier ray tracing project **mini-rt** at Hive Helsinki.\n- Uses **instanced meshes** to efficiently render 2000+ rotating particles\n- Global rotation responds to mouse position via `useFrame`\n- Modularly designed for future expansion into a fullscreen reactive visual layer",
     "stack": ["React", "R3F", "Three.js", "WebGL"],
-    "link": "https://www.google.com/?q=sss",
+    "projectLink": "https://www.google.com/?q=sss",
+    "siteLink": "https://www.google.com/?q=sss",
+    "hasSite": true,
     "tags": ["frontend", "3d", "three.js", "react"]
   }
 ]

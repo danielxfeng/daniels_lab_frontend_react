@@ -1,9 +1,15 @@
-const AboutMe = () => {
+import MotionH1 from '@/components/motion_components/MotionH1';
+
+const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
   return (
-    <div className='mt-10 text-center'>
-      <h2 className='mb-4 text-2xl font-bold'>About Me</h2>
-      <p className='text-gray-700'>This is a brief introduction about myself.</p>
-    </div>
+    <section data-role='featured-posts-section' className='inner-container my-3'>
+      {position === 'div' ? <h2 className='my-6'>About Me</h2> : <MotionH1>About Me</MotionH1>}
+
+      <div
+        data-role='featured-posts-list'
+        className='grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3'
+      ></div>
+    </section>
   );
 };
 

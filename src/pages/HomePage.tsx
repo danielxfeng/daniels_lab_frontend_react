@@ -1,5 +1,4 @@
 import AboutMe from '@/components/features/home/AboutMe';
-import FeaturedPosts from '@/components/features/home/FeaturedPosts';
 import Hero from '@/components/features/home/Hero';
 import ProjectCards from '@/components/features/home/ProjectCards';
 import NotificationBar from '@/components/shared/NotificationBar';
@@ -35,9 +34,10 @@ const HomePage = () => {
       <NotificationBar isVisible={false} />
       <section className='flex w-full flex-col items-center gap-6' data-role='home-page'>
         <Hero />
-        <ProjectCards />
-        <FeaturedPosts />
-        <AboutMe />
+        <ProjectCards position='div' />
+        <div className='outer-container bg-white py-6 dark:bg-neutral-950'>
+          <AboutMe position='div' />
+        </div>
       </section>
     </>
   );

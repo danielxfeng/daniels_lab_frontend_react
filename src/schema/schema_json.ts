@@ -11,7 +11,9 @@ const ProjectSchema = z.object({
   coverUrl: UrlSchema,
   description: z.string().trim().min(1),
   stack: z.array(z.string().trim().min(1)),
-  link: UrlSchema,
+  projectLink: UrlSchema,
+  siteLink: UrlSchema.nullable(),
+  hasSite: z.boolean(),
   tags: z.array(z.string().trim().min(1)),
 });
 

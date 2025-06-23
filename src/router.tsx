@@ -4,6 +4,7 @@ import { createBrowserRouter, redirect } from 'react-router-dom';
 import AppLayout from '@/components/layout/AppLayout';
 import Loading from '@/components/shared/Loading';
 import { adminGuard, authGuard } from '@/lib/authGuard';
+import AboutPage from '@/pages/AboutPage';
 import AuthPage from '@/pages/AuthPage';
 import ErrorBoundary from '@/pages/ErrorBoundary';
 import HomePage from '@/pages/HomePage';
@@ -25,9 +26,41 @@ const router = createBrowserRouter([
     ErrorBoundary: ErrorBoundary,
     HydrateFallback: Loading,
     children: [
-      // /
-      // redirect to /blog/posts
+      // Website
+      // / Homepage
       { index: true, Component: HomePage },
+      // /user
+      {
+        path: 'user',
+        children: [
+          // user profile, use auth guard to protect it
+          { index: true, Component: UserProfilePage, loader: authGuard },
+          // a form to login a new user, a form to register a new user
+          // a form to link the social accounts
+          { path: 'login', Component: LoginPage },
+          // a form for user to join the admin team
+          {
+            path: 'join-admin',
+            Component: lazy(() => import('@/pages/JoinAdminPage')),
+            loader: authGuard,
+          },
+          // a form for admin to manage users
+          { path: 'admin', Component: lazy(() => import('@/pages/AdminPage')), loader: adminGuard },
+        ],
+      },
+      // /auth, callback from "login with social accounts"
+      {
+        path: 'auth',
+        children: [{ index: true, Component: AuthPage }],
+      },
+      // /terms
+      // Static page for terms and conditions, lazy load it.
+      {
+        path: 'terms',
+        children: [{ index: true, Component: lazy(() => import('@/pages/TermsPage')) }],
+      },
+
+      // Projects
       // /blog
       {
         path: 'blog',
@@ -59,51 +92,24 @@ const router = createBrowserRouter([
           },
         ],
       },
-      // /projects
-      {
-        path: 'projects',
-        children: [{ index: true, Component: ProjectsPage }],
-      },
       // /gravity-particles
       {
         path: 'gravity-particles',
         children: [{ index: true, Component: lazy(() => import('@/pages/GravityParticlesPage')) }],
       },
-      // /user
+
+      // Landing pages
+      // /projects, a landing page
       {
-        path: 'user',
-        children: [
-          // user profile, use auth guard to protect it
-          { index: true, Component: UserProfilePage, loader: authGuard },
-          // a form to login a new user, a form to register a new user
-          // a form to link the social accounts
-          { path: 'login', Component: LoginPage },
-          // a form for user to join the admin team
-          {
-            path: 'join-admin',
-            Component: lazy(() => import('@/pages/JoinAdminPage')),
-            loader: authGuard,
-          },
-          // a form for admin to manage users
-          { path: 'admin', Component: lazy(() => import('@/pages/AdminPage')), loader: adminGuard },
-        ],
+        path: 'projects',
+        children: [{ index: true, Component: ProjectsPage }],
       },
-      // /auth, callback from "login with social accounts"
-      {
-        path: 'auth',
-        children: [{ index: true, Component: AuthPage }],
-      },
-      // /about, Static page, a form to contact the admin (Email), lazy load it.
+      // /about, a landing page
       {
         path: 'about',
-        children: [{ index: true, Component: lazy(() => import('@/pages/AboutPage')) }],
+        children: [{ index: true, Component: AboutPage }],
       },
-      // /terms
-      // Static page for terms and conditions, lazy load it.
-      {
-        path: 'terms',
-        children: [{ index: true, Component: lazy(() => import('@/pages/TermsPage')) }],
-      },
+
       // Fallback, 404 page.
       {
         path: '*',
