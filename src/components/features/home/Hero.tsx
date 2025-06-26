@@ -58,16 +58,16 @@ const Hero = () => {
             )}
           >
             <p>
-              <span className='flex items-end gap-2' aria-hidden='true'>
-                <span className='text-2xl' aria-hidden='true'>
+              <span className='flex items-end gap-2'>
+                <span className='text-2xl'>
                   Hi!
                 </span>
-                <span aria-hidden='true'>Welcome to my lab!</span>
+                <span>Welcome to my lab!</span>
               </span>
             </p>
             <p>
-              <span data-role='span-line' className='my-0.5 block' aria-hidden='true'>
-                <span className='inline-block' aria-hidden='true'>
+              <span data-role='span-line' className='my-0.5 block'>
+                <span className='inline-block'>
                   I am{' '}
                   <MotionSpan
                     text={siteMeta.me}
@@ -75,18 +75,18 @@ const Hero = () => {
                   />
                   ,
                 </span>
-                <span data-role='span-line' className='my-0.5 block' aria-hidden='true'>
-                  <span className='text-muted-foreground italic' aria-hidden='true'>
+                <span data-role='span-line' className='my-0.5 block'>
+                  <span className='text-muted-foreground italic'>
                     a{' '}
                   </span>
-                  <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
+                  <span className='text-foreground text-xl font-semibold'>
                     {siteMeta.myProfession}
                   </span>
-                  <span className='text-muted-foreground italic' aria-hidden='true'>
+                  <span className='text-muted-foreground italic'>
                     {' '}
                     based in{' '}
                   </span>
-                  <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
+                  <span className='text-foreground text-xl font-semibold'>
                     {siteMeta.myLocation}
                   </span>
                   .
@@ -94,19 +94,19 @@ const Hero = () => {
               </span>
             </p>
             <p>
-              <span data-role='span-line' className='my-0.5 block' aria-hidden='true'>
-                <span className='text-muted-foreground inline-block' aria-hidden='true'>
+              <span data-role='span-line' className='my-0.5 block'>
+                <span className='text-muted-foreground inline-block'>
                   I focus on{' '}
-                  <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
+                  <span className='text-foreground text-xl font-semibold'>
                     full stack
                   </span>{' '}
                   development, both backend and frontend,{' '}
                 </span>
               </span>
-              <span data-role='span-line' className='my-0.5 block' aria-hidden='true'>
-                <span className='text-muted-foreground inline-block' aria-hidden='true'>
+              <span data-role='span-line' className='my-0.5 block'>
+                <span className='text-muted-foreground inline-block'>
                   and also enjoy{' '}
-                  <span className='text-foreground text-xl font-semibold' aria-hidden='true'>
+                  <span className='text-foreground text-xl font-semibold'>
                     system programming
                   </span>{' '}
                   and building <span className='text-foreground text-xl font-semibold'>AI</span>{' '}
