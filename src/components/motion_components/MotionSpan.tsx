@@ -23,18 +23,21 @@ type MotionSpanProps = {
 const MotionSpan = ({ text, className, delay = 0.03, spanClassNames = [] }: MotionSpanProps) => {
   const textArray = text.split('');
   return (
-    <span className={className} aria-hidden='true'>
-      {textArray.map((char, index) => (
-        <motion.span
-          key={index}
-          aria-hidden='true'
-          className={cn(spanClassNames[index] ?? '')}
-          {...spanAnimation(index, delay)}
-        >
-          {char}
-        </motion.span>
-      ))}
-    </span>
+    <>
+      <span className={className} aria-hidden='true'>
+        {textArray.map((char, index) => (
+          <motion.span
+            key={index}
+            aria-hidden='true'
+            className={cn(spanClassNames[index] ?? '')}
+            {...spanAnimation(index, delay)}
+          >
+            {char}
+          </motion.span>
+        ))}
+      </span>
+      <span className='sr-only'>{text}</span>
+    </>
   );
 };
 
