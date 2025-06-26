@@ -12,7 +12,7 @@ type MotionSpanProps = {
 };
 
 /**
- * @summary MotionSpan component for animating text.
+ * @summary MotionSpan component for animating text when it enters the viewport.
  * @description
  * The motion span component animates each character of the text
  * with a fade-in and blur effect. It is useful for creating dynamic text.

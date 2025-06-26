@@ -9,6 +9,9 @@ type MotionBlurCardProp = {
   dataRole: string;
 };
 
+/**
+ * @summary A card component that fades in with a blur effect when it enters the viewport.
+ */
 const MotionBlurCard = ({ children, className, dataRole }: MotionBlurCardProp) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: '-50px' });
