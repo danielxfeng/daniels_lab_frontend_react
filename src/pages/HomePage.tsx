@@ -1,7 +1,6 @@
 import AboutMe from '@/components/features/home/AboutMe';
 import Hero from '@/components/features/home/Hero';
 import ProjectCards from '@/components/features/home/ProjectCards';
-import NotificationBar from '@/components/shared/NotificationBar';
 import siteMeta from '@/constants/siteMeta';
 
 // A component to set the meta information for SEO
@@ -31,7 +30,6 @@ const HomePage = () => {
   return (
     <>
       <MetaInfo />
-      <NotificationBar isVisible={false} />
       <section className='flex w-full flex-col items-center gap-6' data-role='home-page'>
         <Hero />
         <ProjectCards position='div' />

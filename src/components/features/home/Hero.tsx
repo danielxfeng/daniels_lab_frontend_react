@@ -29,23 +29,24 @@ const Hero = () => {
         <div className='absolute bottom-0 left-1/2 h-[20vh] w-[120vw] -translate-x-1/2 rounded-full bg-gradient-to-t from-gray-600 via-transparent to-transparent blur-[100px]' />
       </div>
 
+      {/* Background particles transition effect, we keep it z-50 */}
+      <Suspense fallback={null}>
+        <GravityParticles
+          mode='container'
+          isParticlesHover={isParticlesHover}
+          setIsParticlesHover={setIsParticlesHover}
+        />
+      </Suspense>
+
       {/* Main content of the hero section */}
       <div
         data-role='hero-main'
-        className='relative z-10 mx-auto max-w-4xl px-4 py-6 sm:px-6 lg:px-8'
+        className='z-10 mx-auto max-w-4xl px-4 py-6 pt-16 sm:px-6 lg:px-8 lg:pt-26'
       >
-        {/* Background particles transition effect, we keep it z-50 */}
-        <Suspense fallback={null}>
-          <GravityParticles
-            mode='container'
-            isParticlesHover={isParticlesHover}
-            setIsParticlesHover={setIsParticlesHover}
-          />
-        </Suspense>
         {/* Hero content */}
-        <div data-role='hero-content' className='z-10 flex flex-col gap-6 text-lg'>
+        <div data-role='hero-content' className='flex flex-col gap-6 text-lg'>
           <h1 className='sr-only'>{siteMeta.siteName}</h1>
-          <Avatar className='ring-offset-background ring-muted z-100 h-24 w-24 shadow-xl ring-2 ring-offset-2'>
+          <Avatar className='ring-offset-background ring-muted pointer-events-none z-100 h-24 w-24 shadow-xl ring-2 ring-offset-2'>
             <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
             <AvatarFallback>Daniel</AvatarFallback>{' '}
           </Avatar>
