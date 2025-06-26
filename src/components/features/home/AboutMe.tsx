@@ -1,3 +1,4 @@
+import MotionBlurCard from '@/components/motion_components/MotionBlurCard';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionSpan from '@/components/motion_components/MotionSpan';
 import { GlowingEffect } from '@/components/third_party/GlowingEffect';
@@ -69,8 +70,8 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
         </section>
 
         <div data-role='about-me-detail' className='flex max-w-5xl flex-col gap-12 lg:flex-row'>
-          <div
-            data-role='about-me-detail-left'
+          <MotionBlurCard
+            dataRole='about-me-detail-left'
             className='flex w-full flex-1 flex-col justify-start gap-3 rounded-2xl bg-white p-6 shadow-md dark:bg-neutral-950'
           >
             {/* Education Hive */}
@@ -120,12 +121,12 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                 <span className={normalText}>.</span>
               </p>
             </section>
-          </div>
+          </MotionBlurCard>
 
           <div className='bg-muted hidden w-px lg:flex' />
 
-          <div
-            data-role='about-me-detail-right'
+          <MotionBlurCard
+            dataRole='about-me-detail-right'
             className='flex w-full flex-1 flex-col justify-start gap-6 rounded-2xl bg-white p-6 shadow-md dark:bg-neutral-950'
           >
             {/* Soft skill */}
@@ -161,7 +162,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                 </span>
               </p>
             </section>
-          </div>
+          </MotionBlurCard>
         </div>
 
         {/* Tech Stacks */}
