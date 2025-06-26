@@ -1,6 +1,14 @@
 import { motion } from 'framer-motion';
 
 import { spanAnimation } from '@/lib/animations';
+import { cn } from '@/lib/utils';
+
+type MotionSpanProps = {
+  text: string;
+  className: string;
+  delay?: number;
+  spanClassNames?: string[];
+};
 
 /**
  * @summary MotionSpan component for animating text.
@@ -10,22 +18,20 @@ import { spanAnimation } from '@/lib/animations';
  * @param text - The text to animate.
  * @param className - The CSS class to apply to the span.
  * @param delay - The delay between character.
+ * @param spanClassNames - the CSS classes to apply to characters.
  */
-const MotionSpan = ({
-  text,
-  className,
-  delay = 0.03,
-}: {
-  text: string;
-  className: string;
-  delay?: number;
-}) => {
+const MotionSpan = ({ text, className, delay = 0.03, spanClassNames = [] }: MotionSpanProps) => {
   const textArray = text.split('');
   return (
     <span className={className} aria-hidden='true'>
-      {textArray.map((word, index) => (
-        <motion.span key={index} aria-hidden='true' {...spanAnimation(index, delay)}>
-          {word}
+      {textArray.map((char, index) => (
+        <motion.span
+          key={index}
+          aria-hidden='true'
+          className={cn(spanClassNames[index] ?? '')}
+          {...spanAnimation(index, delay)}
+        >
+          {char}
         </motion.span>
       ))}
     </span>
