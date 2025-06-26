@@ -270,14 +270,34 @@ const spanAnimation = (index: number, delay: number = 0.03) => ({
       filter: 'blur(0px)',
       transition: {
         delay: index * delay,
-        duration: 0.3
-      }
-    }
-  }
+        duration: 0.3,
+      },
+    },
+  },
 });
+
+const blurCardAnimation = {
+  initial: {
+    opacity: 0,
+    filter: 'blur(10px)',
+    y: 40,
+    scale: 1.1,
+  },
+  animate: {
+    opacity: 1,
+    filter: 'blur(0px)',
+    y: 0,
+    scale: 1,
+  },
+  transition: {
+    duration: 2.0,
+    ease: [0.25, 1, 0.5, 1],
+  },
+};
 
 export {
   avatarAnimation,
+  blurCardAnimation,
   btnAnimation,
   draggableAnimation,
   easeInOut,
