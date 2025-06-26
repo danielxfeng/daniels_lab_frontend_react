@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState } from 'react';
+import { motion } from 'framer-motion';
 
 import MotionSpan from '@/components/motion_components/MotionSpan';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import siteMeta from '@/constants/siteMeta';
 import { cn } from '@/lib/utils';
 
@@ -11,13 +11,14 @@ import { cn } from '@/lib/utils';
  * It includes:
  * - A background gradient.
  * - A Gravity Particle toy.
- * - A hero section with an avatar and introductory text.
+ * - A hero section.
  */
 const Hero = () => {
   const GravityParticles = lazy(
     () => import('@/components/features/gravity_particles/GravityParticles'),
   );
   const [isParticlesHover, setIsParticlesHover] = useState(false);
+
   return (
     <section data-role='hero' className='relative w-full overflow-hidden leading-relaxed'>
       {/* Background gradient for the hero section */}
@@ -41,79 +42,68 @@ const Hero = () => {
       {/* Main content of the hero section */}
       <div
         data-role='hero-main'
-        className='z-10 mx-auto max-w-4xl px-4 py-6 pt-16 sm:px-6 lg:px-8 lg:pt-26'
+        className='z-10 mx-auto max-w-4xl px-4 py-6 pt-16 sm:px-6 lg:px-8 lg:py-16'
       >
         {/* Hero content */}
-        <div data-role='hero-content' className='flex flex-col gap-6 text-lg'>
+        <div data-role='hero-content' className='flex flex-col items-center'>
           <h1 className='sr-only'>{siteMeta.siteName}</h1>
-          <Avatar className='ring-offset-background ring-muted pointer-events-none z-100 h-24 w-24 shadow-xl ring-2 ring-offset-2'>
-            <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
-            <AvatarFallback>Daniel</AvatarFallback>{' '}
-          </Avatar>
           <div
             data-role='hero-text'
-            className={cn(
-              'z-100 flex w-fit flex-col rounded-xl p-2',
-              isParticlesHover && 'bg-background/40 backdrop-blur-sm',
-            )}
+            className={'pointer-events-none z-100 flex flex-col items-center'}
           >
-            <p>
-              <span className='flex items-end gap-2'>
-                <span className='text-2xl'>
-                  Hi!
+            <div
+              className={cn(
+                'w-fit rounded-xl p-3',
+                isParticlesHover && 'bg-background/40 pointer-events-none backdrop-blur-sm',
+              )}
+            >
+              <motion.h1
+                initial={{ opacity: 0, y: 0, filter: 'blur(16px)', scale: 1.2 }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
+                transition={{ duration: 1.8, ease: [0.25, 1, 0.5, 1] }}
+                className='font-bold text-shadow-md'
+              >
+                <span className='block text-2xl sm:text-3xl lg:inline-block lg:text-4xl'>
+                  Welcome to
                 </span>
-                <span>Welcome to my lab!</span>
-              </span>
-            </p>
-            <p>
-              <span data-role='span-line' className='my-0.5 block'>
-                <span className='inline-block'>
-                  I am{' '}
-                  <MotionSpan
-                    text={siteMeta.me}
-                    className='text-highlight px-2 py-1 text-3xl font-bold text-shadow-md dark:text-blue-500'
-                  />
-                  ,
+                <span className='text-highlight mx-3 block text-4xl sm:text-5xl lg:inline-block lg:text-6xl'>
+                  Daniel's Lab
                 </span>
-                <span data-role='span-line' className='my-0.5 block'>
-                  <span className='text-muted-foreground italic'>
-                    a{' '}
-                  </span>
-                  <span className='text-foreground text-xl font-semibold'>
-                    {siteMeta.myProfession}
-                  </span>
-                  <span className='text-muted-foreground italic'>
-                    {' '}
-                    based in{' '}
-                  </span>
-                  <span className='text-foreground text-xl font-semibold'>
-                    {siteMeta.myLocation}
-                  </span>
-                  .
-                </span>
-              </span>
-            </p>
-            <p>
-              <span data-role='span-line' className='my-0.5 block'>
-                <span className='text-muted-foreground inline-block'>
-                  I focus on{' '}
-                  <span className='text-foreground text-xl font-semibold'>
-                    full stack
-                  </span>{' '}
-                  development, both backend and frontend,{' '}
-                </span>
-              </span>
-              <span data-role='span-line' className='my-0.5 block'>
-                <span className='text-muted-foreground inline-block'>
-                  and also enjoy{' '}
-                  <span className='text-foreground text-xl font-semibold'>
-                    system programming
-                  </span>{' '}
-                  and building <span className='text-foreground text-xl font-semibold'>AI</span>{' '}
-                  toys.
-                </span>
-              </span>
-            </p>
+              </motion.h1>
+            </div>
+
+            <div
+              className={cn(
+                'mt-56 w-fit rounded-xl p-3',
+                isParticlesHover && 'bg-background/40 pointer-events-none backdrop-blur-sm',
+              )}
+            >
+              <MotionSpan
+                text="Let's build something coooooool!"
+                delay={0.06}
+                className='text-muted-foreground text-lg font-medium italic sm:text-xl'
+                spanClassNames={Array.from("Let's build something coooooool!").map((_, i) =>
+                  i >= 22 ? 'text-pink-500 font-semibold' : '',
+                )}
+              />
+
+              <motion.div className='mt-10 flex justify-center gap-2 space-y-2 text-2xl font-medium text-shadow-sm lg:gap-6'>
+                {['·  Full stack', '·  Systems', '·  AI'].map((text, index) => (
+                  <motion.div
+                    key={text}
+                    initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    transition={{
+                      delay: 1.2 + index * 0.4,
+                      duration: 0.6,
+                      ease: [0.34, 1.56, 0.64, 1],
+                    }}
+                  >
+                    {text}
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </div>
       </div>
