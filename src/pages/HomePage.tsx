@@ -33,9 +33,8 @@ const HomePage = () => {
       <section className='flex w-full flex-col items-center gap-6' data-role='home-page'>
         <Hero />
         <ProjectCards position='div' />
-        <div className='outer-container bg-white py-6 dark:bg-neutral-950'>
-          <AboutMe position='div' />
-        </div>
+        <div className='bg-muted mt-3 h-px w-full lg:mt-12' />
+        <AboutMe position='div' />
       </section>
     </>
   );
