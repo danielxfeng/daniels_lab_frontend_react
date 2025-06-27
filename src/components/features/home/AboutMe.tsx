@@ -27,7 +27,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
           data-role='about-me-introduction'
           className='mb-8 flex w-full max-w-2xl flex-col gap-8 lg:flex-row lg:items-center lg:gap-12'
         >
-          <Avatar className='ring-offset-background ring-muted z-5 h-40 w-40 shadow-xl ring-2 ring-offset-2'>
+          <Avatar className='ring-offset-background ring-muted z-5 h-32 w-32 lg:h-40 lg:w-40 shadow-xl ring-2 ring-offset-2'>
             <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
             <AvatarFallback>Daniel</AvatarFallback>{' '}
           </Avatar>
