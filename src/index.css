@@ -139,7 +139,7 @@
 }
 
 h1 {
-  @apply mb-10 text-4xl tracking-tighter text-balance max-lg:font-medium lg:text-5xl;
+  @apply mb-10 text-4xl tracking-tight text-balance max-lg:font-medium lg:text-5xl;
 }
 
 h2 {
