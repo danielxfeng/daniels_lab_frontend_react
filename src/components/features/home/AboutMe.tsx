@@ -1,8 +1,10 @@
 import MotionBlurCard from '@/components/motion_components/MotionBlurCard';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionSpan from '@/components/motion_components/MotionSpan';
+import ContactLink from '@/components/shared/ContactLink';
 import { GlowingEffect } from '@/components/third_party/GlowingEffect';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import contactIconList from '@/constants/contactLinks';
 import siteMeta from '@/constants/siteMeta';
 import rawTechStack from '@/constants/techStack.json';
 
@@ -23,10 +25,20 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
           data-role='about-me-introduction'
           className='mb-8 flex w-full max-w-2xl flex-col gap-8 lg:flex-row lg:items-center lg:gap-12'
         >
-          <Avatar className='ring-offset-background ring-muted z-5 h-32 w-32 shadow-xl ring-2 ring-offset-2 lg:h-40 lg:w-40'>
-            <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
-            <AvatarFallback>Daniel</AvatarFallback>{' '}
-          </Avatar>
+          <div
+            data-role='about-me-avatar'
+            className='flex flex-col items-center justify-center gap-3'
+          >
+            <Avatar className='ring-offset-background ring-muted z-5 h-32 w-32 shadow-xl ring-2 ring-offset-2 lg:h-40 lg:w-40'>
+              <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
+              <AvatarFallback>Daniel</AvatarFallback>{' '}
+            </Avatar>
+            <div className='flex justify-between' data-role='about-me-avatar-contact-links'>
+              {contactIconList.map((prop) => (
+                <ContactLink key={prop.supportText} {...prop} />
+              ))}
+            </div>
+          </div>
 
           <div
             data-role='about-me-introduction-content'
@@ -40,7 +52,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
               inactiveZone={0.01}
             />
             <p>
-              <strong>Hey!</strong> I am{' '}
+              <strong className='block mb-2'>Hey!</strong> I am{' '}
               <MotionSpan
                 text={siteMeta.me}
                 className='text-highlight px-2 py-1 text-3xl font-bold text-shadow-md'
