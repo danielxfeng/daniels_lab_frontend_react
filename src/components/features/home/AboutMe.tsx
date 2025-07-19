@@ -5,10 +5,6 @@ import { GlowingEffect } from '@/components/third_party/GlowingEffect';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import siteMeta from '@/constants/siteMeta';
 import rawTechStack from '@/constants/techStack.json';
-import { cn } from '@/lib/utils';
-
-const highlightText = 'text-foreground text-xl font-semibold px-1';
-const normalText = 'text-foreground/65 px-1 italic';
 
 const techStack = rawTechStack;
 
@@ -27,14 +23,14 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
           data-role='about-me-introduction'
           className='mb-8 flex w-full max-w-2xl flex-col gap-8 lg:flex-row lg:items-center lg:gap-12'
         >
-          <Avatar className='ring-offset-background ring-muted z-5 h-32 w-32 lg:h-40 lg:w-40 shadow-xl ring-2 ring-offset-2'>
+          <Avatar className='ring-offset-background ring-muted z-5 h-32 w-32 shadow-xl ring-2 ring-offset-2 lg:h-40 lg:w-40'>
             <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
             <AvatarFallback>Daniel</AvatarFallback>{' '}
           </Avatar>
 
           <div
             data-role='about-me-introduction-content'
-            className='border-border relative w-full rounded-2xl border bg-white p-6 shadow-md dark:bg-neutral-950'
+            className='border-border text-foreground/65 [&_strong]:text-foreground relative w-full rounded-2xl border bg-white p-6 italic shadow-md dark:bg-neutral-950 [&_strong]:not-italic'
           >
             <GlowingEffect
               spread={40}
@@ -44,8 +40,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
               inactiveZone={0.01}
             />
             <p>
-              <span className={cn(highlightText, 'block lg:inline-block')}>Hey!</span>
-              <span className={normalText}> I am</span>
+              <strong>Hey!</strong> I am{' '}
               <MotionSpan
                 text={siteMeta.me}
                 className='text-highlight px-2 py-1 text-3xl font-bold text-shadow-md'
@@ -53,115 +48,64 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
               />
             </p>
             <p>
-              <span className={highlightText}>{'CS student  ·  Helsinki'}</span>
+              <strong>CS student · Helsinki</strong>
             </p>
             <p>
-              <span className={cn(normalText, 'pl-0')}>I focus on</span>
-              <span className={highlightText}>full stack</span>
-              <span className={normalText}>
-                development, both backend and frontend, and also enjoy
-              </span>
-              <span className={highlightText}>system programming</span>
-              <span className={normalText}>and building</span>
-              <span className={highlightText}>AI</span>
-              <span className={normalText}>toys.</span>
+              I focus on <strong>full stack</strong> development, both backend and frontend. And
+              also enjoy <strong>system</strong> <strong>programming</strong> and building{' '}
+              <strong>AI</strong> toys.
             </p>
           </div>
         </section>
 
-        <div data-role='about-me-detail' className='flex max-w-5xl flex-col gap-12 lg:flex-row'>
+        <div
+          data-role='about-me-detail'
+          className='text-foreground/65 [&_strong]:text-foreground flex max-w-5xl flex-col gap-12 italic lg:flex-row [&_strong]:not-italic'
+        >
           <MotionBlurCard
-            dataRole='about-me-detail-left'
-            className='flex w-full flex-1 flex-col justify-start gap-3 rounded-2xl bg-white p-6 shadow-md dark:bg-neutral-950'
+            dataRole='about-me-profession'
+            className='flex w-full flex-1 flex-col justify-between gap-6 rounded-2xl bg-white p-6 shadow-md dark:bg-neutral-950'
           >
-            {/* Education Hive */}
-            <section data-role='about-me-education-hive'>
-              <p className='my-1'>
-                <span className={cn(normalText, 'pl-0')}>I am now studying in</span>
-                <span className={highlightText}>Hive Helsinki</span>
-                <span className={cn(normalText, 'pl-0')}>, working on system-level</span>
-                <span className={highlightText}>C/C++</span>
-                <span className={cn(normalText, 'pl-0')}>projects.</span>
-              </p>
-              <p className='my-1'>
-                <span className={cn(normalText, 'pl-0')}>
-                  These projects pushed me to design, debug, and build robust software, which
-                  greatly improved my real-world programming skills.
-                </span>
-              </p>
-            </section>
+            <ul className='list-disc space-y-2 pl-6'>
+              <li>
+                Studying at <strong>Hive Helsinki</strong>, focusing on system-level{' '}
+                <strong>C/C++</strong> projects.
+              </li>
+              <li>
+                Pursuing a Bachelor's degree in Computer Applications at <strong>HAMK</strong>.
+              </li>
+            </ul>
 
-            {/* Education HAMK */}
-            <section data-role='about-me-education-hamk'>
-              <p className='my-1'>
-                <span className={cn(normalText, 'pl-0')}>I am also studying CS courses at</span>
-                <span className={highlightText}>HAMK</span>
-                <span className={cn(normalText, 'pl-0')}>.</span>
-              </p>
-            </section>
-
-            {/* Work */}
-            <section data-role='about-me-work'>
-              <p className='my-1'>
-                <span className={cn(normalText, 'pl-0')}>Before August 2023, I worked in</span>
-                <span className={highlightText}>corporate banking</span>
-                <span className={normalText}>in</span>
-                <span className={highlightText}>Shanghai</span>
-                <span className={cn(normalText, 'pl-0')}>.</span>
-              </p>
-              <p className='my-1'>
-                <span className={cn(normalText, 'pl-0')}>
-                  This experience helped me build strong
-                </span>
-                <span className={highlightText}>logical thinking</span>
-                <span className={normalText}>for</span>
-                <span className={highlightText}>breaking down</span>
-                <span className={normalText}>complex problems, and the ability to</span>
-                <span className={highlightText}>work in a team</span>
-                <span className={normalText}>.</span>
-              </p>
-            </section>
+            <ul className='list-disc space-y-2 pl-6'>
+              <li>
+                Worked in <strong>corporate banking</strong> in <strong>Shanghai</strong> until
+                August 2023.
+              </li>
+            </ul>
           </MotionBlurCard>
 
           <div className='bg-muted hidden w-px lg:flex' />
 
           <MotionBlurCard
-            dataRole='about-me-detail-right'
+            dataRole='about-me-detail-soft'
             className='flex w-full flex-1 flex-col justify-start gap-6 rounded-2xl bg-white p-6 shadow-md dark:bg-neutral-950'
           >
             {/* Soft skill */}
-            <section data-role='about-me-soft-skill'>
-              <p className='my-1'>
-                <span className={cn(normalText, 'pl-0')}>I'm naturally</span>
-                <span className={highlightText}>curious</span>
-                <span className={normalText}>and enjoy</span>
-                <span className={highlightText}>learning</span>
-                <span className={normalText}>every day.</span>
-              </p>
-              <p className='my-1'>
-                <span className={cn(normalText, 'pl-0')}>
-                  I love the feeling of being a little better than I was yesterday.
-                </span>
-              </p>
-            </section>
-            <section data-role='about-me-soft-interest'>
-              <p className='my-1'>
-                <span className={normalText}>I love</span>
-                <span className={highlightText}>traveling</span>
-                <span className={normalText}>and spending time in</span>
-                <span className={highlightText}>nature</span>
-                <span className={normalText}>
-                  . Exploring scenic views and diverse cultures feels addictive to me.
-                </span>
-              </p>
-              <p>
-                <span className='block'>
-                  <span className={normalText}>I also enjoy</span>
-                  <span className={highlightText}>taking photos</span>
-                  <span className={normalText}>, which helps me preserve those memories.</span>
-                </span>
-              </p>
-            </section>
+            <ul className='list-disc space-y-2 pl-6'>
+              <li>
+                <strong>Naturally curious</strong>: I enjoy learning new things and exploring
+                unfamiliar ideas.
+              </li>
+              <li>
+                <strong>Logical thinker</strong>: I love breaking down complex problems with
+                structured reasoning.
+              </li>
+              <li>
+                <strong>Excellent teamwork</strong>: and collaboration skills in cross-functional
+                environments.
+              </li>
+              <li className='mt-4 list-none pl-0'>-- I love becoming a little better every day.</li>
+            </ul>
           </MotionBlurCard>
         </div>
 
@@ -171,6 +115,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
           className='flex w-full flex-col gap-3 lg:flex-row lg:items-center lg:justify-around'
         >
           <div data-role='about-me-tech-stack' className='mt-10 flex flex-col gap-4 lg:gap-2'>
+            <h4 className='mb-4 italic'>Tech stacks</h4>
             {techStack.map((item) => (
               <div key={item.title} className='mb-2 flex items-center gap-2'>
                 <div className='text-muted-foreground font-semibold italic'>
