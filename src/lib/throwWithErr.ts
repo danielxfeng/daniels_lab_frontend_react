@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { ZodError } from 'zod';
 
 class HttpResponseError extends Error {
   status: number;
@@ -33,12 +34,16 @@ const throwDebouncedErr = (message: string): never => {
   return throwWithErr(429, `Too many requests: ${message}`, 'Too Many Requests');
 };
 
-const throwWithValidationErr = (message: string, err: string): never => {
-  return throwWithErr(500, `Failed to ${message}: ${err}`, 'Internal Server Error');
+const formatZodError = (err: ZodError<unknown>): string => {
+  return err.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join(' | ');
 };
 
-const throwWithUserValidationErr = (message: string, err: string): never => {
-  return throwWithErr(400, `Failed to ${message}: ${err}`, 'Bad Request');
+const throwWithValidationErr = (message: string, err: ZodError<unknown>): never => {
+  return throwWithErr(500, `Failed to ${message}: ${formatZodError(err)}`, 'Internal Server Error');
+};
+
+const throwWithUserValidationErr = (message: string, err: ZodError<unknown>): never => {
+  return throwWithErr(400, `Failed to ${message}: ${formatZodError(err)}`, 'Bad Request');
 };
 
 export {

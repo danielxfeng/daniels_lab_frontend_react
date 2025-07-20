@@ -1,13 +1,14 @@
 import axios, { AxiosInstance } from 'axios';
 
+import getDeviceId from '@/lib/deviceid';
+import logError from '@/lib/logError';
+import { throwWithUserValidationErr, throwWithValidationErr } from '@/lib/throwWithErr';
 import {
   RefreshTokenBodySchema,
   TokenRefreshResponse,
   TokenRefreshResponseSchema,
 } from '@/schema/schema_auth';
 import useUserStore from '@/stores/useUserStore';
-
-import getDeviceId from './deviceid';
 
 const baseURL = import.meta.env.VITE_API_BASE_URL || '/api';
 const headers = {
@@ -58,8 +59,7 @@ const refreshHelper = async (): Promise<string | null> => {
   });
   if (!refreshBody.success) {
     clear();
-    console.error('Invalid refresh token body:', refreshBody.error);
-    return null;
+    return throwWithUserValidationErr('Invalid refresh token body:', refreshBody.error);
   }
   const validatedBody = refreshBody.data;
 
@@ -68,9 +68,8 @@ const refreshHelper = async (): Promise<string | null> => {
     const response = await anonymousAxios!.post('/auth/refresh', validatedBody);
     const responseData = TokenRefreshResponseSchema.safeParse(response.data);
     if (!responseData.success) {
-      console.error('Invalid response data:', responseData.error);
       clear();
-      return null;
+      return throwWithValidationErr('Invalid token refresh response:', responseData.error);
     }
     const validatedResponse: TokenRefreshResponse = responseData.data;
     // Then set the token and user to the store.
@@ -84,9 +83,9 @@ const refreshHelper = async (): Promise<string | null> => {
     return validatedResponse.accessToken;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.error('Error refreshing token:', error);
     // Clear the user store if there is an error
     clear();
+    logError(error, 'Error on refresh the token.');
     return null;
   }
 };
@@ -142,7 +141,6 @@ const fetchAccessToken = async (retry: number): Promise<string | null> => {
 const handleError = async (error: any) => {
   // Retry the request on 498 expired token error
   if (error.response?.status === 498) {
-    console.warn('Access token expired, when return');
     try {
       const newToken = await fetchAccessToken(1);
       if (!newToken) throw { response: { status: 401, data: 'Unauthorized' } };
@@ -150,8 +148,8 @@ const handleError = async (error: any) => {
       const originalRequest = error.config;
       originalRequest.headers.Authorization = `Bearer ${newToken}`;
       return await authAxios!(originalRequest);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      console.error('Error refreshing token:', err);
       throw { response: { status: 401, data: 'Unauthorized' } };
     }
   }
@@ -170,16 +168,7 @@ const handleError = async (error: any) => {
   }
 
   // Other errors
-  if (error.response) {
-    console.error('Error response:', error.response);
-    return Promise.reject(error);
-  } else if (error.request) {
-    console.error('Error request:', error.request);
-    return Promise.reject(error);
-  } else {
-    console.error('Error message:', error.message);
-    throw { response: { status: 500, data: error.message } };
-  }
+  return Promise.reject(error);
 };
 
 // For keeping the single instance
