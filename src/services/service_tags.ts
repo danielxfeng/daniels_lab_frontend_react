@@ -29,10 +29,7 @@ const debouncedSearchTagsByPrefix = async (
   const response = await anonymousAxios!.get(`/blog/tags/search?tag=${prefix}&ts=${ts}`);
   const validatedResponse = TagsResponseSchema.safeParse(response.data);
   if (!validatedResponse.success) {
-    return throwWithValidationErr(
-      `search tags by prefix: ${prefix}`,
-      validatedResponse.error.errors[0].message,
-    );
+    return throwWithValidationErr(`search tags by prefix: ${prefix}`, validatedResponse.error);
   }
   const resTs = validatedResponse.data.ts;
   if (!resTs || resTs < lastReceivedTs) {
