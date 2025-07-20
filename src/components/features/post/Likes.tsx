@@ -24,21 +24,18 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
   // LikeStatus fetcher
   const fetchLikeStatus = async (postId: string): Promise<LikeStatusResponse> => {
     // Fetch like status
-    const response = await getLikeStatus(postId);
-
-    // Validate response
-    if (response.status !== 200) {
-      logError(response.statusText, 'Error fetching like status');
+    try {
+      const response = await getLikeStatus(postId);
+      const validatedLikeStatus = LikeStatusResponseSchema.safeParse(response.data);
+      if (!validatedLikeStatus.success) {
+        logError(validatedLikeStatus.error, 'Invalid like status response');
+        return fallback;
+      }
+      return validatedLikeStatus.data;
+    } catch (error) {
+      logError(error, 'Error fetching like status');
       return fallback;
     }
-    const validatedLikeStatus = LikeStatusResponseSchema.safeParse(response.data);
-    if (!validatedLikeStatus.success) {
-      logError(validatedLikeStatus.error, 'Invalid like status response');
-      return fallback;
-    }
-
-    // Return validated like status
-    return validatedLikeStatus.data;
   };
 
   // Handle like toggle
