@@ -48,12 +48,10 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
     try {
       const res = liked ? await unlikePost(postId) : await likePost(postId);
 
-      // 204: successful like/unlike
-      if (res.status == 204) {
-        setCount((prev) => (liked ? prev - 1 : prev + 1));
-        setLiked((prev) => !prev);
-        return;
-      }
+      if (!res) return;
+
+      setCount((prev) => (liked ? prev - 1 : prev + 1));
+      setLiked((prev) => !prev);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error?.response?.status === 401) return toast.warning('Please log in to like this post');
