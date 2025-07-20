@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
 import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
+import logError from '@/lib/logError';
 import { deletePost } from '@/services/services_posts';
 
 // A component to delete a post
@@ -21,7 +22,8 @@ const PostDeleteComponent = ({ postId }: { postId: string }) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error('Failed to delete post');
-      return console.error('Failed to delete post:', JSON.stringify(error));
+      logError(error, 'Failed to delete post');
+      return;
     } finally {
       setIsLoading(false);
     }
