@@ -32,17 +32,14 @@ const postsLoader = async ({
   if (isSearchByKeyword) {
     const validated = KeywordSearchQuerySchema.safeParse(urlParamSafeParser(searchParams));
     if (!validated.success)
-      return throwWithUserValidationErr(
-        'validate search params with keyword',
-        JSON.stringify(validated.error),
-      );
+      return throwWithUserValidationErr('validate search params with keyword', validated.error);
   }
 
   // For requests from `listing`
   if (!isSearchByKeyword && searchParams) {
     const validated = GetPostListQuerySchema.safeParse(urlParamSafeParser(searchParams));
     if (!validated.success)
-      return throwWithUserValidationErr('validate search params', JSON.stringify(validated.error));
+      return throwWithUserValidationErr('validate search params', validated.error);
   }
 
   // Fetch posts and hot tags concurrently
@@ -60,11 +57,11 @@ const postsLoader = async ({
   // Validate the response data
   const validatedPosts = PostListResponseSchema.safeParse(postsListRes.data);
   if (!validatedPosts.success)
-    return throwWithValidationErr('validate posts', JSON.stringify(validatedPosts.error));
+    return throwWithValidationErr('validate posts', validatedPosts.error);
 
   const validatedHotTags = TagsResponseSchema.safeParse(hotTagsRes.data);
   if (!validatedHotTags.success)
-    return throwWithValidationErr('validate hot tags', JSON.stringify(validatedHotTags.error));
+    return throwWithValidationErr('validate hot tags', validatedHotTags.error);
 
   // Return the validated data
   return {

@@ -14,6 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import logError from '@/lib/logError';
 import {
   AuthResponseSchema,
   ChangePasswordBody,
@@ -51,7 +52,7 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
       const res = await changePassword(data);
       const validated = AuthResponseSchema.safeParse(res.data);
       if (!validated.success) {
-        console.error('Invalid user response:', JSON.stringify(validated.error));
+        logError(validated.error, 'Invalid user response');
         return;
       }
       toast.success('Password updated successfully');
@@ -65,7 +66,7 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
           message: 'Current password is incorrect',
         });
       } else {
-        console.error('Error changing password:', err.response?.statusText);
+        logError(err, 'Error changing password');
         toast.error('Error changing password, please try again later');
       }
       form.setValue('currentPassword', '');

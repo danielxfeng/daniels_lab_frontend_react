@@ -22,6 +22,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import logError from '@/lib/logError';
 import { throwWithValidationErr } from '@/lib/throwWithErr';
 import { cn } from '@/lib/utils';
 import type { CreateOrUpdatePostBody, PostResponse } from '@/schema/schema_post';
@@ -33,10 +34,7 @@ const getSlug = (isCreate: boolean, res: AxiosResponse<PostResponse | undefined>
   if (isCreate) return res.headers.location.split('/').pop();
   const validatedBody = PostResponseSchema.safeParse(res.data);
   if (!validatedBody.success)
-    return throwWithValidationErr(
-      'validate post response error',
-      JSON.stringify(validatedBody.error),
-    );
+    return throwWithValidationErr('validate post response error', validatedBody.error);
   return validatedBody.data.slug;
 };
 
@@ -75,7 +73,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
         navigate(`/blog/posts/${slug}`);
       }, 1000);
     } catch (error) {
-      console.error('Error submitting post:', error);
+      logError(error, 'Error submitting post');
     }
   };
 

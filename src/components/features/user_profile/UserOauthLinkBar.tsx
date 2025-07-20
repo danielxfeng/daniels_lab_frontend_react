@@ -3,6 +3,7 @@ import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
 import { toast } from 'sonner';
 
 import MotionButton from '@/components/motion_components/MotionButton';
+import logError from '@/lib/logError';
 import { OAuthConsentQuery, OAuthRedirectResponseSchema } from '@/schema/schema_auth';
 import { OauthProvider, OauthProviderValues } from '@/schema/schema_components';
 import { UserResponse } from '@/schema/schema_users';
@@ -43,7 +44,7 @@ const UserOauthLinkBar = ({
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.error(`Failed to unlink ${provider}:`, error);
+      logError(error, `Failed to unlink ${provider}`);
       const errMsg =
         error.response?.status === 422 ? ' : Cannot unlink the last provider.' : 'undefined';
       toast.error(`Failed to unlink ${provider} ${errMsg}`);
@@ -63,17 +64,14 @@ const UserOauthLinkBar = ({
       const res = await oauthLinkUser(provider, body);
       const validatedRes = OAuthRedirectResponseSchema.safeParse(res.data);
       if (!validatedRes.success) {
-        console.error(
-          `Failed to link ${provider}: Invalid response data`,
-          JSON.stringify(validatedRes.error),
-        );
+        logError(validatedRes.error, `Failed to link ${provider}: Invalid response data`);
         return toast.error(`Failed to link ${provider}, please try again later.`);
       }
       // Redirect to the OAuth provider's page
       window.location.href = validatedRes.data.redirectUrl;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.error(`Failed to link ${provider}:`, error);
+      logError(error, `Failed to link ${provider}`);
       toast.error(`Failed to link ${provider}`);
     } finally {
       setCurrentLoadingProvider(null);

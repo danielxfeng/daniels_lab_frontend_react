@@ -3,6 +3,7 @@ import { ControllerRenderProps } from 'react-hook-form';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import MotionInput from '@/components/motion_components/MotionInput';
+import logError from '@/lib/logError';
 import { CreateOrUpdatePostBody } from '@/schema/schema_post';
 import { tagSchema, TagsResponseSchema } from '@/schema/schema_tag';
 import { debouncedSearchTagsByPrefix } from '@/services/service_tags';
@@ -58,7 +59,7 @@ const TagInputComponent = ({
         const suggestionsRes = await debouncedSearchTagsByPrefix(validatedKeyword.data);
         const validatedSuggestions = TagsResponseSchema.safeParse(suggestionsRes.data);
         if (!validatedSuggestions.success) {
-          console.error('Invalid suggestions response:', validatedSuggestions.error);
+          logError(validatedSuggestions.error, 'Invalid suggestions response');
           return;
         }
         // It still may be a stale update, but it may still make sense to user.
@@ -66,7 +67,7 @@ const TagInputComponent = ({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         // If the error is 429 (May be rate-limited or debounced, it's normal)
-        if (error?.response?.status !== 429) console.error('Error fetching suggestions:', error);
+        if (error?.response?.status !== 429) logError(error, 'Error fetching suggestions');
         setSuggestions((prev) => prev.filter((s) => s !== inputValue));
       }
     };

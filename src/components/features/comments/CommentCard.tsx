@@ -6,6 +6,7 @@ import CommentForm from '@/components/features/comments/CommentForm';
 import AuthorDateBar from '@/components/features/post/AuthorDateBar';
 import MotionButton from '@/components/motion_components/MotionButton';
 import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
+import logError from '@/lib/logError';
 import { AuthResponse as User } from '@/schema/schema_auth';
 import { CommentResponse } from '@/schema/schema_comment';
 import { deleteComment } from '@/services/service_comments';
@@ -27,13 +28,11 @@ const CommentCard = ({ user, comment, setComments }: CommentCardProps) => {
     setLoading(true);
     try {
       // Send the request.
-      const res = await deleteComment(comment.id);
-      // Validate the response
-      if (res.status !== 204) throw new Error('Error deleting comment');
+      await deleteComment(comment.id);
       // Update the DOM
       setComments((prev) => prev.filter((c) => c.id !== comment.id));
     } catch (error) {
-      console.error('Error deleting comment:', error);
+      logError(error, 'Error deleting comment');
       toast.error('Oops! Something went wrong, please try again later.');
     } finally {
       setLoading(false);

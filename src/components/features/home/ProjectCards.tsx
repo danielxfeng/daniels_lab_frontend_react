@@ -14,10 +14,7 @@ import { ProjectsSchema } from '@/schema/schema_json';
 const ProjectCards = ({ position }: { position: 'page' | 'div' }) => {
   const parsedProjects = ProjectsSchema.safeParse(rawProjects);
   if (parsedProjects.error) {
-    throwWithUserValidationErr(
-      'error on parsing project data',
-      JSON.stringify(parsedProjects.error),
-    );
+    throwWithUserValidationErr('error on parsing project data', parsedProjects.error);
     return null;
   }
 

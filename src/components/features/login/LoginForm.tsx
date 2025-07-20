@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import siteMeta from '@/constants/siteMeta';
+import logError from '@/lib/logError';
 import { AuthResponseSchema, LoginBody, LoginBodySchema } from '@/schema/schema_auth';
 import { OauthProviderValues } from '@/schema/schema_components';
 import { loginUser } from '@/services/service_auth';
@@ -87,7 +88,7 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
       const validatedRes = AuthResponseSchema.safeParse(res.data);
       if (!validatedRes.success) {
         toast.error('Invalid response from server, please try again later');
-        console.error('Response error', validatedRes.error);
+        logError(validatedRes.error, 'Response error');
         return;
       }
 
@@ -113,7 +114,7 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
         return;
       }
       toast.error('Login failed, please try again later');
-      console.error('Login error:', error);
+      logError(error, 'Login error');
     } finally {
       setValue('password', '');
     }

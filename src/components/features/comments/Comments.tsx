@@ -6,6 +6,7 @@ import MotionButton from '@/components/motion_components/MotionButton';
 import Spinner from '@/components/shared/Spinner';
 import siteMeta from '@/constants/siteMeta';
 import insertToSet from '@/lib/insertToSet';
+import logError from '@/lib/logError';
 import {
   CommentResponse,
   CommentsListResponse,
@@ -25,21 +26,15 @@ const getCommentsHelper = async (postId: string, offset: number): Promise<Commen
   };
 
   // Fetch the comments
-  const res = await getComments(postId, offset, siteMeta.paginationLimit);
-
-  // Validate the response
-  if (res.status !== 200) {
-    console.error('Error fetching comments:', res.statusText);
+  try {
+    const res = await getComments(postId, offset, siteMeta.paginationLimit);
+    const validatedData = CommentsListResponseSchema.safeParse(res.data);
+    if (!validatedData.success) throw validatedData.error;
+    return validatedData.data;
+  } catch (err) {
+    logError(err, 'Error on loading comments');
     return fallBack;
   }
-  const validatedData = CommentsListResponseSchema.safeParse(res.data);
-  if (!validatedData.success) {
-    console.error('Error validating comments data:', validatedData.error);
-    return fallBack;
-  }
-
-  // Return the validated data
-  return validatedData.data;
 };
 
 /**
@@ -73,7 +68,7 @@ const Comments = ({ postId }: { postId: string }) => {
         setTotal(res.total);
         setOffset(res.offset);
       } catch (error) {
-        console.error('Error fetching comments:', error);
+        logError(error, 'Error fetching comments');
       } finally {
         setIsLoading(false);
       }

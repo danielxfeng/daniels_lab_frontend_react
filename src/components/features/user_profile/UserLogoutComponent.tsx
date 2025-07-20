@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import logError from '@/lib/logError';
 import { DeviceIdBodySchema } from '@/schema/schema_auth';
 import { logoutUser } from '@/services/service_auth';
 
@@ -30,7 +31,7 @@ const UserLogoutComponent = ({ deviceId }: { deviceId: string }) => {
     const validatedBody = DeviceIdBodySchema.safeParse(body);
     // Validate the req, fallback to logout all devices
     if (!validatedBody.success) {
-      console.error('Invalid deviceId:', JSON.stringify(validatedBody.error));
+      logError(validatedBody.error, 'Invalid deviceId');
       body.deviceId = undefined;
     }
 
@@ -39,7 +40,7 @@ const UserLogoutComponent = ({ deviceId }: { deviceId: string }) => {
       return toast.success('Logout successful');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.error('Error logging out:', error.response?.statusText);
+      logError(error, 'Error logging out');
       return toast.error('Error, failed to revoke tokens on server, only local tokens are deleted');
     } finally {
       setLoading(false);

@@ -5,7 +5,6 @@ import NotificationBar from '@/components/shared/NotificationBar';
 
 const NotFoundPage = () => {
   const location = useLocation();
-  console.warn('404 warning', location.pathname);
   return (
     <div className='inner-container flex flex-col gap-4 flex-grow items-center justify-center' data-role='not-found-page'>
       <NotificationBar />

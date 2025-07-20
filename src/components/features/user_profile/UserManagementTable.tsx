@@ -14,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import logError from '@/lib/logError';
 import { UserResponse, UsersResponseSchema } from '@/schema/schema_users';
 import { deleteUser } from '@/services/service_auth';
 import { getUsers } from '@/services/service_user';
@@ -30,13 +31,13 @@ const UserManagementTable = () => {
         const res = await getUsers();
         const validated = UsersResponseSchema.safeParse(res.data);
         if (!validated.success) {
-          console.error('Invalid users response:', JSON.stringify(validated.error));
+          logError(validated.error, 'Invalid users response');
           toast.error('Failed to fetch users, please try again later.');
           return;
         }
         setUsers(validated.data);
       } catch (error) {
-        console.error('Failed to fetch users:', error);
+        logError(error, 'Failed to fetch users');
         toast.error('Failed to fetch users, please try again later.');
       }
     };
@@ -53,7 +54,7 @@ const UserManagementTable = () => {
       setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
       toast.success('User deleted successfully!');
     } catch (error) {
-      console.error('Failed to delete user:', error);
+      logError(error, 'Failed to delete user');
       toast.error('Failed to delete user, please try again later.');
     } finally {
       setLoadingUserId(null);
