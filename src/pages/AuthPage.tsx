@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 
 import Loading from '@/components/shared/Loading';
 import getDeviceId from '@/lib/deviceid';
+import logError from '@/lib/logError';
 import { throwWithValidationErr } from '@/lib/throwWithErr';
 import { AuthResponseSchema } from '@/schema/schema_auth';
 import { oauthGetUserInfo } from '@/services/service_auth';
@@ -47,10 +48,7 @@ const AuthPage = () => {
         const userInfo = await oauthGetUserInfo(accessToken, await getDeviceId());
         const validatedUserInfo = AuthResponseSchema.safeParse(userInfo.data);
         if (!validatedUserInfo.success) {
-          return throwWithValidationErr(
-            'AuthPage: Invalid user info',
-            JSON.stringify(validatedUserInfo.error),
-          );
+          return throwWithValidationErr('AuthPage: Invalid user info', validatedUserInfo.error);
         }
 
         toast.success('Login successful');
@@ -64,7 +62,7 @@ const AuthPage = () => {
         navigate(redirectTo, { replace: true });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
-        console.error('AuthPage: Failed to get user info:', error);
+        logError(error, 'AuthPage: Failed to get user info');
         navigate('/user/login', { state: { error: 'Unknown error, please try again later' } });
       }
     };
