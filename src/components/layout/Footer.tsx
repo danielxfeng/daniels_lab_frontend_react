@@ -3,9 +3,6 @@ import contactIconList from '@/constants/contactLinks';
 
 import MotionTextLink from '../motion_components/MotionTextLink';
 
-/**
- * The Footer component.
- */
 const Footer = () => (
   <footer className='outer-container text-muted-foreground my-3 mt-12 py-3 text-sm lg:mb-16'>
     <div

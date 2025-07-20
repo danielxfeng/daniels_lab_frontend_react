@@ -116,9 +116,6 @@ const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
   );
 };
 
-/**
- * A page component for the Join Admin page.
- */
 const JoinAdminPage = () => {
   const [deviceId, setDeviceId] = useState<string>('');
 

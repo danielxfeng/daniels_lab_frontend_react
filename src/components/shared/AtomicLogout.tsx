@@ -8,8 +8,6 @@ import useUserStore from '@/stores/useUserStore';
  * @description
  * This component is used to log out the user, and
  * navigate to a different page after a specified timeout.
- * @param to - The path to navigate to after logout.
- * @param timeout - The time in milliseconds to wait before navigating.
  * @returns
  */
 const AtomicLogout = ({ to, timeout }: { to: string; timeout: number }) => {

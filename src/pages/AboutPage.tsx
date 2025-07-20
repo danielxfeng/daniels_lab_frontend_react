@@ -2,7 +2,6 @@ import AboutMe from '@/components/features/home/AboutMe';
 import NotificationBar from '@/components/shared/NotificationBar';
 import siteMeta from '@/constants/siteMeta';
 
-// A component to set the meta information for SEO
 const MetaInfo = () => (
   <>
     <title>{`Projects - ${siteMeta.siteName}`}</title>

@@ -16,13 +16,6 @@ type CommentCardProps = {
   setComments: React.Dispatch<React.SetStateAction<CommentResponse[]>>;
 };
 
-/**
- * @summary A component to display a comment, with edit and delete functionality.
- * @param user - The user object to get the user information
- * @param comment - The comment object to get the comment information
- * @param setComments - The hook to set the comments state
- * @returns
- */
 const CommentCard = ({ user, comment, setComments }: CommentCardProps) => {
   const [loading, setLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);

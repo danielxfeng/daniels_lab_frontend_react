@@ -3,7 +3,6 @@ import MotionH1 from '@/components/motion_components/MotionH1';
 import NotificationBar from '@/components/shared/NotificationBar';
 import siteMeta from '@/constants/siteMeta';
 
-/// A component to create a new post
 const PostCreatePage = () => {
   return (
     <div className='inner-container' data-role='post-create-page'>

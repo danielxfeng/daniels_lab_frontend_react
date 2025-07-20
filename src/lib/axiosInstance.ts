@@ -16,19 +16,10 @@ const headers = {
 const timeout = 30000; // 30s
 const cachedAccessTokenTTL = 10 * 1000; // 10 seconds
 
-/**
- * @summary A single skeleton for a Axios instance without authentication.
- */
 let anonymousAxios: AxiosInstance | null = null;
 
-/**
- * @summary A single skeleton for a Axios instance with authentication.
- */
 let authAxios: AxiosInstance | null = null;
 
-/**
- * @summary A single skeleton for a Axios instance with optional authentication.
- */
 let optAxios: AxiosInstance | null = null;
 
 const interceptorIds = {
@@ -39,40 +30,11 @@ const interceptorIds = {
 
 /**
  * @summary A `conditional variable` like to handle the atomic refresh token process.
- * @description
- * When there are concurrent requests with an expired access token,
- * because of the refresh token rotation policy in backend,
- * only one request can get the token, and following requests get a 401
- * because the refresh token is already revoked.
- *
- * This flag is used to solve this by ensuring that only one request
- * can refresh the token at the same time.
- * It uses a promise to mock a conditional variable in other languages,
- * to ensure the atomicity of the refresh token process.
- *
- * @remarks
- * It is either `null` or a `Promise`.
- *
- * No one is refreshing the token when it is `null`,
- * then the caller can set it to a `Promise` to get the value of the access token.
- *
- * Before the refresh is done, it keeps the `Promise` then the other callers
- * can also wait for the same `Promise` to resolve.
- *
- * After the refresh is done, it is solved, and then set to `null` again,
- * so the next caller can start a new refresh token process.
- *
- * This needs to be optimized in SSR.
  */
 let isRefreshing: Promise<string | null> | null = null;
 
 /**
  * @summary A variable to keep the last refresh time.
- * @description
- * It works with the `isRefreshing` variable together to solve the race condition.
- * Under certain scenarios, maybe a request finds that the access token is expired when the `accessToken` is setting,
- * but when it tries to refresh, the `isRefreshing` is set to `null` already.
- * Therefore, a TTL, lastRefreshTime, cachedAccessToken are used to prevent this unnecessary refresh.
  */
 let lastRefreshTime = 0;
 
@@ -131,14 +93,6 @@ const refreshHelper = async (): Promise<string | null> => {
 
 /**
  * @summary A function to fetch the access token.
- * @description
- * This function is used to fetch the access token from the server.
- * It uses a state machine to handle the different user statuses:
- * - authenticated: The user is authenticated and the access token is available.
- * - expired: The access token is expired and then refresh to get the access token.
- * - unauthenticated: The user is not authenticated and the access token is not available.
- * @param retry - The number of retries to get the access token.
- * @returns the access token or null if it fails.
  */
 const fetchAccessToken = async (retry: number): Promise<string | null> => {
   // If retry is 0, return null
@@ -181,9 +135,8 @@ const fetchAccessToken = async (retry: number): Promise<string | null> => {
 };
 
 /**
- * Handle the error from the Axios response.
+ * @summary Handle the error from the Axios response.
  * @description Retry the 498 expired token error, and handle the 401, 403 errors.
- * @param error - The error object from the Axios response
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleError = async (error: any) => {

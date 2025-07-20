@@ -19,9 +19,6 @@ import { setPassword } from '@/services/service_auth';
 
 /**
  * @summary UserPasswordInsertionForm
- * @description
- * This component provides a form for users to add a password.
- * It's designed for a oauth user who doesn't have a password set yet.
  */
 const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
   const [doLogout, setDoLogout] = useState<boolean>(false);

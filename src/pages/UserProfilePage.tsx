@@ -17,22 +17,6 @@ import siteMeta from '@/constants/siteMeta';
 import getDeviceId from '@/lib/deviceid';
 import useUserStore from '@/stores/useUserStore';
 
-/**
- * @summary UserProfilePage
- * @description
- * 1 - UserProfileCard: Displays the user profile information and a logout button.
- * 2 - UserProfileUpdateForm: A form to update the user profile information.
- * 3 - UserPasswordUpdateForm: A form to update the user password.
- * 4 - UserOauthLinkBar: A bar to link/unlink the user oauth providers.
- * 5 - UserDeleteComponent: A component to delete the user account.
- * 6 - The page is protected by the auth guard, so only authenticated users can access it.
- *
- * @remarks
- * As we can see, the user status may be changed by several components.
- * Therefore, we return null when the user is null.
- * So, please USE `<AtomicLogout to='/' timeout=1000 />` to logout the user.
- * @returns
- */
 const UserProfilePage = () => {
   const location = useLocation();
   const user = useUserStore((state) => state.user);

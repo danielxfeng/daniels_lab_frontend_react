@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
 import { deletePost } from '@/services/services_posts';
 
-/// A component to delete a post
+// A component to delete a post
 const PostDeleteComponent = ({ postId }: { postId: string }) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();

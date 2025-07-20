@@ -67,7 +67,7 @@ const GlowingEffect = memo(
             mouseY > top - proximity &&
             mouseY < top + height + proximity;
 
-          element.style.setProperty('--active', isActive ? '1' : '0');
+          element.style.setProperty('--active', isActive ? '1' : '1');
 
           if (!isActive) return;
 

@@ -10,8 +10,6 @@ import {
 
 /**
  * A loader helper function for post page.
- * @param unsafeSlug - The slug of the post to fetch.
- * @returns
  */
 const fetchPost = async (unsafeSlug: string): Promise<{ post: PostResponse }> => {
   const validatedSlug = PostSlugQuerySchema.safeParse({ slug: unsafeSlug });

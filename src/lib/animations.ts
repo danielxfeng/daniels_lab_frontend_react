@@ -256,23 +256,48 @@ const loaderAnimation = {
 const fadeInAnimation = {
   initial: { opacity: 0 },
   animate: { opacity: 1 },
-  transition: { duration: 0.8, delay: 1 },
+  transition: { duration: 0.8, delay: 0.3, ease: 'easeInOut' },
 };
 
 // The animation for span elements
-const spanAnimation = (index: number, delay: number = 0.03) => {
-  return {
-    initial: { opacity: 0, filter: 'blur(10px)' },
-    animate: { opacity: 1, filter: 'blur(0px)' },
-    transition: {
-      delay: index * delay,
-      duration: 0.1,
+const spanAnimation = (index: number, delay: number = 0.03) => ({
+  initial: 'hidden',
+  animate: 'visible',
+  variants: {
+    hidden: { opacity: 0, filter: 'blur(10px)' },
+    visible: {
+      opacity: 1,
+      filter: 'blur(0px)',
+      transition: {
+        delay: index * delay,
+        duration: 0.3,
+      },
     },
-  };
+  },
+});
+
+const blurCardAnimation = {
+  initial: {
+    opacity: 0,
+    filter: 'blur(10px)',
+    y: 40,
+    scale: 1.1,
+  },
+  animate: {
+    opacity: 1,
+    filter: 'blur(0px)',
+    y: 0,
+    scale: 1,
+  },
+  transition: {
+    duration: 2.0,
+    ease: [0.25, 1, 0.5, 1],
+  },
 };
 
 export {
   avatarAnimation,
+  blurCardAnimation,
   btnAnimation,
   draggableAnimation,
   easeInOut,

@@ -9,10 +9,6 @@ type SelectableTagsProps = {
 
 /**x
  * @summary A component that displays a list of tags that can be selected.
- * @param tags - The list of tags to display.
- * @param selectedTags - The `state` of useState that contains the selected tags.
- * @param setSelectedTags - The `setState` of useState that updates the selected tags.
- * @returns A component that displays a list of tags that can be selected.
  */
 const SelectableTags = ({ tags, value, onChange }: SelectableTagsProps) => {
   const toggleTag = (tag: string) => {

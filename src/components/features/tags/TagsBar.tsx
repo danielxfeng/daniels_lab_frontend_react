@@ -2,8 +2,6 @@ import MotionButton from '@/components/motion_components/MotionButton';
 
 /**
  * @summary The TagsBar component displays a list of tags.
- * @param tags - The tags to display.
- * @returns A React component that displays a list of tags.
  */
 const TagsBar = ({ tags }: { tags: string[] }) => {
   if (!tags || tags.length === 0) {

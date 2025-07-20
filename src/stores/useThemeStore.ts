@@ -14,11 +14,6 @@ type ThemeState = {
   toggleTheme: () => void;
 };
 
-/**
- * @summary A Zustand store for managing the theme.
- * @description Here we maintain the current theme.
- * It allows setting and getting the theme.
- */
 const useThemeStore = create<ThemeState>()(
   persist(
     (set, get) => ({

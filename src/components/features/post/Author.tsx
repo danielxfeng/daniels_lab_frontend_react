@@ -2,9 +2,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 /**
  * The Author component displays the author's avatar and name.
- * @param name - The name of the author.
- * @param avatarUrl - The URL of the author's avatar. If not provided, the first letter of the name will be used as a fallback.
- * @returns A React component that displays the author's avatar and name.
  */
 const Author = ({ name, avatarUrl }: { name: string; avatarUrl?: string }) => {
   return (

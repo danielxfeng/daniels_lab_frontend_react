@@ -2,7 +2,6 @@ import { Loader2 } from 'lucide-react';
 
 /**
  * @summary This is to define a spinner component, to be used inside a button.
- * @returns A spinner component.
  */
 const Spinner = () => {
   return (

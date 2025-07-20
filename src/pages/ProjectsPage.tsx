@@ -2,7 +2,6 @@ import ProjectCards from '@/components/features/home/ProjectCards';
 import NotificationBar from '@/components/shared/NotificationBar';
 import siteMeta from '@/constants/siteMeta';
 
-// A component to set the meta information for SEO
 const MetaInfo = () => (
   <>
     <title>{`Projects - ${siteMeta.siteName}`}</title>
@@ -21,10 +20,6 @@ const MetaInfo = () => (
   </>
 );
 
-/**
- * @summary A simple landing page for Gravity Particles
- * More features is building.
- */
 const GravityParticlesPage = () => (
   <>
     <MetaInfo />

@@ -16,13 +16,6 @@ import { logoutUser } from '@/services/service_auth';
 
 /**
  * @summary UserLogoutComponent
- * @description
- * This component provides a button to log out the user.
- * It allows the user to log out from the current device or all devices,
- * which is provided by the backend.
- * When successful, it clear the local tokens, then redirects the user to the home page.
- * If the logout fails, it shows an error message, and still clears the local tokens,
- * and performs the redirect.
  */
 const UserLogoutComponent = ({ deviceId }: { deviceId: string }) => {
   const [loading, setLoading] = useState<boolean>(false);

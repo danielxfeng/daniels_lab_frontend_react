@@ -27,14 +27,14 @@ const ProjectCards = ({ position }: { position: 'page' | 'div' }) => {
     <section data-role='projects-section' className='inner-container py-6'>
       {/* h1 or h2 depends on the position of component */}
       {position === 'div' ? (
-        <h2 className='my-3'>Projects</h2>
+        <h2 className='my-3'>Featured Projects</h2>
       ) : (
-        <MotionH1 className='my-3'>Projects</MotionH1>
+        <MotionH1 className='my-3'>Featured Projects</MotionH1>
       )}
 
       <div
         data-role='projects-list'
-        className='grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3'
+        className='mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3'
       >
         {projects.map((project) => (
           <Link to={project.projectLink} key={project.id}>

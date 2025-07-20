@@ -6,12 +6,6 @@
 
 import { z } from 'zod';
 
-/**
- * @summary Schema for a tag.
- * Tags can only contain letters, numbers, dots, hyphens, or underscores.
- * The length of each tag must be between 1 and 20 characters.
- * The maximum number of tags is 10.
- */
 const tagSchema = z
   .string()
   .trim()
@@ -22,13 +16,6 @@ const tagSchema = z
     message: 'Tag must contain only letters, numbers, dots, hyphens, or underscores.',
   });
 
-/**
- * @summary Schema for tags.
- * Can be a string, oran array of strings, or undefined.
- * Tags can only contain letters, numbers, dots, hyphens, or underscores.
- * The length of each tag must be between 1 and 20 characters.
- * The maximum number of tags is 10.
- */
 const tagsSchema = z
   .union([tagSchema, z.array(tagSchema)])
   .optional()
@@ -38,10 +25,6 @@ const tagsSchema = z
     message: 'Maximum 10 tags allowed',
   });
 
-/**
- * @summary Schema for the request body to match a tag list.
- * This schema is not async with the backend.
- */
 const TagQuerySchema = z.object({
   tag: tagSchema,
   ts: z.number(),

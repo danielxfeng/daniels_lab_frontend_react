@@ -13,10 +13,6 @@ type ContactLinkProps = {
 
 /**
  * A reusable component for rendering a contact link with an icon.
- * @param - Icon: The icon component to be rendered
- * @param - to: The URL to link to
- * @param - supportText: The aria-label for accessibility
- * @returns An reusable contact link component
  */
 const ContactLink = ({ Icon, to, supportText }: ContactLinkProps) => (
   <MotionButton

@@ -19,7 +19,6 @@ import { deleteUser } from '@/services/service_auth';
 import { getUsers } from '@/services/service_user';
 
 // A component to manage user accounts, displaying a table of users with options to delete them.
-// Emoji is used for fun.
 const UserManagementTable = () => {
   const [users, setUsers] = useState<UserResponse[]>([]);
   const [loadingUserId, setLoadingUserId] = useState<string | null>(null);

@@ -12,10 +12,6 @@ type PaginationProps = {
 
 /**
  * A custom pagination component for navigating through pages of content.
- * @param total - The total number of items.
- * @param offset - The current offset.
- * @param isPrevEnabled - A flag to enable or disable the previous button.
- * @returns A pagination component.
  */
 const Pagination = ({ total, offset, isPrevEnabled = true }: PaginationProps) => {
   const [searchParams] = useSearchParams();

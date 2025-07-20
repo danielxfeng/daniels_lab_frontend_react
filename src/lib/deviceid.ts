@@ -3,7 +3,6 @@ let deviceIdCache: string | null = null;
 /**
  * A function to get the device ID using FingerprintJS.
  * It caches the device ID so it requests only once for each session.
- * @returns A promise that resolves to the device ID.
  */
 const getDeviceId = async (): Promise<string> => {
   if (deviceIdCache) return deviceIdCache;

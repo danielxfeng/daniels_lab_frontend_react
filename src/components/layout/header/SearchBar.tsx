@@ -148,37 +148,6 @@ const DropdownHistory = ({
  * This component is a search bar that allows users to search for posts by keyword.
  * It populates a dropdown with search history.
  * The history is stored in a Zustand store, which is persisted in localstorage.
- * It runs normally in desktop view, but runs in a popup sheet in mobile view.
- *
- * @remark
- * The SearchBar handles:
- * - The search button: Submits the form.
- * - The suggestions provider for input(keyboard) and dropdown(display).
- * - State lifting for keyboard navigation index.
- *
- * - The input:
- *  - Expands the dropdown history when focused.
- *  - Closes the dropdown history when blurred.
- *  - Updates the keyword to filter the dropdown on change.
- *  - Keyboard listeners:
- *   - `Enter`: Submits the form.
- *   - `Escape`: Closes the dropdown history, and the dropdown should re-open on `keyword` change.
- *   - `ArrowDown or ArrowUp`: Set the keyboard navigation index.
- * - The dropdown history:
- *  - Displays the search history the parent provider.
- *  - Filters the history based on the keyword input.
- *  - Sets the keyboard navigation index on hover or keyboard navigation.
- *  - Sets the input value, submits the form, blurs the input when an item is selected(on click, or on `Enter` key).
- *  - Visual feedback on hover, or keyboard navigation.
- * - Submission:
- *  - Submits the form with the keyword, apply the navigation.
- *
- * Scenarios for clearing the navigation index:
- * - When the user is typing in the input field
- * - When the form is submitted
- * - When the dropdown history is closed
- *
- * @param setOpen = The hook to close the popup sheet. Only needed in mobile view.
  */
 const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<boolean>> }) => {
   // useState to manage the visibility of the dropdown history
@@ -209,13 +178,8 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
   });
 
   // Suggestions provider: `keyword` and `filtered`
-  // `watch` is efficient here because we have only one input field.
-  // It re-renders the component when keyword changes, it's acceptable for this lightweight component.
   const keyword = watch('keyword'); // Watch the keyword input, needed for filtering the dropdown history
 
-  // Filter the suggestions based on the keyword input.
-  // useMemo is not suitable here because the filtering is required on each re-render mostly fired by `watch`.
-  // and also the history has only a few items, so the performance is not a concern.
   const filtered = keyword
     ? history.filter((item) => item.toLowerCase().includes(keyword.toLowerCase()))
     : history;

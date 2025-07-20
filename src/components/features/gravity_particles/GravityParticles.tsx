@@ -58,10 +58,10 @@ const AnimatedMesh = ({
 
   const responsivePosition = useMemo(() => {
     return size.width > 768
-      ? ([size.width * 1.6, size.height * -0.7, 0] as [number, number, number])
-      : ([size.width * 1.1, size.height * 1.25, 0] as [number, number, number]);
+      ? ([0, size.height * 0.03, 0] as [number, number, number])
+      : ([0, size.height * 0, 0] as [number, number, number]);
   }, [size.width, size.height]);
-  const responsiveScale = size.width > 768 ? 0.05 : 0.04;
+  const responsiveScale = 0.04;
 
   const isMinimal = mode === 'full-screen' || isParticlesHover;
 

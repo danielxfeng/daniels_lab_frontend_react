@@ -3,7 +3,6 @@ import { useLoaderData } from 'react-router-dom';
 import PostsMain from '@/components/features/posts/PostsMain';
 import siteMeta from '@/constants/siteMeta';
 
-// A component to set the meta information for SEO
 const MetaInfo = () => (
   <>
     <title>{`All Posts – ${siteMeta.siteName}`}</title>
@@ -22,10 +21,6 @@ const MetaInfo = () => (
   </>
 );
 
-/**
- * The main page for the posts.
- * It contains a filter form and a list of posts.
- */
 const PostsPage = () => {
   const { postsListRes, hotTags } = useLoaderData();
   return (

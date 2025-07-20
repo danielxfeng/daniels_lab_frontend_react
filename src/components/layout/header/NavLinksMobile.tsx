@@ -33,7 +33,7 @@ const NavLinksMobile = () => {
         </SheetTrigger>
         <SheetContent
           side='top'
-          className='text-foreground border-border bg-background/60 h-screen w-full border backdrop-blur-sm'
+          className='text-foreground border-border bg-background/60 z-200 h-screen w-full border backdrop-blur-lg'
         >
           <SheetHeader>
             <SheetTitle>Menu</SheetTitle>

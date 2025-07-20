@@ -107,7 +107,7 @@
   --sidebar-accent-foreground: oklch(0.9851 0 0);
   --sidebar-border: oklch(0.3726 0.0341 255.59);
   --sidebar-ring: oklch(0.552 0.016 285.938);
-  --highlight: oklch(0.3934 0.1523 268.82);
+  --highlight: oklch(0.6231 0.188 259.81);
   --highlight-foreground: oklch(0.9851 0 0);
   --gradient: linear-gradient(
     to bottom right in oklab,
@@ -139,7 +139,7 @@
 }
 
 h1 {
-  @apply mb-10 text-4xl tracking-tighter text-balance max-lg:font-medium lg:text-5xl;
+  @apply mb-10 text-4xl tracking-tight text-balance max-lg:font-medium lg:text-5xl;
 }
 
 h2 {
