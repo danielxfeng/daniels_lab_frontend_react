@@ -3,6 +3,7 @@ import { Heart } from 'lucide-react';
 import { toast } from 'sonner';
 
 import MotionButton from '@/components/motion_components/MotionButton';
+import logError from '@/lib/logError';
 import { LikeStatusResponse, LikeStatusResponseSchema } from '@/schema/schema_like';
 import { getLikeStatus, likePost, unlikePost } from '@/services/service_likes';
 
@@ -27,12 +28,12 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
 
     // Validate response
     if (response.status !== 200) {
-      console.error('Error fetching like status:', response.statusText);
+      logError(response.statusText, 'Error fetching like status');
       return fallback;
     }
     const validatedLikeStatus = LikeStatusResponseSchema.safeParse(response.data);
     if (!validatedLikeStatus.success) {
-      console.error('Invalid like status response:', JSON.stringify(validatedLikeStatus.error));
+      logError(validatedLikeStatus.error, 'Invalid like status response');
       return fallback;
     }
 
@@ -56,18 +57,12 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
         setLiked((prev) => !prev);
         return;
       }
-
-      // 404: post not found or duplicate like
-      if (res.status == 404) return;
-
-      // 401: user not logged in
-      if (res.status == 401) return toast.warning('Please log in to like this post');
-
-      // Other errors
-      throw new Error('Unexpected response status: ' + res.status);
-    } catch (error) {
-      console.error('Error toggling like:', error);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error?.response?.status === 401) return toast.warning('Please log in to like this post');
+      if (error?.response?.status === 404) return; // 404: post not found or duplicate like
       toast.error('Error toggling like. Please try again later.');
+      logError(error, 'Error toggling like');
     } finally {
       setLoading(false);
     }
