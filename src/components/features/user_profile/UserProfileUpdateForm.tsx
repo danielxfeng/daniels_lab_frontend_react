@@ -13,6 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import logError from '@/lib/logError';
 import { UpdateUserBody, UpdateUserBodySchema, UserResponseSchema } from '@/schema/schema_users';
 import { updateUser } from '@/services/service_user';
 import useUserStore from '@/stores/useUserStore';
@@ -48,7 +49,7 @@ const UserProfileUpdateForm = () => {
       // Validate the response
       const validatedUserProfile = UserResponseSchema.safeParse(res.data);
       if (!validatedUserProfile.success) {
-        console.error('Invalid user profile response:', JSON.stringify(validatedUserProfile.error));
+        logError(validatedUserProfile.error, 'Invalid user profile response');
         return;
       }
 
@@ -77,7 +78,7 @@ const UserProfileUpdateForm = () => {
         });
         return;
       }
-      console.error('Error updating user profile:', error.response?.statusText);
+      logError(error, 'Error updating user profile');
       toast.error('Error updating user profile');
     }
   };
