@@ -1,5 +1,14 @@
 import { lazy } from 'react';
-import { createBrowserRouter, redirect } from 'react-router-dom';
+import React from 'react';
+import {
+  createBrowserRouter,
+  createRoutesFromChildren,
+  matchRoutes,
+  redirect,
+  useLocation,
+  useNavigationType,
+} from 'react-router-dom';
+import * as Sentry from '@sentry/react';
 
 import AppLayout from '@/components/layout/AppLayout';
 import Loading from '@/components/shared/Loading';
@@ -18,8 +27,25 @@ import PostsSearchPage from '@/pages/Posts/PostsSearchPage';
 import ProjectsPage from '@/pages/ProjectsPage';
 import UserProfilePage from '@/pages/UserProfilePage';
 
+Sentry.init({
+  dsn: 'https://325afa04bc75e202411addd559ab964f@o4509611650383872.ingest.de.sentry.io/4509702474956880',
+  integrations: [
+    Sentry.reactRouterV7BrowserTracingIntegration({
+      useEffect: React.useEffect,
+      useLocation,
+      useNavigationType,
+      createRoutesFromChildren,
+      matchRoutes,
+    }),
+  ],
+  tracesSampleRate: 1.0,
+});
+
+// Call this AFTER Sentry.init()
+const sentryCreateBrowserRouter = Sentry.wrapCreateBrowserRouterV7(createBrowserRouter);
+
 // The router of the app.
-const router = createBrowserRouter([
+const router = sentryCreateBrowserRouter([
   {
     path: '/',
     Component: AppLayout,
