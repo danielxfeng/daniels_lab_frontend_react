@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/form';
 import siteMeta from '@/constants/siteMeta';
 import getDeviceId from '@/lib/deviceid';
+import logError from '@/lib/logError';
 import { AuthResponseSchema, JoinAdminBody, JoinAdminBodySchema } from '@/schema/schema_auth';
 import { joinAdmin } from '@/services/service_auth';
 
@@ -46,7 +47,7 @@ const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
       const res = await joinAdmin(data);
       const validated = AuthResponseSchema.safeParse(res.data);
       if (!validated.success) {
-        console.error('Invalid response:', JSON.stringify(validated.error));
+        logError(validated.error, 'Invalid response');
         toast.error('Invalid response from server, please try later');
         return;
       }
@@ -62,7 +63,7 @@ const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
         });
         return;
       }
-      console.error('Error joining admin:', err);
+      logError(err, 'Error joining admin');
       toast.error('Failed to join as admin. Please try again later.');
     }
   };
