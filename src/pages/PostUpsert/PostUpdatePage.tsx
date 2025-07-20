@@ -32,7 +32,7 @@ const PostUpdatePage = () => {
     // validate the post
     const validated = PostResponseSchema.safeParse(rawPost);
     if (!validated.success)
-      return throwWithValidationErr('validation error', JSON.stringify(validated.error));
+      return throwWithValidationErr('validation error', validated.error);
 
     // ABAC
     if (user?.id !== validated.data.authorId) {
