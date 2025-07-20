@@ -36,7 +36,7 @@ const AuthPage = () => {
 
     // For failed login.
     if (!accessToken) {
-      console.error('AuthPage: No access token found in URL:', errMsg);
+      logError(errMsg, 'AuthPage: No access token found in URL');
       navigate('/user/login', { state: { error: errMsg } });
       return;
     }
@@ -58,7 +58,6 @@ const AuthPage = () => {
         setUser(userInfo.data);
 
         // Redirect to the specified page or home page.
-        console.log('redirectTo:', redirectTo);
         navigate(redirectTo, { replace: true });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
