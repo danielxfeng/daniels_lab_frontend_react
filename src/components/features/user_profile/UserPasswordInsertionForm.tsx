@@ -14,6 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import logError from '@/lib/logError';
 import { AuthResponseSchema, SetPasswordBody, SetPasswordBodySchema } from '@/schema/schema_auth';
 import { setPassword } from '@/services/service_auth';
 
@@ -45,7 +46,7 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
       const res = await setPassword(data);
       const validated = AuthResponseSchema.safeParse(res.data);
       if (!validated.success) {
-        console.error('Invalid user response:', JSON.stringify(validated.error));
+        logError(validated.error, 'Invalid user response');
         return;
       }
       toast.success('Password updated successfully');
@@ -53,7 +54,7 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
       setDoLogout(true);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      console.error('Error updating password:', err);
+      logError(err, 'Error updating password');
       form.setValue('password', '');
       form.setValue('confirmPassword', '');
     }
