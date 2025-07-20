@@ -26,3 +26,6 @@ dist-ssr
 # vite
 .vite/
 .env
+
+# Sentry Config File
+.env.sentry-build-plugin
