@@ -8,14 +8,13 @@ import { isHttpResponseError } from '@/lib/throwWithErr';
 
 const ErrorBoundary = () => {
   const error = useRouteError();
-  console.error(error);
 
   return (
     <div className='bg-background text-foreground flex min-h-screen flex-grow flex-col items-center justify-center'>
       <Header isBasic={true} />
 
       <main className='outer-container flex flex-grow items-center justify-center'>
-        <div className='inner-container flex flex-col gap-4 flex-grow items-center justify-center'>
+        <div className='inner-container flex flex-grow flex-col items-center justify-center gap-4'>
           <h1>Oops! Something went wrong.</h1>
 
           {/* Handle custom HttpResponseError (recommended) */}
