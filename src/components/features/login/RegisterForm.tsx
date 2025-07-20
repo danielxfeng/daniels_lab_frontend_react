@@ -13,6 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import logError from '@/lib/logError';
 import { AuthResponseSchema, RegisterBody, RegisterBodySchema } from '@/schema/schema_auth';
 import { registerUser } from '@/services/service_auth';
 import useUserStore from '@/stores/useUserStore';
@@ -53,7 +54,8 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
       const validatedRes = AuthResponseSchema.safeParse(res.data);
       if (!validatedRes.success) {
         toast.error('Something went wrong, please try again later');
-        return console.error(`Response error: ${JSON.stringify(validatedRes.error)}`);
+        logError(validatedRes.error, 'Register error');
+        return;
       }
 
       // Success
@@ -83,7 +85,7 @@ const RegisterForm = ({ deviceId }: { deviceId: string }) => {
         return;
       }
       toast.error('Something went wrong, please try again later');
-      console.error('Register error:', error.status);
+      logError(error, 'Register error');
     } finally {
       setValue('password', '');
       setValue('confirmPassword', '');
