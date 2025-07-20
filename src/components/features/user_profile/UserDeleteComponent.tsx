@@ -3,6 +3,7 @@ import { toast } from 'sonner';
 
 import MotionDeleteButton from '@/components/motion_components/MotionDeleteButton';
 import AtomicLogout from '@/components/shared/AtomicLogout';
+import logError from '@/lib/logError';
 import { UserResponse } from '@/schema/schema_users';
 import { deleteUser } from '@/services/service_auth';
 
@@ -21,7 +22,7 @@ const UserDeleteComponent = ({ user }: { user: Partial<UserResponse> }) => {
       toast.success('Account deleted successfully');
       setDoLogout(true);
     } catch (error) {
-      console.error('Error deleting user:', error);
+      logError(error, 'Error deleting user');
       toast.error('Error deleting user');
       return;
     } finally {
