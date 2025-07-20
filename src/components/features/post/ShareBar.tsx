@@ -2,6 +2,7 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaXTwitter } from 'react-icons/fa6
 import { toast } from 'sonner';
 
 import MotionButton from '@/components/motion_components/MotionButton';
+import logError from '@/lib/logError';
 
 /**
  * @summary A component that displays a share bar with social media links.
@@ -16,7 +17,7 @@ const ShareBar = ({ url, title }: { url: string; title: string }) => {
       await navigator.clipboard.writeText(url);
       toast.success('Link copied! You can paste it to Instagram.');
     } catch (err) {
-      console.error('Failed to copy link:', err);
+      logError(err, 'Failed to copy link');
       toast.error('Failed to copy link.');
     }
   };
