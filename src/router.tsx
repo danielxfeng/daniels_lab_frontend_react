@@ -28,7 +28,7 @@ import ProjectsPage from '@/pages/ProjectsPage';
 import UserProfilePage from '@/pages/UserProfilePage';
 
 Sentry.init({
-  dsn: 'https://325afa04bc75e202411addd559ab964f@o4509611650383872.ingest.de.sentry.io/4509702474956880',
+  dsn: import.meta.env.VITE_SENTRY_DSN,
   integrations: [
     Sentry.reactRouterV7BrowserTracingIntegration({
       useEffect: React.useEffect,
