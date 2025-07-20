@@ -14,9 +14,6 @@ const fallback: LikeStatusResponse = {
 
 /**
  * @summary A component that displays the like status of a post.
- * @param postId - The ID of the post to like/unlike.
- * @param userId - The ID of the user. If not provided, the like toggle will be disabled.
- * @returns A React component that displays the like status of a post.
  */
 const Likes = ({ postId, userId }: { postId: string; userId: string | undefined }) => {
   const [count, setCount] = useState<number>(0);

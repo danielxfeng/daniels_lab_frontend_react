@@ -13,13 +13,6 @@ interface MotionTextLinkProps extends ComponentProps<'a'> {
 
 /**
  * @summary MotionTextLink component
- * @description A link component that uses framer-motion for animations.
- * @param to - The URL to link to
- * @param label - The text to be displayed as the link
- * @param isExternal - Whether the link is external or internal
- * @param className - Additional classes for styling
- * @param props - Additional props to be passed to the link
- * @returns A link component with framer-motion animations
  */
 const MotionTextLink = ({ to, label, isExternal, className, ...props }: MotionTextLinkProps) => {
   const content = (

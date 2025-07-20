@@ -12,12 +12,7 @@ import useUserStore from '@/stores/useUserStore';
 /**
  * @summary AuthPage Component
  * @description
- * This is not a normal page.
  * To handle the callback logic of the social media login pipelines.
- * It performs some logic by the redirected URL, then redirects the user to the appropriate page.
- *
- * Tries to parse the redirected URL, extracts the accessToken, and user information.
- * It redirects the user to home page after successful login, or back to login page if failed.
  * @return return null when getting a result, otherwise returns a loading component.
  */
 const AuthPage = () => {

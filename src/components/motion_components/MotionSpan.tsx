@@ -13,13 +13,6 @@ type MotionSpanProps = {
 
 /**
  * @summary MotionSpan component for animating text when it enters the viewport.
- * @description
- * The motion span component animates each character of the text
- * with a fade-in and blur effect. It is useful for creating dynamic text.
- * @param text - The text to animate.
- * @param className - The CSS class to apply to the span.
- * @param delay - The delay between character.
- * @param spanClassNames - the CSS classes to apply to characters.
  */
 const MotionSpan = ({ text, className, delay = 0.03, spanClassNames = [] }: MotionSpanProps) => {
   const textArray = text.split('');

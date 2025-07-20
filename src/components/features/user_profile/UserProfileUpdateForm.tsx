@@ -19,11 +19,6 @@ import useUserStore from '@/stores/useUserStore';
 
 /**
  * @summary UserProfileUpdateForm
- * @description
- * To update the user name and avatar URL.
- * It redirects the user to the home page after a successful update.
- * We need this, otherwise the user will see another form with new values,
- * which is weird.
  */
 const UserProfileUpdateForm = () => {
   const { user, setUser } = useUserStore.getState();
@@ -56,13 +51,6 @@ const UserProfileUpdateForm = () => {
         console.error('Invalid user profile response:', JSON.stringify(validatedUserProfile.error));
         return;
       }
-
-      // Note: about the order:
-      // 1. clear the form values, only the inputs will be re-rendered.
-      // 2. set the user store, does not trigger a re-render since we use the snapshot.
-      // 3. show a success message.
-      // 4. redirect to home page.
-      // By this way, we try to give a clear user experience.
 
       // Clear the values
       setValue('username', '');

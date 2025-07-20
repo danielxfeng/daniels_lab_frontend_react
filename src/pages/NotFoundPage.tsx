@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import MotionButton from '@/components/motion_components/MotionButton';
 import NotificationBar from '@/components/shared/NotificationBar';
 
-// 404 page.
 const NotFoundPage = () => {
   const location = useLocation();
   console.warn('404 warning', location.pathname);

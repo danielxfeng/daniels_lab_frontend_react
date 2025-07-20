@@ -5,9 +5,6 @@ import MotionButton from '@/components/motion_components/MotionButton';
 
 /**
  * @summary A component that displays a share bar with social media links.
- * @param url - The URL to share.
- * @param title - The title of the post.
- * @returns A React component that displays a share bar with social media links.
  */
 const ShareBar = ({ url, title }: { url: string; title: string }) => {
   const encodedUrl = encodeURIComponent(url);

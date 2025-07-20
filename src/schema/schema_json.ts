@@ -2,9 +2,6 @@ import { z } from 'zod';
 
 import { UrlSchema } from './schema_components';
 
-/**
- * The schema for a project card.
- */
 const ProjectSchema = z.object({
   id: z.string().trim().min(1),
   title: z.string().trim().min(1),

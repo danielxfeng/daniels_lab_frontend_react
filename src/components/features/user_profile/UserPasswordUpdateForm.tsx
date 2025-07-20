@@ -23,13 +23,6 @@ import { changePassword } from '@/services/service_auth';
 
 /**
  * @summary UserPasswordUpdateForm
- * @description
- * This component provides a form for users to update their password.
- * It includes fields for the current password, new password,
- * and confirmation of the new password.
- * It handles form submission, validation, and error handling.
- *
- * It logs out the user after a successful password change,
  */
 const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
   const [doLogout, setDoLogout] = useState<boolean>(false);

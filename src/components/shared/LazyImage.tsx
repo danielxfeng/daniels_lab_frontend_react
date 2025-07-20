@@ -5,13 +5,6 @@ import { cn } from '@/lib/utils';
 
 import { Skeleton } from '../ui/skeleton';
 
-/**
- * @summary LazyImage component
- * @param src - The source URL of the image
- * @param alt - The alt text for the image
- * @param className - Additional class names for styling, at least width and height
- * @returns A lazy-loaded image component
- */
 const LazyImage = ({ src, alt, className }: { src: string; alt: string; className: string }) => {
   // Manage the loading state and error state
   const [loaded, setLoaded] = useState(false);

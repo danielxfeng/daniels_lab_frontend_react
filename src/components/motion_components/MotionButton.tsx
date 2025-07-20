@@ -1,15 +1,5 @@
 /**
  * @file MotionButton.tsx
- * @description
- * A button component:
- *  - uses framer-motion for animations;
- *  - supports `button` and `link` types;
- *  - supports icons and text, with customizable positions;
- *  - supports both icon-only buttons and mixed content (icon and text).
- *  - supports both internal and external links.
- *  - supports different sizes, variants, and states (loading, disabled);
- *  - supports tooltips for accessibility;
- *  - supports full-width buttons;
  */
 
 import type { ReactNode } from 'react';
@@ -249,26 +239,6 @@ const BaseButton = (props: MotionButtonProps) => {
  *  - For primary and highlight buttons, it uses a foreground color as the background and a shadow effect.
  *  - For other buttons, it uses a transparent background, and for not icon-only buttons, it applies a border.
  *  - There are 2 types of animations: one for primary and highlight buttons, and another for other buttons.
- *
- * @param props - The properties for the button.
- * @param props.supportingText - The supporting text for the button.
- * @param props.size - The size of the button (sm, md, lg).
- * @param props.variant - The variant of the button (highlight, primary, secondary, ghost, destructive).
- * @param props.icon - The optional icon to be displayed inside the button. Icon and text can not be null at the same time.
- * @param props.text - The optional text to be displayed inside the button. Icon and text can not be null at the same time.
- * @param props.isFullWidth - Whether the button should take the full width of its container.
- * @param props.iconPosition - The position of the icon relative to the text (left, right).
- * @param props.btnClass - Additional classes for the button.
- * @param props.iconClass - Additional classes for the icon.
- * @param props.textClass - Additional classes for the text.
- * @param props.buttonType - The type of the button (button, submit), only applicable for submit buttons.
- * @param props.onClick - The function to be called when the button is clicked, only applicable for submit buttons.
- * @param props.isLoading - Whether the button is in a loading state, only applicable for submit buttons.
- * @param props.isDisabled - Whether the button is disabled, only applicable for submit buttons.
- * @param props.to - The URL to navigate to, only applicable for link buttons.
- * @param props.isExternal - Whether the link button opens in a new tab, only applicable for link buttons.
- * @param props.state - Optional state to be passed to the link, only applicable for link buttons.
- * @returns
  */
 const MotionButton = (props: MotionButtonProps) => {
   if (!props.icon && !props.text)

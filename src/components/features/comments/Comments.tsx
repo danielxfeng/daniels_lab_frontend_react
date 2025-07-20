@@ -44,13 +44,6 @@ const getCommentsHelper = async (postId: string, offset: number): Promise<Commen
 
 /**
  * @summary A component to display the comments of a post.
- * @description
- * 1. Fetches the comments on mounting.
- * 2. Renders a list of CommentCard to display comments, with delete and edit functionality.
- * 3. Upsert feature provided by CommentForm.
- * 4. Load more button to handle pagination.
- * @param postId - The ID of the post to get the comments for.
- * @returns A component to display the comments of a post.
  */
 const Comments = ({ postId }: { postId: string }) => {
   const [comments, setComments] = useState<CommentResponse[]>([]);

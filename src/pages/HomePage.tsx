@@ -3,7 +3,6 @@ import Hero from '@/components/features/home/Hero';
 import ProjectCards from '@/components/features/home/ProjectCards';
 import siteMeta from '@/constants/siteMeta';
 
-// A component to set the meta information for SEO
 const MetaInfo = () => (
   <>
     <title>{`${siteMeta.siteName}`}</title>
@@ -22,10 +21,6 @@ const MetaInfo = () => (
   </>
 );
 
-/**
- * @summary The main page of the application.
- * It contains the hero section, project cards, featured posts, and about me section.
- */
 const HomePage = () => {
   return (
     <>

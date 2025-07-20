@@ -54,8 +54,6 @@ const Post = ({ post }: { post: PostResponse }) => (
 
 /**
  * The PostsList component displays a list of posts.
- * @param postsResponse - The response object containing the list of posts.
- * @returns A posts list component.
  */
 const PostsList = ({ postsResponse }: { postsResponse: PostListResponse }) => {
   return (

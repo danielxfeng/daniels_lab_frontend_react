@@ -7,9 +7,6 @@ import { TagsResponse, TagsResponseSchema } from '@/schema/schema_tag';
 let lastSendTs: number = 0;
 let lastReceivedTs: number = 0;
 
-/**
- * The function to get the hot tags.
- */
 const getHotTags = async (): Promise<AxiosResponse<TagsResponse>> => {
   return await anonymousAxios!.get('/blog/tags/hot');
 };
@@ -18,9 +15,6 @@ const getHotTags = async (): Promise<AxiosResponse<TagsResponse>> => {
  * @summary Search tags by prefix, with debouncing both requests and responses.
  * @description
  * This function will debounce the requests to the server, and also debounce the responses.
- * If the last request was sent less than 500ms ago, it will throw an error.
- * If the response is stale (the timestamp in the response is less than the last received timestamp), it will throw an error.
- * @param prefix the prefix to search for tag
  */
 const debouncedSearchTagsByPrefix = async (
   prefix: string,

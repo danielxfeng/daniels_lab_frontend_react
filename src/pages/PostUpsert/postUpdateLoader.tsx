@@ -3,8 +3,6 @@ import { LoaderFunctionArgs, redirect } from 'react-router-dom';
 import { fetchPost } from '@/lib/fetchPost';
 import useUserStore from '@/stores/useUserStore';
 
-// Loader for the post update page.
-// ABAC and response validation are needed in Page.
 const PostUpdatePage = async ({ params, request }: LoaderFunctionArgs) => {
   const { getUserStatus, user } = useUserStore.getState();
 

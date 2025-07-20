@@ -10,7 +10,6 @@ import { throwWithValidationErr } from '@/lib/throwWithErr';
 import { PostResponse, PostResponseSchema } from '@/schema/schema_post';
 import useUserStore from '@/stores/useUserStore';
 
-// A page to update a post
 const PostUpdatePage = () => {
   const [validatedPost, setValidatedPost] = useState<PostResponse | null>(null);
   const user = useUserStore.getState().user;

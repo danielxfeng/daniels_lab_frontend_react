@@ -65,9 +65,6 @@ DOMPurify.addHook('afterSanitizeAttributes', (node) => {
 
 /**
  * A component to render markdown safety and styled
- * @param markdown - The markdown string to be rendered
- * @param className - Optional additional class names to be applied to the component
- * @returns A React component that renders the markdown string
  */
 const SafeStyledMarkdown = ({ markdown, className }: { markdown: string; className?: string }) => {
   const [html, setHtml] = useState('');

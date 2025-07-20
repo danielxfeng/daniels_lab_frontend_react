@@ -10,7 +10,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import siteMeta from '@/constants/siteMeta';
 import getDeviceId from '@/lib/deviceid';
 
-// A component for the GDPR notice
 const GDPR = () => (
   <div className={'text-muted-foreground mt-8 w-full text-center text-sm'} data-role='gdpr-notice'>
     By continuing, you agree to our{' '}
@@ -26,9 +25,6 @@ const GDPR = () => (
   </div>
 );
 
-/**
- * LoginPage component, with login and register forms.
- */
 const LoginPage = () => {
   const location = useLocation();
   const [deviceId, setDeviceId] = useState<string | null>(null);

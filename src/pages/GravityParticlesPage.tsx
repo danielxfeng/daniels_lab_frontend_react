@@ -5,7 +5,6 @@ import Loading from '@/components/shared/Loading';
 import NotificationBar from '@/components/shared/NotificationBar';
 import siteMeta from '@/constants/siteMeta';
 
-// A component to set the meta information for SEO
 const MetaInfo = () => (
   <>
     <title>{`Gravity Particles - ${siteMeta.siteName}`}</title>

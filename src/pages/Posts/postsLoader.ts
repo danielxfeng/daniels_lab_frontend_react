@@ -14,12 +14,6 @@ import { TagsResponse, TagsResponseSchema } from '@/schema/schema_tag';
 import { getHotTags } from '@/services/service_tags';
 import { getPosts, searchPostsByKeywords } from '@/services/services_posts';
 
-/**
- * @summary A loader function for posts page.
- * @description This function is used to fetch posts and hot tags from the server.
- * @param request - The request object containing the URL and search parameters.
- * @returns
- */
 const postsLoader = async ({
   request,
 }: {

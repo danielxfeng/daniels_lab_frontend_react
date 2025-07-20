@@ -6,7 +6,6 @@ import useThemeStore, { ThemeType } from '@/stores/useThemeStore';
 
 const className = 'text-primary h-6 w-6';
 
-// A helper function to set the HTML theme attribute.
 const setHtmlTheme = (theme: ThemeType) => {
   const html = document.documentElement;
   switch (theme) {
@@ -26,7 +25,6 @@ const ThemeToggle = () => {
   const theme = useThemeStore((s) => s.theme); // Subscribe to the theme state
   const toggleTheme = useThemeStore.getState().toggleTheme;
 
-  // We need the useEffect hook to handle the side effect.
   useEffect(() => {
     setHtmlTheme(theme);
   }, [theme]);

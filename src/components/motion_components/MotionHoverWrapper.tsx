@@ -13,13 +13,6 @@ const radius = 100; // The radius of the circle
 /**
  * @summary A wrapper to provide a hover effect with radial gradient background, based on:
  * @see https://ui.aceternity.com/components/signup-form
- *
- * @remarks
- * The idea is to wrap the component inside a `motion.div`,
- * and draw a radial background based on the mouse position.
- * Since the component covers most of the `motion.div`,
- * only the outer part of the gradient remains visible,
- * which looks a border effect.
  */
 const MotionHoverWrapper = ({ children, className }: MotionHoverWrapperProps) => {
   const [visible, setVisible] = useState(false);

@@ -15,12 +15,6 @@ type SearchHistoryState = {
   addHistory: (entry: string) => void;
 };
 
-/**
- * @summary A Zustand store for managing search history.
- * @description Here we maintain a set of search queries.
- * It allows adding new queries and retrieving the current history.
- * The history is limited to a maximum number of entries.
- */
 const useSearchHistoryStore = create<SearchHistoryState>()(
   persist(
     (set, get) => ({

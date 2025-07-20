@@ -12,7 +12,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 
-// This component is a button that opens a search bar in a sheet when clicked.
 // It uses in the mobile view only.
 const SearchButton = () => {
   const [open, setOpen] = useState(false);

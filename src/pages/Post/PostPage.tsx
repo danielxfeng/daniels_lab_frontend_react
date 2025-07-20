@@ -15,7 +15,6 @@ import siteMeta from '@/constants/siteMeta';
 import { PostResponse } from '@/schema/schema_post';
 import useUserStore from '@/stores/useUserStore';
 
-// A component to set the meta information for SEO
 const MetaInfo = ({ post }: { post: PostResponse }) => (
   <>
     <title>{`${post.title} – ${siteMeta.siteName}`}</title>
