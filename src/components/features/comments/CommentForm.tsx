@@ -1,10 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
+import { ZodError } from 'zod';
 
 import MotionButton from '@/components/motion_components/MotionButton';
 import MotionTextarea from '@/components/motion_components/MotionTextArea';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import logError from '@/lib/logError';
+import { throwWithValidationErr } from '@/lib/throwWithErr';
 import {
   CreateCommentBody,
   CreateCommentBodySchema,
@@ -43,22 +46,18 @@ const CommentForm = ({ user, comment, postId, setComments }: CommentFormProps) =
   } = form;
 
   const createCommentHelper = async (body: CreateCommentBody): Promise<CommentResponse | null> => {
-    const res = await createComment(body);
-    if (res.status !== 201) {
-      console.error('Error creating comment:', res.statusText);
-      return null;
-    }
     try {
+      const res = await createComment(body);
       const comment = await getComment(res.headers.location.split('/').pop() ?? '');
       const validated = CommentResponseSchema.safeParse(comment.data);
-      if (!validated.success) {
-        console.error('Error validating comment:', validated.error);
-        return null;
-      }
+      if (!validated.success) throw validated.error;
       return validated.data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.error('Error fetching created comment:', error.response?.statusText);
+      if (error instanceof ZodError)
+        return throwWithValidationErr('Comment response parsing error', error);
+      logError(error, 'Error on creating a comment.');
+      toast.error('Error on creating a comment, please retry later.');
       return null;
     }
   };
@@ -70,14 +69,14 @@ const CommentForm = ({ user, comment, postId, setComments }: CommentFormProps) =
     try {
       const res = await updateComment(commentId, body);
       const validated = CommentResponseSchema.safeParse(res.data);
-      if (!validated.success) {
-        console.error('Error validating updated comment:', validated.error);
-        return null;
-      }
+      if (!validated.success) throw validated.error;
       return validated.data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.error('Error updating comment:', error.response?.statusText);
+      if (error instanceof ZodError)
+        return throwWithValidationErr('Comment response parsing error', error);
+      logError(error, 'Error on updating a comment.');
+      toast.error('Error on updating a comment, please retry later.');
       return null;
     }
   };
@@ -91,23 +90,18 @@ const CommentForm = ({ user, comment, postId, setComments }: CommentFormProps) =
       ? createCommentHelper(data as CreateCommentBody)
       : updateCommentHelper(comment!.id, data as UpdateCommentBody);
 
-    try {
-      const result = await request;
-      if (!result) throw new Error('Request failed');
+    const result = await request;
 
-      if (isCreate) {
-        setComments((prev) => [result, ...prev]);
-      } else {
-        setComments((prev) =>
-          prev.map((c) => (c.id === comment?.id ? { ...c, content: result.content } : c)),
-        );
-      }
+    if (!result) return;
 
-      reset();
-    } catch (error) {
-      console.error('Error upserting comment:', error);
-      toast.error('Oops! Something went wrong, please try later...');
+    if (isCreate) {
+      setComments((prev) => [result, ...prev]);
+    } else {
+      setComments((prev) =>
+        prev.map((c) => (c.id === comment?.id ? { ...c, content: result.content } : c)),
+      );
     }
+    reset();
   };
 
   return (
