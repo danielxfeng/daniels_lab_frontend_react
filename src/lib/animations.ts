@@ -2,7 +2,7 @@
  * @file This file contains the animation configurations for the application.
  */
 
-import { easeInOut, Easing } from 'framer-motion';
+import { easeInOut, easeOut, Easing } from 'framer-motion';
 
 import { ButtonVariant } from '@/components/motion_components/MotionButton';
 
@@ -21,14 +21,14 @@ const logoImageMotion = {
       'brightness(100%)',
     ],
     transition: {
-      type: 'tween',
+      type: 'tween' as const,
       duration: 0.4,
-      ease: 'easeInOut',
+      ease: easeInOut,
     },
   },
   whileTap: {
     scale: 0.95,
-    transition: { type: 'spring', stiffness: 200, damping: 11 },
+    transition: { type: 'spring' as const, stiffness: 200, damping: 11 },
   },
 };
 
@@ -42,7 +42,7 @@ const navUnderline = {
     width: '100%',
     opacity: 1,
     transition: {
-      type: 'tween',
+      type: 'tween' as const,
       ease: easeInOut,
       duration: 0.4,
     },
@@ -57,7 +57,7 @@ const draggableAnimation = {
   initial: { opacity: 0, y: -12 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -12 },
-  transition: { type: 'tween', ease: easeInOut, duration: 0.4 },
+  transition: { type: 'tween' as const, ease: easeInOut, duration: 0.4 },
 };
 
 /**
@@ -67,12 +67,12 @@ const navTextAnimation = {
   whileHover: {
     scale: 1.02,
     transition: {
-      type: 'tween',
+      type: 'tween' as const,
       ease: easeInOut,
       duration: 0.6,
     },
   },
-  whileTap: { scale: 0.95, transition: { type: 'spring', stiffness: 200, damping: 11 } },
+  whileTap: { scale: 0.95, transition: { type: 'spring' as const, stiffness: 200, damping: 11 } },
 };
 
 /**
@@ -97,12 +97,12 @@ const postCardAnimation = {
     y: -4,
     scale: 1.01,
     transition: {
-      type: 'spring',
+      type: 'spring' as const,
       stiffness: 280,
       damping: 14,
     },
   },
-  whileTap: { scale: 0.98, transition: { type: 'spring', stiffness: 200, damping: 11 } },
+  whileTap: { scale: 0.98, transition: { type: 'spring' as const, stiffness: 200, damping: 11 } },
 };
 
 // The animation for the link component
@@ -110,14 +110,14 @@ const linkAnimation = {
   whileHover: {
     scale: 1.05,
     transition: {
-      type: 'tween',
+      type: 'tween' as const,
       ease: easeInOut,
       duration: 0.4,
     },
   },
   whileTap: {
     scale: 0.95,
-    transition: { type: 'spring', stiffness: 200, damping: 11 },
+    transition: { type: 'spring' as const, stiffness: 200, damping: 11 },
   },
 };
 
@@ -127,7 +127,7 @@ const picAnimation = {
   animate: { opacity: 1, y: 0 },
   whileHover: { scale: 1.02 },
   transition: {
-    type: 'tween',
+    type: 'tween' as const,
     ease: easeInOut,
     duration: 0.4,
   },
@@ -150,7 +150,7 @@ const avatarAnimation = {
   whileTap: {
     scale: 0.98,
     transition: {
-      type: 'spring',
+      type: 'spring' as const,
       stiffness: 300,
       damping: 20,
     },
@@ -204,13 +204,13 @@ const btnAnimation = (variant: ButtonVariant) => {
         boxShadow: `0 0 0px rgba(${color}, 0.5)`,
         scale: 1,
         opacity: 1,
-        transition: { duration: 0.5, ease: 'easeOut' },
+        transition: { duration: 0.5, ease: easeOut },
       },
       animate: {
         boxShadow: `0 0 0px rgba(${color}, 0.5)`,
         scale: 1,
         opacity: 1,
-        transition: { duration: 0.5, ease: 'easeOut' },
+        transition: { duration: 0.5, ease: easeOut },
       },
       whileHover: {
         ...baseHover,
@@ -224,7 +224,7 @@ const btnAnimation = (variant: ButtonVariant) => {
       },
       whileTap: {
         scale: 0.97,
-        transition: { type: 'spring', stiffness: 600, damping: 40 },
+        transition: { type: 'spring' as const, stiffness: 600, damping: 40 },
       },
     };
   }
@@ -233,11 +233,11 @@ const btnAnimation = (variant: ButtonVariant) => {
   return {
     initial: {
       boxShadow: `0 0 0px rgba(${color}, 0.5)`,
-      transition: { duration: 0.5, ease: 'easeOut' },
+      transition: { duration: 0.5, ease: easeOut },
     },
     animate: {
       boxShadow: `0 0 0px rgba(${color}, 0.5)`,
-      transition: { duration: 0.5, ease: 'easeOut' },
+      transition: { duration: 0.5, ease: easeOut },
     },
     whileHover: {
       ...baseHover,
@@ -245,7 +245,7 @@ const btnAnimation = (variant: ButtonVariant) => {
     },
     whileTap: {
       scale: 0.98,
-      transition: { type: 'spring', stiffness: 600, damping: 40 },
+      transition: { type: 'spring' as const, stiffness: 600, damping: 40 },
     },
   };
 };
