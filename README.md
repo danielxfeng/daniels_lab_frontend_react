@@ -1,29 +1,22 @@
-# a_blog_frontend_react_vite
+# Daniel's Lab – Frontend Modules
 
-A SPA for a blog system built with **React** and **Vite**.
+This repository contains the frontend part of **Daniel's Lab**, included as a submodule in the main project.
 
-## Getting Started
+## Included Modules
 
-Before starting the frontend, make sure the backend demo is running:  
-[https://github.com/danielxfeng/a_blog_backend_node/tree/main](https://github.com/danielxfeng/a_blog_backend_node/tree/main)
+- **Portfolio** (`/`)
+  Personal homepage.
 
+- **Blog Management System** (`/blog`)  
+  Frontend for creating and managing blog posts, integrated with the backend content API.
 
-### Setup
+- **User Management System** (`/user`)  
+  Frontend for user authentication and profile management, connected to the main backend.
 
-```bash
-git clone https://github.com/danielxfeng/a_blog_frontend_react.git frontend_react
-cd frontend_react
-npm install
-npm run dev
-```
+- **Gravity Particles** (`/gravity-particles`)  
+  A 3D toy made by Three.js.
 
-Once running, open your browser at:
-[http://localhost:5173/](http://localhost:5173/)
+## Usage
 
-## Todo
-- Abstract the style of input.
-- Ui tweak.
-- Homepage.
-
-## Limitation
-- In demo mode, Tag suggestions and Search bar are limited to seeded data only.
+This repository is designed to work **within the main Daniel's Lab project** and cannot be run independently.  
+For installation and integration steps, refer to the [main project README](https://github.com/danielxfeng/daniels_lab/blob/main/README.md).
