@@ -15,15 +15,7 @@
   },
   {
     "title": "Frontend",
-    "stacks": [
-      "TypeScript",
-      "React",
-      "Tailwind CSS",
-      "ShadCN UI",
-      "Framer Motion",
-      "Playwright",
-      "Vitest"
-    ]
+    "stacks": ["TypeScript", "React", "Tailwind CSS", "Framer Motion", "Vitest"]
   },
   {
     "title": "Systems",

@@ -58,7 +58,7 @@ const AnimatedMesh = ({
 
   const responsivePosition = useMemo(() => {
     return size.width > 768
-      ? ([0, size.height * 0.03, 0] as [number, number, number])
+      ? ([0, size.height * 0, 0] as [number, number, number])
       : ([0, size.height * 0, 0] as [number, number, number]);
   }, [size.width, size.height]);
   const responsiveScale = 0.04;

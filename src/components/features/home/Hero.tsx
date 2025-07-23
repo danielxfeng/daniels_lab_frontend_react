@@ -64,10 +64,10 @@ const Hero = () => {
                 transition={{ duration: 1.8, ease: [0.25, 1, 0.5, 1] }}
                 className='flex flex-col gap-2 font-bold'
               >
-                <span className='text-foreground/75 block text-xl font-semibold tracking-tight drop-shadow-sm sm:text-2xl lg:text-3xl'>
+                <span className='text-foreground/75 block text-2xl font-semibold tracking-tight drop-shadow-sm lg:text-3xl'>
                   Welcome to
                 </span>
-                <span className='block bg-gradient-to-br from-[#615fff] to-[#155dfc] bg-clip-text text-4xl text-transparent drop-shadow-md sm:text-5xl lg:inline-block lg:text-6xl'>
+                <span className='block bg-gradient-to-br from-[#615fff] to-[#155dfc] bg-clip-text text-5xl text-transparent drop-shadow-md lg:inline-block lg:text-6xl'>
                   Daniel's Lab
                 </span>
               </motion.h1>
@@ -88,7 +88,7 @@ const Hero = () => {
                 )}
               />
 
-              <motion.div className='text-foreground/75 mt-10 flex justify-center gap-2 space-y-2 text-xl font-medium text-shadow-sm lg:gap-6'>
+              <motion.div className='text-foreground/75 mt-4 flex justify-center gap-2 space-y-2 text-xl font-medium text-shadow-sm lg:mt-10 lg:gap-6'>
                 {['Web Dev', '·', 'Systems', '·', 'AI'].map((text, index) => (
                   <motion.div
                     key={text + index}

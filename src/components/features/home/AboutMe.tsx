@@ -126,7 +126,10 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
           className='flex w-full flex-col gap-3 lg:flex-row lg:items-center lg:justify-around'
         >
           <div data-role='about-me-tech-stack' className='mt-10 flex flex-col gap-4 lg:gap-2'>
-            <h4 className='mb-4 italic'>Tech stacks</h4>
+            <h4 className='mb-4 flex justify-start items-center gap-1.5'>
+              <span className='not-italic'>⭐</span>
+              <span className='italic'>Tech stacks</span>
+            </h4>
             {techStack.map((item) => (
               <div key={item.title} className='mb-2 flex items-center gap-2'>
                 <div className='text-muted-foreground font-semibold italic'>
