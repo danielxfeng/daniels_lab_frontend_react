@@ -68,7 +68,7 @@ const MotionDeleteButton = (props: MotionDeleteButtonProps) => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel
-            className='text-muted-foreground hover:bg-foreground/5 easeInOut border bg-transparent transition-colors duration-150'
+            className='text-muted-foreground hover:bg-foreground/5 border bg-transparent transition-colors duration-150 ease-in-out'
             disabled={props.isLoading}
           >
             Cancel
@@ -76,7 +76,7 @@ const MotionDeleteButton = (props: MotionDeleteButtonProps) => {
           <AlertDialogAction
             onClick={props.deleteHandler}
             disabled={props.isLoading}
-            className='border-destructive text-destructive hover:bg-destructive/15 easeInOut border bg-transparent transition-colors duration-150'
+            className='border-destructive text-destructive hover:bg-destructive/15 border bg-transparent transition-colors duration-150 ease-in-out'
           >
             Yes, delete
           </AlertDialogAction>

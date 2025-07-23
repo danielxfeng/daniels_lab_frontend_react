@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { useForm, UseFormRegister } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AnimatePresence, easeInOut, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Search } from 'lucide-react';
 
 import MotionButton from '@/components/motion_components/MotionButton';
 import MotionInput from '@/components/motion_components/MotionInput';
+import { classEaseInOut } from '@/lib/animations';
 import { cn } from '@/lib/utils';
 import { KeywordSearchQuerySchema } from '@/schema/schema_post';
 import useSearchHistoryStore from '@/stores/useSearchHistoryStore';
@@ -107,7 +108,7 @@ const DropdownHistory = ({
     <AnimatePresence>
       {showDropdown && filtered.length > 0 && (
         <motion.ul
-          {...easeInOut}
+          {...classEaseInOut}
           id='search-suggestion-list'
           role='listbox'
           aria-label='Search suggestions'

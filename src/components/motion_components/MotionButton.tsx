@@ -94,19 +94,19 @@ const getVariantClasses = (
       );
     case 'ghost':
       return cn(
-        'border-border bg-transparent text-muted-foreground hover:text-highlight transition-colors duration-150 easeInOut',
+        'border-border bg-transparent text-muted-foreground hover:text-highlight transition-colors duration-150 ease-in-out',
         border,
         width,
       );
     case 'destructive':
       return cn(
-        'border-destructive text-destructive bg-transparent hover:bg-destructive/5 transition-colors duration-150 easeInOut',
+        'border-destructive text-destructive bg-transparent hover:bg-destructive/5 transition-colors duration-150 ease-in-out',
         border,
         width,
       );
     case 'tag':
       return cn(
-        'h-6 border-border text-muted-foreground bg-transparent px-2.5 border py-0 rounded-2xl  hover:text-highlight hover:border-highlight transition-colors duration-150 easeInOut',
+        'h-6 border-border text-muted-foreground bg-transparent px-2.5 border py-0 rounded-2xl  hover:text-highlight hover:border-highlight transition-colors duration-150 ease-in-out',
       );
     default:
       return '';
