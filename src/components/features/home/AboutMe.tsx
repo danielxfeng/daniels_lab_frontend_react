@@ -52,7 +52,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
               inactiveZone={0.01}
             />
             <p>
-              <strong className='block mb-2'>Hey!</strong> I am{' '}
+              <strong className='mb-2 block'>Hey!</strong> I am{' '}
               <MotionSpan
                 text={siteMeta.me}
                 className='text-highlight px-2 py-1 text-3xl font-bold text-shadow-md'
@@ -63,9 +63,8 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
               <strong>CS student · Helsinki</strong>
             </p>
             <p>
-              I focus on <strong>full stack</strong> development, both backend and frontend. And
-              also enjoy <strong>system</strong> <strong>programming</strong> and building{' '}
-              <strong>AI</strong> toys.
+              I focus on full stack <strong>web development</strong>, and also enjoy{' '}
+              <strong>system programming</strong> and building <strong>AI</strong> toys.
             </p>
           </div>
         </section>

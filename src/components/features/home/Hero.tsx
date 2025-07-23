@@ -19,7 +19,7 @@ const Hero = () => {
   const [isParticlesHover, setIsParticlesHover] = useState(false);
 
   return (
-    <section data-role='hero' className='relative w-full overflow-hidden leading-relaxed'>
+    <section data-role='hero' className='relative z-40 w-full overflow-hidden leading-relaxed'>
       {/* Background gradient for the hero section */}
       <div
         className='pointer-events-none absolute inset-0 z-5'
@@ -29,7 +29,7 @@ const Hero = () => {
         <div className='absolute bottom-0 left-1/2 h-[30vh] w-[120vw] -translate-x-1/2 rounded-full bg-gradient-to-t from-gray-600 via-transparent to-transparent blur-[100px]' />
       </div>
 
-      {/* Background particles transition effect, we keep it z-50 */}
+      {/* Background particles transition effect */}
       <Suspense fallback={null}>
         <GravityParticles
           mode='container'
@@ -41,13 +41,16 @@ const Hero = () => {
       {/* Main content of the hero section */}
       <div
         data-role='hero-main'
-        className='z-10 mx-auto max-w-4xl px-4 py-6 pt-20 sm:px-6 lg:px-8 lg:py-20'
+        className='z-10 mx-auto w-full max-w-4xl px-4 py-6 pt-10 sm:px-6 lg:px-8 lg:py-18'
       >
         {/* Hero content */}
-        <div data-role='hero-content' className='flex flex-col items-center'>
+        <div
+          data-role='hero-content'
+          className='flex min-h-[70svh] w-full flex-col items-center lg:min-h-[63svh]'
+        >
           <div
             data-role='hero-text'
-            className={'pointer-events-none z-50 flex flex-col items-center'}
+            className='pointer-events-none z-50 flex min-h-[70svh] w-full flex-col items-center justify-between lg:min-h-[63svh]'
           >
             <div
               className={cn(
@@ -59,7 +62,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 0, filter: 'blur(16px)', scale: 1.2 }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
                 transition={{ duration: 1.8, ease: [0.25, 1, 0.5, 1] }}
-                className='font-bold flex flex-col gap-2'
+                className='flex flex-col gap-2 font-bold'
               >
                 <span className='text-foreground/75 block text-xl font-semibold tracking-tight drop-shadow-sm sm:text-2xl lg:text-3xl'>
                   Welcome to
@@ -72,7 +75,7 @@ const Hero = () => {
 
             <div
               className={cn(
-                'mt-56 w-fit rounded-xl p-3',
+                'w-fit rounded-xl p-3',
                 isParticlesHover && 'bg-background/40 pointer-events-none backdrop-blur-sm',
               )}
             >
@@ -86,7 +89,7 @@ const Hero = () => {
               />
 
               <motion.div className='text-foreground/75 mt-10 flex justify-center gap-2 space-y-2 text-xl font-medium text-shadow-sm lg:gap-6'>
-                {['Full stack', '·', 'Systems', '·', 'AI'].map((text, index) => (
+                {['Web Dev', '·', 'Systems', '·', 'AI'].map((text, index) => (
                   <motion.div
                     key={text + index}
                     initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}

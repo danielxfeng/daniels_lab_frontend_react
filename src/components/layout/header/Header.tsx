@@ -8,9 +8,9 @@ import UserComponent from '@/components/layout/header/UserComponent';
 
 const Header = ({ isBasic }: { isBasic?: boolean }) => {
   return (
-    <header className='outer-container bg-[linear-gradient(to_bottom,theme(colors.background)_0%,theme(colors.background)_80%,transparent_100%)] sticky top-0 z-200'>
+    <header className='outer-container border-background/10 bg-background/40 sticky top-0 z-50 backdrop-blur-sm'>
       <div
-        className='inner-container flex items-center justify-between py-3 text-sm'
+        className='inner-container flex items-center justify-between py-3 text-sm tracking-tight'
         data-role='header'
       >
         {/* Left side: Logo and NavLinksDesktop */}

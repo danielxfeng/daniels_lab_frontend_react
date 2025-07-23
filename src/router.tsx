@@ -27,19 +27,21 @@ import PostsSearchPage from '@/pages/Posts/PostsSearchPage';
 import ProjectsPage from '@/pages/ProjectsPage';
 import UserProfilePage from '@/pages/UserProfilePage';
 
-Sentry.init({
-  dsn: import.meta.env.VITE_SENTRY_DSN,
-  integrations: [
-    Sentry.reactRouterV7BrowserTracingIntegration({
-      useEffect: React.useEffect,
-      useLocation,
-      useNavigationType,
-      createRoutesFromChildren,
-      matchRoutes,
-    }),
-  ],
-  tracesSampleRate: 1.0,
-});
+if (import.meta.env.PROD) {
+  Sentry.init({
+    dsn: import.meta.env.VITE_SENTRY_DSN || '',
+    integrations: [
+      Sentry.reactRouterV7BrowserTracingIntegration({
+        useEffect: React.useEffect,
+        useLocation,
+        useNavigationType,
+        createRoutesFromChildren,
+        matchRoutes,
+      }),
+    ],
+    tracesSampleRate: 1.0,
+  });
+}
 
 // Call this AFTER Sentry.init()
 const sentryCreateBrowserRouter = Sentry.wrapCreateBrowserRouterV7(createBrowserRouter);

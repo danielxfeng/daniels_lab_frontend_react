@@ -9,14 +9,24 @@ import { ButtonVariant } from '@/components/motion_components/MotionButton';
  * @description Animation configuration for the logo image.
  */
 const logoImageMotion = {
-  animate: { rotate: 0 },
   whileHover: {
-    rotate: [0, 1.5, 0],
-    filter: ['brightness(100%)', 'brightness(150%)', 'brightness(100%)'],
+    scale: 1.01,
+    filter: [
+      'brightness(100%)',
+      'brightness(120%)',
+      'brightness(150%)',
+      'brightness(120%)',
+      'brightness(100%)',
+    ],
     transition: {
-      duration: 0.3,
+      type: 'tween',
+      duration: 0.4,
       ease: 'easeInOut',
     },
+  },
+  whileTap: {
+    scale: 0.95,
+    transition: { type: 'spring', stiffness: 200, damping: 11 },
   },
 };
 

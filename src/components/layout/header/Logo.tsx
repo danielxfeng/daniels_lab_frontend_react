@@ -3,21 +3,19 @@ import { motion } from 'framer-motion';
 
 import { logoImageMotion } from '@/lib/animations';
 
+const MotionLink = motion.create(Link);
+
 const Logo = () => (
-  <Link to='/' className='flex items-end justify-start' data-role='logo-link' aria-label='Home'>
-    <motion.img
-      src='/icon.svg'
-      alt='Logo light'
-      className='h-12 dark:hidden'
-      {...logoImageMotion}
-    />
-    <motion.img
-      src='/icon-dark.svg'
-      alt='Logo dark'
-      className='hidden h-12 dark:block'
-      {...logoImageMotion}
-    />
-  </Link>
+  <MotionLink
+    to='/'
+    className='font-space-grotesk flex items-center justify-center gap-1.5 text-base font-semibold drop-shadow-md lg:text-xl'
+    data-role='logo-link'
+    aria-label='Home'
+    {...logoImageMotion}
+  >
+    <img src='/logo.svg' alt="Daniel's Lab Logo" className='h-6 w-6' aria-hidden='true' />
+    Daniel's Lab
+  </MotionLink>
 );
 
 export default Logo;
