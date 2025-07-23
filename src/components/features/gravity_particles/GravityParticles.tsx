@@ -70,7 +70,13 @@ const AnimatedMesh = ({
     position: isMinimal ? ([0, 0, 0] as [number, number, number]) : responsivePosition,
 
     onChange: () => {
-      if (!hoverLock.current) hoverLock.current = true;
+      if (!hoverLock.current) {
+        hoverLock.current = true;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any).umami?.track('Particles toggle', {
+          timestamp: new Date().toTimeString().slice(0, 8),
+        });
+      }
     },
     onRest: () => {
       hoverLock.current = false;
