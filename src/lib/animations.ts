@@ -2,6 +2,8 @@
  * @file This file contains the animation configurations for the application.
  */
 
+import { easeInOut, Easing } from 'framer-motion';
+
 import { ButtonVariant } from '@/components/motion_components/MotionButton';
 
 /**
@@ -41,7 +43,7 @@ const navUnderline = {
     opacity: 1,
     transition: {
       type: 'tween',
-      ease: 'easeInOut',
+      ease: easeInOut,
       duration: 0.4,
     },
   },
@@ -55,7 +57,7 @@ const draggableAnimation = {
   initial: { opacity: 0, y: -12 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -12 },
-  transition: { type: 'tween', ease: 'easeInOut', duration: 0.4 },
+  transition: { type: 'tween', ease: easeInOut, duration: 0.4 },
 };
 
 /**
@@ -66,7 +68,7 @@ const navTextAnimation = {
     scale: 1.02,
     transition: {
       type: 'tween',
-      ease: 'easeInOut',
+      ease: easeInOut,
       duration: 0.6,
     },
   },
@@ -74,20 +76,20 @@ const navTextAnimation = {
 };
 
 /**
- * @constant easeInOut
+ * @constant myEaseInOut
  * @description Animation configuration for the ease-in-out effect.
  */
-const easeInOut = {
+const classEaseInOut = {
   initial: { opacity: 0, y: -10 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -10 },
-  transition: { duration: 0.2, ease: 'easeInOut' },
+  transition: { duration: 0.2, ease: easeInOut },
 };
 
 const h1Animation = {
   initial: { opacity: 0, scale: 1.2 },
   animate: { opacity: 1, scale: 1 },
-  transition: { duration: 0.5, ease: 'linear' },
+  transition: { duration: 0.5, ease: [0, 0, 1, 1] as Easing },
 };
 
 const postCardAnimation = {
@@ -109,7 +111,7 @@ const linkAnimation = {
     scale: 1.05,
     transition: {
       type: 'tween',
-      ease: 'easeInOut',
+      ease: easeInOut,
       duration: 0.4,
     },
   },
@@ -126,7 +128,7 @@ const picAnimation = {
   whileHover: { scale: 1.02 },
   transition: {
     type: 'tween',
-    ease: 'easeInOut',
+    ease: easeInOut,
     duration: 0.4,
   },
 };
@@ -142,7 +144,7 @@ const avatarAnimation = {
   whileHover: {
     opacity: 0.7,
     transition: {
-      opacity: { duration: 0.5, ease: 'easeInOut' },
+      opacity: { duration: 0.5, ease: easeInOut },
     },
   },
   whileTap: {
@@ -191,7 +193,7 @@ const btnAnimation = (variant: ButtonVariant) => {
     boxShadow: {
       duration: 1.8,
       repeat: Infinity,
-      ease: 'linear',
+      ease: [0, 0, 1, 1] as Easing,
     },
   };
 
@@ -216,8 +218,8 @@ const btnAnimation = (variant: ButtonVariant) => {
         opacity: 0.9,
         transition: {
           ...baseTransition,
-          scale: { duration: 1.8, repeat: Infinity, ease: 'linear' },
-          opacity: { duration: 0.5, ease: 'easeInOut' },
+          scale: { duration: 1.8, repeat: Infinity, ease: [0, 0, 1, 1] as Easing },
+          opacity: { duration: 0.5, ease: easeInOut },
         },
       },
       whileTap: {
@@ -256,9 +258,9 @@ const loaderAnimation = {
     opacity: [1, 0.85, 1],
   },
   transition: {
-    rotate: { repeat: Infinity, duration: 1.2, ease: 'linear' },
-    scale: { repeat: Infinity, duration: 2.5, ease: 'easeInOut' },
-    opacity: { repeat: Infinity, duration: 2.5, ease: 'easeInOut' },
+    rotate: { repeat: Infinity, duration: 1.2, ease: [0, 0, 1, 1] as Easing },
+    scale: { repeat: Infinity, duration: 2.5, ease: easeInOut },
+    opacity: { repeat: Infinity, duration: 2.5, ease: easeInOut },
   },
 };
 
@@ -266,7 +268,7 @@ const loaderAnimation = {
 const fadeInAnimation = {
   initial: { opacity: 0 },
   animate: { opacity: 1 },
-  transition: { duration: 0.8, delay: 0.3, ease: 'easeInOut' },
+  transition: { duration: 0.8, delay: 0.3, ease: easeInOut },
 };
 
 // The animation for span elements
@@ -301,7 +303,7 @@ const blurCardAnimation = {
   },
   transition: {
     duration: 2.0,
-    ease: [0.25, 1, 0.5, 1],
+    ease: [0.25, 1, 0.5, 1] as Easing,
   },
 };
 
@@ -309,8 +311,8 @@ export {
   avatarAnimation,
   blurCardAnimation,
   btnAnimation,
+  classEaseInOut,
   draggableAnimation,
-  easeInOut,
   fadeInAnimation,
   h1Animation,
   linkAnimation,
