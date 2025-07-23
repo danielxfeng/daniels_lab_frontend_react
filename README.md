@@ -2,6 +2,8 @@
 
 This repository contains the frontend part of **Daniel's Lab**, included as a submodule in the main project.
 
+![Screenshot](/public/Screenshot.png)
+
 ## Included Modules
 
 - **Portfolio** (`/`)
