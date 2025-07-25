@@ -10,7 +10,7 @@ import {
 } from '@/schema/schema_auth';
 import useUserStore from '@/stores/useUserStore';
 
-const baseURL = import.meta.env.VITE_API_BASE_URL || '/api';
+const baseURL = process.env.VITE_API_URL || '/api';
 const headers = {
   'Content-Type': 'application/json',
 };
