@@ -50,7 +50,7 @@ const TagInputComponent = ({
     const run = async () => {
       const validatedKeyword = tagSchema.safeParse(inputValue);
       if (!validatedKeyword.success) {
-        setTagError(validatedKeyword.error.errors[0].message);
+        setTagError(validatedKeyword.error.issues[0].message);
         return;
       }
       setTagError(null); // Clear error
@@ -91,7 +91,7 @@ const TagInputComponent = ({
               e.preventDefault();
               const validatedKeyword = tagSchema.safeParse(inputValue);
               if (!validatedKeyword.success) {
-                setTagError(validatedKeyword.error.errors[0].message);
+                setTagError(validatedKeyword.error.issues[0].message);
                 return;
               }
               setTagError(null);
@@ -123,7 +123,7 @@ const TagInputComponent = ({
                 <li
                   key={s}
                   onClick={() => addTag(s)}
-                  className='hover:bg-muted cursor-pointer px-3 py-1'
+                  className='hover:bg-muted cursor-pointer px-3 py-1 text-xs'
                   data-role='tag-suggestion-item'
                   role='option'
                   aria-label={`Add tag: ${s}`}
