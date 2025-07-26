@@ -43,8 +43,7 @@ const UserProfilePage = () => {
       <title>{`User Profile – ${siteMeta.siteName}`}</title>
       <NotificationBar />
       {/* UserProfileCard */}
-      <div className='flex w-full items-center justify-start gap-5'>
-        {/* User avatar and username */}
+      <MotionH1 className='flex items-center justify-start gap-5 text-start'>
         <Avatar className='h-16 w-16 items-center'>
           <AvatarImage
             src={user.avatarUrl ? user.avatarUrl : undefined}
@@ -52,8 +51,8 @@ const UserProfilePage = () => {
           />
           <AvatarFallback>{user.username?.[0]?.toUpperCase() ?? 'U'}</AvatarFallback>
         </Avatar>
-        <MotionH1 className='flex items-center justify-center'>{user.username}</MotionH1>
-      </div>
+        {user.username}
+      </MotionH1>
 
       <Tabs defaultValue='account' className='mx-auto mt-8 flex max-w-2xl items-center'>
         <TabsList className='mb-4 w-full'>
