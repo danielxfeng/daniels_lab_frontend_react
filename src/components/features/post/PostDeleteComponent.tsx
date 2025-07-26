@@ -15,7 +15,7 @@ const PostDeleteComponent = ({ postId }: { postId: string }) => {
       setIsLoading(true);
       await deletePost(postId);
 
-      toast('Post deleted successfully!');
+      toast.success('Post deleted successfully!');
       setTimeout(() => {
         navigate(`/blog/posts`);
       }, 1000);

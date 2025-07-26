@@ -68,11 +68,12 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
 
       // Validate the response, and redirect to the post page
       const slug = getSlug(!post, res);
-      toast(`Post ${isCreate ? 'created' : 'updated'} successfully!`);
+      toast.success(`Post ${isCreate ? 'created' : 'updated'} successfully!`);
       setTimeout(() => {
         navigate(`/blog/posts/${slug}`);
       }, 1000);
     } catch (error) {
+      toast.error('Error submitting post');
       logError(error, 'Error submitting post');
     }
   };
