@@ -52,7 +52,7 @@ const UserProfilePage = () => {
           />
           <AvatarFallback>{user.username?.[0]?.toUpperCase() ?? 'U'}</AvatarFallback>
         </Avatar>
-        <MotionH1>{user.username}</MotionH1>
+        <MotionH1 className='flex items-center justify-center'>{user.username}</MotionH1>
       </div>
 
       <Tabs defaultValue='account' className='mx-auto mt-8 flex max-w-2xl items-center'>
