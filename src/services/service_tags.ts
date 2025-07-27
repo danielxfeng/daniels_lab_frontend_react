@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import { anonymousAxios } from '@/lib/axiosInstance';
-import { throwDebouncedErr, throwWithValidationErr } from '@/lib/throwWithErr';
+import { throwWithValidationErr } from '@/lib/throwWithErr';
 import { TagsResponse, TagsResponseSchema } from '@/schema/schema_tag';
 
 let lastSendTs: number = 0;
@@ -18,11 +18,10 @@ const getHotTags = async (): Promise<AxiosResponse<TagsResponse>> => {
  */
 const debouncedSearchTagsByPrefix = async (
   prefix: string,
-): Promise<AxiosResponse<TagsResponse>> => {
+): Promise<AxiosResponse<TagsResponse> | null> => {
   // Debounce the requests, if the last request was sent less than 500ms ago, throw an error
   const ts = Date.now();
-  if (ts - lastSendTs < 500)
-    return throwDebouncedErr(`Too many requests for tag search: ${prefix}`);
+  if (ts - lastSendTs < 500) return null;
   lastSendTs = ts;
 
   // Debounce the responses, if the response was a stale one, throw an error
@@ -33,7 +32,7 @@ const debouncedSearchTagsByPrefix = async (
   }
   const resTs = validatedResponse.data.ts;
   if (!resTs || resTs < lastReceivedTs) {
-    return throwDebouncedErr(`Stale response for tag search: ${prefix}`);
+    return null;
   }
   lastReceivedTs = resTs;
   return response;
