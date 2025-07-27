@@ -57,6 +57,8 @@ const TagInputComponent = ({
       // Try to fetch from the server
       try {
         const suggestionsRes = await debouncedSearchTagsByPrefix(validatedKeyword.data);
+        if (!suggestionsRes) return;
+
         const validatedSuggestions = TagsResponseSchema.safeParse(suggestionsRes.data);
         if (!validatedSuggestions.success) {
           logError(validatedSuggestions.error, 'Invalid suggestions response');
