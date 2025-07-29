@@ -14,11 +14,10 @@ const Footer = () => (
           <ContactLink key={prop.supportText} {...prop} />
         ))}
       </div>
-      <div data-role='footer-copyright'>
-        This website is open sourced on{' '}
+      <div data-role='footer-terms'>
         <MotionTextLink
-          to='https://github.com/danielxfeng/daniels_lab'
-          label='Github'
+          to='https://danielslab.com/terms'
+          label='Terms and Privacy Policy'
           isExternal={true}
           className='underline'
         />
