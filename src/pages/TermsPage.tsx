@@ -10,7 +10,7 @@ const TermsPage = () => (
     <NotificationBar />
     <h1>Terms, Conditions, and Privacy Policy</h1>
     <p>
-      <strong>Last updated:</strong> April 30, 2025
+      <strong>Last updated:</strong> July 29, 2025
     </p>
 
     <h2>Terms and Conditions</h2>
@@ -77,8 +77,8 @@ const TermsPage = () => (
         reply to your message.
       </li>
       <li>
-        <strong>Analytics:</strong> We collect anonymous usage statistics without using cookies or
-        tracking your personal activity.
+        <strong>Analytics & Monitoring:</strong> We use Umami for anonymous usage analytics and
+        Sentry for error monitoring. These tools are only used to improve site reliability and performance.
       </li>
     </ul>
 
