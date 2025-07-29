@@ -16,7 +16,7 @@ const Footer = () => (
       </div>
       <div data-role='footer-terms'>
         <MotionTextLink
-          to='https://danielslab.com/terms'
+          to='https://danielslab.dev/terms'
           label='Terms and Privacy Policy'
           isExternal={true}
           className='underline'
