@@ -78,7 +78,7 @@ const getVariantClasses = (
   switch (variant) {
     case 'highlight':
       return cn(
-        'bg-gradient text-highlight-foreground shadow-highlight/20 shadow hover:shadow-highlight/30 transition-colors duration-150 ease-out',
+        'bg-gradient text-highlight-foreground shadow-highlight/20 shadow hover:bg-gradient/30 hover:shadow-highlight/30 transition-colors duration-150 ease-out',
         width,
       );
     case 'primary':
