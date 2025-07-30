@@ -244,7 +244,7 @@ const SearchBar = ({ setOpen }: { setOpen?: React.Dispatch<React.SetStateAction<
             onClick={() => {
               handleSubmit(onSubmit)(); // Submit the form
             }}
-            variant='ghost'
+            variant='no-animation'
             size='sm'
             supportingText='Search posts'
             icon={<Search />}

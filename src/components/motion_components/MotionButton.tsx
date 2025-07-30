@@ -13,7 +13,14 @@ import { cn } from '@/lib/utils';
 
 type ButtonSize = 'sm' | 'md' | 'lg';
 type ButtonType = 'button' | 'submit';
-type ButtonVariant = 'highlight' | 'primary' | 'secondary' | 'ghost' | 'destructive' | 'tag';
+type ButtonVariant =
+  | 'highlight'
+  | 'primary'
+  | 'secondary'
+  | 'ghost'
+  | 'destructive'
+  | 'tag'
+  | 'no-animation';
 type IconPosition = 'left' | 'right';
 
 type CommonProps = {
@@ -78,7 +85,7 @@ const getVariantClasses = (
   switch (variant) {
     case 'highlight':
       return cn(
-        'bg-gradient text-highlight-foreground shadow-highlight/20 shadow hover:shadow-highlight/30 transition-colors duration-150 ease-out',
+        'bg-gradient text-highlight-foreground shadow-highlight/20 shadow hover:bg-gradient/30 hover:shadow-highlight/30 transition-colors duration-150 ease-out',
         width,
       );
     case 'primary':
@@ -92,6 +99,7 @@ const getVariantClasses = (
         border,
         width,
       );
+    case 'no-animation':
     case 'ghost':
       return cn(
         'border-border bg-transparent text-muted-foreground hover:text-highlight transition-colors duration-150 ease-in-out',

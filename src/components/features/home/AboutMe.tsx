@@ -33,7 +33,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
               <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
               <AvatarFallback>Daniel</AvatarFallback>{' '}
             </Avatar>
-            <div className='flex justify-between' data-role='about-me-avatar-contact-links'>
+            <div className='flex justify-between gap-1.5' data-role='about-me-avatar-contact-links'>
               {contactIconList.map((prop) => (
                 <ContactLink key={prop.supportText} {...prop} />
               ))}

@@ -9,7 +9,7 @@ const Footer = () => (
       className='inner-container flex flex-col items-center justify-center gap-3 lg:max-w-2xl lg:flex-row lg:justify-between'
       data-role='footer'
     >
-      <div className='flex' data-role='footer-contact-links'>
+      <div className='flex gap-1.5' data-role='footer-contact-links'>
         {contactIconList.map((prop) => (
           <ContactLink key={prop.supportText} {...prop} />
         ))}
