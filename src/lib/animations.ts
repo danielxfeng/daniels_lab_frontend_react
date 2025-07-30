@@ -182,18 +182,15 @@ const btnAnimation = (variant: ButtonVariant) => {
     boxShadow: [
       `0 0 0px rgba(${color}, 0.5)`,
       `0 0 3px rgba(${color}, 0.7)`,
-      `0 0 6px rgba(${color}, 0.9)`,
-      `0 0 3px rgba(${color}, 0.7)`,
-      `0 0 0px rgba(${color}, 0.5)`,
+      `0 0 4px rgba(${color}, 0.8)`,
     ],
   };
 
   // Per-property breathing transition (shared)
   const baseTransition = {
     boxShadow: {
-      duration: 1.8,
-      repeat: Infinity,
-      ease: [0, 0, 1, 1] as Easing,
+      duration: 0.4,
+      ease: easeInOut,
     },
   };
 
@@ -213,6 +210,16 @@ const btnAnimation = (variant: ButtonVariant) => {
         boxShadow: `0 4px 10px rgba(0,0,0,0.2), 0 4px 10px rgba(${color},0.25)`,
         filter: 'brightness(0.98)',
         transition: { duration: 0.2, ease: easeInOut },
+      },
+    };
+  }
+
+  // No-animation variant
+  if (variant === 'no-animation') {
+    return {
+      whileTap: {
+        scale: 0.98,
+        transition: { type: 'spring' as const, stiffness: 600, damping: 40 },
       },
     };
   }
