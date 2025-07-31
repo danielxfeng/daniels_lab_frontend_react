@@ -102,7 +102,7 @@ const PostPage = () => {
               <Likes postId={post.id} userId={user?.id} />
               {/* The post tags */}
               <div className='flex items-center gap-2' data-role='post-tags'>
-                <div className='mr-2 text-sm' data-role='post-tags-label'>
+                <div className='mr-2 text-sm font-semibold' data-role='post-tags-label'>
                   Tags:
                 </div>
                 <div className='flex flex-wrap gap-2' data-role='post-tags-list'>
@@ -118,7 +118,7 @@ const PostPage = () => {
                 </div>
               </div>
             </div>
-            <hr className='border-border my-3 w-full border-t' />
+            <hr className='border-highlight/80 my-6 w-full border-t-2' />
             {/* The post comments */}
             <Comments postId={post.id} />
           </footer>
