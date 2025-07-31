@@ -23,7 +23,7 @@ const ShareBar = ({ url, title }: { url: string; title: string }) => {
   };
 
   return (
-    <div className='flex w-full justify-end' data-role='share-bar'>
+    <div className='flex w-full justify-start gap-5 lg:justify-end' data-role='share-bar'>
       {/* LinkedIn */}
       <MotionButton
         to={`https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}`}
@@ -44,6 +44,7 @@ const ShareBar = ({ url, title }: { url: string; title: string }) => {
         icon={<FaXTwitter />}
         supportingText='Share on X'
         isExternal={true}
+        btnClass='-mr-3'
         dataRole='button-share-x-twitter'
       />
 
