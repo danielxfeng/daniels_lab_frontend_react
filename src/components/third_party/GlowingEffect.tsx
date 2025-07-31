@@ -1,7 +1,8 @@
 // https://ui.aceternity.com/components/glowing-effect
 import { memo, useCallback, useEffect, useRef } from 'react';
-import { cn } from '@/lib/utils';
 import { animate } from 'motion/react';
+
+import { cn } from '@/lib/utils';
 
 interface GlowingEffectProps {
   blur?: number;
@@ -67,7 +68,7 @@ const GlowingEffect = memo(
             mouseY > top - proximity &&
             mouseY < top + height + proximity;
 
-          element.style.setProperty('--active', isActive ? '1' : '1');
+          element.style.setProperty('--active', isActive ? '1' : '0');
 
           if (!isActive) return;
 

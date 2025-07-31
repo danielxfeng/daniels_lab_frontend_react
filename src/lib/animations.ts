@@ -302,6 +302,18 @@ const blurCardAnimation = {
   },
 };
 
+const featuredProjectsAnimation = {
+  initial: {
+    y: 0,
+    scale: 1,
+  },
+  whileHover: {
+    y: -3,
+    scale: 1.02,
+  },
+  transition: { type: 'spring' as const, stiffness: 200, damping: 20 },
+};
+
 export {
   avatarAnimation,
   blurCardAnimation,
@@ -309,6 +321,7 @@ export {
   classEaseInOut,
   draggableAnimation,
   fadeInAnimation,
+  featuredProjectsAnimation,
   h1Animation,
   linkAnimation,
   loaderAnimation,
