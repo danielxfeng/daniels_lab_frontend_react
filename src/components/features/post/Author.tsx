@@ -10,7 +10,7 @@ const Author = ({ name, avatarUrl }: { name: string; avatarUrl?: string }) => {
         <AvatarImage src={avatarUrl} alt={`${name}'s avatar`} />
         <AvatarFallback>{name?.[0] ?? 'U'}</AvatarFallback>
       </Avatar>
-      <span className='text-muted-foreground ml-2 text-sm font-medium' data-role='author-name'>
+      <span className='text-foreground ml-2 text-sm font-medium' data-role='author-name'>
         {name}
       </span>
     </div>

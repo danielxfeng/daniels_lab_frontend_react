@@ -14,7 +14,7 @@ import TagsBar from '../tags/TagsBar';
 const Post = ({ post }: { post: PostResponse }) => (
   <motion.article
     {...postCardAnimation}
-    className='bg-background flex flex-col gap-2 rounded-2xl px-5 py-5 shadow-md transition-all hover:bg-white hover:shadow-lg dark:hover:bg-neutral-950'
+    className='border-muted/80 bg-background flex flex-col gap-2 rounded-2xl border px-5 py-5 shadow-md transition-all hover:bg-white hover:shadow-lg dark:hover:bg-neutral-950'
     data-role='post-card'
   >
     <Link to={`/blog/posts/${post.slug}`}>
@@ -31,7 +31,7 @@ const Post = ({ post }: { post: PostResponse }) => (
           data-role='post-card-cover-image'
         />
       </Link>
-      <div className='bg-border hidden h-24 w-px rounded lg:flex' />
+      <div className='bg-border hidden h-24 w-1 rounded lg:flex' />
       {/* The post excerpt */}
       <Link to={`/blog/posts/${post.slug}`} className='overflow-hidden text-sm italic'>
         <SafeStyledMarkdown markdown={post.excerpt} />

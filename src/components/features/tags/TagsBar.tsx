@@ -8,8 +8,8 @@ const TagsBar = ({ tags }: { tags: string[] }) => {
     return null; // Return null if there are no tags to display
   }
   return (
-    <div className='flex items-center gap-2' data-role='tags-bar'>
-      <div className='mr-2' data-role='tags-bar-label'>
+    <div className='flex items-center gap-1' data-role='tags-bar'>
+      <div className='text-foreground mr-2 font-semibold italic' data-role='tags-bar-label'>
         Tags:
       </div>
       <div className='flex flex-wrap items-center gap-1.5'>

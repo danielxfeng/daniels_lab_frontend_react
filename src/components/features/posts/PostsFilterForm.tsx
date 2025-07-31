@@ -245,12 +245,12 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                                 </Button>
                               </FormControl>
                             </PopoverTrigger>
-                            <PopoverContent className='w-auto p-0'>
+                            <PopoverContent className='w-auto p-0' align='center'>
                               <Calendar
                                 mode='single'
                                 selected={valueAsDate}
                                 onSelect={(date) => field.onChange(date?.toISOString())}
-                                initialFocus
+                                captionLayout='dropdown'
                               />
                             </PopoverContent>
                           </Popover>

@@ -22,6 +22,10 @@ const PostsMain = ({ postsListRes, hotTags, children }: PostsMainProps) => {
       {children}
       <div className='inner-container flex flex-col items-start' data-role='posts-main-container'>
         <MotionH1>Posts</MotionH1>
+        <p className='text-muted-foreground -mt-4 mb-10 text-lg italic lg:max-w-3/4'>
+          Join me as I share my thoughts and experiences in digital voyages, where curiosity meets
+          code, creativity, and the frontiers of modern tech.
+        </p>
         <div
           className='flex w-full flex-col gap-3 lg:flex-row lg:justify-between lg:gap-10'
           data-role='posts-main'
