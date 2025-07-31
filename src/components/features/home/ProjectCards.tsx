@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';
 import MotionH1 from '@/components/motion_components/MotionH1';
-import MotionWobbleCard from '@/components/motion_components/MotionWobbleCard';
 import LazyImage from '@/components/shared/LazyImage';
+import { GlowingEffect } from '@/components/third_party/GlowingEffect';
 import rawProjects from '@/constants/projects.json';
+import { featuredProjectsAnimation } from '@/lib/animations';
 import { throwWithUserValidationErr } from '@/lib/throwWithErr';
 import { ProjectsSchema } from '@/schema/schema_json';
 
@@ -31,54 +33,60 @@ const ProjectCards = ({ position }: { position: 'page' | 'div' }) => {
 
       <div
         data-role='projects-list'
-        className='mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3'
+        className='mt-12 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3'
       >
         {projects.map((project) => (
           <Link to={project.projectLink} key={project.id}>
-            <MotionWobbleCard containerClassName='h-full dark:border-muted dark:border dark:lg:border-none'>
-              <article
-                data-role='project-card'
-                className='flex h-full flex-col justify-between gap-3'
-              >
-                <div data-role='project-card-top' className='flex flex-col justify-start'>
-                  {/* Picture of project */}
-                  <LazyImage
-                    src={project.coverUrl}
-                    alt={project.title}
-                    className='aspect-[2/1] w-full rounded-lg shadow-xl'
-                  />
-                  {/* Title of project */}
-                  <h4 className='text-shadow mt-5 mb-3 text-center'>{project.title}</h4>
-                  {/* The description of project */}
-                  <SafeStyledMarkdown
-                    markdown={project.description}
-                    className='text-muted-foreground text-sm'
-                  />
-                </div>
+            <motion.article
+              data-role='project-card'
+              className='border-muted relative flex h-full flex-col justify-between gap-3 rounded-xl border p-5 shadow-sm'
+              {...featuredProjectsAnimation}
+            >
+              <GlowingEffect
+                spread={40}
+                glow={true}
+                disabled={false}
+                proximity={64}
+                inactiveZone={0.01}
+              />
+              <div data-role='project-card-top' className='flex flex-col justify-start'>
+                {/* Picture of project */}
+                <LazyImage
+                  src={project.coverUrl}
+                  alt={project.title}
+                  className='aspect-[2/1] w-full rounded-lg shadow-xl'
+                />
+                {/* Title of project */}
+                <h4 className='text-shadow mt-5 mb-3 text-center'>{project.title}</h4>
+                {/* The description of project */}
+                <SafeStyledMarkdown
+                  markdown={project.description}
+                  className='text-muted-foreground text-sm'
+                />
+              </div>
 
-                <div
-                  data-role='project-card-bottom'
-                  className='flex flex-col justify-end gap-5 text-sm'
+              <div
+                data-role='project-card-bottom'
+                className='flex flex-col justify-end gap-5 text-sm'
+              >
+                <hr className='text-muted'></hr>
+                {/* Tech stacks */}
+                <p
+                  data-role='project-stacks'
+                  className='flex flex-wrap justify-center gap-1.5 font-semibold italic'
                 >
-                  <hr className='text-muted'></hr>
-                  {/* Tech stacks */}
-                  <p
-                    data-role='project-stacks'
-                    className='flex flex-wrap justify-center gap-1.5 font-semibold italic'
-                  >
-                    {project.stack.map((s) => (
-                      <span
-                        data-role='project-stack'
-                        key={s}
-                        className='bg-muted/40 rounded-full px-2 py-1 text-xs'
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </p>
-                </div>
-              </article>
-            </MotionWobbleCard>
+                  {project.stack.map((s) => (
+                    <span
+                      data-role='project-stack'
+                      key={s}
+                      className='bg-muted/40 rounded-full px-2 py-1 text-xs'
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </p>
+              </div>
+            </motion.article>
           </Link>
         ))}
       </div>
