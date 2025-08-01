@@ -56,7 +56,7 @@ const PostPage = () => {
             className='aspect-[2/1] w-3/4 rounded-xl shadow-2xl'
           />
 
-          <MotionH1 className='text-center leading-normal !tracking-normal lg:mt-8'>
+          <MotionH1 className='text-center leading-normal !tracking-normal lg:mt-8 !mb-2'>
             {post.title}
           </MotionH1>
 
