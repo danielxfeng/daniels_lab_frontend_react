@@ -139,7 +139,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                 </div>
                 <div className='flex flex-wrap gap-2 text-sm font-medium'>
                   {item.stacks.map((value) => (
-                    <Badge key={value} variant='default' className='bg-gradient rounded-full'>
+                    <Badge key={value} variant='default' className='bg-gradient rounded-full text-neutral-100'>
                       {value}
                     </Badge>
                   ))}
