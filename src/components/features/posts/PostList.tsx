@@ -38,7 +38,7 @@ const Post = ({ post }: { post: PostResponse }) => (
       </Link>
     </div>
     <footer
-      className='text-muted-foreground mt-auto flex flex-col items-start gap-2 text-xs'
+      className='text-muted-foreground mt-auto flex flex-col items-start gap-4 text-xs'
       data-role='post-card-footer'
     >
       <TagsBar tags={post.tags} />

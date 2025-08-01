@@ -15,8 +15,8 @@ type AuthorDateBarProps = {
 const AuthorDateBar = ({ authorName, authorAvatar, createdAt, updatedAt }: AuthorDateBarProps) => (
   <div className='flex w-full items-center justify-between' data-role='author-date-bar'>
     <Author name={authorName} avatarUrl={authorAvatar ?? undefined} />
-    <div className='text-muted-foreground text-sm' data-role='author-date-bar-date'>
-      <span className='text-xs'>Updated At:</span>{' '}
+    <div className='text-muted-foreground text-xs' data-role='author-date-bar-date'>
+      <span>Updated At:</span>{' '}
       <span className='text-foreground italic'>
         {format(new Date(updatedAt || createdAt!), 'PP')}
       </span>
