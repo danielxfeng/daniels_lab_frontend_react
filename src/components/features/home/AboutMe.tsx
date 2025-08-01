@@ -4,6 +4,7 @@ import MotionSpan from '@/components/motion_components/MotionSpan';
 import ContactLink from '@/components/shared/ContactLink';
 import { GlowingEffect } from '@/components/third_party/GlowingEffect';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 import contactIconList from '@/constants/contactLinks';
 import siteMeta from '@/constants/siteMeta';
 import rawTechStack from '@/constants/techStack.json';
@@ -126,7 +127,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
           className='flex w-full flex-col gap-3 lg:flex-row lg:items-center lg:justify-around'
         >
           <div data-role='about-me-tech-stack' className='mt-10 flex flex-col gap-4 lg:gap-2'>
-            <h4 className='mb-4 flex justify-start items-center gap-1.5'>
+            <h4 className='mb-4 flex items-center justify-start gap-1.5'>
               <span className='not-italic'>⭐</span>
               <span className='italic'>Tech stacks</span>
             </h4>
@@ -138,9 +139,9 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                 </div>
                 <div className='flex flex-wrap gap-2 text-sm font-medium'>
                   {item.stacks.map((value) => (
-                    <span key={value} className='bg-highlight/30 rounded-full px-2 py-0.5'>
+                    <Badge key={value} variant='default' className='bg-gradient rounded-full'>
                       {value}
-                    </span>
+                    </Badge>
                   ))}
                 </div>
               </div>

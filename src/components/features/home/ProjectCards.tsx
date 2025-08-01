@@ -5,6 +5,7 @@ import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import LazyImage from '@/components/shared/LazyImage';
 import { GlowingEffect } from '@/components/third_party/GlowingEffect';
+import { Badge } from '@/components/ui/badge';
 import rawProjects from '@/constants/projects.json';
 import { featuredProjectsAnimation } from '@/lib/animations';
 import { throwWithUserValidationErr } from '@/lib/throwWithErr';
@@ -76,13 +77,9 @@ const ProjectCards = ({ position }: { position: 'page' | 'div' }) => {
                   className='flex flex-wrap justify-center gap-1.5 font-semibold italic'
                 >
                   {project.stack.map((s) => (
-                    <span
-                      data-role='project-stack'
-                      key={s}
-                      className='bg-muted/40 rounded-full px-2 py-1 text-xs'
-                    >
+                    <Badge key={s} variant='secondary' className='bg-muted/40 rounded-full'>
                       {s}
-                    </span>
+                    </Badge>
                   ))}
                 </p>
               </div>
