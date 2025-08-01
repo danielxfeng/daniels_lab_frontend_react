@@ -1,4 +1,4 @@
-import { ZodError, ZodIssueCode } from 'zod';
+import { ZodError } from 'zod';
 
 import { PostSlugQuerySchema } from '@/schema/schema_components';
 import { PostResponse, PostResponseSchema } from '@/schema/schema_post';
@@ -27,9 +27,9 @@ const fetchPost = async (unsafeSlug: string): Promise<{ post: PostResponse }> =>
   const validatedPost = PostResponseSchema.safeParse(rawPostRes.data);
   if (!validatedPost.success || !validatedPost.data.markdown) {
     const err = validatedPost.success
-      ? new ZodError<PostResponse>([
+      ? new ZodError([
           {
-            code: ZodIssueCode.custom,
+            code: 'custom',
             message: 'markdown is missing',
             path: ['markdown'],
           },

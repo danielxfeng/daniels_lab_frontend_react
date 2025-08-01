@@ -14,8 +14,13 @@ import NotificationBar from '@/components/shared/NotificationBar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import siteMeta from '@/constants/siteMeta';
+import { authGuard } from '@/lib/authGuard';
 import getDeviceId from '@/lib/deviceid';
 import useUserStore from '@/stores/useUserStore';
+
+const clientLoader = async ({ request }: { request: Request }) => {
+  return authGuard({ request });
+};
 
 const UserProfilePage = () => {
   const location = useLocation();
@@ -93,3 +98,6 @@ const UserProfilePage = () => {
 };
 
 export default UserProfilePage;
+
+// eslint-disable-next-line react-refresh/only-export-components
+export { clientLoader };

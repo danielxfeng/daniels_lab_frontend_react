@@ -1,18 +1,13 @@
-import { sentryVitePlugin } from '@sentry/vite-plugin';
+import { reactRouter } from '@react-router/dev/vite';
 import tailwindcss from '@tailwindcss/vite';
-import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    react(),
+    reactRouter(),
     tailwindcss(),
-    sentryVitePlugin({
-      org: 'daniel-xx',
-      project: 'homepage',
-    }),
   ],
   resolve: {
     alias: {
@@ -25,6 +20,9 @@ export default defineConfig({
         target: 'http://localhost:3000',
         changeOrigin: true,
       },
+    },
+    hmr: {
+      overlay: false,
     },
   },
   build: {

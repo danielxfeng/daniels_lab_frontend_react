@@ -1,12 +1,81 @@
-import { isRouteErrorResponse } from 'react-router';
+import { Suspense } from 'react';
+import {
+  isRouteErrorResponse,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from 'react-router';
 import { isAxiosError } from 'axios';
 
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/header/Header';
 import MotionButton from '@/components/motion_components/MotionButton';
+import Loading from '@/components/shared/Loading';
+import ToasterWithTheme from '@/components/shared/ToasterWithTheme';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { isHttpResponseError } from '@/lib/throwWithErr';
 
-const ErrorBoundary = ({ error }: { error: unknown }) => {
+import { Route } from '.react-router/types/src/+types/root';
+
+import '@/index.css';
+
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <html lang='en'>
+      <head>
+        <meta charSet='UTF-8' />
+        <link rel='icon' type='image/png' href='/favicon-96x96.png' sizes='96x96' />
+        <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+        <link rel='shortcut icon' href='/favicon.ico' />
+        <link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png' />
+        <link rel='manifest' href='/site.webmanifest' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+
+        <Meta />
+        <Links />
+
+        <link rel='preconnect' href='https://fonts.googleapis.com' />
+        <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
+        <link
+          href='https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Grotesk:wght@300..700&display=swap'
+          rel='stylesheet'
+        />
+        <script
+          defer
+          src='https://stats.danielslab.dev/script.js'
+          data-website-id='0dcc26fb-c5b3-42f4-a041-875c1e64bd9c'
+        ></script>
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
+};
+
+const Root = () => {
+  return (
+    <div className='bg-background text-foreground flex min-h-screen flex-col'>
+      <Header />
+      <main className='outer-container flex flex-grow flex-col'>
+        <Suspense fallback={<Loading />}>
+          <TooltipProvider>
+            <Outlet />
+          </TooltipProvider>
+        </Suspense>
+      </main>
+      {/* Footer */}
+      <Footer />
+      <ToasterWithTheme />
+    </div>
+  );
+};
+
+const ErrorBoundary = ({ error }: Route.ErrorBoundaryProps) => {
   return (
     <div className='bg-background text-foreground flex min-h-screen flex-grow flex-col items-center justify-center'>
       <Header isBasic={true} />
@@ -86,4 +155,5 @@ const ErrorBoundary = ({ error }: { error: unknown }) => {
   );
 };
 
-export default ErrorBoundary;
+export default Root;
+export { ErrorBoundary, Layout };
