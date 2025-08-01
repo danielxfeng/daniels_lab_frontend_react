@@ -1,4 +1,4 @@
-import { useRouteError } from 'react-router-dom';
+import { isRouteErrorResponse } from 'react-router';
 import { isAxiosError } from 'axios';
 
 import Footer from '@/components/layout/Footer';
@@ -6,9 +6,7 @@ import Header from '@/components/layout/header/Header';
 import MotionButton from '@/components/motion_components/MotionButton';
 import { isHttpResponseError } from '@/lib/throwWithErr';
 
-const ErrorBoundary = () => {
-  const error = useRouteError();
-
+const ErrorBoundary = ({ error }: { error: unknown }) => {
   return (
     <div className='bg-background text-foreground flex min-h-screen flex-grow flex-col items-center justify-center'>
       <Header isBasic={true} />
@@ -17,7 +15,17 @@ const ErrorBoundary = () => {
         <div className='inner-container flex flex-grow flex-col items-center justify-center gap-4'>
           <h1>Oops! Something went wrong.</h1>
 
-          {/* Handle custom HttpResponseError (recommended) */}
+          {/* Handle router error */}
+          {isRouteErrorResponse(error) && (
+            <>
+              <p>Status: {error.status === 404 ? '404' : 'Error'}</p>
+              <p>
+                Message: {error.status === 404 ? 'Not Found' : error.statusText || 'Unknown error'}
+              </p>
+            </>
+          )}
+
+          {/* Handle custom HttpResponseError */}
           {isHttpResponseError(error) && (
             <>
               <p>
