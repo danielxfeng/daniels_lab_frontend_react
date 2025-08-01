@@ -6,6 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError,
 } from 'react-router';
 import { isAxiosError } from 'axios';
 
@@ -75,7 +76,9 @@ const Root = () => {
   );
 };
 
-const ErrorBoundary = ({ error }: Route.ErrorBoundaryProps) => {
+const ErrorBoundary = ({ error: err }: Route.ErrorBoundaryProps) => {
+  const hookError = useRouteError();
+  const error = hookError || err;
   return (
     <div className='bg-background text-foreground flex min-h-screen flex-grow flex-col items-center justify-center'>
       <Header isBasic={true} />
@@ -133,9 +136,9 @@ const ErrorBoundary = ({ error }: Route.ErrorBoundaryProps) => {
           )}
 
           {/* Fallback for unknown errors */}
-          {!isHttpResponseError(error) && !(error instanceof Error) && (
-            <p>Unknown error: {JSON.stringify(error)}</p>
-          )}
+          {!isRouteErrorResponse(error) &&
+            !isHttpResponseError(error) &&
+            !(error instanceof Error) && <p>Unknown error: {JSON.stringify(error)}</p>}
 
           <MotionButton
             to='/'
@@ -155,5 +158,9 @@ const ErrorBoundary = ({ error }: Route.ErrorBoundaryProps) => {
   );
 };
 
+const HydrateFallback = () => {
+  return <Loading />;
+};
+
 export default Root;
-export { ErrorBoundary, Layout };
+export { ErrorBoundary, HydrateFallback, Layout };

@@ -3,9 +3,8 @@ import { type RouteConfig } from '@react-router/dev/routes';
 export default [
   {
     path: '/',
-    file: 'components/layout/AppLayout.tsx',
+    file: 'pages/HomePage.tsx',
     children: [
-      { index: true, file: 'pages/HomePage.tsx' },
       {
         path: 'user',
         file: 'pages/UserProfilePage.tsx',
@@ -38,4 +37,5 @@ export default [
       { path: 'about', file: 'pages/AboutPage.tsx' },
     ],
   },
+  { path: '*', file: 'pages/NotFound.tsx' },
 ] satisfies RouteConfig;
