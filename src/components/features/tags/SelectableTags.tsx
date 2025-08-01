@@ -28,7 +28,7 @@ const SelectableTags = ({ tags, value, onChange }: SelectableTagsProps) => {
             key={tag}
             variant='outline'
             className={cn(
-              'cursor-pointer transition-all hover:scale-102 hover:opacity-85 hover:shadow-sm',
+              'hover:text-foreground hover:border-muted-foreground cursor-pointer transition-all hover:scale-102 hover:opacity-85 hover:shadow-sm',
               selected ? 'text-foreground' : 'text-muted-foreground',
             )}
             onClick={toggleTag.bind(null, tag)}

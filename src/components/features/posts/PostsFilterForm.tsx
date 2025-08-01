@@ -230,7 +230,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
                                 <Button
                                   variant='outline'
                                   className={cn(
-                                    'border-border hover:text-highlight min-w-2/3 flex-1 justify-start text-left font-normal transition-all duration-150',
+                                    'border-border min-w-2/3 flex-1 justify-start text-left font-normal',
                                     !valueAsDate && 'text-muted-foreground',
                                   )}
                                   data-role={`button-${fieldName}-date-picker`}
