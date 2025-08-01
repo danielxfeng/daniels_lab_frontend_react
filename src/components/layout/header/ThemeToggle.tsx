@@ -1,50 +1,59 @@
-import { useEffect } from 'react';
-import { Moon, Sun } from 'lucide-react';
+import { Monitor, Moon, Sun } from 'lucide-react';
 
 import MotionButton from '@/components/motion_components/MotionButton';
-import useThemeStore, { ThemeType } from '@/stores/useThemeStore';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import useThemeStore from '@/stores/useThemeStore';
 
 const className = 'text-primary h-6 w-6';
-
-const setHtmlTheme = (theme: ThemeType) => {
-  const html = document.documentElement;
-  switch (theme) {
-    case 'dark':
-      html.setAttribute('data-theme', 'dark');
-      break;
-    case 'light':
-      html.setAttribute('data-theme', 'light');
-      break;
-    default:
-      html.removeAttribute('data-theme');
-  }
-};
 
 // This component is a button that toggles the theme between light, dark, and system.
 const ThemeToggle = () => {
   const theme = useThemeStore((s) => s.theme); // Subscribe to the theme state
-  const toggleTheme = useThemeStore.getState().toggleTheme;
+  const setTheme = useThemeStore.getState().setTheme;
 
-  useEffect(() => {
-    setHtmlTheme(theme);
-  }, [theme]);
+  const isDark =
+    theme === 'dark' ||
+    (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-  const icon = {
-    light: <Sun className={className} />,
-    dark: <Moon className={className} />,
-    system: <Sun className={className} />, // Default icon for system theme
-  }[theme];
+  const btns = [
+    { value: 'system' as const, icon: <Monitor className={className} /> },
+    { value: 'light' as const, icon: <Sun className={className} /> },
+    { value: 'dark' as const, icon: <Moon className={className} /> },
+  ];
 
   return (
-    <MotionButton
-      supportingText='Toggle Theme'
-      size='sm'
-      variant='secondary'
-      buttonType='button'
-      icon={icon}
-      onClick={toggleTheme}
-      dataRole='button-theme-toggle'
-    />
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <MotionButton
+          supportingText='Toggle Theme'
+          size='sm'
+          variant='secondary'
+          buttonType='button'
+          icon={isDark ? <Sun className={className} /> : <Moon className={className} />}
+          dataRole='button-theme-toggle'
+        />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className='border-muted flex justify-between' align='end' sideOffset={4}>
+        {btns.map((btn) => (
+          <DropdownMenuItem key={btn.value} onClick={() => setTheme(btn.value)}>
+            <MotionButton
+              supportingText={btn.value}
+              size='sm'
+              variant='secondary'
+              buttonType='button'
+              icon={btn.icon}
+              onClick={() => setTheme(btn.value)}
+              dataRole={`button-theme-toggle-${btn.value}`}
+            />
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 export default ThemeToggle;
