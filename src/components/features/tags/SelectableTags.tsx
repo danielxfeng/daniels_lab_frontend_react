@@ -1,4 +1,4 @@
-import MotionButton from '@/components/motion_components/MotionButton';
+import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
 type SelectableTagsProps = {
@@ -24,20 +24,17 @@ const SelectableTags = ({ tags, value, onChange }: SelectableTagsProps) => {
       {tags.map((tag) => {
         const selected = value.includes(tag);
         return (
-          <MotionButton
+          <Badge
             key={tag}
-            buttonType='button'
-            variant='tag'
-            size='sm'
-            text={tag}
-            onClick={() => toggleTag(tag)}
-            btnClass={cn(selected && 'border-highlight')}
-            textClass={cn(selected && 'text-highlight')}
-            supportingText={`toggle-tag-${tag}`}
-            dataRole={`tag-${tag}`}
+            variant='outline'
+            className={cn(
+              'cursor-pointer transition-all hover:scale-102 hover:opacity-85 hover:shadow-sm',
+              selected ? 'text-foreground' : 'text-muted-foreground',
+            )}
+            onClick={toggleTag.bind(null, tag)}
           >
             {tag}
-          </MotionButton>
+          </Badge>
         );
       })}
     </div>

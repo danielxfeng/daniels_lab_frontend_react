@@ -6,6 +6,7 @@ import Likes from '@/components/features/post/Likes';
 import PostDeleteComponent from '@/components/features/post/PostDeleteComponent';
 import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';
 import ShareBar from '@/components/features/post/ShareBar';
+import TagsBar from '@/components/features/tags/TagsBar';
 import MotionButton from '@/components/motion_components/MotionButton';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionScroll from '@/components/motion_components/MotionScroll';
@@ -56,7 +57,7 @@ const PostPage = () => {
             className='aspect-[2/1] w-3/4 rounded-xl shadow-2xl'
           />
 
-          <MotionH1 className='text-center leading-normal !tracking-normal lg:mt-8 !mb-2'>
+          <MotionH1 className='!mb-2 text-center leading-normal !tracking-normal lg:mt-8'>
             {post.title}
           </MotionH1>
 
@@ -101,22 +102,7 @@ const PostPage = () => {
               {/* The post likes */}
               <Likes postId={post.id} userId={user?.id} />
               {/* The post tags */}
-              <div className='flex items-center gap-2' data-role='post-tags'>
-                <div className='mr-2 text-sm font-semibold' data-role='post-tags-label'>
-                  Tags:
-                </div>
-                <div className='flex flex-wrap gap-2' data-role='post-tags-list'>
-                  {post.tags.map((tag: string) => (
-                    <span
-                      key={`${tag}`}
-                      className='border-muted-foreground bg-background text-muted-foreground inline-block rounded-lg border px-2 py-0.5 text-sm'
-                      data-role='post-tag'
-                    >
-                      {`#${tag}`}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              <TagsBar tags={post.tags} />
             </div>
             <hr className='border-highlight/80 my-6 w-full border-t-2' />
             {/* The post comments */}

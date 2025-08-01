@@ -1,4 +1,6 @@
-import MotionButton from '@/components/motion_components/MotionButton';
+import { Link } from 'react-router-dom';
+
+import { Badge } from '@/components/ui/badge';
 
 /**
  * @summary The TagsBar component displays a list of tags.
@@ -9,21 +11,22 @@ const TagsBar = ({ tags }: { tags: string[] }) => {
   }
   return (
     <div className='flex items-center gap-1' data-role='tags-bar'>
-      <div className='text-foreground mr-2 font-semibold italic' data-role='tags-bar-label'>
+      <div
+        className='text-foreground mr-2 flex items-center justify-center text-sm font-semibold italic'
+        data-role='tags-bar-label'
+      >
         Tags:
       </div>
       <div className='flex flex-wrap items-center gap-1.5'>
         {tags.map((tag) => (
-          <MotionButton
-            variant='tag'
-            size='sm'
-            supportingText={`to posts with tag ${tag}`}
-            key={tag}
-            to={`/blog/posts/?tags=${tag}`}
-            text={`${tag}`}
-            isExternal={false}
-            dataRole={`tag-${tag}`}
-          />
+          <Link to={`/blog/posts/?tags=${tag}`} key={tag}>
+            <Badge
+              variant='outline'
+              className='text-muted-foreground cursor-pointer transition-all hover:scale-102 hover:opacity-85 hover:shadow-sm'
+            >
+              {tag}
+            </Badge>
+          </Link>
         ))}
       </div>
     </div>

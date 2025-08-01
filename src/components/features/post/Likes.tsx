@@ -3,6 +3,7 @@ import { Heart } from 'lucide-react';
 import { toast } from 'sonner';
 
 import MotionButton from '@/components/motion_components/MotionButton';
+import { Badge } from '@/components/ui/badge';
 import logError from '@/lib/logError';
 import { LikeStatusResponse, LikeStatusResponseSchema } from '@/schema/schema_like';
 import { getLikeStatus, likePost, unlikePost } from '@/services/service_likes';
@@ -91,12 +92,11 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
         isDisabled={loading}
         isLoading={loading}
         dataRole='button-like-toggle'
-        
       />
       {/* Like count */}
-      <span className='text-foreground text-sm' data-role='like-count'>
+      <Badge variant='outline' className='rounded-full py-1 border-muted' data-role='like-count'>
         {count}
-      </span>
+      </Badge>
     </div>
   );
 };
