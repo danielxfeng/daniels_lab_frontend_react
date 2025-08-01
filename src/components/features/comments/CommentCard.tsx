@@ -66,7 +66,7 @@ const CommentCard = ({ user, comment, setComments }: CommentCardProps) => {
         {comment.content}
       </p>
       {/* The possible operation panel */}
-      <footer className='flex items-center justify-end gap-0' data-role='comment-card-footer'>
+      <footer className='flex items-center justify-end gap-2' data-role='comment-card-footer'>
         {user?.id === comment.authorId && (
           <MotionButton
             buttonType='button'

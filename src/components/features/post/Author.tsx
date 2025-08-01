@@ -8,7 +8,7 @@ const Author = ({ name, avatarUrl }: { name: string; avatarUrl?: string }) => {
     <div className='flex items-center gap-2' data-role='author'>
       <Avatar className='h-10 w-10' data-role='author-avatar'>
         <AvatarImage src={avatarUrl} alt={`${name}'s avatar`} />
-        <AvatarFallback className='bg-highlight text-base text-neutral-50'>
+        <AvatarFallback className='bg-gradient text-base text-neutral-50'>
           {name?.[0] ?? 'U'}
         </AvatarFallback>
       </Avatar>

@@ -12,21 +12,22 @@ const TagsBar = ({ tags }: { tags: string[] }) => {
   return (
     <div className='flex items-center gap-1' data-role='tags-bar'>
       <div
-        className='text-foreground mr-2 flex items-center justify-center text-sm font-semibold italic'
+        className='text-foreground mr-2 flex h-full items-center justify-center text-sm font-semibold italic'
         data-role='tags-bar-label'
       >
         Tags:
       </div>
       <div className='flex flex-wrap items-center gap-1.5'>
         {tags.map((tag) => (
-          <Link to={`/blog/posts/?tags=${tag}`} key={tag}>
-            <Badge
-              variant='outline'
-              className='text-muted-foreground cursor-pointer transition-all hover:scale-102 hover:opacity-85 hover:shadow-sm'
-            >
+          <Badge
+            variant='outline'
+            key={tag}
+            className='text-muted-foreground cursor-pointer transition-all hover:scale-102 hover:opacity-85 hover:shadow-sm'
+          >
+            <Link to={`/blog/tags/${tag}`} className='text-inherit'>
               {tag}
-            </Badge>
-          </Link>
+            </Link>
+          </Badge>
         ))}
       </div>
     </div>

@@ -84,7 +84,7 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
         buttonType='button'
         supportingText={liked ? 'Unlike the post' : 'Like the post'}
         variant='ghost'
-        size='sm'
+        size='md'
         icon={<Heart />}
         type='button'
         onClick={handleLikeToggle}
@@ -94,7 +94,7 @@ const Likes = ({ postId, userId }: { postId: string; userId: string | undefined 
         dataRole='button-like-toggle'
       />
       {/* Like count */}
-      <Badge variant='outline' className='rounded-full py-1 border-muted' data-role='like-count'>
+      <Badge variant='outline' className='rounded-full min-h-8 min-w-8 border-muted' data-role='like-count'>
         {count}
       </Badge>
     </div>

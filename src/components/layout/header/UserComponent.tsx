@@ -19,7 +19,7 @@ const AvatarComponent = ({
 }) => (
   <Avatar className='mx-2 h-8 w-8'>
     <AvatarImage src={avatar} alt={`${name}'s avatar`} />
-    <AvatarFallback>{firstChar}</AvatarFallback>
+    <AvatarFallback className='bg-gradient text-neutral-50'>{firstChar}</AvatarFallback>
   </Avatar>
 );
 
