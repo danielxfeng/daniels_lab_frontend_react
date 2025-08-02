@@ -79,9 +79,9 @@ const UserProfilePage = () => {
         <TabsContent value='password' className='w-full lg:max-w-md'>
           <div className='flex w-full flex-col items-center gap-4'>
             {user.hasPassword ? (
-              <UserPasswordUpdateForm deviceId={deviceId} />
+              <UserPasswordUpdateForm deviceId={deviceId} user={user} />
             ) : (
-              <UserPasswordInsertionForm deviceId={deviceId} />
+              <UserPasswordInsertionForm deviceId={deviceId} user={user} />
             )}
           </div>
         </TabsContent>

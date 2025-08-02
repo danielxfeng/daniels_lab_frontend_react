@@ -20,12 +20,19 @@ import {
   ChangePasswordBody,
   ChangePasswordBodySchema,
 } from '@/schema/schema_auth';
+import { UserResponse } from '@/schema/schema_users';
 import { changePassword } from '@/services/service_auth';
 
 /**
  * @summary UserPasswordUpdateForm
  */
-const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
+const UserPasswordUpdateForm = ({
+  deviceId,
+  user,
+}: {
+  deviceId: string;
+  user: Partial<UserResponse>;
+}) => {
   const [doLogout, setDoLogout] = useState<boolean>(false);
 
   // Init the form
@@ -86,6 +93,15 @@ const UserPasswordUpdateForm = ({ deviceId }: { deviceId: string }) => {
         aria-label='User Password Update Form'
       >
         <fieldset disabled={isSubmitting} className='flex flex-col gap-6'>
+          <input
+            type='text'
+            name='username'
+            value={user.username}
+            autoComplete='username'
+            readOnly
+            hidden
+          />
+
           {/* current password */}
           <FormField
             control={form.control}
