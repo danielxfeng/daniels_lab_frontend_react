@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { LoaderFunctionArgs, useLoaderData, useLocation, useNavigate } from 'react-router';
 

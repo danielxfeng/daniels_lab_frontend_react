@@ -1,3 +1,5 @@
+'use client';
+
 import PostUpsertForm from '@/components/features/post/PostUpsertForm';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import NotificationBar from '@/components/shared/NotificationBar';

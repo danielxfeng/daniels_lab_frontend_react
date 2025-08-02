@@ -23,6 +23,9 @@ const postsLoader = async ({
   hotTags: TagsResponse;
   keyword: string | undefined;
 }> => {
+  if (typeof window === 'undefined') {
+    console.log('Running on server (SSR)');
+  }
   // Get the URL and search parameters from the request
   const url = new URL(request.url);
   const searchParams = url.searchParams;

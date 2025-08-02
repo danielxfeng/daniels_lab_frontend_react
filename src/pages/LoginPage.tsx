@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { toast } from 'sonner';

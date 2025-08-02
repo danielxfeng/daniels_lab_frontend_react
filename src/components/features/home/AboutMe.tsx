@@ -139,7 +139,11 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                 </div>
                 <div className='flex flex-wrap gap-2 text-sm font-medium'>
                   {item.stacks.map((value) => (
-                    <Badge key={value} variant='default' className='bg-gradient rounded-full text-neutral-100'>
+                    <Badge
+                      key={value}
+                      variant='default'
+                      className='bg-gradient rounded-full text-neutral-100'
+                    >
                       {value}
                     </Badge>
                   ))}
@@ -150,22 +154,21 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
 
           <div data-role='aws-badge' className='relative h-32 w-32 overflow-hidden'>
             <div className='absolute -top-2 -left-2'>
-              <div
-                data-iframe-width='150'
-                data-iframe-height='270'
-                data-share-badge-id='97f12050-a9d4-46b3-9754-cb82aacd5a6f'
-                data-share-badge-host='https://www.credly.com'
-              ></div>
+              <iframe
+                name='acclaim-badge'
+                src='https://www.credly.com/embedded_badge/97f12050-a9d4-46b3-9754-cb82aacd5a6f'
+                title='View my verified achievement on Credly.'
+                style={{
+                  width: '150px',
+                  height: '270px',
+                  border: 'none',
+                  backgroundColor: 'transparent',
+                }}
+              />
             </div>
           </div>
         </section>
       </div>
-      {/* AWS badge */}
-      <script
-        type='text/javascript'
-        async
-        src='//cdn.credly.com/assets/utilities/embed.js'
-      ></script>
     </section>
   );
 };

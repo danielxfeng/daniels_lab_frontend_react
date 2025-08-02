@@ -31,6 +31,7 @@
     "@sentry/react-router": "^10.0.0",
     "@tailwindcss/vite": "^4.1.11",
     "@tanstack/react-table": "^8.21.3",
+    "@vercel/react-router": "^1.2.2",
     "axios": "^1.11.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

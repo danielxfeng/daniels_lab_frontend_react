@@ -56,12 +56,14 @@ hljs.registerLanguage('cpp', cpp);
 hljs.registerLanguage('bash', bash);
 
 // Add a hook to sanitize the attributes of the <a> tag
-DOMPurify.addHook('afterSanitizeAttributes', (node) => {
-  if (node.tagName === 'A') {
-    node.setAttribute('target', '_blank');
-    node.setAttribute('rel', 'noopener noreferrer');
-  }
-});
+if (typeof window !== 'undefined') {
+  DOMPurify.addHook('afterSanitizeAttributes', (node) => {
+    if (node.tagName === 'A') {
+      node.setAttribute('target', '_blank');
+      node.setAttribute('rel', 'noopener noreferrer');
+    }
+  });
+}
 
 /**
  * A component to render markdown safety and styled
@@ -82,7 +84,7 @@ const SafeStyledMarkdown = ({ markdown, className }: { markdown: string; classNa
     <div
       className={cn('prose dark:prose-invert w-full max-w-none', className)}
       dangerouslySetInnerHTML={{ __html: html }}
-      data-role="safe-styled-markdown"
+      data-role='safe-styled-markdown'
     />
   );
 };

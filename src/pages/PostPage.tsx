@@ -1,3 +1,5 @@
+'use client';
+
 import { LoaderFunctionArgs, useLoaderData } from 'react-router';
 
 import Comments from '@/components/features/comments/Comments';
@@ -35,7 +37,10 @@ const MetaInfo = ({ post }: { post: PostResponse }) => (
   </>
 );
 
-const clientLoader = async ({ params }: LoaderFunctionArgs): Promise<{ post: PostResponse }> => {
+const loader = async ({ params }: LoaderFunctionArgs): Promise<{ post: PostResponse }> => {
+  if (typeof window === 'undefined') {
+      console.log('Running on server (SSR)');
+  }
   return await fetchPost(params.slug as string);
 };
 
@@ -121,4 +126,5 @@ const PostPage = () => {
 
 export default PostPage;
 
-export { clientLoader };
+// eslint-disable-next-line react-refresh/only-export-components
+export { loader };

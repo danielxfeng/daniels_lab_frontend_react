@@ -161,9 +161,13 @@ const handleError = async (error: any) => {
   if ((error.response?.status === 401 && !isBypassFZO) || error.response?.status === 403) {
     const { clear } = useUserStore.getState();
     clear();
-    // Redirect to the login page and clear the history
-    const currentPath = window.location.pathname + window.location.search;
-    window.location.replace(`/user/login?redirectTo=${encodeURIComponent(currentPath)}`);
+
+    if (typeof window !== 'undefined') {
+      // Redirect to the login page and clear the history
+      const currentPath = window.location.pathname + window.location.search;
+      window.location.replace(`/user/login?redirectTo=${encodeURIComponent(currentPath)}`);
+    }
+
     return Promise.reject(error);
   }
 
