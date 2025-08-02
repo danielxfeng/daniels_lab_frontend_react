@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, redirect } from 'react-router-dom';
+import { LoaderFunctionArgs, redirect } from 'react-router';
 
 import { fetchPost } from '@/lib/fetchPost';
 import useUserStore from '@/stores/useUserStore';

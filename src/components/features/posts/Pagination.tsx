@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 import MotionButton from '@/components/motion_components/MotionButton';

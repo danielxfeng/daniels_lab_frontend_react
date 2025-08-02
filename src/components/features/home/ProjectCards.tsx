@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { motion } from 'framer-motion';
 
 import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';

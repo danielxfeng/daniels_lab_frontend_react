@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { motion } from 'framer-motion';
 
 import AuthorDateBar from '@/components/features/post/AuthorDateBar';

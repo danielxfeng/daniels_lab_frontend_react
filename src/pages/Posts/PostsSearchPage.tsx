@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
+import { LoaderFunctionArgs, useLoaderData } from 'react-router';
 
 import PostsMain from '@/components/features/posts/PostsMain';
 import siteMeta from '@/constants/siteMeta';
