@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { FaGithub, FaGoogle, FaLinkedin } from 'react-icons/fa6';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 

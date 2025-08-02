@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm, UseFormRegister } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Search } from 'lucide-react';
