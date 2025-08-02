@@ -1,4 +1,3 @@
-import { nodeProfilingIntegration } from '@sentry/profiling-node';
 import * as Sentry from '@sentry/react-router';
 
 if (process.env.NODE_ENV === 'production' && process.env.VITE_SENTRY_DSN) {
