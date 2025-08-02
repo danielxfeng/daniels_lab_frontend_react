@@ -1,3 +1,5 @@
+'use client';
+
 import { LoaderFunctionArgs, useLoaderData } from 'react-router';
 
 import PostsMain from '@/components/features/posts/PostsMain';
@@ -31,7 +33,7 @@ const MetaInfo = ({ keyword }: { keyword: string }) => (
   </>
 );
 
-const clientLoader = async ({ request }: LoaderFunctionArgs) => {
+const loader = async ({ request }: LoaderFunctionArgs) => {
   return await postsLoader({ request });
 };
 
@@ -47,4 +49,4 @@ const PostsPage = () => {
 export default PostsPage;
 
 // eslint-disable-next-line react-refresh/only-export-components
-export { clientLoader };
+export { loader };

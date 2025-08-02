@@ -1,3 +1,5 @@
+'use client';
+
 import AboutMe from '@/components/features/home/AboutMe';
 import NotificationBar from '@/components/shared/NotificationBar';
 import siteMeta from '@/constants/siteMeta';

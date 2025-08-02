@@ -1,3 +1,5 @@
+'use client';
+
 import ProjectCards from '@/components/features/home/ProjectCards';
 import NotificationBar from '@/components/shared/NotificationBar';
 import siteMeta from '@/constants/siteMeta';

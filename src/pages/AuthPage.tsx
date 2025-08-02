@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
@@ -21,11 +23,17 @@ const AuthPage = () => {
   const { setAccessToken, setUser } = useUserStore.getState();
 
   // For successful login, the accessToken is in `hash`.
-  const hashParams = new URLSearchParams(window.location.hash.substring(1));
-  const accessToken = hashParams.get('accessToken');
-  const redirectTo = hashParams.get('redirectTo') || '/';
-  const params = new URLSearchParams(window.location.search);
-  const errMsg = params.get('error') || 'Unknown error';
+  let accessToken = null;
+  let redirectTo = '/';
+  let errMsg = 'Unknown error';
+
+  if (typeof window !== 'undefined') {
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    accessToken = hashParams.get('accessToken');
+    redirectTo = hashParams.get('redirectTo') || '/';
+    const params = new URLSearchParams(window.location.search);
+    errMsg = params.get('error') || 'Unknown error';
+  }
 
   useEffect(() => {
     // For user already exists.

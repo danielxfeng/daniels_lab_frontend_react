@@ -1,3 +1,5 @@
+'use client';
+
 import AboutMe from '@/components/features/home/AboutMe';
 import Hero from '@/components/features/home/Hero';
 import ProjectCards from '@/components/features/home/ProjectCards';

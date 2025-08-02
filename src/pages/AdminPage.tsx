@@ -1,3 +1,5 @@
+'use client';
+
 import { LoaderFunctionArgs } from 'react-router';
 
 import UserManagementTable from '@/components/features/user_profile/UserManagementTable';

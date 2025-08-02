@@ -1,3 +1,5 @@
+'use client';
+
 import { data } from 'react-router';
 
 const clientLoader = ({ request }: { request: Request }) => {
