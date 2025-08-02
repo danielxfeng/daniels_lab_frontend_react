@@ -3,12 +3,14 @@ import { type RouteConfig } from '@react-router/dev/routes';
 export default [
   {
     path: '/',
-    file: 'pages/HomePage.tsx',
+    file: 'router/HomeRouter.tsx',
     children: [
+      { index: true, file: 'pages/HomePage.tsx' },
       {
         path: 'user',
-        file: 'pages/UserProfilePage.tsx',
+        file: 'router/UserRouter.tsx',
         children: [
+          { index: true, file: 'pages/UserProfilePage.tsx' },
           { path: 'login', file: 'pages/LoginPage.tsx' },
           { path: 'join-admin', file: 'pages/JoinAdminPage.tsx' },
           { path: 'admin', file: 'pages/AdminPage.tsx' },
@@ -18,12 +20,14 @@ export default [
       { path: 'terms', file: 'pages/TermsPage.tsx' },
       {
         path: 'blog',
-        file: 'pages/Posts/PostsDir.tsx',
+        file: 'router/BlogRouter.tsx',
         children: [
+          { index: true, file: 'router/BlogRedirect.tsx' },
           {
             path: 'posts',
-            file: 'pages/Posts/PostsPage.tsx',
+            file: 'router/PostsRouter.tsx',
             children: [
+              { index: true, file: 'pages/Posts/PostsPage.tsx' },
               { path: 'search', file: 'pages/Posts/PostsSearchPage.tsx' },
               { path: ':slug', file: 'pages/PostPage.tsx' },
               { path: 'new', file: 'pages/PostUpsert/PostCreatePage.tsx' },

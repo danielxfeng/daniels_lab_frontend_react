@@ -16,6 +16,7 @@ import MotionButton from '@/components/motion_components/MotionButton';
 import Loading from '@/components/shared/Loading';
 import ToasterWithTheme from '@/components/shared/ToasterWithTheme';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import useTheme from '@/hooks/useTheme';
 import { isHttpResponseError } from '@/lib/throwWithErr';
 
 import { Route } from '.react-router/types/src/+types/root';
@@ -59,6 +60,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 };
 
 const Root = () => {
+  useTheme(); // theme toggle
+
   return (
     <div className='bg-background text-foreground flex min-h-screen flex-col'>
       <Header />
