@@ -24,7 +24,7 @@ const TagsBar = ({ tags }: { tags: string[] }) => {
             key={tag}
             className='text-muted-foreground cursor-pointer transition-all hover:scale-102 hover:opacity-85 hover:shadow-sm'
           >
-            <Link to={`/blog/tags/${tag}`} className='text-inherit'>
+            <Link to={`/blog/posts/?tags=${tag}`} className='text-inherit'>
               {tag}
             </Link>
           </Badge>
