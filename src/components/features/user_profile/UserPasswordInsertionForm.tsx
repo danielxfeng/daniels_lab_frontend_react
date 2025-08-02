@@ -16,12 +16,19 @@ import {
 } from '@/components/ui/form';
 import logError from '@/lib/logError';
 import { AuthResponseSchema, SetPasswordBody, SetPasswordBodySchema } from '@/schema/schema_auth';
+import { UserResponse } from '@/schema/schema_users';
 import { setPassword } from '@/services/service_auth';
 
 /**
  * @summary UserPasswordInsertionForm
  */
-const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
+const UserPasswordInsertionForm = ({
+  deviceId,
+  user,
+}: {
+  deviceId: string;
+  user: Partial<UserResponse>;
+}) => {
   const [doLogout, setDoLogout] = useState<boolean>(false);
 
   // Init the form
@@ -70,6 +77,15 @@ const UserPasswordInsertionForm = ({ deviceId }: { deviceId: string }) => {
         data-role='user-password-insertion-form'
         aria-label='User Password Insertion Form'
       >
+        <input
+          type='text'
+          name='username'
+          value={user.username}
+          autoComplete='username'
+          readOnly
+          hidden
+        />
+
         <fieldset disabled={isSubmitting} className='flex flex-col gap-6'>
           {/* new password */}
           <FormField
