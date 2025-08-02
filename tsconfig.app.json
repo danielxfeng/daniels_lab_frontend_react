@@ -28,5 +28,11 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "src/router.tsx"]
+  "include": [
+    "src",
+    "src/routes.ts",
+    "react-router.config.ts",
+    ".react-router/types/**/*",
+    "instrument.server.mjs"
+  ]
 }

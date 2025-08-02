@@ -29,3 +29,6 @@ dist-ssr
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+# React Router
+.react-router/

@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router-dom';
+import { LoaderFunctionArgs, useLoaderData } from 'react-router';
 
 import Comments from '@/components/features/comments/Comments';
 import AuthorDateBar from '@/components/features/post/AuthorDateBar';
@@ -13,6 +13,7 @@ import MotionScroll from '@/components/motion_components/MotionScroll';
 import LazyImage from '@/components/shared/LazyImage';
 import NotificationBar from '@/components/shared/NotificationBar';
 import siteMeta from '@/constants/siteMeta';
+import { fetchPost } from '@/lib/fetchPost';
 import { PostResponse } from '@/schema/schema_post';
 import useUserStore from '@/stores/useUserStore';
 
@@ -33,6 +34,10 @@ const MetaInfo = ({ post }: { post: PostResponse }) => (
     <meta name='twitter:image' content={post.cover || `${siteMeta.siteUrl}/cover.png`} />
   </>
 );
+
+const clientLoader = async ({ params }: LoaderFunctionArgs): Promise<{ post: PostResponse }> => {
+  return await fetchPost(params.slug as string);
+};
 
 const PostPage = () => {
   const { post } = useLoaderData<{ post: PostResponse }>();
@@ -115,3 +120,5 @@ const PostPage = () => {
 };
 
 export default PostPage;
+
+export { clientLoader };

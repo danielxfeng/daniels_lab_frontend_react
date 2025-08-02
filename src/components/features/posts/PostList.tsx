@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
+import AuthorDateBar from '@/components/features/post/AuthorDateBar';
 import SafeStyledMarkdown from '@/components/features/post/SafeStyledMarkdown';
 import Pagination from '@/components/features/posts/Pagination';
+import TagsBar from '@/components/features/tags/TagsBar';
 import LazyImage from '@/components/shared/LazyImage';
 import { postCardAnimation } from '@/lib/animations';
 import { PostListResponse, PostResponse } from '@/schema/schema_post';
-
-import AuthorDateBar from '../post/AuthorDateBar';
-import TagsBar from '../tags/TagsBar';
 
 // A post component that displays a single post
 const Post = ({ post }: { post: PostResponse }) => (

@@ -17,10 +17,15 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import siteMeta from '@/constants/siteMeta';
+import { authGuard } from '@/lib/authGuard';
 import getDeviceId from '@/lib/deviceid';
 import logError from '@/lib/logError';
 import { AuthResponseSchema, JoinAdminBody, JoinAdminBodySchema } from '@/schema/schema_auth';
 import { joinAdmin } from '@/services/service_auth';
+
+const clientLoader = async ({ request }: { request: Request }) => {
+  return authGuard({ request });
+};
 
 // A form to join admin with a reference code
 const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
@@ -140,3 +145,6 @@ const JoinAdminPage = () => {
 };
 
 export default JoinAdminPage;
+
+// eslint-disable-next-line react-refresh/only-export-components
+export { clientLoader };

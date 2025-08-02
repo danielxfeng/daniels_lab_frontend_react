@@ -1,7 +1,8 @@
-import { useLoaderData } from 'react-router-dom';
+import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 
 import PostsMain from '@/components/features/posts/PostsMain';
 import siteMeta from '@/constants/siteMeta';
+import postsLoader from '@/pages/Posts/postsLoader';
 
 const MetaInfo = ({ keyword }: { keyword: string }) => (
   <>
@@ -30,6 +31,10 @@ const MetaInfo = ({ keyword }: { keyword: string }) => (
   </>
 );
 
+const clientLoader = async ({ request }: LoaderFunctionArgs) => {
+  return await postsLoader({ request });
+};
+
 const PostsPage = () => {
   const { postsListRes, hotTags, keyword } = useLoaderData();
   return (
@@ -40,3 +45,6 @@ const PostsPage = () => {
 };
 
 export default PostsPage;
+
+// eslint-disable-next-line react-refresh/only-export-components
+export { clientLoader };
