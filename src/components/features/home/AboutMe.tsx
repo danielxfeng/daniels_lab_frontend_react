@@ -31,7 +31,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
 
       <div
         data-role='about-me-content'
-        className='flex w-full flex-col items-center justify-center gap-6 py-8'
+        className='flex w-full flex-col items-center justify-center gap-4 py-8 lg:gap-6'
       >
         {/* Introduction */}
         <section
