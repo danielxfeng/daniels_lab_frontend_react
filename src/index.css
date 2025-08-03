@@ -139,11 +139,11 @@
 }
 
 h1 {
-  @apply mb-10 text-4xl tracking-tight text-balance max-lg:font-medium lg:text-5xl;
+  @apply mb-10 bg-gradient-to-br from-[#615fff] to-[#155dfc] bg-clip-text text-4xl leading-tight font-semibold tracking-tight text-balance text-transparent drop-shadow-2xl lg:text-5xl;
 }
 
 h2 {
-  @apply mb-5 text-3xl tracking-tight text-balance max-lg:font-medium lg:text-4xl;
+  @apply mb-5 text-3xl leading-tight font-medium tracking-tight text-balance lg:text-4xl;
 }
 
 h3 {
@@ -161,6 +161,12 @@ pre {
 
 .font-space-grotesk {
   font-family: 'Space Grotesk', sans-serif;
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-br from-[#615fff] to-[#155dfc] bg-clip-text text-transparent drop-shadow-lg;
+  }
 }
 
 @layer base {

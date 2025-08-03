@@ -2,7 +2,6 @@ import MotionBlurCard from '@/components/motion_components/MotionBlurCard';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionSpan from '@/components/motion_components/MotionSpan';
 import ContactLink from '@/components/shared/ContactLink';
-import { GlowingEffect } from '@/components/third_party/GlowingEffect';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import contactIconList from '@/constants/contactLinks';
@@ -18,17 +17,21 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
       className='inner-container flex flex-col text-lg leading-relaxed lg:my-6'
     >
       {/* h1 or h2 based on the position */}
-      {position === 'div' ? <h2 className='my-6'>About Me</h2> : <MotionH1>About Me</MotionH1>}
+      {position === 'div' ? (
+        <h2 className='text-gradient my-6'>About Me</h2>
+      ) : (
+        <MotionH1>About Me</MotionH1>
+      )}
 
       <div data-role='about-me-content' className='flex w-full flex-col items-center gap-6 py-8'>
         {/* Introduction */}
         <section
           data-role='about-me-introduction'
-          className='mb-8 flex w-full max-w-2xl flex-col gap-8 lg:flex-row lg:items-center lg:gap-12'
+          className='mb-8 flex w-full flex-col gap-8 lg:flex-row lg:items-center lg:gap-12'
         >
-          <div
-            data-role='about-me-avatar'
-            className='flex flex-col items-center justify-center gap-3'
+          <MotionBlurCard
+            dataRole='about-me-avatar'
+            className='flex flex-col items-center justify-center gap-3 lg:w-2/5'
           >
             <Avatar className='ring-offset-background ring-muted z-5 h-32 w-32 shadow-xl ring-2 ring-offset-2 lg:h-40 lg:w-40'>
               <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
@@ -39,25 +42,21 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                 <ContactLink key={prop.supportText} {...prop} />
               ))}
             </div>
-          </div>
+          </MotionBlurCard>
 
-          <div
-            data-role='about-me-introduction-content'
-            className='border-border text-foreground/65 [&_strong]:text-foreground relative w-full rounded-2xl border bg-white p-6 italic shadow-md dark:bg-neutral-950 [&_strong]:not-italic'
+          <MotionBlurCard
+            dataRole='about-me-introduction-content'
+            className='border-border text-foreground/65 [&_strong]:text-foreground relative w-full rounded-2xl border bg-white p-6 italic shadow-md lg:w-2/3 dark:bg-neutral-950 [&_strong]:not-italic'
           >
-            <GlowingEffect
-              spread={40}
-              glow={true}
-              disabled={false}
-              proximity={64}
-              inactiveZone={0.01}
-            />
             <p>
               <strong className='mb-2 block'>Hey!</strong> I am{' '}
               <MotionSpan
                 text={siteMeta.me}
-                className='text-highlight px-2 py-1 text-3xl font-bold text-shadow-md'
-                delay={0.08}
+                className='px-2 py-1 text-3xl font-bold'
+                delay={0.09}
+                spanClassNames={new Array(siteMeta.me.length).fill(
+                  'bg-gradient-to-br from-[#615fff] to-[#155dfc] bg-clip-text text-transparent drop-shadow-2xl',
+                )}
               />
             </p>
             <p>
@@ -67,59 +66,8 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
               I focus on full stack <strong>web development</strong>, and also enjoy{' '}
               <strong>system programming</strong> and building <strong>AI</strong> toys.
             </p>
-          </div>
+          </MotionBlurCard>
         </section>
-
-        <div
-          data-role='about-me-detail'
-          className='text-foreground/65 [&_strong]:text-foreground flex max-w-5xl flex-col gap-12 italic lg:flex-row [&_strong]:not-italic'
-        >
-          <MotionBlurCard
-            dataRole='about-me-profession'
-            className='flex w-full flex-1 flex-col justify-between gap-6 rounded-2xl bg-white p-6 shadow-md dark:bg-neutral-950'
-          >
-            <ul className='list-disc space-y-2 pl-6'>
-              <li>
-                Studying at <strong>Hive Helsinki</strong>, focusing on system-level{' '}
-                <strong>C/C++</strong> projects.
-              </li>
-              <li>
-                Pursuing a Bachelor's degree in Computer Applications at <strong>HAMK</strong>.
-              </li>
-            </ul>
-
-            <ul className='list-disc space-y-2 pl-6'>
-              <li>
-                Worked in <strong>corporate banking</strong> in <strong>Shanghai</strong> until
-                August 2023.
-              </li>
-            </ul>
-          </MotionBlurCard>
-
-          <div className='bg-muted hidden w-px lg:flex' />
-
-          <MotionBlurCard
-            dataRole='about-me-detail-soft'
-            className='flex w-full flex-1 flex-col justify-start gap-6 rounded-2xl bg-white p-6 shadow-md dark:bg-neutral-950'
-          >
-            {/* Soft skill */}
-            <ul className='list-disc space-y-2 pl-6'>
-              <li>
-                <strong>Naturally curious</strong>: I enjoy learning new things and exploring
-                unfamiliar ideas.
-              </li>
-              <li>
-                <strong>Logical thinker</strong>: I love breaking down complex problems with
-                structured reasoning.
-              </li>
-              <li>
-                <strong>Excellent teamwork</strong>: and collaboration skills in cross-functional
-                environments.
-              </li>
-              <li className='mt-4 list-none pl-0'>-- I love becoming a little better every day.</li>
-            </ul>
-          </MotionBlurCard>
-        </div>
 
         {/* Tech Stacks */}
         <section
@@ -139,7 +87,11 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                 </div>
                 <div className='flex flex-wrap gap-2 text-sm font-medium'>
                   {item.stacks.map((value) => (
-                    <Badge key={value} variant='default' className='bg-gradient rounded-full text-neutral-100'>
+                    <Badge
+                      key={value}
+                      variant='default'
+                      className='bg-gradient rounded-full text-neutral-100'
+                    >
                       {value}
                     </Badge>
                   ))}
