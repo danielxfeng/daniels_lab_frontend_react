@@ -35,7 +35,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
         {/* Introduction */}
         <section
           data-role='about-me-introduction'
-          className='mb-8 flex w-full flex-col items-start justify-start gap-8 lg:flex-row lg:gap-12'
+          className='mb-8 flex w-full flex-col items-center lg:items-start justify-start gap-8 lg:flex-row lg:gap-12'
         >
           <div
             data-role='about-me-avatar-container'
@@ -43,7 +43,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
           >
             <MotionBlurCard
               dataRole='about-me-avatar'
-              className='flex flex-col items-center justify-center gap-3 lg:w-2/5'
+              className='flex flex-1 flex-col items-center justify-center gap-3'
             >
               <Avatar className='ring-offset-background ring-muted z-5 h-32 w-32 shadow-xl ring-2 ring-offset-2 lg:h-40 lg:w-40'>
                 <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
