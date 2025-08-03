@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 
 import MotionBlurCard from '@/components/motion_components/MotionBlurCard';
+import MotionExternalScrollBar from '@/components/motion_components/MotionExtenalScrollBar';
 import MotionFadeInParagraph from '@/components/motion_components/MotionFadeinParagraph';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionSpan from '@/components/motion_components/MotionSpan';
@@ -39,7 +40,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
         >
           <div
             data-role='about-me-avatar-container'
-            className='flex flex-1 flex-col items-center justify-center gap-4 lg:mt-16'
+            className='flex flex-1 flex-col items-center justify-center gap-8 lg:mt-16'
           >
             <MotionBlurCard
               dataRole='about-me-avatar'
@@ -58,6 +59,11 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                 ))}
               </div>
             </MotionBlurCard>
+            <MotionExternalScrollBar
+              syncContainerRef={introductionRef}
+              className='hidden lg:flex'
+              occupiedHeight={320}
+            />
           </div>
 
           <section
