@@ -139,7 +139,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                     switch careers and move to a new culture,
                   </strong>{' '}
                   and they also fuel my love for exploring the world beyond code. Outside of coding,
-                  I love traveling and being in nature with my family, exploring scenic landscapes
+                  I love traveling and being in nature with my family, discovering scenic landscapes
                   and diverse cultures whenever I can. I’m also passionate about photography, which
                   lets me capture and preserve the moments and scenery that inspire me.
                 </MotionFadeInParagraph>
