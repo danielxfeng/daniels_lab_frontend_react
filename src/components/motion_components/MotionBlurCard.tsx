@@ -5,8 +5,8 @@ import { blurCardAnimation } from '@/lib/animations';
 
 type MotionBlurCardProp = {
   children: ReactNode;
-  className: string;
-  dataRole: string;
+  className?: string;
+  dataRole?: string;
 };
 
 /**

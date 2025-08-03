@@ -1,4 +1,5 @@
 import MotionBlurCard from '@/components/motion_components/MotionBlurCard';
+import MotionFadeInParagraph from '@/components/motion_components/MotionFadeinParagraph';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionSpan from '@/components/motion_components/MotionSpan';
 import ContactLink from '@/components/shared/ContactLink';
@@ -31,7 +32,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
         >
           <MotionBlurCard
             dataRole='about-me-avatar'
-            className='flex flex-col items-center justify-center gap-3 lg:w-2/5'
+            className='flex flex-col items-center justify-center gap-3 lg:w-2/5 lg:flex-1'
           >
             <Avatar className='ring-offset-background ring-muted z-5 h-32 w-32 shadow-xl ring-2 ring-offset-2 lg:h-40 lg:w-40'>
               <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
@@ -44,29 +45,91 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
             </div>
           </MotionBlurCard>
 
-          <MotionBlurCard
-            dataRole='about-me-introduction-content'
-            className='border-border text-foreground/65 [&_strong]:text-foreground relative w-full rounded-2xl border bg-white p-6 italic shadow-md lg:w-2/3 dark:bg-neutral-950 [&_strong]:not-italic'
+          <section
+            data-role='about-me-introduction-content'
+            className='border-border text-foreground/70 [&_strong]:text-foreground relative w-full max-w-prose rounded-2xl border p-6 shadow-md [&_strong]:not-italic'
           >
-            <p>
-              <strong className='mb-2 block'>Hey!</strong> I am{' '}
-              <MotionSpan
-                text={siteMeta.me}
-                className='px-2 py-1 text-3xl font-bold'
-                delay={0.09}
-                spanClassNames={new Array(siteMeta.me.length).fill(
-                  'bg-gradient-to-br from-[#615fff] to-[#155dfc] bg-clip-text text-transparent drop-shadow-2xl',
-                )}
-              />
-            </p>
-            <p>
-              <strong>CS student · Helsinki</strong>
-            </p>
-            <p>
-              I focus on full stack <strong>web development</strong>, and also enjoy{' '}
-              <strong>system programming</strong> and building <strong>AI</strong> toys.
-            </p>
-          </MotionBlurCard>
+            <article className='flex flex-col gap-8'>
+              <section>
+                <MotionFadeInParagraph>
+                  <strong className='mb-2 block'>Hey!</strong> I am{' '}
+                  <MotionSpan
+                    text={siteMeta.me}
+                    className='px-2 py-1 text-3xl font-bold'
+                    delay={0.09}
+                    spanClassNames={new Array(siteMeta.me.length).fill(
+                      'bg-gradient-to-br from-[#615fff] to-[#155dfc] bg-clip-text text-transparent drop-shadow-2xl',
+                    )}
+                  />
+                  .
+                </MotionFadeInParagraph>
+                <MotionFadeInParagraph className='leading-relaxed'>
+                  I am currently a <strong>computer science student in Helsinki</strong>, focusing
+                  on <strong>full‑stack web development</strong>,{' '}
+                  <strong>system programming</strong>, and <strong>AI projects</strong>.
+                </MotionFadeInParagraph>
+              </section>
+              <section>
+                <MotionFadeInParagraph className='leading-relaxed'>
+                  <strong>In November 2024, I joined Hive Helsinki,</strong> a fully project based
+                  program where I’ve been building software mainly in C and C++. One of my favorite
+                  projects was a Lightweight POSIX compliant command shell, which was built entirely
+                  from scratch, a challenge that taught me to research, design, and debug a
+                  low-level robust system on my own. I’ve also met many talented people here, and
+                  even collaborated with one of them to create my first real-world project: a
+                  Booking Calendar App for school's meeting room booking.
+                </MotionFadeInParagraph>
+                <MotionFadeInParagraph className='leading-relaxed'>
+                  <strong>
+                    Earlier, in July 2023, I enrolled in the Computer Applications degree program at
+                    HAMK,
+                  </strong>{' '}
+                  where I learned a broad range of technologies and built this personal website and
+                  blog system as part of my thesis project.
+                </MotionFadeInParagraph>
+                <MotionFadeInParagraph className='leading-relaxed'>
+                  <strong>
+                    My journey into computer science began even earlier, in February 2023, when I
+                    started learning CS theory and programming through online courses.
+                  </strong>{' '}
+                  I’m so grateful to universities like MIT, Stanford, and UC Berkeley for
+                  openly sharing such high quality courses, which gave me access to world class
+                  education and built a solid foundation for my transition.
+                </MotionFadeInParagraph>
+              </section>
+              <section>
+                <MotionFadeInParagraph className='leading-relaxed'>
+                  <strong>
+                    Before moving into tech, I worked at a bank in Shanghai until May 2023,
+                  </strong>{' '}
+                  managing a sales team and collaborating with some of smartest colleagues and
+                  clients to structure financial product portfolios for some of the best known
+                  companies in China and beyond. Our work supported M&amp;A transactions, helped
+                  clients hedge risks, secured financing, and optimized payment and collection
+                  processes for better cash flow efficiency.
+                </MotionFadeInParagraph>
+                <MotionFadeInParagraph className='leading-relaxed'>
+                  When I made the switch to tech, I was surprised by how transferable these skills
+                  were: the <strong>structured problem‑solving mindset</strong>,{' '}
+                  <strong>client‑facing experience</strong>, and <strong>teamwork</strong> I
+                  developed in banking have proven just as useful in software development, helping
+                  me adapt quickly to this new industry.
+                </MotionFadeInParagraph>
+              </section>
+              <section>
+                <MotionFadeInParagraph className='leading-relaxed'>
+                  <strong>
+                    My innate curiosity and strong ability to learn quickly are what led me to
+                    switch careers and move to a new country,
+                  </strong>{' '}
+                  and they also fuel my love for exploring the world beyond code. Outside of coding,
+                  I love traveling and being in nature, exploring unfamiliar places and cultures
+                  whenever I can. I’m also passionate about photography, which lets me capture and
+                  preserve the moments and scenery that inspire me.
+                </MotionFadeInParagraph>
+              </section>
+            </article>
+          </section>
         </section>
 
         {/* Tech Stacks */}
