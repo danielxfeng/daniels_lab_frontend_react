@@ -1,8 +1,11 @@
+import { useRef } from 'react';
+
 import MotionBlurCard from '@/components/motion_components/MotionBlurCard';
+import MotionExternalScrollBar from '@/components/motion_components/MotionExtenalScrollBar';
+import MotionFadeInParagraph from '@/components/motion_components/MotionFadeinParagraph';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionSpan from '@/components/motion_components/MotionSpan';
 import ContactLink from '@/components/shared/ContactLink';
-import { GlowingEffect } from '@/components/third_party/GlowingEffect';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import contactIconList from '@/constants/contactLinks';
@@ -12,119 +15,149 @@ import rawTechStack from '@/constants/techStack.json';
 const techStack = rawTechStack;
 
 const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
+  const introductionRef = useRef<HTMLDivElement>(null);
+
   return (
     <section
       data-role='about-me-section'
       className='inner-container flex flex-col text-lg leading-relaxed lg:my-6'
     >
       {/* h1 or h2 based on the position */}
-      {position === 'div' ? <h2 className='my-6'>About Me</h2> : <MotionH1>About Me</MotionH1>}
+      {position === 'div' ? (
+        <h2 className='text-gradient my-6'>About Me</h2>
+      ) : (
+        <MotionH1>About Me</MotionH1>
+      )}
 
-      <div data-role='about-me-content' className='flex w-full flex-col items-center gap-6 py-8'>
+      <div
+        data-role='about-me-content'
+        className='flex w-full flex-col items-center justify-center gap-6 py-8'
+      >
         {/* Introduction */}
         <section
           data-role='about-me-introduction'
-          className='mb-8 flex w-full max-w-2xl flex-col gap-8 lg:flex-row lg:items-center lg:gap-12'
+          className='mb-8 flex w-full flex-col items-center justify-start gap-8 lg:flex-row lg:items-start lg:gap-12'
         >
           <div
-            data-role='about-me-avatar'
-            className='flex flex-col items-center justify-center gap-3'
+            data-role='about-me-avatar-container'
+            className='flex flex-1 flex-col items-center justify-center gap-8 lg:mt-16'
           >
-            <Avatar className='ring-offset-background ring-muted z-5 h-32 w-32 shadow-xl ring-2 ring-offset-2 lg:h-40 lg:w-40'>
-              <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
-              <AvatarFallback>Daniel</AvatarFallback>{' '}
-            </Avatar>
-            <div className='flex justify-between gap-1.5' data-role='about-me-avatar-contact-links'>
-              {contactIconList.map((prop) => (
-                <ContactLink key={prop.supportText} {...prop} />
-              ))}
-            </div>
-          </div>
-
-          <div
-            data-role='about-me-introduction-content'
-            className='border-border text-foreground/65 [&_strong]:text-foreground relative w-full rounded-2xl border bg-white p-6 italic shadow-md dark:bg-neutral-950 [&_strong]:not-italic'
-          >
-            <GlowingEffect
-              spread={40}
-              glow={true}
-              disabled={false}
-              proximity={64}
-              inactiveZone={0.01}
+            <MotionBlurCard
+              dataRole='about-me-avatar'
+              className='flex flex-1 flex-col items-center justify-center gap-3'
+            >
+              <Avatar className='ring-offset-background ring-muted z-5 h-32 w-32 shadow-xl ring-2 ring-offset-2 lg:h-40 lg:w-40'>
+                <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
+                <AvatarFallback>Daniel</AvatarFallback>{' '}
+              </Avatar>
+              <div
+                className='flex justify-between gap-1.5'
+                data-role='about-me-avatar-contact-links'
+              >
+                {contactIconList.map((prop) => (
+                  <ContactLink key={prop.supportText} {...prop} />
+                ))}
+              </div>
+            </MotionBlurCard>
+            <MotionExternalScrollBar
+              syncContainerRef={introductionRef}
+              className='hidden lg:flex'
+              occupiedHeight={320}
             />
-            <p>
-              <strong className='mb-2 block'>Hey!</strong> I am{' '}
-              <MotionSpan
-                text={siteMeta.me}
-                className='text-highlight px-2 py-1 text-3xl font-bold text-shadow-md'
-                delay={0.08}
-              />
-            </p>
-            <p>
-              <strong>CS student · Helsinki</strong>
-            </p>
-            <p>
-              I focus on full stack <strong>web development</strong>, and also enjoy{' '}
-              <strong>system programming</strong> and building <strong>AI</strong> toys.
-            </p>
           </div>
+
+          <section
+            ref={introductionRef}
+            data-role='about-me-introduction-content'
+            className='border-border text-foreground/70 [&_strong]:text-foreground relative w-full max-w-prose rounded-2xl border p-6 shadow-md [&_strong]:not-italic'
+          >
+            <article className='flex flex-col gap-8'>
+              <section>
+                <MotionFadeInParagraph>
+                  <strong className='mb-2 block'>Hey!</strong> I am{' '}
+                  <MotionSpan
+                    text={siteMeta.me}
+                    className='px-2 py-1 text-3xl font-bold'
+                    delay={0.09}
+                    spanClassNames={new Array(siteMeta.me.length).fill(
+                      'bg-gradient-to-br from-[#615fff] to-[#155dfc] bg-clip-text text-transparent drop-shadow-2xl',
+                    )}
+                  />
+                  .
+                </MotionFadeInParagraph>
+                <MotionFadeInParagraph className='leading-relaxed'>
+                  I am currently a <strong>computer science student in Helsinki</strong>, focusing
+                  on <strong>full‑stack web development</strong>,{' '}
+                  <strong>system programming</strong>, and <strong>AI projects</strong>.
+                </MotionFadeInParagraph>
+              </section>
+              <section>
+                <MotionFadeInParagraph className='leading-relaxed'>
+                  <strong>In November 2024, I joined Hive Helsinki,</strong> a fully project based
+                  program where I’ve been building software mainly in C and C++. One of my favorite
+                  projects was a Lightweight POSIX compliant command shell, which was built entirely
+                  from scratch, a challenge that taught me to research, design, and debug a
+                  low-level robust system on my own. I’ve also met many talented people here, and
+                  even collaborated with one of them to create my first real-world project: a
+                  Booking Calendar App for school's meeting room booking.
+                </MotionFadeInParagraph>
+                <MotionFadeInParagraph className='leading-relaxed'>
+                  <strong>
+                    Earlier, in July 2023, I enrolled in the Computer Applications degree program at
+                    HAMK,
+                  </strong>{' '}
+                  where I learned a broad range of technologies and built this personal website and
+                  blog system as part of my thesis project.
+                </MotionFadeInParagraph>
+                <MotionFadeInParagraph className='leading-relaxed'>
+                  <strong>
+                    My journey into computer science began even earlier, in February 2023, when I
+                    started learning CS theory and programming through online courses.
+                  </strong>{' '}
+                  I’m so grateful to universities like MIT, Stanford, and UC Berkeley for openly
+                  sharing such high quality courses, which gave me access to world class education
+                  and built a solid foundation for my transition.
+                </MotionFadeInParagraph>
+              </section>
+              <section>
+                <MotionFadeInParagraph className='leading-relaxed'>
+                  <strong>
+                    Before moving into tech, I worked at a bank in Shanghai until May 2023,
+                  </strong>{' '}
+                  managing a sales team and collaborating with some of smartest colleagues and
+                  clients to structure financial product portfolios for some of the best known
+                  companies in China and beyond. Our work supported M&amp;A transactions, helped
+                  clients hedge risks, secured financing, and optimized payment and collection
+                  processes for better cash flow efficiency.
+                </MotionFadeInParagraph>
+                <MotionFadeInParagraph className='leading-relaxed'>
+                  When I made the switch to tech, I was surprised by how transferable these skills
+                  were: the <strong>structured problem‑solving mindset</strong>,{' '}
+                  <strong>client‑facing experience</strong>, and <strong>teamwork</strong> I
+                  developed in banking have proven just as useful in software development, helping
+                  me adapt quickly to this new industry.
+                </MotionFadeInParagraph>
+              </section>
+              <section>
+                <MotionFadeInParagraph className='leading-relaxed'>
+                  <strong>
+                    My innate curiosity and strong ability to learn quickly are what led me to
+                    switch careers and move to a new culture,
+                  </strong>{' '}
+                  and they also fuel my love for exploring the world beyond code. Outside of coding,
+                  I love traveling and being in nature with my family, discovering scenic landscapes
+                  and diverse cultures whenever I can. I’m also passionate about photography, which
+                  lets me capture and preserve the moments and scenery that inspire me.
+                </MotionFadeInParagraph>
+              </section>
+            </article>
+          </section>
         </section>
-
-        <div
-          data-role='about-me-detail'
-          className='text-foreground/65 [&_strong]:text-foreground flex max-w-5xl flex-col gap-12 italic lg:flex-row [&_strong]:not-italic'
-        >
-          <MotionBlurCard
-            dataRole='about-me-profession'
-            className='flex w-full flex-1 flex-col justify-between gap-6 rounded-2xl bg-white p-6 shadow-md dark:bg-neutral-950'
-          >
-            <ul className='list-disc space-y-2 pl-6'>
-              <li>
-                Studying at <strong>Hive Helsinki</strong>, focusing on system-level{' '}
-                <strong>C/C++</strong> projects.
-              </li>
-              <li>
-                Pursuing a Bachelor's degree in Computer Applications at <strong>HAMK</strong>.
-              </li>
-            </ul>
-
-            <ul className='list-disc space-y-2 pl-6'>
-              <li>
-                Worked in <strong>corporate banking</strong> in <strong>Shanghai</strong> until
-                August 2023.
-              </li>
-            </ul>
-          </MotionBlurCard>
-
-          <div className='bg-muted hidden w-px lg:flex' />
-
-          <MotionBlurCard
-            dataRole='about-me-detail-soft'
-            className='flex w-full flex-1 flex-col justify-start gap-6 rounded-2xl bg-white p-6 shadow-md dark:bg-neutral-950'
-          >
-            {/* Soft skill */}
-            <ul className='list-disc space-y-2 pl-6'>
-              <li>
-                <strong>Naturally curious</strong>: I enjoy learning new things and exploring
-                unfamiliar ideas.
-              </li>
-              <li>
-                <strong>Logical thinker</strong>: I love breaking down complex problems with
-                structured reasoning.
-              </li>
-              <li>
-                <strong>Excellent teamwork</strong>: and collaboration skills in cross-functional
-                environments.
-              </li>
-              <li className='mt-4 list-none pl-0'>-- I love becoming a little better every day.</li>
-            </ul>
-          </MotionBlurCard>
-        </div>
 
         {/* Tech Stacks */}
         <section
           data-role='about-me-tech'
-          className='flex w-full flex-col gap-3 lg:flex-row lg:items-center lg:justify-around'
+          className='flex w-full flex-col items-center gap-3 lg:flex-row lg:justify-around'
         >
           <div data-role='about-me-tech-stack' className='mt-10 flex flex-col gap-4 lg:gap-2'>
             <h4 className='mb-4 flex items-center justify-start gap-1.5'>
@@ -139,7 +172,11 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                 </div>
                 <div className='flex flex-wrap gap-2 text-sm font-medium'>
                   {item.stacks.map((value) => (
-                    <Badge key={value} variant='default' className='bg-gradient rounded-full text-neutral-100'>
+                    <Badge
+                      key={value}
+                      variant='default'
+                      className='bg-gradient rounded-full text-neutral-100'
+                    >
                       {value}
                     </Badge>
                   ))}

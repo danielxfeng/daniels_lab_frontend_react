@@ -27,7 +27,7 @@ const ProjectCards = ({ position }: { position: 'page' | 'div' }) => {
     <section data-role='projects-section' className='inner-container py-6'>
       {/* h1 or h2 depends on the position of component */}
       {position === 'div' ? (
-        <h2 className='my-3'>Featured Projects</h2>
+        <h2 className='text-gradient my-3'>Featured Projects</h2>
       ) : (
         <MotionH1 className='my-3'>Featured Projects</MotionH1>
       )}
@@ -58,7 +58,7 @@ const ProjectCards = ({ position }: { position: 'page' | 'div' }) => {
                   className='aspect-[2/1] w-full rounded-lg shadow-xl'
                 />
                 {/* Title of project */}
-                <h4 className='text-shadow mt-5 mb-3 text-center'>{project.title}</h4>
+                <h4 className='text-shadow mt-5 mb-3 text-center '>{project.title}</h4>
                 {/* The description of project */}
                 <SafeStyledMarkdown
                   markdown={project.description}

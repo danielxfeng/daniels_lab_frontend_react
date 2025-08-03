@@ -314,6 +314,12 @@ const featuredProjectsAnimation = {
   transition: { type: 'spring' as const, stiffness: 200, damping: 20 },
 };
 
+const fadeInUp = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5, ease: easeOut, delay: 0.2 },
+};
+
 export {
   avatarAnimation,
   blurCardAnimation,
@@ -321,6 +327,7 @@ export {
   classEaseInOut,
   draggableAnimation,
   fadeInAnimation,
+  fadeInUp,
   featuredProjectsAnimation,
   h1Animation,
   linkAnimation,

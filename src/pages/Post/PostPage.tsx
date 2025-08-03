@@ -47,7 +47,7 @@ const PostPage = () => {
       {/* The post page */}
       <MotionScroll className='my-10 px-4'>
         <article
-          className='inner-container mb-10 flex max-w-3xl flex-col items-center gap-6 lg:mb-10'
+          className='inner-container mb-10 flex max-w-prose flex-col items-center gap-6 lg:mb-10'
           data-role='post-page'
         >
           {/* The post cover image */}

@@ -49,7 +49,7 @@ const UserProfilePage = () => {
             src={user.avatarUrl ? user.avatarUrl : undefined}
             alt={`${user.username}'s avatar`}
           />
-          <AvatarFallback>{user.username?.[0]?.toUpperCase() ?? 'U'}</AvatarFallback>
+          <AvatarFallback className='bg-gradient text-neutral-100 text-3xl'>{user.username?.[0]?.toUpperCase() ?? 'U'}</AvatarFallback>
         </Avatar>
         {user.username}
       </MotionH1>
@@ -68,6 +68,7 @@ const UserProfilePage = () => {
             <UserProfileUpdateForm />
             <div className='border-border my-4 w-full border-t' />
             <UserLogoutComponent deviceId={deviceId} />
+            <div className='border-border my-4 w-full border-t' />
             <UserDeleteComponent user={user} />
           </div>
         </TabsContent>
