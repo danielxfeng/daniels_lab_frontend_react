@@ -35,7 +35,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
         {/* Introduction */}
         <section
           data-role='about-me-introduction'
-          className='mb-8 flex w-full flex-col items-center lg:items-start justify-start gap-8 lg:flex-row lg:gap-12'
+          className='mb-8 flex w-full flex-col items-center justify-start gap-8 lg:flex-row lg:items-start lg:gap-12'
         >
           <div
             data-role='about-me-avatar-container'
@@ -139,9 +139,9 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                     switch careers and move to a new culture,
                   </strong>{' '}
                   and they also fuel my love for exploring the world beyond code. Outside of coding,
-                  I love traveling and being in nature with my family, exploring unfamiliar places
-                  and cultures whenever I can. I’m also passionate about photography, which lets me
-                  capture and preserve the moments and scenery that inspire me.
+                  I love traveling and being in nature with my family, exploring scenic landscapes
+                  and diverse cultures whenever I can. I’m also passionate about photography, which
+                  lets me capture and preserve the moments and scenery that inspire me.
                 </MotionFadeInParagraph>
               </section>
             </article>
