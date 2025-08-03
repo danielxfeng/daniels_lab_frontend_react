@@ -8,9 +8,8 @@ export default [
       { index: true, file: 'pages/HomePage.tsx' },
       {
         path: 'user',
-        file: 'router/UserRouter.tsx',
+        file: 'pages/UserProfilePage.tsx',
         children: [
-          { index: true, file: 'pages/UserProfilePage.tsx' },
           { path: 'login', file: 'pages/LoginPage.tsx' },
           { path: 'join-admin', file: 'pages/JoinAdminPage.tsx' },
           { path: 'admin', file: 'pages/AdminPage.tsx' },
@@ -22,17 +21,13 @@ export default [
         path: 'blog',
         file: 'router/BlogRouter.tsx',
         children: [
-          { index: true, file: 'router/BlogRedirect.tsx' },
           { path: 'search', file: 'pages/Posts/PostsSearchPage.tsx' },
           { path: 'new', file: 'pages/PostUpsert/PostCreatePage.tsx' },
           { path: 'edit/:slug', file: 'pages/PostUpsert/PostUpdatePage.tsx' },
           {
             path: 'posts',
-            file: 'router/PostsRouter.tsx',
-            children: [
-              { index: true, file: 'pages/Posts/PostsPage.tsx' },
-              { path: ':slug', file: 'pages/PostPage.tsx' },
-            ],
+            file: 'pages/Posts/PostsPage.tsx',
+            children: [{ path: ':slug', file: 'pages/PostPage.tsx' }],
           },
         ],
       },
