@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import MotionBlurCard from '@/components/motion_components/MotionBlurCard';
 import MotionFadeInParagraph from '@/components/motion_components/MotionFadeinParagraph';
 import MotionH1 from '@/components/motion_components/MotionH1';
@@ -12,6 +14,8 @@ import rawTechStack from '@/constants/techStack.json';
 const techStack = rawTechStack;
 
 const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
+  const introductionRef = useRef<HTMLDivElement>(null);
+
   return (
     <section
       data-role='about-me-section'
@@ -24,28 +28,40 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
         <MotionH1>About Me</MotionH1>
       )}
 
-      <div data-role='about-me-content' className='flex w-full flex-col items-center gap-6 py-8'>
+      <div
+        data-role='about-me-content'
+        className='flex w-full flex-col items-center justify-center gap-6 py-8'
+      >
         {/* Introduction */}
         <section
           data-role='about-me-introduction'
-          className='mb-8 flex w-full flex-col gap-8 lg:flex-row lg:items-center lg:gap-12'
+          className='mb-8 flex w-full flex-col items-start justify-start gap-8 lg:flex-row lg:gap-12'
         >
-          <MotionBlurCard
-            dataRole='about-me-avatar'
-            className='flex flex-col items-center justify-center gap-3 lg:w-2/5 lg:flex-1'
+          <div
+            data-role='about-me-avatar-container'
+            className='flex flex-1 flex-col items-center justify-center gap-4 lg:mt-16'
           >
-            <Avatar className='ring-offset-background ring-muted z-5 h-32 w-32 shadow-xl ring-2 ring-offset-2 lg:h-40 lg:w-40'>
-              <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
-              <AvatarFallback>Daniel</AvatarFallback>{' '}
-            </Avatar>
-            <div className='flex justify-between gap-1.5' data-role='about-me-avatar-contact-links'>
-              {contactIconList.map((prop) => (
-                <ContactLink key={prop.supportText} {...prop} />
-              ))}
-            </div>
-          </MotionBlurCard>
+            <MotionBlurCard
+              dataRole='about-me-avatar'
+              className='flex flex-col items-center justify-center gap-3 lg:w-2/5'
+            >
+              <Avatar className='ring-offset-background ring-muted z-5 h-32 w-32 shadow-xl ring-2 ring-offset-2 lg:h-40 lg:w-40'>
+                <AvatarImage src={siteMeta.myAvatar} alt='@Daniel' />
+                <AvatarFallback>Daniel</AvatarFallback>{' '}
+              </Avatar>
+              <div
+                className='flex justify-between gap-1.5'
+                data-role='about-me-avatar-contact-links'
+              >
+                {contactIconList.map((prop) => (
+                  <ContactLink key={prop.supportText} {...prop} />
+                ))}
+              </div>
+            </MotionBlurCard>
+          </div>
 
           <section
+            ref={introductionRef}
             data-role='about-me-introduction-content'
             className='border-border text-foreground/70 [&_strong]:text-foreground relative w-full max-w-prose rounded-2xl border p-6 shadow-md [&_strong]:not-italic'
           >
@@ -135,7 +151,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
         {/* Tech Stacks */}
         <section
           data-role='about-me-tech'
-          className='flex w-full flex-col gap-3 lg:flex-row lg:items-center lg:justify-around'
+          className='flex w-full flex-col items-center gap-3 lg:flex-row lg:justify-around'
         >
           <div data-role='about-me-tech-stack' className='mt-10 flex flex-col gap-4 lg:gap-2'>
             <h4 className='mb-4 flex items-center justify-start gap-1.5'>
