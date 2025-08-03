@@ -23,15 +23,15 @@ export default [
         file: 'router/BlogRouter.tsx',
         children: [
           { index: true, file: 'router/BlogRedirect.tsx' },
+          { path: 'search', file: 'pages/Posts/PostsSearchPage.tsx' },
+          { path: 'new', file: 'pages/PostUpsert/PostCreatePage.tsx' },
+          { path: 'edit/:slug', file: 'pages/PostUpsert/PostUpdatePage.tsx' },
           {
             path: 'posts',
             file: 'router/PostsRouter.tsx',
             children: [
               { index: true, file: 'pages/Posts/PostsPage.tsx' },
-              { path: 'search', file: 'pages/Posts/PostsSearchPage.tsx' },
               { path: ':slug', file: 'pages/PostPage.tsx' },
-              { path: 'new', file: 'pages/PostUpsert/PostCreatePage.tsx' },
-              { path: 'edit/:slug', file: 'pages/PostUpsert/PostUpdatePage.tsx' },
             ],
           },
         ],
