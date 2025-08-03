@@ -92,9 +92,9 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                     My journey into computer science began even earlier, in February 2023, when I
                     started learning CS theory and programming through online courses.
                   </strong>{' '}
-                  I’m so grateful to universities like MIT, Stanford, and UC Berkeley for
-                  openly sharing such high quality courses, which gave me access to world class
-                  education and built a solid foundation for my transition.
+                  I’m so grateful to universities like MIT, Stanford, and UC Berkeley for openly
+                  sharing such high quality courses, which gave me access to world class education
+                  and built a solid foundation for my transition.
                 </MotionFadeInParagraph>
               </section>
               <section>
@@ -120,12 +120,12 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                 <MotionFadeInParagraph className='leading-relaxed'>
                   <strong>
                     My innate curiosity and strong ability to learn quickly are what led me to
-                    switch careers and move to a new country,
+                    switch careers and move to a new culture,
                   </strong>{' '}
                   and they also fuel my love for exploring the world beyond code. Outside of coding,
-                  I love traveling and being in nature, exploring unfamiliar places and cultures
-                  whenever I can. I’m also passionate about photography, which lets me capture and
-                  preserve the moments and scenery that inspire me.
+                  I love traveling and being in nature with my family, exploring unfamiliar places
+                  and cultures whenever I can. I’m also passionate about photography, which lets me
+                  capture and preserve the moments and scenery that inspire me.
                 </MotionFadeInParagraph>
               </section>
             </article>
