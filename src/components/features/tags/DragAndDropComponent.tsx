@@ -31,7 +31,7 @@ const DraggableTag = ({ tag, isOverlay = false }: { tag: string; isOverlay?: boo
       {...attributes}
       {...listeners}
       className={cn(
-        'border-border text-muted-foreground pointer-events-auto z-10 inline-flex w-auto max-w-[160px] cursor-grab items-center justify-center gap-2 overflow-hidden rounded-full border bg-transparent px-2.5 py-0.5 text-sm text-ellipsis whitespace-nowrap transition-colors',
+        'border-border text-muted-foreground pointer-events-auto z-10 inline-flex w-auto max-w-[160px] cursor-grab touch-none items-center justify-center gap-2 overflow-hidden rounded-full border bg-transparent px-2.5 py-0.5 text-sm text-ellipsis whitespace-nowrap transition-colors select-none',
         isOverlay && 'bg-destructive text-background',
       )}
       data-role='draggable-tag'
