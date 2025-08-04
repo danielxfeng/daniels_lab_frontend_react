@@ -15,7 +15,7 @@ This repository contains the frontend part of **Daniel's Lab**, included as a su
 - **User Management System** (`/user`)  
   Frontend for user authentication and profile management, connected to the main backend.
 
-- **Gravity Particles** (`/gravity-particles`)  
+- **Gravity Particles** (`/`)  
   A 3D toy made by Three.js.
 
 ## Usage
