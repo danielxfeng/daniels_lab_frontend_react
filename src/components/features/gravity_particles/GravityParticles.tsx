@@ -6,6 +6,8 @@ import { useThree } from '@react-three/fiber';
 import { motion, useInView } from 'framer-motion';
 import * as THREE from 'three';
 
+const debouncedLength = 100; // Debounce length in milliseconds
+
 import particlesFactory, {
   ParticleMaterial,
   ParticleMaterialEnum,
@@ -140,7 +142,7 @@ const AnimatedMesh = ({
       queuedHover.current = value;
       return;
     }
-    debouncedLock.current = setTimeout(() => (debouncedLock.current = null), 50);
+    debouncedLock.current = setTimeout(() => (debouncedLock.current = null), debouncedLength);
     if (!value) pointerPosRef.current = 'none';
     setIsParticlesHover(value);
   };
