@@ -27,7 +27,7 @@ const fetchPost = async (unsafeSlug: string): Promise<{ post: PostResponse }> =>
   const validatedPost = PostResponseSchema.safeParse(rawPostRes.data);
   if (!validatedPost.success || !validatedPost.data.markdown) {
     const err = validatedPost.success
-      ? new ZodError<PostResponse>([
+      ? new ZodError([
           {
             code: ZodIssueCode.custom,
             message: 'markdown is missing',
