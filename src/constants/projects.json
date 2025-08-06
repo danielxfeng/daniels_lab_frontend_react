@@ -1,14 +1,14 @@
 [
   {
-    "id": "blog",
-    "title": "Fullstack Blog Platform",
-    "coverUrl": "https://picsum.photos/1200/600?random=6",
-    "description": "A modern, **full-featured** blogging system with full-text search and a **custom authentication system** built from scratch. Includes:\n- A modular backend built with **Node.js**, **PostgreSQL**, **Zod**, and **Meilisearch**\n- A reactive frontend built with **React**, **Tailwind CSS**, **Zustand**, **Shadcn UI**, and **Motion Framer**",
+    "id": "website",
+    "title": "A full stack website: Daniel's Lab",
+    "coverUrl": "https://raw.githubusercontent.com/danielxfeng/blog-content/refs/heads/main/media/A-Full-Stack-Website-Daniels-Lab/A-Full-Stack-Website-Daniels-Lab.cover.jpg",
+    "description": "A modern, full-stack portfolio site featuring a custom-built blogging system with full-text search and authentication from scratch.\n- **Modular backend**: Node.js, PostgreSQL, Zod, Meilisearch\n- **Reactive frontend**: React, Tailwind CSS, Zustand, Shadcn UI, Framer Motion",
     "stack": ["Node.js", "React", "TypeScript", "PostgreSQL"],
-    "projectLink": "https://www.google.com/?q=sss",
-    "siteLink": "https://www.google.com/?q=sss",
+    "projectLink": "https://danielslab.dev/blog/posts/a-full-stack-website-daniels-lab",
+    "siteLink": "https://danielslab.dev/blog/posts/a-full-stack-website-daniels-lab",
     "hasSite": true,
-    "tags": ["web", "fullstack", "js", "ts", "react", "node", "frontend", "backend", "cicd"]
+    "tags": ["web-dev", "fullstack", "ts", "react", "node", "frontend", "backend", "ci/cd"]
   },
   {
     "id": "go-worker",
