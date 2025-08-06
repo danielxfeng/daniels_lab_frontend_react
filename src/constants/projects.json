@@ -8,28 +8,18 @@
     "projectLink": "https://danielslab.dev/blog/posts/a-full-stack-website-daniels-lab",
     "siteLink": "https://danielslab.dev/blog/posts/a-full-stack-website-daniels-lab",
     "hasSite": true,
-    "tags": ["web-dev", "fullstack", "ts", "react", "node", "frontend", "backend", "ci/cd"]
+    "tags": ["web-dev", "fullstack", "react", "node", "frontend", "backend", "ci/cd", "typescript"]
   },
   {
-    "id": "go-worker",
-    "title": "Async Job System in Go",
-    "coverUrl": "https://picsum.photos/1200/600?random=7",
-    "description": "A lightweight async job system written in **Go**, used across my projects to handle background tasks through **Redis** queues.\n- In the blog platform, it updates **Meilisearch** indexes without blocking the main app\n- it buffers inference requests via a **queue** to prevent **concurrency** issues caused by high memory usage during model execution",
-    "stack": ["Go", "Redis", "Message Queue", "Concurrency"],
-    "projectLink": "https://www.google.com/?q=sss",
-    "siteLink": "https://www.google.com/?q=sss",
-    "hasSite": false,
-    "tags": [
-      "ai",
-      "machine_learning",
-      "python",
-      "cnn",
-      "pytorch",
-      "transfer_learning",
-      "backend",
-      "fastapi",
-      "data"
-    ]
+    "id": "book-me",
+    "title": "Book Me: a meeting room booking calendar",
+    "coverUrl": "https://github.com/danielxfeng/blog-content/blob/main/media/Book-Me-Meeting-Room-Booking-Calendar/Book-Me-Meeting-Room-Booking-Calendar.cover.jpg?raw=true",
+    "description": "A modern, intuitive **room booking system** built with React\n- Designed with a **scrollable calendar UI** that adapts between desktop (week view) and mobile (multi-day view)\n- Introduces a custom **gridless layout system** with pointer-based interaction and absolute booking rendering\n- Handles **access control** and **conflict prevention** through role-based validation and slot-level rules",
+    "stack": ["React", "TypeScript", "Tailwind CSS", "ShadCN", "Jotai", "TanStack Query"],
+    "projectLink": "https://danielslab.dev/blog/posts/book-me-a-meeting-room-booking-calendar",
+    "siteLink": "https://danielslab.dev/blog/posts/book-me-a-meeting-room-booking-calendar",
+    "hasSite": true,
+    "tags": ["web-dev", "react", "frontend", "typescript"]
   },
   {
     "id": "gravity-particles",
