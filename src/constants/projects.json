@@ -14,7 +14,7 @@
     "id": "book-me",
     "title": "Book Me: a meeting room booking calendar",
     "coverUrl": "https://github.com/danielxfeng/blog-content/blob/main/media/Book-Me-Meeting-Room-Booking-Calendar/Book-Me-Meeting-Room-Booking-Calendar.cover.jpg?raw=true",
-    "description": "A modern, intuitive **room booking system** built with React\n- Designed with a **scrollable calendar UI**\n- Introduces a custom **gridless layout system**\n",
+    "description": "A modern, intuitive **room booking system** for students at **Hive Helsinki**.\n- featuring a scrollable calendar UI, a custom **gridless layout**.\n- Applies **role-based access control** with conflict prevention.",
     "stack": ["React", "TypeScript", "ReactQuery"],
     "projectLink": "https://danielslab.dev/blog/posts/book-me-a-meeting-room-booking-calendar",
     "siteLink": "https://danielslab.dev/blog/posts/book-me-a-meeting-room-booking-calendar",
@@ -25,11 +25,11 @@
     "id": "mushfinder",
     "title": "MushFinder: a mushroom identification helper",
     "coverUrl": "https://res.cloudinary.com/dtqrdm4ej/image/upload/v1754579338/comingsoon_u5oq9z.jpg",
-    "description": "An **experimental toy** powered by a custom CNN model.\n- Focused on the **20 common Finnish mushrooms**\n- Provides both **online** and **offline edge ML** versions\n",
+    "description": "An **experimental AI toy** powered by a custom CNN model.\n- Trained on the **20 most common mushrooms** in Finnish forests\n- Offers both **online** and **offline edge ML** versions\n- Designed for mobile use and privacy-friendly",
     "stack": ["PyTorch", "CNN", "MachineLearning", "EdgeML"],
     "projectLink": "https://danielslab.dev/blog/posts/mushroom-finder-an-effective-cnn-to-help-identify-",
     "siteLink": "https://danielslab.dev/blog/posts/mushroom-finder-an-effective-cnn-to-help-identify-",
     "hasSite": true,
-    "tags": ["machinelearning", "cnn", "pytorch", "edge-ml"]
+    "tags": ["MachineLearning", "CNN", "PyTorch", "Edge-ML"]
   }
 ]
