@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, Suspense, useEffect, useMemo, useRef } from 'react';
+import { Dispatch, SetStateAction, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { animated, useSpring } from '@react-spring/three';
 import { PerspectiveCamera } from '@react-three/drei';
 import { Canvas, ThreeEvent, useFrame } from '@react-three/fiber';
@@ -27,12 +27,16 @@ const AnimatedMesh = ({
   active,
   isParticlesHover,
   setIsParticlesHover,
+  isPointerLeave,
+  setIsPointerLeave,
 }: {
   numbers: number;
   mode: GravityParticlesMode;
   active: boolean;
   isParticlesHover: boolean;
   setIsParticlesHover: Dispatch<SetStateAction<boolean>>;
+  isPointerLeave: boolean;
+  setIsPointerLeave: Dispatch<SetStateAction<boolean>>;
 }) => {
   // hooks for three.
   const { gl, size } = useThree();
@@ -72,13 +76,10 @@ const AnimatedMesh = ({
     position: isMinimal ? ([0, 0, 0] as [number, number, number]) : responsivePosition,
 
     onChange: () => {
-      if (!hoverLock.current) {
-        hoverLock.current = true;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as any).umami?.track('Particles toggle', {
-          timestamp: new Date().toTimeString().slice(0, 8),
-        });
-      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).umami?.track('Particles toggle', {
+        timestamp: new Date().toTimeString().slice(0, 8),
+      });
     },
     onRest: () => {
       hoverLock.current = false;
@@ -144,19 +145,21 @@ const AnimatedMesh = ({
     }
     debouncedLock.current = setTimeout(() => (debouncedLock.current = null), debouncedLength);
     if (!value) pointerPosRef.current = 'none';
+    hoverLock.current = true;
     setIsParticlesHover(value);
   };
+
+  useEffect(() => {
+    if (!isPointerLeave || !supportHover || !isParticlesHover) return;
+    setIsPointerLeave(false);
+    debouncedToggle(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isParticlesHover, isPointerLeave, setIsPointerLeave, supportHover]);
 
   // Start hover on pointer enter event.
   const pointerEnterHandler = () => {
     if (!supportHover || isParticlesHover) return;
     debouncedToggle(true);
-  };
-
-  // End hover on pointer leave event;
-  const pointerLeaveHandler = () => {
-    if (!supportHover || !isParticlesHover) return;
-    debouncedToggle(false);
   };
 
   // onClink event.
@@ -201,7 +204,6 @@ const AnimatedMesh = ({
         onPointerEnter={pointerEnterHandler} // Handle hover start (not work on mobile)
         onPointerMove={pointerMoveHandler} // Log the mouse position (not work on mobile)
         onPointerDown={pointerDownHandler} // Handle click to toggle hover state (works on non-hover device)
-        onPointerLeave={pointerLeaveHandler} // Handle hover end (not work on mobile)
         visible={visibleHoverHelper} // Toggle visibility of the helper box(for debugging)
         frustumCulled={false}
       >
@@ -246,6 +248,7 @@ const GravityParticles = ({
   isParticlesHover: boolean;
   setIsParticlesHover: Dispatch<SetStateAction<boolean>>;
 }) => {
+  const [isPointerLeave, setIsPointerLeave] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: '-100px 0px' });
 
@@ -264,6 +267,9 @@ const GravityParticles = ({
       className={cn('absolute h-full w-full', mode === 'container' && 'inset-0 z-50')}
       data-role='particles-transition'
       aria-hidden='true'
+      onPointerLeave={() => {
+        if (isParticlesHover) setIsPointerLeave(true);
+      }}
       {...animation}
     >
       <Canvas
@@ -286,6 +292,8 @@ const GravityParticles = ({
             active={isInView}
             isParticlesHover={isParticlesHover}
             setIsParticlesHover={setIsParticlesHover}
+            isPointerLeave={isPointerLeave}
+            setIsPointerLeave={setIsPointerLeave}
           />
         </Suspense>
       </Canvas>
