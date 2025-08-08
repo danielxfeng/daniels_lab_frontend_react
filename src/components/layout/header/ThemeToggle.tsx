@@ -34,7 +34,7 @@ const ThemeToggle = () => {
           size='sm'
           variant='secondary'
           buttonType='button'
-          icon={isDark ? <Sun className={className} /> : <Moon className={className} />}
+          icon={isDark ? <Moon className={className} /> : <Sun className={className} />}
           dataRole='button-theme-toggle'
         />
       </DropdownMenuTrigger>
