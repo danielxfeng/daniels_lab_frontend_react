@@ -167,6 +167,10 @@ pre {
   .text-gradient {
     @apply bg-gradient-to-br from-[#615fff] to-[#155dfc] bg-clip-text text-transparent drop-shadow-lg;
   }
+
+  .bold-bigger strong {
+    @apply text-lg font-bold;
+  }
 }
 
 @layer base {

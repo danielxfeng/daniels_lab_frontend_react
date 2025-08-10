@@ -55,15 +55,12 @@ const ProjectCards = ({ position }: { position: 'page' | 'div' }) => {
                 <LazyImage
                   src={project.coverUrl}
                   alt={project.title}
-                  className='aspect-[2/1] w-full rounded-lg shadow-xl'
+                  className='aspect-[1200/630] w-full rounded-lg shadow-xl'
                 />
                 {/* Title of project */}
-                <h4 className='text-shadow mt-5 mb-3 text-center '>{project.title}</h4>
+                <h4 className='text-gradient my-8 text-center !font-bold'>{project.title}</h4>
                 {/* The description of project */}
-                <SafeStyledMarkdown
-                  markdown={project.description}
-                  className='text-muted-foreground text-sm'
-                />
+                <SafeStyledMarkdown markdown={project.description} className='bold-bigger' />
               </div>
 
               <div
