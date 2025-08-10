@@ -56,7 +56,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                 data-role='about-me-avatar-contact-links'
               >
                 {contactIconList.map((prop) => (
-                  <ContactLink key={prop.supportText} {...prop} />
+                  <ContactLink key={prop.supportText} {...prop} size='lg' />
                 ))}
               </div>
             </MotionBlurCard>
