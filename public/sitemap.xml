@@ -20,6 +20,18 @@
     </url>
 
     <url>
+        <loc>https://danielslab.dev/blog/posts/book-me-a-meeting-room-booking-calendar</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://danielslab.dev/blog/posts/mushroom-finder-an-effective-cnn-to-help-identify-</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
         <loc>https://danielslab.dev/blog/posts/a-full-stack-website-daniels-lab</loc>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
