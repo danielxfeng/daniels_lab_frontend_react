@@ -9,16 +9,29 @@ interface MotionTextLinkProps extends ComponentProps<'a'> {
   label: string;
   isExternal: boolean;
   className?: string;
+  variant?: 'default' | 'traditional';
 }
 
 /**
  * @summary MotionTextLink component
  */
-const MotionTextLink = ({ to, label, isExternal, className, ...props }: MotionTextLinkProps) => {
+const MotionTextLink = ({
+  to,
+  label,
+  isExternal,
+  className,
+  variant,
+  ...props
+}: MotionTextLinkProps) => {
   const content = (
     <motion.span
       {...linkAnimation}
-      className={cn('hover:text-highlight transition-all hover:underline', className)}
+      className={cn(
+        variant === 'traditional'
+          ? 'text-highlight hover:text-highlight/80 underline decoration-[2px] underline-offset-2 transition-all hover:underline-offset-4'
+          : 'hover:text-highlight transition-all hover:underline',
+        className,
+      )}
     >
       {label}
     </motion.span>
