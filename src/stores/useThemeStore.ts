@@ -11,7 +11,7 @@ type ThemeState = {
 const useThemeStore = create<ThemeState>()(
   persist(
     (set) => ({
-      theme: 'system',
+      theme: 'dark', // Set default theme to dark
       setTheme: (nextTheme: ThemeType) => {
         set({ theme: nextTheme });
       },
