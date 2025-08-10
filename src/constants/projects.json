@@ -4,7 +4,7 @@
     "title": "A full stack website: Daniel's Lab",
     "coverUrl": "https://raw.githubusercontent.com/danielxfeng/blog-content/refs/heads/main/media/A-Full-Stack-Website-Daniels-Lab/A-Full-Stack-Website-Daniels-Lab.cover.jpg",
     "description": "A modern, full-stack portfolio site featuring:\n\n- **Frontend** — Tag input with throttling/drag-to-delete; Blog filtering with debounced auto-submit\n- **Backend** — Authentication from scratch with OAuth; Pluggable full-text search (ES/Meilisearch)\n- **DevOps** — CI/CD with automated tests; One-command VPS provisioning",
-    "stack": ["Node.js", "React", "TypeScript", "PostgreSQL", "Three.js"],
+    "stack": ["Node.js", "React", "TypeScript", "PostgreSQL"],
     "projectLink": "https://danielslab.dev/blog/posts/a-full-stack-website-daniels-lab",
     "siteLink": "https://danielslab.dev/blog/posts/a-full-stack-website-daniels-lab",
     "hasSite": true,
