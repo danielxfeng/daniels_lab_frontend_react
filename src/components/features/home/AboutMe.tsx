@@ -5,6 +5,7 @@ import MotionExternalScrollBar from '@/components/motion_components/MotionExtena
 import MotionFadeInParagraph from '@/components/motion_components/MotionFadeinParagraph';
 import MotionH1 from '@/components/motion_components/MotionH1';
 import MotionSpan from '@/components/motion_components/MotionSpan';
+import MotionTextLink from '@/components/motion_components/MotionTextLink';
 import ContactLink from '@/components/shared/ContactLink';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -71,7 +72,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
             data-role='about-me-introduction-content'
             className='border-border text-foreground/70 [&_strong]:text-foreground relative w-full max-w-prose rounded-2xl border p-6 shadow-md [&_strong]:not-italic'
           >
-            <article className='flex flex-col gap-8'>
+            <article className='flex flex-col gap-10'>
               <section>
                 <MotionFadeInParagraph>
                   <strong className='mb-2 block'>Hey!</strong> I am{' '}
@@ -98,16 +99,28 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
                   projects was a Lightweight POSIX compliant command shell, which was built entirely
                   from scratch, a challenge that taught me to research, design, and debug a
                   low-level robust system on my own. I’ve also met many talented people here, and
-                  even collaborated with one of them to create my first real-world project: a
-                  Booking Calendar App for school's meeting room booking.
+                  even collaborated with one of them to create my first real world project:{' '}
+                  <MotionTextLink
+                    to={'https://danielslab.dev/blog/posts/book-me-a-meeting-room-booking-calendar'}
+                    label='Booking Calendar App'
+                    isExternal={true}
+                    variant='traditional'
+                  />{' '}
+                  for school's meeting room booking.
                 </MotionFadeInParagraph>
                 <MotionFadeInParagraph className='leading-relaxed'>
                   <strong>
                     Earlier, in July 2023, I enrolled in the Computer Applications degree program at
                     HAMK,
                   </strong>{' '}
-                  where I learned a broad range of technologies and built this personal website and
-                  blog system as part of my thesis project.
+                  where I learned a broad range of technologies and built this{' '}
+                  <MotionTextLink
+                    to='https://danielslab.dev/blog/posts/a-full-stack-website-daniels-lab'
+                    label='personal website and blog system'
+                    isExternal={true}
+                    variant='traditional'
+                  />{' '}
+                  as part of my thesis project.
                 </MotionFadeInParagraph>
                 <MotionFadeInParagraph className='leading-relaxed'>
                   <strong>
