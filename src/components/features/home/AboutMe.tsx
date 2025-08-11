@@ -72,7 +72,7 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
             data-role='about-me-introduction-content'
             className='border-border text-foreground/70 [&_strong]:text-foreground relative w-full max-w-prose rounded-2xl border p-6 shadow-md [&_strong]:not-italic'
           >
-            <article className='flex flex-col gap-10'>
+            <article className='flex flex-col gap-6'>
               <section>
                 <MotionFadeInParagraph>
                   <strong className='mb-2 block'>Hey!</strong> I am{' '}
@@ -95,11 +95,10 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
               <section>
                 <MotionFadeInParagraph className='leading-relaxed'>
                   <strong>In November 2024, I joined Hive Helsinki,</strong> a fully project based
-                  program where I’ve been building software mainly in C and C++. One of my favorite
-                  projects was a Lightweight POSIX compliant command shell, which was built entirely
-                  from scratch, a challenge that taught me to research, design, and debug a
-                  low-level robust system on my own. I’ve also met many talented people here, and
-                  even collaborated with one of them to create my first real world project:{' '}
+                  program where I’ve been building software mainly in C and C++. These low-level
+                  system programming projects taught me to develop a robust system on my own. I’ve
+                  also met many talented people there, and collaborated with one of them to create
+                  the{' '}
                   <MotionTextLink
                     to={'https://danielslab.dev/blog/posts/book-me-a-meeting-room-booking-calendar'}
                     label='Booking Calendar App'
@@ -135,13 +134,12 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
               <section>
                 <MotionFadeInParagraph className='leading-relaxed'>
                   <strong>
-                    Before moving into tech, I worked at a bank in Shanghai until May 2023,
+                    Before moving into tech, I worked at a leading bank in Shanghai until May 2023,
                   </strong>{' '}
-                  managing a sales team and collaborating with some of smartest colleagues and
-                  clients to structure financial product portfolios for some of the best known
-                  companies in China and beyond. Our work supported M&amp;A transactions, helped
-                  clients hedge risks, secured financing, and optimized payment and collection
-                  processes for better cash flow efficiency.
+                  managing a sales team and structuring financial product portfolios for some of the
+                  best known companies in China and beyond. Our work supported M&amp;A transactions,
+                  helped clients hedge risks, secured financing, and optimized payment and
+                  collection processes for better cash flow efficiency.
                 </MotionFadeInParagraph>
                 <MotionFadeInParagraph className='leading-relaxed'>
                   When I made the switch to tech, I was surprised by how transferable these skills
@@ -154,8 +152,8 @@ const AboutMe = ({ position }: { position: 'page' | 'div' }) => {
               <section>
                 <MotionFadeInParagraph className='leading-relaxed'>
                   <strong>
-                    My innate curiosity and strong ability to learn quickly are what led me to
-                    switch careers and move to a new culture,
+                    My curiosity and ability to learn quickly are what led me to switch careers and
+                    move to a new culture,
                   </strong>{' '}
                   and they also fuel my love for exploring the world beyond code. Outside of coding,
                   I love traveling and being in nature with my family, discovering scenic landscapes
