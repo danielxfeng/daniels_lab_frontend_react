@@ -91,7 +91,7 @@ const PostsFilterForm = ({ hotTags }: { hotTags: TagsResponse }) => {
       if (values.from) params.set('from', values.from);
       if (values.to) params.set('to', values.to);
       values.tags.forEach((tag) => params.append('tags', tag));
-      navigate(`?${params.toString()}`);
+      navigate(`/blog/posts?${params.toString()}`);
     },
     [navigate],
   );
