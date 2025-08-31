@@ -23,9 +23,9 @@
   },
   {
     "id": "mushfinder",
-    "title": "MushFinder: an effective CNN to help identify local mushrooms in Finland",
+    "title": "MushFinder: an AI tool for mushroom identification",
     "coverUrl": "https://github.com/danielxfeng/blog-content/blob/main/media/Mushfinder/mushfinder.cover.jpg?raw=true",
-    "description": "An **experimental AI tool** for mushroom identification, powered by a custom CNN.\n- Uses **transfer learning** with ConvNeXt\n- Available in both **online** and **offline Edge ML** versions\n- Deployed end-to-end with a scalable serverless microservice architecture.",
+    "description": "An **experimental AI tool** for mushroom identification, powered by a custom CNN.\n- Available in both **online** and **offline Edge ML** versions\n- Deployed end-to-end with a **scalable serverless microservice** architecture.",
     "stack": ["MachineLearning", "EdgeML", "PyTorch", "microservices", "serverless"],
     "projectLink": "https://danielslab.dev/blog/posts/mushroom-finder-an-effective-cnn-to-help-identify-",
     "siteLink": "https://danielslab.dev/blog/posts/mushroom-finder-an-effective-cnn-to-help-identify-",
