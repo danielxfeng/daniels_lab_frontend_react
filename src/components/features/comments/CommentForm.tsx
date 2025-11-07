@@ -32,7 +32,7 @@ const CommentForm = ({ user, comment, postId, setComments }: CommentFormProps) =
 
   const form = useForm<CreateCommentBody | UpdateCommentBody>({
     resolver: zodResolver(isCreate ? CreateCommentBodySchema : UpdateCommentBodySchema),
-    mode: 'onTouched',
+    mode: 'onChange',
     defaultValues: {
       content: comment?.content ?? '',
       ...(isCreate ? { postId } : {}),

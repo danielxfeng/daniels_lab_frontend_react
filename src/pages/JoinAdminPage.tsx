@@ -28,7 +28,7 @@ const JoinAdminForm = ({ deviceId }: { deviceId: string }) => {
 
   const form = useForm<JoinAdminBody>({
     resolver: zodResolver(JoinAdminBodySchema),
-    mode: 'onTouched',
+    mode: 'onChange',
     defaultValues: {
       referenceCode: '',
       deviceId,

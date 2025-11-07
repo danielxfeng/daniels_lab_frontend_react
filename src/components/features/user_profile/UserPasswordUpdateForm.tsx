@@ -38,7 +38,7 @@ const UserPasswordUpdateForm = ({
   // Init the form
   const form = useForm<ChangePasswordBody>({
     resolver: zodResolver(ChangePasswordBodySchema),
-    mode: 'onTouched',
+    mode: 'onChange',
     defaultValues: {
       currentPassword: '',
       password: '',

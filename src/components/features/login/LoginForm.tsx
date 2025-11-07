@@ -63,7 +63,7 @@ const LoginForm = ({ deviceId }: { deviceId: string }) => {
 
   const form = useForm<LoginBody>({
     resolver: zodResolver(LoginBodySchema),
-    mode: 'onTouched',
+    mode: 'onChange',
     defaultValues: {
       username: '',
       password: '',
