@@ -28,7 +28,7 @@ const UserProfileUpdateForm = () => {
   // Init the form
   const form = useForm<UpdateUserBody>({
     resolver: zodResolver(UpdateUserBodySchema),
-    mode: 'onTouched',
+    mode: 'onChange',
     defaultValues: {
       username: user?.username,
     },

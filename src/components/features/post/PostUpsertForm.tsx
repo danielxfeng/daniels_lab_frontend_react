@@ -44,7 +44,7 @@ const PostUpsertForm = ({ post }: { post: PostResponse | null }) => {
   const navigate = useNavigate();
   const form = useForm<CreateOrUpdatePostBody>({
     resolver: zodResolver(CreateOrUpdatePostBodySchema),
-    mode: 'onTouched',
+    mode: 'onChange',
     defaultValues: {
       title: post?.title ?? '',
       markdown: post?.markdown ?? '',

@@ -34,7 +34,7 @@ const UserPasswordInsertionForm = ({
   // Init the form
   const form = useForm<SetPasswordBody>({
     resolver: zodResolver(SetPasswordBodySchema),
-    mode: 'onTouched',
+    mode: 'onChange',
     defaultValues: {
       password: '',
       confirmPassword: '',
